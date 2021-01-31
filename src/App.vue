@@ -1,28 +1,54 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <creneau></creneau>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+//import creneau from "./App/index.vue";
+function loadScript(src) {
+  return new Promise(resolv => {
+    var s = document.createElement("script");
+    s.setAttribute("src", src);
+    s.onload = function() {
+      console.log("Chargement du script ok : ", src);
+      resolv(true);
+    };
+    document.head.appendChild(s);
+  });
+}
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
+    creneau: function() {
+      return new Promise(resolv => {
+        const callbackJquery = () => {
+          console.log("Chargement du module creneau");
+          resolv(import("./App/index.vue"));
+        };
+        //on verifie la presence de Jquery;
+        if (window.jQuery) {
+          callbackJquery();
+        } else {
+          console.log(" window.jQuery not installed ");
+          loadScript("https://code.jquery.com/jquery-3.5.1.min.js").then(
+            status => {
+              if (status) {
+                loadScript(
+                  "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"
+                ).then(status2 => {
+                  if (status2) {
+                    callbackJquery();
+                  }
+                });
+              }
+            }
+          );
+          //on ajoute momment
+          if (window.moment) {
+            //
+          }
+        }
+      });
+    }
   }
-}
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
