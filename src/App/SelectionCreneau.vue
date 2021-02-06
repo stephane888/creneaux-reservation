@@ -135,7 +135,7 @@ export default {
     };
   },
   mounted() {
-    console.log("init selectionCreneau");
+    //
   },
   methods: {
     ev_select_current_creneau_collecte(creneau) {

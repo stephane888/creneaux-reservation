@@ -142,7 +142,6 @@ export default {
     };
   },
   mounted: function() {
-    console.log("init type livraiosn");
     /**
      * On definie la valeur de selection par defaut
      */

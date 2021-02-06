@@ -1,5 +1,7 @@
 <template>
-  <creneau></creneau>
+  <div>
+    <creneaux class="creneaux-mbt"></creneaux>
+  </div>
 </template>
 
 <script>
@@ -15,20 +17,40 @@ function loadScript(src) {
     document.head.appendChild(s);
   });
 }
+/*
+function loadstyle(src) {
+  return new Promise(resolv => {
+    var s = document.createElement("link");
+    s.setAttribute("rel", "stylesheet");
+    s.setAttribute("href", src);
+    s.onload = function() {
+      console.log("Chargement du Style ok : ", src);
+      resolv(true);
+    };
+    document.head.appendChild(s);
+  });
+}
+/**/
+
 export default {
   name: "App",
   components: {
-    creneau: function() {
+    creneaux: function() {
       return new Promise(resolv => {
         const callbackJquery = () => {
           console.log("Chargement du module creneau");
-          resolv(import("./App/index.vue"));
+          resolv(import("./Creneaux.vue"));
         };
         //on verifie la presence de Jquery;
         if (window.jQuery) {
           callbackJquery();
         } else {
           console.log(" window.jQuery not installed ");
+          /*
+          loadstyle(
+            "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          );
+          /**/
           loadScript("https://code.jquery.com/jquery-3.5.1.min.js").then(
             status => {
               if (status) {
@@ -42,10 +64,6 @@ export default {
               }
             }
           );
-          //on ajoute momment
-          if (window.moment) {
-            //
-          }
         }
       });
     }

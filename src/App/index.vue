@@ -286,7 +286,6 @@ export default {
     };
   },
   mounted() {
-    console.log("init index");
     this.VueCollecte = this.$refs.selectionhoraire.$refs.collecte;
     this.VueLivraison = this.$refs.selectionhoraire.$refs.livraison;
     this.show = true;
@@ -801,6 +800,7 @@ export default {
             )
           );
         }
+
         if (
           this.TypeLivraison.montant &&
           this.TypeLivraison.montant !== "0" &&
@@ -825,5 +825,7 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
+@import "~vue-multiselect/dist/vue-multiselect.min.css";
+
 @import "scss/default.scss";
 </style>

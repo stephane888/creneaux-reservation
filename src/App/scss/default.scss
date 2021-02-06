@@ -1,3 +1,9 @@
+// -------------------------------------------------------------
+//  mixins bootstrap.
+// -------------------------------------------------------------
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins"; //
 // variable de configuration.
 $color1: #00a3dd !default; //represente la couleur principal du site.
 $color2: #00a3dd !default;
@@ -7,20 +13,15 @@ $color3: #f53def !default; //on importe les modules bootstrap.
 
 .creneaux-mbt {
   //import specifique.
-  @import "/siteweb/PluginsModules/stephane888/wb_universe/node_modules/bootstrap/scss/_reboot.scss";
-  @import "/siteweb/PluginsModules/stephane888/wb_universe/node_modules/bootstrap/scss/_grid.scss";
-  @import "/siteweb/PluginsModules/stephane888/wb_universe/node_modules/bootstrap/scss/_buttons.scss";
-  @import "/siteweb/PluginsModules/stephane888/wb_universe/node_modules/bootstrap/scss/_badge.scss";
-  @import "/siteweb/PluginsModules/stephane888/wb_universe/node_modules/bootstrap/scss/_alert.scss";
-  @import "/siteweb/PluginsModules/stephane888/wb_universe/node_modules/bootstrap/scss/_utilities.scss";
-  //@import "/siteweb/PluginsModules/stephane888/wb_universe/node_modules/bootstrap/scss/_grid.scss";
-  //@import "/siteweb/PluginsModules/stephane888/wb_universe/node_modules/bootstrap/scss/_grid.scss";
-  //@import "/siteweb/PluginsModules/stephane888/wb_universe/node_modules/bootstrap/scss/_grid.scss";
-  //@import "/siteweb/PluginsModules/stephane888/wb_universe/node_modules/bootstrap/scss/_grid.scss";
-  //@import "/siteweb/PluginsModules/stephane888/wb_universe/node_modules/bootstrap/scss/utilities/_text.scss";
-  //@import "/siteweb/PluginsModules/stephane888/wb_universe/node_modules/bootstrap/scss/utilities/_display.scss";
-  //@import "/siteweb/PluginsModules/stephane888/wb_universe/node_modules/bootstrap/scss/utilities/_flex.scss";
+  @import "~bootstrap/scss/_reboot.scss";
+  @import "~bootstrap/scss/_grid.scss";
+  @import "~bootstrap/scss/_buttons.scss";
+  @import "~bootstrap/scss/_badge.scss";
+  @import "~bootstrap/scss/_alert.scss";
+  @import "~bootstrap/scss/_utilities.scss";
   //
+  @import "style.scss";
+
   .container {
     max-width: 1140px !important;
   }

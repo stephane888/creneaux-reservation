@@ -1,0 +1,70 @@
+.menu {
+  box-shadow    : 2px 6px 3px #888888;
+  height        : auto;
+  padding-top   : 20px;
+  font-size     : 0.9em;
+  padding-bottom: 20px;
+  margin-bottom : 75px;
+}
+
+.menu .mes-btn .btn-calendrier {
+  width        : 3em;
+  height       : 3em;
+  border-radius: 20px;
+}
+
+.menu .mes-btn .first-btn {
+  border-radius: 30px;
+}
+
+.menu ul {
+  margin-left: 30px;
+}
+
+.menu li {
+  margin-left: 15px;
+  margin-top : 15px;
+}
+
+.first-block h1 {
+  font-size: 1.3em;
+}
+
+.first-block h2 {
+  font-size  : 1.1em;
+  font-weight: bold;
+}
+
+.first-block .option {
+  margin-top : 20px;
+  width      : 130px;
+  height     : 55px;
+  font-weight: bold;
+}
+
+.first-block .option--tl-radius {
+  border-top-left-radius: 35px;
+}
+
+.first-block .option--bdr-right {
+  border-right: 3px solid gray;
+}
+
+.multiselect__tags {
+  border     : none;
+  font-size  : 1.6vw;
+  margin-left: -9px;
+}
+@media screen and (max-width: 767px) {
+  .multiselect__tags {
+    font-size: 27px;
+  }
+}
+
+.multiselect__placeholder {
+  color: black;
+}
+
+.multiselect__option--selected.multiselect__option--highlight {
+  background: $color1;
+}

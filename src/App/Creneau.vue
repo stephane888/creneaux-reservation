@@ -123,7 +123,7 @@ if (window.moment) {
   var moment = window.moment;
 }
 import AdvancedSelect from "vue-multiselect";
-import SvgCalandar from "/siteweb/PluginsModules/stephane888/wbu-components/src/components/Crenneaux/v2/SvgCalandar.vue";
+import SvgCalandar from "./SvgCalandar.vue";
 
 export default {
   name: "SelectionHoraire",
@@ -205,9 +205,10 @@ export default {
       }
     },
     /**
-     * est la date encours. La date reelle.
-     * Doit etre un object de moment.
-     * La date format : "DD-MM-YYYY HH:mm:ss"
+     * C'est la date encours.
+     * ( Elle doit etre fournit par le serveur et convertie en un object moment() ).
+     *
+     * @param object moment()
      */
     current_date: {
       type: Object,
@@ -436,7 +437,7 @@ export default {
      * @public
      */
     async buildHour() {
-      console.log("buildHour debut");
+      //console.log("buildHour debut");
       this.list_creneaux = [];
       this.test_creneau = 0;
       this.current_creneau = "";
@@ -444,7 +445,7 @@ export default {
       var date_min_string = moment(this.data_min).format("DD-MM-YYYY HH:mm:ss");
       await this.getIntervalUtilisable(date_min_string);
       await this.selectFirtValideCreneau();
-      console.log("buildHour Fin");
+      //console.log("buildHour Fin");
     },
     /**
      * date_min_strin est un string.
@@ -455,9 +456,7 @@ export default {
       var self = this;
       return new Promise(function(resolve, reject) {
         self.test_creneau++;
-
         //  console.log("getIntervalUtilisable");
-
         if (self.test_creneau > 99) {
           alert("Probleme de configuration : Creneau");
           reject(false);
@@ -507,7 +506,7 @@ export default {
       });
     },
     /**
-     * Permet de detecter s une plage doit etre desactiver
+     * Permet de detecter si une plage doit etre desactiver
      * @parametter creneaux_heure_begin ( heure du debut du creneau ).
      */
     async checkIsCreneauValide(
@@ -616,6 +615,7 @@ export default {
           resolve(false);
         });
       };
+      
       return new Promise(resolve => {
         //console.log("Debut checkIsCreneauValide : ", date_min_string);
         if (
