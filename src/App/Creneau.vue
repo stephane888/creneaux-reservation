@@ -100,11 +100,7 @@
       v-if="show_calandar"
       @click="display_hide_calandar"
     ></div>
-    <!--
-    <pre>
-      app_delai_jour {{ app_delai_jour }}
-    </pre>
-    -->
+    {{ app_date_string }}
   </div>
 </template>
 
@@ -252,6 +248,10 @@ export default {
           delai_jour: 0
         };
       }
+    },
+    deccalage_creneau_depart: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -268,7 +268,7 @@ export default {
       data_min: "",
       /**
        * date utilisable par l'application ou date de reference.
-       * Elle ne doit pas changer durant le precessus.
+       * Elle ne  change pas durant le precessus.
        */
       app_date: "",
       //app_date_string: "",
@@ -365,6 +365,132 @@ export default {
      */
     //this.init_creneau();
   },
+  watch: {
+    current_creneau() {
+      //console.log("watch current_creneau", creneau);
+      this.renvoit_donnees();
+    },
+    configs: {
+      handler(val) {
+        //console.log("%c watch configs ", "background: #222; color: #bada55");
+        //console.log(val);
+        this.app_interval = val.creneau;
+        this.app_delai_jour = val.delai;
+        this.app_delai_next_creneau = val.delai_next_creneau;
+        this.init_creneau();
+      },
+      deep: true
+    },
+    /**
+     * S'execute uniquement pour la livraiosn.
+     */
+    async rebuild_creneau(datas) {
+      var self = this;
+      console.log(
+        "%c rebuild_creneau " + this.type_creneau,
+        "background: #22F; color: #FFF"
+      );
+      console.log(datas);
+      // il faut s'assurrer que les creneaux sont definit avant d'utiliser cette function.
+      /**
+       * La dateMin cest dans date de depart(heure de depart) + le delai entre les creneaux + ( le delai de latence ).
+       * (explication: si le delai entre les creneaux == durée d'un creneau alors le prochain commence à la fin du suivant )
+       */
+      var set_min_date = function(datas) {
+        var temps = datas.creneau.begin.split(":");
+        self.datetime_min = moment(self.app_date_current_string, "DD-MM-YYYY");
+        self.datetime_min.hour(temps[0]);
+        self.datetime_min.minute(temps[1]);
+        //on ajoute le delai entre les creneaux
+        self.datetime_min.add(self.app_delai_next_creneau, "minutes");
+      };
+      // on verifie si la date est definit
+      if (datas.date_string && datas.date_string != "") {
+        var date_from_parent = moment(datas.date_string, "DD-MM-YYYY HH:mm:ss");
+        if (date_from_parent.isValid()) {
+          //On surcharge le delai de livraison.
+          await this.OverrideDelaiTraitement(date_from_parent);
+          // à partir de la date fournit on evalue la datetime_min utilisable par le client.
+          var execution = async function(date_from_parent) {
+            if (datas.creneau && datas.creneau.end && datas.creneau.end != "") {
+              set_min_date(datas);
+            }
+            // la fonction date_utilisable declenche tout le processus.
+            await self.date_utilisable(date_from_parent);
+            await self.builderCalandar();
+          };
+          execution(date_from_parent);
+        } else {
+          alert("Date fournit non valide");
+        }
+        /**/
+      }
+      //on verifie si cest uniquement les creneau qui sont definit
+      else if (datas.creneau && datas.creneau.end && datas.creneau.end != "") {
+        //set_min_date(datas);
+        /**
+         * il faut se rassurer k ce cas nes plaus valide.
+         */
+      }
+    }
+  },
+  computed: {
+    app_date_display: {
+      get() {
+        if (this.app_date_current != "") {
+          return moment(this.app_date_current)
+            .locale("fr")
+            .format("dddd Do MMMM");
+        }
+        return "";
+      }
+    },
+    calandar_title: {
+      get() {
+        if (this.app_date_current != "") {
+          return moment(this.app_date_current)
+            .locale("fr")
+            .format("MMMM <br /> YYYY");
+        }
+        return "";
+      }
+    },
+    /**
+     * Date de début de l'application.
+     *
+     */
+    app_date_string: {
+      get() {
+        if (this.app_date) {
+          return this.app_date.format("DD-MM-YYYY HH:mm:ss");
+        } else {
+          return false;
+        }
+      }
+    },
+    app_date_current_string: {
+      get() {
+        return this.app_date_current.format("DD-MM-YYYY");
+      }
+    },
+    /**
+     * Date la plus petite de l'application.
+     * Elle est determiné à partir de l'heure de debut.
+     */
+    date_min_string: {
+      get() {
+        return this.data_min.format("DD-MM-YYYY HH:mm:ss");
+      }
+    }
+    /*
+    date_string_app_current: {
+      get() {
+        var date = moment(this.app_date_string, "DD-MM-YYYY HH:mm:ss");
+        return date.format("DD-MM-YYYY HH:mm:ss");
+      }
+    }
+    /**/
+  },
   methods: {
     display_hide_calandar() {
       if (this.show_calandar) {
@@ -379,13 +505,15 @@ export default {
      * La paramettre date doit etre un object moment.
      */
     async dateBorne() {
-      console.log("dateBorne");
+      // console.log("dateBorne");
       // On ne pas utiliser directement la valeur de date pour crrer la valeur de min et max date, car vuejs concerve
       // la meme valeur entre les variables la MAJ d'une mettra automatiquement la suivante.
       /**
        * il faudra verfier si on peut directemùent utiliser : app_date_current_string
        */
-      var date_string = moment(this.app_date_current).format("DD-MM-YYYY");
+      //var date_string = moment(this.app_date_current).format("DD-MM-YYYY");
+      // on utilise app_date_current_string;
+      var date_string = this.app_date_current_string;
 
       this.date_max = moment(date_string, "DD-MM-YYYY");
       this.data_min = moment(date_string, "DD-MM-YYYY");
@@ -406,7 +534,7 @@ export default {
             m_fin = parseInt(h_f[1]);
           }
         }
-        //
+
         this.data_min.hours(h_debut);
         this.data_min.minutes(m_debut);
         this.data_min.seconds(0);
@@ -414,10 +542,12 @@ export default {
         this.date_max.hours(h_fin);
         this.date_max.minutes(m_fin);
         this.date_max.seconds(0);
-        /*
+
         console.log(
           "default date : ",
           this.app_date_current.format("DD-MM-YYYY HH:mm:ss"),
+          "\n app_date_string : ",
+          this.app_date_string,
           "\n min date : ",
           this.data_min.format("DD-MM-YYYY HH:mm:ss"),
           "\n max date : ",
@@ -442,8 +572,8 @@ export default {
       this.test_creneau = 0;
       this.current_creneau = "";
       // On utilise la valeur string, pour eviter que les valeurs min et max changent.
-      var date_min_string = moment(this.data_min).format("DD-MM-YYYY HH:mm:ss");
-      await this.getIntervalUtilisable(date_min_string);
+      // var date_min_string = moment(this.data_min).format("DD-MM-YYYY HH:mm:ss");
+      await this.getIntervalUtilisable(this.date_min_string);
       await this.selectFirtValideCreneau();
       //console.log("buildHour Fin");
     },
@@ -452,7 +582,7 @@ export default {
      * @private
      */
     getIntervalUtilisable(date_min_string) {
-      //console.log("getIntervalUtilisable debut");
+      //console.log("getIntervalUtilisable debut : ", date_min_string);
       var self = this;
       return new Promise(function(resolve, reject) {
         self.test_creneau++;
@@ -475,39 +605,37 @@ export default {
         bloc_date.begin = date_time.format("HH:mm");
         //
         // on pourra ajouter un delai à ce niveau.
-        var status_creneau = self.checkIsCreneauValide(
-          date_time,
-          date_time_end,
-          date_min_string
-        );
-        status_creneau.then(function(valeur) {
-          //console.log("getIntervalUtilisable then status_creneau : ", valeur);
-          if (valeur.status) {
-            bloc_date.$isDisabled = true;
-            bloc_date.checkstatus = valeur.verificateur;
-          }
-
-          if (self.date_max.diff(date_time_end, "minutes") >= 0) {
-            bloc_date.end = date_time_end.format("HH:mm");
-            if (!bloc_date.$isDisabled) {
-              self.list_creneaux.push(bloc_date);
+        self
+          .checkIsCreneauValide(date_time, date_time_end, date_min_string)
+          .then(function(valeur) {
+            if (valeur.status) {
+              bloc_date.$isDisabled = true;
+              bloc_date.checkstatus = valeur.verificateur;
             }
 
-            resolve(
-              self.getIntervalUtilisable(
-                date_time_next_creneau.format("DD-MM-YYYY HH:mm:ss")
-              )
-            );
-          } else {
-            //console.log("getIntervalUtilisable end");
-            resolve(true);
-          }
-        });
+            if (self.date_max.diff(date_time_end, "minutes") >= 0) {
+              bloc_date.end = date_time_end.format("HH:mm");
+              if (!bloc_date.$isDisabled) {
+                self.list_creneaux.push(bloc_date);
+              }
+
+              resolve(
+                self.getIntervalUtilisable(
+                  date_time_next_creneau.format("DD-MM-YYYY HH:mm:ss")
+                )
+              );
+            } else {
+              resolve(true);
+            }
+          });
       });
     },
     /**
      * Permet de detecter si une plage doit etre desactiver
-     * @parametter creneaux_heure_begin ( heure du debut du creneau ).
+     * @param creneaux_heure_begin moment()
+     * @param creneaux_heure_end moment()
+     * @param date_min_string String : Valeur string du creneau de depart.
+     *
      */
     async checkIsCreneauValide(
       creneaux_heure_begin,
@@ -536,6 +664,7 @@ export default {
           return false;
         }
       };
+
       var disable_heureday = function() {
         return new Promise(resolve => {
           //console.log("Debut disable_heureday() ");
@@ -558,6 +687,7 @@ export default {
           resolve(false);
         });
       };
+
       var disable_heuredate = function() {
         return new Promise(resolve => {
           //console.log("Debut disable_heuredate() ");
@@ -615,7 +745,46 @@ export default {
           resolve(false);
         });
       };
-      
+      /**
+       * Effectue le decallage si cela est necessaire.
+       * le decallage s'applique si l'heure fournit par le serveur (heure actuel)
+       * est inferieur à l'heure MIN de l'application plus la valeur du decallage.
+       * Example 1 : il est 7h25, on a definit un decallage de 30. (les autres valeurs par defaut);
+       * ==> Le premier creneau commence à 8h00, car (7h25 + 30 = 7h55)
+       * Example 2 : il est 7h37, on a definit un decallage de 30. (les autres valeurs par defaut);
+       * ==> Le premier creneau commence à 8h30, car (7h37 + 30 = 8h07.
+          Nous avons un ecart de 30 minutes entres les creneaux.
+          Aucun creneau ne commnceà 08h07, donc nous prennons le prochain creneau valide.
+          ),
+       */
+      var disable_for_deccalage = function() {
+        return new Promise(resolve => {
+          if (self.deccalage_creneau_depart > 0) {
+            var date_min = moment(self.app_date_string, "DD-MM-YYYY HH:mm:ss");
+            date_min.add(self.deccalage_creneau_depart, "minutes");
+            var diff = creneaux_heure_begin.diff(date_min, "minutes");
+            /*
+            console.log(
+              "Diff : ",
+              diff,
+              "\n self.app_date_string : ",
+              self.app_date_string,
+              "\n date_min_string ",
+              date_min_string,
+              "\n date depart + decallage",
+              moment(date_min).format("DD-MM-YYYY HH:mm:ss")
+            );
+            /**/
+            if (diff < 0) {
+              resolve(true);
+            } else {
+              resolve(false);
+            }
+          } else {
+            resolve(false);
+          }
+        });
+      };
       return new Promise(resolve => {
         //console.log("Debut checkIsCreneauValide : ", date_min_string);
         if (
@@ -635,7 +804,10 @@ export default {
               var test2 = disable_heuredate();
               test2.then(function(result2) {
                 if (result2) {
-                  resolve({ status: true, verificateur: "disable-heuredate" });
+                  resolve({
+                    status: true,
+                    verificateur: "disable-heuredate"
+                  });
                   return true;
                 } else {
                   var test3 = disable_heuredate_limit();
@@ -647,8 +819,19 @@ export default {
                       });
                       return true;
                     } else {
-                      resolve({ status: false, verificateur: "none" });
-                      return false;
+                      //verification en function du decallage
+                      disable_for_deccalage().then(result0 => {
+                        if (result0) {
+                          resolve({
+                            status: true,
+                            verificateur: "disable_for_deccalage"
+                          });
+                          return true;
+                        } else {
+                          resolve({ status: false, verificateur: "none" });
+                          return false;
+                        }
+                      });
                     }
                   });
                 }
@@ -662,7 +845,7 @@ export default {
      * Selectionne le premier creneau valide ( apres la construction des crenneaux );
      */
     async selectFirtValideCreneau() {
-      console.log("selectFirtValideCreneau debut : ");
+      //console.log("selectFirtValideCreneau debut : ");
       if (this.list_creneaux.length > 0) {
         for (const i in this.list_creneaux) {
           var creneau = this.list_creneaux[i];
@@ -675,7 +858,7 @@ export default {
           }
         }
       }
-      console.log("selectFirtValideCreneau end");
+      //console.log("selectFirtValideCreneau end");
     },
     /**
      * le calendrier demarre toujours un lunid.
@@ -991,107 +1174,6 @@ export default {
           resolve(false);
         });
       });
-    }
-  },
-  computed: {
-    app_date_display: {
-      get() {
-        if (this.app_date_current != "") {
-          return moment(this.app_date_current)
-            .locale("fr")
-            .format("dddd Do MMMM");
-        }
-        return "";
-      }
-    },
-    calandar_title: {
-      get() {
-        if (this.app_date_current != "") {
-          return moment(this.app_date_current)
-            .locale("fr")
-            .format("MMMM <br /> YYYY");
-        }
-        return "";
-      }
-    },
-    app_date_string: {
-      get() {
-        return this.app_date.format("DD-MM-YYYY");
-      }
-    },
-    app_date_current_string: {
-      get() {
-        return this.app_date_current.format("DD-MM-YYYY");
-      }
-    }
-  },
-  watch: {
-    current_creneau(creneau) {
-      console.log("watch current_creneau", creneau);
-      this.renvoit_donnees();
-    },
-    configs: {
-      handler(val) {
-        console.log("%c watch configs ", "background: #222; color: #bada55");
-        console.log(val);
-        this.app_interval = val.creneau;
-        this.app_delai_jour = val.delai;
-        this.app_delai_next_creneau = val.delai_next_creneau;
-        this.init_creneau();
-      },
-      deep: true
-    },
-    /**
-     * S'execute uniquement pour la livraiosn.
-     */
-    async rebuild_creneau(datas) {
-      var self = this;
-      console.log(
-        "%c rebuild_creneau " + this.type_creneau,
-        "background: #22F; color: #FFF"
-      );
-      console.log(datas);
-      // il faut s'assurrer que les creneaux sont definit avant d'utiliser cette function.
-      /**
-       * La dateMin cest dans date de depart(heure de depart) + le delai entre les creneaux + ( le delai de latence ).
-       * (explication: si le delai entre les creneaux == durée d'un creneau alors le prochain commence à la fin du suivant )
-       */
-      var set_min_date = function(datas) {
-        var temps = datas.creneau.begin.split(":");
-        self.datetime_min = moment(self.app_date_current_string, "DD-MM-YYYY");
-        self.datetime_min.hour(temps[0]);
-        self.datetime_min.minute(temps[1]);
-        //on ajoute le delai entre les creneaux
-        self.datetime_min.add(self.app_delai_next_creneau, "minutes");
-      };
-      // on verifie si la date est definit
-      if (datas.date_string && datas.date_string != "") {
-        var date_from_parent = moment(datas.date_string, "DD-MM-YYYY HH:mm:ss");
-        if (date_from_parent.isValid()) {
-          //On surcharge le delai de livraison.
-          await this.OverrideDelaiTraitement(date_from_parent);
-          // à partir de la date fournit on evalue la datetime_min utilisable par le client.
-          var execution = async function(date_from_parent) {
-            if (datas.creneau && datas.creneau.end && datas.creneau.end != "") {
-              set_min_date(datas);
-            }
-            // la fonction date_utilisable declenche tout le processus.
-            await self.date_utilisable(date_from_parent);
-            await self.builderCalandar();
-          };
-          execution(date_from_parent);
-        } else {
-          alert("Date fournit non valide");
-        }
-        /**/
-      }
-      //on verifie si cest uniquement les creneau qui sont definit
-      else if (datas.creneau && datas.creneau.end && datas.creneau.end != "") {
-        //set_min_date(datas);
-        /**
-         * il faut se rassurer k ce cas nes plaus valide.
-         */
-      }
     }
   }
 };

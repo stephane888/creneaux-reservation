@@ -20,6 +20,7 @@
       :collecte_interval="collecte_interval"
       :livraison_delai_jour="livraison_delai_jour"
       :livraison_interval="livraison_interval"
+      :collecte_deccalage_creneau_depart="collecte_deccalage_creneau_depart"
       class="container first-block "
     ></creneau>
   </div>
@@ -55,6 +56,7 @@ export default {
       disable_heuredate: configSite.disable_heuredate,
       url_save_creneau: configSite.url_save_creneau,
       url_get_creneau: configSite.url_get_creneau,
+      collecte_deccalage_creneau_depart: configSite.deccalage_creneau_depart,
       collecte_delai_jour: 0,
       collecte_interval: 120,
       livraison_delai_jour: 3,

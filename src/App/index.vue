@@ -31,6 +31,9 @@
                 :collecte_interval="collecte_interval"
                 :collecte_configs="collecte_configs"
                 :collecte_current_date="collecte_current_date"
+                :collecte_deccalage_creneau_depart="
+                  collecte_deccalage_creneau_depart
+                "
                 :livraison_delai_jour="livraison_delai_jour"
                 :livraison_jour_desactivee="livraison_jour_desactivee"
                 :livraison_date_desactivee="livraison_date_desactivee"
@@ -205,6 +208,9 @@ export default {
     },
     collecte_current_date: {
       type: Object
+    },
+    collecte_deccalage_creneau_depart: {
+      type: Number
     },
     /**
      * provider @SelectionCreneau

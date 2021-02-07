@@ -18,6 +18,7 @@
       :disable_heuredate="disable_heuredate"
       :url_get_creneau="url_get_creneau"
       :type_creneau="'collecte'"
+      :deccalage_creneau_depart="collecte_deccalage_creneau_depart"
       ref="collecte"
       @ev_select_current_creneau="ev_select_current_creneau_collecte"
     ></creneau>
@@ -46,7 +47,7 @@
 </template>
 
 <script>
-import creneau from "/siteweb/PluginsModules/stephane888/wbu-components/src/components/Crenneaux/v2/Creneau.vue";
+import creneau from "./Creneau.vue";
 export default {
   name: "SelectionHoraire",
   props: {
@@ -97,6 +98,9 @@ export default {
     },
     collecte_current_date: {
       type: Object
+    },
+    collecte_deccalage_creneau_depart: {
+      type: Number
     },
     title_livraison: {
       type: String,

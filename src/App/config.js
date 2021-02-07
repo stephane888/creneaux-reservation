@@ -195,6 +195,13 @@ function UrlGetCreneau() {
   }
   return url_get_creneau;
 }
+
+function DeccalageCreneauDepart() {
+  return window.deccalage_creneau_depart > 0
+    ? window.deccalage_creneau_depart
+    : 0;
+}
+
 const configApp = {
   IsProduction: IsProdEnvir(),
   nombre_res_creneau: NombreResCreneau(),
@@ -207,6 +214,7 @@ const configApp = {
   disable_heureday: DisableHeureday(),
   disable_heuredate: DisableHeuredate(),
   url_save_creneau: UrlSaveCreneau(),
-  url_get_creneau: UrlGetCreneau()
+  url_get_creneau: UrlGetCreneau(),
+  deccalage_creneau_depart: DeccalageCreneauDepart()
 };
 export default configApp;
