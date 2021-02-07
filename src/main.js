@@ -4,7 +4,7 @@ console.log(
   "background: #222; color: #F00; font-size:25px;"
 );
 window.wbu_current_date = "08-02-2021 17:39:00";
-window.deccalage_creneau_depart = 90;
+window.deccalage_creneau_depart = 0;
 window.creneau_configs = {
   nombre_semaine: 6,
   heures: [],
@@ -53,6 +53,7 @@ window.creneau_heures = {
   heuredate: [],
   heureday: []
 };
+
 //
 //
 import Vue from "vue";

@@ -28,16 +28,19 @@
 
 <script>
 import configSite from "./App/config.js";
-//import creneau from "./App/index.vue";
+import creneau from "./App/index.vue";
 
 export default {
   name: "App",
   components: {
+    creneau: creneau
+    /*
     creneau: function() {
       return new Promise(resolv => {
         resolv(import("./App/index.vue"));
       });
     }
+    /**/
   },
   data() {
     return {

@@ -100,7 +100,6 @@
       v-if="show_calandar"
       @click="display_hide_calandar"
     ></div>
-    {{ app_date_string }}
   </div>
 </template>
 
