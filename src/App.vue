@@ -1,6 +1,9 @@
 <template>
   <div>
     <creneaux class="creneaux-mbt"></creneaux>
+    <div class="creneaux-mbt">
+      <app-admin></app-admin>
+    </div>
   </div>
 </template>
 
@@ -66,7 +69,8 @@ export default {
           );
         }
       });
-    }
+    },
+    "app-admin": () => import("./AppAdmin/Admin")
   }
 };
 </script>
