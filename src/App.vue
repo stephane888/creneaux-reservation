@@ -1,7 +1,7 @@
 <template>
   <div>
     <creneaux class="creneaux-mbt"></creneaux>
-    <div class="creneaux-mbt">
+    <div class="creneaux-mbt" v-if="displayAdmin">
       <app-admin></app-admin>
     </div>
   </div>
@@ -71,6 +71,11 @@ export default {
       });
     },
     "app-admin": () => import("./AppAdmin/Admin")
+  },
+  data() {
+    return {
+      displayAdmin: true
+    };
   }
 };
 </script>
