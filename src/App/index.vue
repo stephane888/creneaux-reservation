@@ -138,6 +138,7 @@ var ShopifyformatMoney = function(cents, format) {
 import TypeLivraison from "./TypeLivraison.vue";
 import SelectionHoraire from "./SelectionCreneau.vue";
 import { VueLoading } from "vue-loading-template";
+import Alert from "../components/Alert/index.vue";
 
 export default {
   name: "CrenneauV2",
@@ -253,7 +254,7 @@ export default {
   components: {
     "type-livraison": TypeLivraison,
     selectionhoraire: SelectionHoraire,
-    alert: () => import("../components/Alert/index.vue"),
+    alert: Alert,
     VueLoading
   },
   data() {

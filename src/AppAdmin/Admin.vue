@@ -1,43 +1,80 @@
 <template lang="html">
   <div class="container my-4 app-admin">
     <h3>Configuration de l'application</h3>
-
-    <b-card no-body class="my-4">
-      <b-tabs card>
-        <b-tab title="Creneau de base" active>
-          <b-card-text>
-            <CreneauConfig></CreneauConfig>
-          </b-card-text>
+    <div class="my-4">
+      <b-tabs content-class="my-3">
+        <b-tab title="Configuration de base">
+          <CreneauBase :creneau_configs="creneau_configs"></CreneauBase>
         </b-tab>
-        <b-tab title="Tab 2">
-          <b-card-text>Tab contents 2</b-card-text>
+        <b-tab title="Configuration des creneaux et dates">
+          <CreneauConfig :filters="creneau_filters"></CreneauConfig>
+        </b-tab>
+        <b-tab title="Type de livraison" active>
+          <TypeLivraison
+            :types-livraison="creneaux_type_livraison"
+          ></TypeLivraison>
         </b-tab>
       </b-tabs>
-    </b-card>
+      <div class="d-flex justify-content-end">
+        <b-button size="sm" @click="load" variant="outline-info" class="mr-2">
+          Load
+        </b-button>
+        <!--
+          Le bouton preview enregistre les données dans localStorage.
+        -->
+        <b-button
+          size="sm"
+          @click="Preview"
+          variant="outline-info"
+          class="mr-2"
+        >
+          Preview
+        </b-button>
+        <b-button size="sm" @click="save" variant="outline-success">
+          Save
+        </b-button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+import configs from "./configs/config.js";
+//
 /**
- * cette approche ne limite pas BootstrapVue pour ce composant, mais il sera charge si ce composant est demandé.
+ * Cette approche ne limite pas BootstrapVue pour ce composant, mais il sera charge si ce composant est demandé.
  */
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue);
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin);
-
+import Utilities from "./Utilities";
 export default {
   name: "Admin",
   props: {
     //
   },
   components: {
-    CreneauConfig: () => import("./Forms/CreneauConfigs")
+    CreneauBase: () => import("./Forms/CreneauBase"),
+    CreneauConfig: () => import("./Forms/CreneauConfig"),
+    TypeLivraison: () => import("./Forms/TypeLivraion")
   },
   data() {
-    return {};
+    return {
+      creneau_configs: {
+        days: [],
+        heures: [],
+        nombre_semaine: 4,
+        nombre_res_creneau: 2
+      },
+      creneau_filters: [Utilities.filter()],
+      creneaux_type_livraison: {
+        types: Utilities.getDefaultTypeLivraion(),
+        overide_delais: []
+      }
+    };
   },
   mounted() {
     //
@@ -49,7 +86,34 @@ export default {
     //
   },
   methods: {
-    //
+    save() {
+      configs.saveMetaFields([
+        {
+          key: "creneau_configs",
+          value: this.creneau_configs,
+          value_type: "json_string"
+        },
+        {
+          key: "creneau_filters",
+          value: this.creneau_filters,
+          value_type: "json_string"
+        }
+      ]);
+    },
+    Preview() {
+      localStorage.setItem("creneau_configs", this.creneau_configs);
+      localStorage.setItem("creneau_filters", this.creneau_filters);
+      localStorage.setItem(
+        "creneaux_type_livraison",
+        this.creneaux_type_livraison
+      );
+      window.location.reload();
+    },
+    load() {
+      configs.post("/app/creneaux/shopify/request/LoadMetafields", {
+        endPoint: "/admin/metafields.json"
+      });
+    }
   }
 };
 </script>
@@ -58,6 +122,13 @@ export default {
 .app-admin {
   @import "~bootstrap/scss/bootstrap.scss";
   @import "~bootstrap-vue/src/index.scss";
+  .ctn-action-button {
+    &.static {
+      position: absolute;
+      top: 0.5em;
+      right: 0.5em;
+    }
+  }
 }
 </style>
 

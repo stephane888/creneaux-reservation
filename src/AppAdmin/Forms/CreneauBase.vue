@@ -3,7 +3,7 @@
     <b-form>
       <b-form-group>
         <template #label>
-          <strong>Selectionner les jours ouvrables.</strong>
+          <strong> Selectionner les jours ouvrables. </strong>
         </template>
         <div class="d-flex flex-wrap align-items-center">
           <b-form-checkbox
@@ -19,9 +19,9 @@
           </b-form-checkbox>
         </div>
       </b-form-group>
-      <b-form-group>
+      <b-form-group description="l'heure au format HH:MM, example : 15:30">
         <template #label>
-          <strong>Definir l'heure de debut et de fin</strong>
+          <strong> Definir l'heure de debut et de fin </strong>
         </template>
         <div class="d-flex flex-wrap ">
           <div
@@ -31,7 +31,7 @@
           >
             <b-form-group>
               <template #label>
-                {{ input.text }}
+                <span> {{ input.text }} </span>
               </template>
               <b-form-input
                 v-model="input.debut"
@@ -46,44 +46,42 @@
           </div>
         </div>
       </b-form-group>
-      <b-form-group
-        description="Cela vous permet de desactiver les jours ou vous seriez indisponible, example le 25 decembre."
-      >
-        <template #label>
-          <strong>Desactiver certanines dates</strong>
-        </template>
-        <div>
-          <div>
-            <b-button
-              size="sm"
-              variant="outline-info"
-              @click="add_date_disabled"
-              >+</b-button
-            >
-          </div>
-          <div v-for="(date, index) in date_desactivee" :key="index">
-            <b-form-datepicker
-              :id="'example-datepicker-' + index"
-              v-model="date.date"
-              class="mb-2"
-            ></b-form-datepicker>
-          </div>
-        </div>
+      <b-form-group label="Nombre semaine affichée sur le calendrier">
+        <b-form-input
+          v-model="creneau_configs.nombre_semaine"
+          placeholder="Heure debut"
+          type="number"
+          class="mb-2"
+        ></b-form-input>
+      </b-form-group>
+      <b-form-group label="Nombre reservation par creneau">
+        <b-form-input
+          v-model="creneau_configs.nombre_res_creneau"
+          placeholder="Heure debut"
+          type="number"
+          class="mb-2"
+        ></b-form-input>
       </b-form-group>
     </b-form>
-    <pre>
-      {{ jourInfo }}
-    </pre>
   </div>
 </template>
 
 <script>
 export default {
-  name: "CreneauConfigs",
+  name: "CreneauBase",
   props: {
-    //
+    creneau_configs: {
+      type: Object,
+      default: function() {
+        return {
+          days: [],
+          heures: [],
+          nombre_semaine: "",
+          nombre_res_creneau: ""
+        };
+      }
+    }
   },
-
   components: {
     //
   },
@@ -97,12 +95,13 @@ export default {
         { text: "Vendredi", value: 1, debut: "7:30", fin: "21:30", indice: 5 },
         { text: "Samedi", value: 1, debut: "7:30", fin: "21:30", indice: 6 },
         { text: "Dimanche", value: 0, debut: "7:30", fin: "21:30", indice: 0 }
-      ],
+      ]
+      /*
       creneau_configs: {
         days: [],
         heures: []
-      },
-      date_desactivee: []
+      }
+      /**/
     };
   },
   mounted() {
@@ -123,14 +122,10 @@ export default {
     },
     BuildHaure() {
       this.creneau_configs.heures = this.jourInfo;
-    },
-    add_date_disabled() {
-      this.date_desactivee.push({ date: "" });
     }
   }
 };
 </script>
-
 <style lang="scss" scoped></style>
 
 <!--

@@ -29,18 +29,11 @@
 <script>
 import configSite from "./App/config.js";
 import creneau from "./App/index.vue";
-
+const $ = window.jQuery;
 export default {
   name: "App",
   components: {
     creneau: creneau
-    /*
-    creneau: function() {
-      return new Promise(resolv => {
-        resolv(import("./App/index.vue"));
-      });
-    }
-    /**/
   },
   data() {
     return {
@@ -65,6 +58,28 @@ export default {
       livraison_delai_jour: 3,
       livraison_interval: 120
     };
+  },
+  mounted() {
+    this.init();
+  },
+  methods: {
+    init() {
+      /**
+       * Gestion du click sur le bouton de sousmission du panier.
+       */
+      (function() {
+        $(".creneaux-mbt .cart-checkout .submit-cart-test").click(function(
+          elem
+        ) {
+          $(this).removeClass("bg-danger");
+          $(".loadding", elem.target).addClass("fa-spin");
+          $(".fa-arrow-right", elem.target).fadeOut(600, function() {
+            $(".loadding", elem.target).fadeIn(600);
+          });
+          $(document).trigger("SaveCreneauxChechout");
+        });
+      })();
+    }
   }
 };
 </script>

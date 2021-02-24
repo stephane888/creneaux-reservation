@@ -26,7 +26,7 @@ function DateDesactivee() {
   }
   return date_desactivee;
 }
-//jour_desactivee
+//Jour_desactivee
 function JourDesactivee() {
   var jour_desactivee = [0, 6];
   if (window.creneau_configs && window.creneau_configs.days.length > 0) {
@@ -39,7 +39,7 @@ function JourDesactivee() {
   }
   return jour_desactivee;
 }
-// definie les plages d'heuress valide avec en indice le jour.
+// Definie les plages d'heuress valide avec en indice le jour.
 function PlageHeuresValide() {
   return window.creneau_configs && window.creneau_configs.heures.length > 0
     ? window.creneau_configs.heures
@@ -62,63 +62,7 @@ function CurrentDate() {
 
 // Type de livraison.
 function BlocksTypeLivraisons() {
-  var blocks_type_livraisons = [
-    {
-      titre: "Gratuit",
-      body: [
-        "Créneau horaire de XXXX min",
-        "Délai de traitement de XXXX heures"
-      ],
-      montant: "0",
-      type: "free",
-      creneau: 120, // la durée d'un creneaux.
-      delai_next_creneau: 30, // la durée entre les creneaux.
-      delai: 3, // delai de traitement entre la collecte et la livraion.
-      //permet de surcharger le delai de traitement en fonction des jours de la semaine.
-      delais_jour: [
-        {
-          day: 4,
-          delai: 4
-        },
-        {
-          day: 5,
-          delai: 4
-        }
-      ],
-      id: 31058498125884,
-      active: true
-      //delai_override est ajoute de maniere dynamique à object, il permet de partager la valeur dynamique du delai.
-      // il a pour avantages d'etre court donc plus performant qu'un $emit.
-    },
-    {
-      titre: "Plus",
-      body: [
-        "Créneau horaire de XXXX min",
-        "Délai de traitement de XXXX heures"
-      ],
-      montant: "9.99",
-      type: "plus",
-      creneau: 60,
-      delai_next_creneau: 30, // la durée entre les creneaux.
-      delai: 2,
-      id: 31058498158652,
-      active: false
-    },
-    {
-      titre: "Express",
-      body: [
-        "Créneau horaire de XXXX min",
-        "Délai de traitement de XXXX heures"
-      ],
-      montant: "19.99",
-      type: "express",
-      creneau: 30,
-      delai_next_creneau: 30, // la durée entre les creneaux.
-      delai: 1,
-      id: 31058498191420,
-      active: false
-    }
-  ];
+  var blocks_type_livraisons = [];
   //
   if (window.creneau_types && window.creneau_types.typelivraison.length > 0) {
     for (const i in window.creneau_types.typelivraison) {
@@ -149,13 +93,12 @@ function BlocksTypeLivraisons() {
     }
     blocks_type_livraisons = window.creneau_types.typelivraison;
   }
-  //on ajoute la veleur dynamique delai_override
-  //delai_override est ajoute de maniere dynamique à object, il permet de partager la valeur dynamique du delai.
+  // On ajoute la veleur dynamique delai_override
+  // delai_override est ajoute de maniere dynamique à object, il permet de partager la valeur dynamique du delai.
   // il a pour avantages d'etre court donc plus performant qu'un $emit.
   for (const i in blocks_type_livraisons) {
     blocks_type_livraisons[i].delai_override = blocks_type_livraisons[i].delai;
   }
-
   return blocks_type_livraisons;
 }
 /**
@@ -177,6 +120,7 @@ function IsProdEnvir() {
     return true;
   }
 }
+
 function UrlSaveCreneau() {
   // url de sauvegarde des creneaux.
   var url_save_creneau =
@@ -186,6 +130,7 @@ function UrlSaveCreneau() {
   }
   return url_save_creneau;
 }
+
 function UrlGetCreneau() {
   // url de sauvegarde des creneaux.
   var url_get_creneau =
