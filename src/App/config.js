@@ -20,7 +20,8 @@ function DateDesactivee() {
   var date_desactivee = [];
   if (
     window.creneau_configs &&
-    window.creneau_configs.date_desactivee.length > 0
+    window.creneau_configs.date_desactivee &&
+    window.creneau_configs.date_desactivee.length
   ) {
     date_desactivee = window.creneau_configs.date_desactivee;
   }
@@ -66,9 +67,11 @@ function BlocksTypeLivraisons() {
   //
   if (window.creneau_types && window.creneau_types.typelivraison.length > 0) {
     for (const i in window.creneau_types.typelivraison) {
+      /*
       window.creneau_types.typelivraison[
         i
       ].body = window.creneau_types.typelivraison[i].body.split("<br />");
+      /**/
       window.creneau_types.typelivraison[i].id = parseInt(
         window.creneau_types.typelivraison[i].id
       );

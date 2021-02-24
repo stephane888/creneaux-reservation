@@ -7,7 +7,7 @@
         <b-card
           no-body
           class="mb-2"
-          v-for="(type, i) in typesLivraison.types"
+          v-for="(type, i) in typesLivraison.typelivraison"
           :key="i"
         >
           <b-card-header header-tag="header" class="p-1" role="tab">
@@ -121,7 +121,7 @@
         <b-card
           no-body
           class="mb-2"
-          v-for="(override, ii) in typesLivraison.overide_delais"
+          v-for="(override, ii) in typesLivraison.delais_jour"
           :key="ii"
         >
           <b-card-header header-tag="header" class="p-1" role="tab">
@@ -206,7 +206,7 @@ export default {
   computed: {
     type_options() {
       var result = [];
-      this.typesLivraison.types.forEach(type => {
+      this.typesLivraison.typelivraison.forEach(type => {
         result.push({ text: type.titre, value: type.type });
       });
       return result;
@@ -217,9 +217,7 @@ export default {
   },
   methods: {
     OverrideAdd() {
-      this.typesLivraison.overide_delais.push(
-        Utilities.getDefaultDelaiOverride()
-      );
+      this.typesLivraison.delais_jour.push(Utilities.getDefaultDelaiOverride());
     }
   }
 };

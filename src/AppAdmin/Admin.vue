@@ -10,9 +10,7 @@
           <CreneauConfig :filters="creneau_filters"></CreneauConfig>
         </b-tab>
         <b-tab title="Type de livraison" active>
-          <TypeLivraison
-            :types-livraison="creneaux_type_livraison"
-          ></TypeLivraison>
+          <TypeLivraison :types-livraison="creneau_types"></TypeLivraison>
         </b-tab>
       </b-tabs>
       <div class="d-flex justify-content-end">
@@ -70,9 +68,9 @@ export default {
         nombre_res_creneau: 2
       },
       creneau_filters: [Utilities.filter()],
-      creneaux_type_livraison: {
-        types: Utilities.getDefaultTypeLivraion(),
-        overide_delais: []
+      creneau_types: {
+        typelivraison: Utilities.getDefaultTypeLivraion(),
+        delais_jour: []
       }
     };
   },
@@ -101,12 +99,15 @@ export default {
       ]);
     },
     Preview() {
-      localStorage.setItem("creneau_configs", this.creneau_configs);
-      localStorage.setItem("creneau_filters", this.creneau_filters);
       localStorage.setItem(
-        "creneaux_type_livraison",
-        this.creneaux_type_livraison
+        "creneau_configs",
+        JSON.stringify(this.creneau_configs)
       );
+      localStorage.setItem(
+        "creneau_filters",
+        JSON.stringify(this.creneau_filters)
+      );
+      localStorage.setItem("creneau_types", JSON.stringify(this.creneau_types));
       window.location.reload();
     },
     load() {

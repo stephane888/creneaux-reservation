@@ -29,13 +29,7 @@
       <div
         class=" row list-inline mt-3 ml-md-4 font-weight-bold type-livraison"
       >
-        <div
-          v-for="(texte, index) in active_type_body"
-          class="list-inline-item col-md-4"
-          :key="index"
-        >
-          <p>{{ remplace(texte, index) }}</p>
-        </div>
+        <div class="list-inline-item col-md-4" v-html="active_type_body"></div>
         <div
           class="list-inline-item col-md-4"
           v-if="active_type && active_type.montant"
@@ -155,20 +149,18 @@ export default {
     this.setEvent();
   },
   methods: {
-    remplace(texte, index) {
+    /*
+    remplace(texte, index = 0) {
       var rep = "";
       if (index == 0) {
         rep = this.active_type.creneau;
       } else if (index == 1) {
         rep = this.active_type.delai_override * 24;
-        console.log(
-          "this.active_type.delai_override",
-          this.active_type.delai_override
-        );
       }
       this.active_type;
       return texte.replace("XXXX", rep);
     },
+    /**/
     open_map() {
       //trigger open map
       console.log("Trigger open map");
@@ -215,7 +207,7 @@ export default {
     },
     display_prise: function(price) {
       if (price == 0) {
-        return "+0€"; //'FREE';
+        return "+0€";
       } else {
         return "+" + price + "€";
       }
