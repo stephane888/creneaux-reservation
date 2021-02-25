@@ -482,6 +482,10 @@ export default {
     },
     triggerCheckout() {
       $(".creneaux-mbt .cart-checkout .submit-cart").trigger("click");
+      console.log(
+        "verfication de la presence du bouton formulaire ",
+        $(".creneaux-mbt .cart-checkout .submit-cart")
+      );
     },
     buildAttribut() {
       //

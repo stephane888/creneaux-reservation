@@ -3,7 +3,7 @@ console.log(
   "%c Local (à masquer en production ) ",
   "background: #222; color: #F00; font-size:25px;"
 );
-/*
+
 window.wbu_current_date = "08-02-2021 17:39:00";
 window.deccalage_creneau_depart = 0;
 window.creneau_configs = {
@@ -54,12 +54,7 @@ window.creneau_heures = {
   heuredate: [],
   heureday: []
 };
-/**/
-/**
- *  On place les données pour la configuration preview.
- */
-// Chargement du type de livraison.
-localStorage.getItem("creneaux_type_livraison", this.creneau_configs);
+
 //
 import Vue from "vue";
 import App from "./App.vue";
