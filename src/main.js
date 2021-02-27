@@ -54,18 +54,18 @@ window.creneau_heures = {
   heuredate: [],
   heureday: []
 };
-/**/
+
 /**
  *  On place les données pour la configuration preview.
  */
-
 // Chargment de la configuration de base.
 window.creneau_configs = JSON.parse(localStorage.getItem("creneau_configs"));
-console.log("window.creneau_configs : ", window.creneau_configs);
 
 // Chargement du type de livraison.
 window.creneau_types = JSON.parse(localStorage.getItem("creneau_types"));
-console.log("window.creneau_types : ", window.creneau_types);
+
+// Chargement du type de livraison.
+window.creneau_filters = JSON.parse(localStorage.getItem("creneau_filters"));
 
 //
 import Vue from "vue";

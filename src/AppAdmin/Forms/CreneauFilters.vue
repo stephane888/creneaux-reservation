@@ -19,7 +19,7 @@
               v-b-toggle="'config-accordion-' + index"
               variant="transparent"
             >
-              <strong> Filtre {{ index + 1 }} </strong>
+              <strong> Filtre {{ index + 1 }}: {{ filter.titre }} </strong>
             </b-button>
             <div class="ctn-action-button static">
               <b-button
@@ -39,6 +39,12 @@
           >
             <b-card-body>
               <b-form-group>
+                <b-form-group label="Titre du filtre">
+                  <b-form-input
+                    v-model="filter.titre"
+                    class="mb-2"
+                  ></b-form-input>
+                </b-form-group>
                 <b-form-group description="format H:M, example 8:30">
                   <template #label>
                     <strong class="mt-3 mb-2 d-block">
@@ -77,12 +83,7 @@
                       v-model="filter.jourmode"
                       size="sm"
                       @change="
-                        SelectAllDate(
-                          $event,
-                          index,
-                          filter.jours_select,
-                          filter.jours_select_options
-                        )
+                        SelectAllDate($event, index, filter.jours_select)
                       "
                       value="all"
                       unchecked-value="manuel"
@@ -95,7 +96,7 @@
                       :id="'checkbox-jour-group-' + index"
                       v-model="filter.jours_select"
                       @change="SelectOneDate(index)"
-                      :options="filter.jours_select_options"
+                      :options="joursActiveOptions"
                       :aria-describedby="ariaDescribedby"
                       size="sm"
                     ></b-form-checkbox-group>
@@ -135,6 +136,7 @@
                             :id="'datepicker-' + index + '-' + in_dd"
                             v-model="date.date"
                             :min="min_date"
+                            locale="fr"
                           >
                           </b-form-datepicker>
                           <b-input-group-append>
@@ -226,9 +228,6 @@
         </b-card>
       </div>
     </b-form>
-    <pre class="d-none">
-      filters : {{ filters }}
-    </pre>
   </div>
 </template>
 
@@ -238,6 +237,10 @@ export default {
   name: "CreneauBase",
   props: {
     filters: {
+      type: Array,
+      required: true
+    },
+    joursActive: {
       type: Array,
       required: true
     }
@@ -261,7 +264,13 @@ export default {
     //
   },
   computed: {
-    //
+    joursActiveOptions() {
+      var result = [];
+      this.joursActive.forEach(jour => {
+        result.push({ text: jour.text, value: jour.indice });
+      });
+      return result;
+    }
   },
   methods: {
     FilterAddDatedisabled(date_desactivee) {
@@ -273,19 +282,19 @@ export default {
     FilterAddSelectJour() {
       //
     },
-    SelectAllDate(check, i, jours_select, jours_select_options) {
+    SelectAllDate(check, i) {
       if (this.filters[i]) {
         this.filters[i].jours_select = [];
         if (check === "all") {
-          jours_select_options.forEach(item => {
-            this.filters[i].jours_select.push(item.value);
+          this.joursActive.forEach(item => {
+            this.filters[i].jours_select.push(item.indice);
           });
         }
       }
     },
     SelectOneDate(i) {
       if (this.filters[i]) {
-        if (this.filters[i].jours_select.length === 7) {
+        if (this.filters[i].jours_select.length >= this.joursActive.length) {
           this.filters[i].jourmode = "all";
         } else {
           this.filters[i].jourmode = "manuel";

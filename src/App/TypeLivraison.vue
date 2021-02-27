@@ -29,18 +29,13 @@
       <div
         class=" row list-inline mt-3 ml-md-4 font-weight-bold type-livraison"
       >
-        <div class="list-inline-item col-md-4" v-html="active_type_body"></div>
+        <div class="list-inline-item col-md-8" v-html="active_type_body"></div>
         <div
           class="list-inline-item col-md-4"
           v-if="active_type && active_type.montant"
         >
           <p>
-            <span v-if="active_type.montant != '0'">
-              Frais de livraison: {{ active_type.montant }}€</span
-            >
-            <span v-if="active_type.montant == '0'"
-              >Frais de livraison : Gratuit</span
-            >
+            <span> {{ formatString(active_type.montant_libele) }} </span>
           </p>
         </div>
       </div>
@@ -164,7 +159,6 @@ export default {
     open_map() {
       //trigger open map
       console.log("Trigger open map");
-
       $("#trigger-simple-map3map-google-field").trigger("click");
     },
     getValuesAdress() {
@@ -227,6 +221,20 @@ export default {
       $(document).on("adresseUpdate", function() {
         self.getValuesAdress();
       });
+    },
+    formatString(str) {
+      var regex = /\{\{(.*?)\}\}/g;
+      let found;
+      var int = 0;
+      while ((found = regex.exec(str)) !== null && int < 10) {
+        int++;
+        var attr = found[1].trim(" ");
+        str = str.replace(
+          found[0],
+          this.active_type[attr] ? this.active_type[attr] : "..."
+        );
+      }
+      return str;
     }
   },
   computed: {
@@ -236,9 +244,9 @@ export default {
     active_type_body: {
       get() {
         if (this.active_type && this.active_type.body) {
-          return this.active_type.body;
+          return this.formatString(this.active_type.body);
         } else {
-          return [];
+          return "";
         }
       }
     }

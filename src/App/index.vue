@@ -46,6 +46,7 @@
                 :disable_heureday="disable_heureday"
                 :disable_heuredate="disable_heuredate"
                 :url_get_creneau="url_get_creneau"
+                :filters="filters"
                 ref="selectionhoraire"
                 @ev_creneau_collecte="ev_creneau_collecte"
                 @ev_creneau_livraison="ev_creneau_livraison"
@@ -249,6 +250,9 @@ export default {
     app_env_prod: {
       type: Boolean,
       default: true
+    },
+    filters: {
+      type: Array
     }
   },
   components: {

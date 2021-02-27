@@ -117,6 +117,7 @@ if (window.jQuery) {
 if (window.moment) {
   var moment = window.moment;
 }
+import configSite from "./config.js";
 import AdvancedSelect from "vue-multiselect";
 import SvgCalandar from "./SvgCalandar.vue";
 
@@ -251,6 +252,14 @@ export default {
     deccalage_creneau_depart: {
       type: Number,
       default: 0
+    },
+    /**
+     * Cette variable contient les données permettant d'appliquer des modifications avant le rendu des creneaux et jours.
+     * example: desactivé un creneau, une date, une plage de date, en function de certains critaires.
+     */
+    filters: {
+      type: Array,
+      required: true
     }
   },
   data() {
@@ -434,6 +443,9 @@ export default {
     }
   },
   computed: {
+    /**
+     * Date affiché.
+     */
     app_date_display: {
       get() {
         if (this.app_date_current != "") {
@@ -443,6 +455,25 @@ export default {
         }
         return "";
       }
+    },
+    /**
+     * for test
+     */
+    /*
+    app_date_current_display() {
+      if (this.app_date_current != "") {
+        return this.app_date_current.format("DD-MM-YYYY HH:mm:ss");
+      }
+      return "";
+    },
+    /**
+     * indice du jour.
+     */
+    app_date_current_indice() {
+      if (this.app_date_current != "") {
+        return this.app_date_current.day();
+      }
+      return "";
     },
     calandar_title: {
       get() {
@@ -470,6 +501,14 @@ export default {
     app_date_current_string: {
       get() {
         return this.app_date_current.format("DD-MM-YYYY");
+      }
+    },
+    /**
+     * format de date en anglais, utile pour l'app.
+     */
+    app_date_current_string_en: {
+      get() {
+        return this.app_date_current.format("YYYY-MM-DD");
       }
     },
     /**
@@ -541,7 +580,7 @@ export default {
         this.date_max.hours(h_fin);
         this.date_max.minutes(m_fin);
         this.date_max.seconds(0);
-
+        /*
         console.log(
           "default date : ",
           this.app_date_current.format("DD-MM-YYYY HH:mm:ss"),
@@ -553,6 +592,7 @@ export default {
           this.date_max.format("DD-MM-YYYY HH:mm:ss")
         );
         console.log("dateBorne end");
+
         /**/
         //
         await this.loadCreneauDisable();
@@ -603,13 +643,25 @@ export default {
         ).add(self.app_delai_next_creneau, "minutes");
         bloc_date.begin = date_time.format("HH:mm");
         //
-        // on pourra ajouter un delai à ce niveau.
         self
           .checkIsCreneauValide(date_time, date_time_end, date_min_string)
-          .then(function(valeur) {
+          .then(async function(valeur) {
+            // la date est desactivé.
             if (valeur.status) {
               bloc_date.$isDisabled = true;
               bloc_date.checkstatus = valeur.verificateur;
+            } else {
+              // on patiente le temps de la verification.
+              const filter = await self.ApplyFilters(
+                date_time,
+                date_time_end,
+                date_min_string
+              );
+
+              if (filter.status) {
+                bloc_date.$isDisabled = filter.status;
+                bloc_date.checkstatus = filter.verificateur;
+              }
             }
 
             if (self.date_max.diff(date_time_end, "minutes") >= 0) {
@@ -627,6 +679,224 @@ export default {
               resolve(true);
             }
           });
+      });
+    },
+    /**
+     * Applique le filtre sur chaque creneau ou chaque date.
+     * On retourne true si la date ou le creneau doit etre desactiver.
+     */
+    ApplyFilters(creneaux_heure_begin, creneaux_heure_end, date_min_string) {
+      var self = this;
+      return new Promise(resolv => {
+        if (self.filters.length === 0) {
+          resolv({ status: false, verificateur: "filter empty" });
+          return;
+        }
+        /**
+         * Permet de verifier si la plage d'heure selectionne est inclus ou partielment inclut dans le creneau.
+         * cette function est utilisé uniquement lors du passage des creneaux.
+         */
+        const HourIntervalContain = function(
+          heure_begin_disable,
+          heure_end_disable
+        ) {
+          var h_d = heure_begin_disable.split(":");
+          var date_min = moment(date_min_string, "DD-MM-YYYY HH:mm:ss");
+          date_min.hours(h_d[0]);
+          date_min.minutes(h_d[1]);
+          //
+          var h_f = heure_end_disable.split(":");
+          var date_max = moment(date_min_string, "DD-MM-YYYY HH:mm:ss");
+          date_max.hours(h_f[0]);
+          date_max.minutes(h_f[1]);
+          if (
+            (creneaux_heure_begin.diff(date_min, "minutes") >= 0 &&
+              creneaux_heure_begin.diff(date_max, "minutes") < 0) ||
+            (creneaux_heure_end.diff(date_min, "minutes") > 0 &&
+              creneaux_heure_end.diff(date_max, "minutes") <= 0)
+          ) {
+            return true;
+          } else {
+            return false;
+          }
+        };
+
+        /**
+         * On verifie que un ou plusieurs sont selectionnées.
+         * si nous sommes un jour inclut dans la liste on retourne true,
+         * si non on retourne false,
+         * si le tableau est vide, on retourne true.
+         */
+        const JourSelect = jours_select => {
+          return new Promise(resolv => {
+            if (jours_select.length === 0) {
+              resolv(true);
+            } else {
+              var state = false;
+              for (const i in jours_select) {
+                if (jours_select[i] === self.app_date_current_indice) {
+                  state = true;
+                }
+              }
+              resolv(state);
+            }
+          });
+        };
+        /**
+         * Permet de filtrer en function de la date.
+         * ( il faudra verifier que l'attribut filter.dates_disable nest plus definit )
+         * Pour les dates, le scenario est peu different, car si on ne trouve pas une date
+         * = à la date encour et que filter.periode_desactivee n'est pas definit on doit verifier
+         * le niveau inferieur qui doit etre absolument filter.periode_desactive.
+         */
+        const DateDesactivee = date_desactivee => {
+          return new Promise(resolv => {
+            if (date_desactivee.length === 0) {
+              resolv(false);
+            } else {
+              const CheckDateDesactivee = function() {
+                return new Promise(resolv2 => {
+                  for (const i in date_desactivee) {
+                    if (
+                      date_desactivee[i].date ===
+                      self.app_date_current_string_en
+                    ) {
+                      resolv2(true);
+                      return;
+                    }
+                    const ii = parseInt(i) + 1;
+                    if (date_desactivee.length === ii) {
+                      resolv2(false);
+                      return;
+                    }
+                  }
+                });
+              };
+              if (
+                configSite.filter_date_desactivee[
+                  this.app_date_current_string_en
+                ]
+              ) {
+                resolv(
+                  configSite.filter_date_desactivee[
+                    this.app_date_current_string_en
+                  ].status
+                );
+                return;
+              } else {
+                CheckDateDesactivee().then(status => {
+                  configSite.filter_date_desactivee[
+                    this.app_date_current_string_en
+                  ] = {
+                    status: status
+                  };
+                  resolv(status);
+                });
+              }
+            }
+          });
+        };
+        /**
+         * Permet de filtrer en function de la periode.
+         * un remarque importante, on a pas besoin de tester pour tous les creneaux. 1 seul suffit,
+         * on chosit de sauvegarder, le status du test dans l'object filter.periode_desactivee
+         * On utilise self.app_date_current pour verifier la periode, or cette date contient l'heure,mm, ce qui va entrainer un deccalage.
+         * donc, pour comblet ce deccalage, on utilisera < 1 ou > 1
+         */
+        const PeriodeDesactivee = periode_desactivee => {
+          return new Promise(resolv => {
+            if (periode_desactivee.length === 0) {
+              resolv(false);
+            } else {
+              const CheckPeriodeDesactivee = function() {
+                return new Promise(resolv2 => {
+                  for (const i in periode_desactivee) {
+                    const periode = periode_desactivee[i];
+                    const date_min = moment(periode["debut"], "YYYY-MM-DD");
+                    const date_max = moment(periode["fin"], "YYYY-MM-DD");
+                    if (
+                      self.app_date_current.diff(date_min, "days", true) > 1 &&
+                      self.app_date_current.diff(date_max, "days", true) < 1
+                    ) {
+                      resolv2(true);
+                      return;
+                    }
+                    const ii = parseInt(i) + 1;
+                    if (periode_desactivee.length === ii) {
+                      resolv2(false);
+                      return;
+                    }
+                  }
+                });
+              };
+              if (
+                configSite.filter_periode_desactivee[
+                  this.app_date_current_string_en
+                ]
+              ) {
+                resolv(
+                  configSite.filter_periode_desactivee[
+                    this.app_date_current_string_en
+                  ].status
+                );
+                return;
+              } else {
+                CheckPeriodeDesactivee().then(status => {
+                  configSite.filter_periode_desactivee[
+                    this.app_date_current_string_en
+                  ] = {
+                    status: status
+                  };
+                  console.log(
+                    "filter_periode_desactivee : ",
+                    configSite.filter_periode_desactivee
+                  );
+                  resolv(status);
+                });
+              }
+            }
+          });
+        };
+
+        for (const i in self.filters) {
+          const filter = self.filters[i];
+          if (filter.h_debut !== "" && filter.h_fin !== "") {
+            if (HourIntervalContain(filter.h_debut, filter.h_fin)) {
+              JourSelect(filter.jours_select).then(stateJourSelect => {
+                if (!stateJourSelect) {
+                  resolv({ status: false, verificateur: "jours_select" });
+                  return;
+                } else {
+                  DateDesactivee(filter.date_desactivee, i).then(
+                    stateDateDesactivee => {
+                      if (stateDateDesactivee) {
+                        resolv({
+                          status: true,
+                          verificateur: "date_desactivee)"
+                        });
+                        return;
+                      } else {
+                        PeriodeDesactivee(filter.periode_desactivee).then(
+                          statePeriodeDesactivee => {
+                            resolv({
+                              status: statePeriodeDesactivee,
+                              verificateur: "periode_desactivee"
+                            });
+                          }
+                        );
+                      }
+                    }
+                  );
+                }
+              });
+            } else {
+              resolv({ status: false, verificateur: "jours_select" });
+            }
+          } else {
+            //on verifie les dates.
+            resolv({ status: false, verificateur: "nothing" });
+          }
+        }
       });
     },
     /**
@@ -762,18 +1032,6 @@ export default {
             var date_min = moment(self.app_date_string, "DD-MM-YYYY HH:mm:ss");
             date_min.add(self.deccalage_creneau_depart, "minutes");
             var diff = creneaux_heure_begin.diff(date_min, "minutes");
-            /*
-            console.log(
-              "Diff : ",
-              diff,
-              "\n self.app_date_string : ",
-              self.app_date_string,
-              "\n date_min_string ",
-              date_min_string,
-              "\n date depart + decallage",
-              moment(date_min).format("DD-MM-YYYY HH:mm:ss")
-            );
-            /**/
             if (diff < 0) {
               resolve(true);
             } else {
@@ -1036,6 +1294,7 @@ export default {
     },
     /**
      * Pour valider la date du jour
+     * @depreciate à supprimer avec toutes variables incluses.
      */
     validation_day(date) {
       var self = this;

@@ -1,3 +1,15 @@
+/**
+ *recupere les données du jours en function de l'indice du jour.
+ */
+const getDayData = i => {
+  const daysDatas = window.creneau_configs.days;
+  for (const t in daysDatas) {
+    if (daysDatas[t] && daysDatas[t].indice === i) {
+      return daysDatas[t];
+    }
+  }
+};
+
 function DisableHeuredate() {
   // Plage d'heure desactivée en function d'une date.
   var disable_heuredate = [];
@@ -6,7 +18,10 @@ function DisableHeuredate() {
   }
   return disable_heuredate;
 }
-// Plage d'heure desactivée en function du jour
+/**
+ * Plage d'heure desactivée en function du jour
+ * @depreciate.
+ */
 function DisableHeureday() {
   var disable_heureday = [];
   if (window.creneau_heures && window.creneau_heures.heureday.length > 0) {
@@ -27,27 +42,61 @@ function DateDesactivee() {
   }
   return date_desactivee;
 }
-//Jour_desactivee
+
+function GetTitleApp() {
+  if (window.creneau_configs && window.creneau_configs.title) {
+    return window.creneau_configs.title;
+  }
+  return "Finaliser la commande";
+}
+/**
+ * Permet de desactivée certains jours de la semaine.
+ * (Par defaut tous les jours sont activées.)
+ * ok:
+ */
 function JourDesactivee() {
   var jour_desactivee = [0, 6];
-  if (window.creneau_configs && window.creneau_configs.days.length > 0) {
+  if (window.creneau_configs && window.creneau_configs.days) {
     jour_desactivee = [];
-    for (const i in window.creneau_configs.days) {
-      if (!window.creneau_configs.days[i]) {
-        jour_desactivee.push(parseInt(i));
+    /**
+     * On parcourt les jours, de 0 à 6, (dimanche à samedi);
+     */
+    for (var i = 0; i <= 6; i++) {
+      const daysDatas = getDayData(i);
+      if (daysDatas.value === 0) {
+        jour_desactivee.push(i);
       }
     }
   }
   return jour_desactivee;
 }
-// Definie les plages d'heuress valide avec en indice le jour.
+/**
+ * Definie les plages d'heuress valide avec en indice le jour.
+ * l'heure de debut et de fin.
+ * ok:
+ */
 function PlageHeuresValide() {
-  return window.creneau_configs && window.creneau_configs.heures.length > 0
-    ? window.creneau_configs.heures
-    : [];
+  var results = [];
+  /**
+   * On parcourt les jours, de 0 à 6, (dimanche à samedi);
+   */
+  if (
+    window.creneau_configs &&
+    window.creneau_configs.days &&
+    window.creneau_configs.days.length
+  ) {
+    for (var i = 0; i <= 6; i++) {
+      const daysDatas = getDayData(i);
+      results.push({ debut: daysDatas.debut, fin: daysDatas.fin });
+    }
+  }
+  return results;
 }
 
-// Nombre de semaine
+/**
+ * definie le nombre de semaine afficher sur le calendrier.
+ * ok:
+ */
 function NombreSemaine() {
   return window.creneau_configs && window.creneau_configs.nombre_semaine
     ? parseInt(window.creneau_configs.nombre_semaine)
@@ -65,47 +114,14 @@ function CurrentDate() {
 function BlocksTypeLivraisons() {
   var blocks_type_livraisons = [];
   //
-  if (window.creneau_types && window.creneau_types.typelivraison.length > 0) {
-    for (const i in window.creneau_types.typelivraison) {
-      /*
-      window.creneau_types.typelivraison[
-        i
-      ].body = window.creneau_types.typelivraison[i].body.split("<br />");
-      /**/
-      window.creneau_types.typelivraison[i].id = parseInt(
-        window.creneau_types.typelivraison[i].id
-      );
-      window.creneau_types.typelivraison[i].creneau = parseInt(
-        window.creneau_types.typelivraison[i].creneau
-      );
-      window.creneau_types.typelivraison[i].delai_next_creneau = parseInt(
-        window.creneau_types.typelivraison[i].delai_next_creneau
-      );
-      window.creneau_types.typelivraison[i].delai = parseInt(
-        window.creneau_types.typelivraison[i].delai
-      );
-      //on ajoute les delais surchargés.
-      var type = window.creneau_types.typelivraison[i].type;
-      if (
-        window.creneau_types.delais_jour[type] &&
-        window.creneau_types.delais_jour[type].length > 1
-      ) {
-        window.creneau_types.typelivraison[i].delais_jour =
-          window.creneau_types.delais_jour[type];
-      }
-    }
+  if (window.creneau_types && window.creneau_types.typelivraison) {
     blocks_type_livraisons = window.creneau_types.typelivraison;
-  }
-  // On ajoute la veleur dynamique delai_override
-  // delai_override est ajoute de maniere dynamique à object, il permet de partager la valeur dynamique du delai.
-  // il a pour avantages d'etre court donc plus performant qu'un $emit.
-  for (const i in blocks_type_livraisons) {
-    blocks_type_livraisons[i].delai_override = blocks_type_livraisons[i].delai;
   }
   return blocks_type_livraisons;
 }
 /**
  * Determine le nombre de reservation par creneaux.
+ * ok:
  */
 function NombreResCreneau() {
   return window.creneau_configs && window.creneau_configs.nombre_res_creneau
@@ -145,13 +161,15 @@ function UrlGetCreneau() {
 }
 
 function DeccalageCreneauDepart() {
-  return window.deccalage_creneau_depart > 0
-    ? window.deccalage_creneau_depart
+  return window.creneau_configs &&
+    window.creneau_configs.deccalage_creneau_depart > 0
+    ? window.creneau_configs.deccalage_creneau_depart
     : 0;
 }
 
 const configApp = {
   IsProduction: IsProdEnvir(),
+  appTitle: GetTitleApp(),
   nombre_res_creneau: NombreResCreneau(),
   blocks_type_livraisons: BlocksTypeLivraisons(),
   current_date: CurrentDate(),
@@ -163,6 +181,14 @@ const configApp = {
   disable_heuredate: DisableHeuredate(),
   url_save_creneau: UrlSaveCreneau(),
   url_get_creneau: UrlGetCreneau(),
-  deccalage_creneau_depart: DeccalageCreneauDepart()
+  deccalage_creneau_depart: DeccalageCreneauDepart(),
+  filters:
+    window.creneau_filters && window.creneau_filters.length
+      ? window.creneau_filters
+      : [],
+  //contient les dates desactivés due à filter.date_desactivee
+  filter_date_desactivee: {},
+  //contient les dates desactivés due à filter.periode_desactivee
+  filter_periode_desactivee: {}
 };
 export default configApp;
