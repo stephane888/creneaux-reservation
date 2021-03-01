@@ -185,10 +185,6 @@ const configApp = {
   filters:
     window.creneau_filters && window.creneau_filters.length
       ? window.creneau_filters
-      : [],
-  //contient les dates desactivés due à filter.date_desactivee
-  filter_date_desactivee: {},
-  //contient les dates desactivés due à filter.periode_desactivee
-  filter_periode_desactivee: {}
+      : []
 };
 export default configApp;

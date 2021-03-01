@@ -77,9 +77,9 @@ export default {
   },
   data() {
     return {
-      creneau_configs: Utilities.DefaultCreneauConfigs(),
-      creneau_filters: [Utilities.filter()],
-      creneau_types: Utilities.DefaultCreneauTypes()
+      creneau_configs: {},
+      creneau_filters: [],
+      creneau_types: {}
     };
   },
   mounted() {

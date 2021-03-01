@@ -13,7 +13,7 @@ const Utilities = {
   DefaultCreneauConfigs: function() {
     return {
       days: [],
-      nombre_semaine: 4,
+      nombre_semaine: 5,
       nombre_res_creneau: 2,
       title: "Finaliser la commande",
       deccalage_creneau_depart: 0
@@ -34,8 +34,8 @@ const Utilities = {
       select_jour_indice: "",
       jourmode: "manuel",
       jours_select: [],
-      date_desactivee: [{ date: "" }],
-      periode_desactivee: [{ debut: "", fin: "" }]
+      date_desactivee: [], //{ date: "" }
+      periode_desactivee: [] //{ debut: "", fin: "" }
     };
   },
   GetUniqueDays: function() {
