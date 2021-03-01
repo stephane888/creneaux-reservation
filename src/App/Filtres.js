@@ -10,6 +10,10 @@ const Filters = {
   filter_date_desactivee: {},
   //contient les dates desactivés due à filter.periode_desactivee
   filter_periode_desactivee: {},
+  attri_filters: ["jours_select", "date_desactivee", "periode_desactivee"],
+  app_date_current_string_en: "",
+  app_date_current_en: "",
+  test_type: "",
   /**
    * Permet de verifier si la plage d'heure selectionne est inclus ou partielment inclut dans le creneau.
    * cette function est utilisé uniquement lors du passage des creneaux.
@@ -216,6 +220,115 @@ const Filters = {
         status: result.status
       };
     }
+  },
+  loopAttribFilter: function(i, filter, attri_index = 0) {
+    return new Promise(resolv => {
+      if (filter[this.attri_filters[attri_index]].length) {
+        switch (this.attri_filters[attri_index]) {
+          case "jours_select":
+            this.JourSelect(
+              filter.jours_select,
+              self.app_date_current_indice
+            ).then(stateJourSelect => {
+              if (!stateJourSelect) {
+                resolv({
+                  status: stateJourSelect,
+                  i: i,
+                  verificateur: "jours_select"
+                });
+                return;
+              } else {
+                let ii = attri_index + 1;
+                if (ii < this.attri_filters.length) {
+                  resolv(this.loopAttribFilter(i, filter, ii));
+                } else {
+                  resolv({
+                    status: false,
+                    i: i,
+                    verificateur: this.attri_filters[attri_index]
+                  });
+                }
+              }
+            });
+            break;
+          case "date_desactivee":
+            this.DateDesactivee(
+              i,
+              filter.date_desactivee,
+              this.app_date_current_string_en,
+              "creneau"
+            ).then(stateDateDesactivee => {
+              // Si la valeur est true, => la date doit etre desactiver.
+              if (stateDateDesactivee) {
+                resolv({
+                  status: stateDateDesactivee,
+                  i: i,
+                  verificateur: "date_desactivee"
+                });
+                return;
+              } else {
+                let ii = attri_index + 1;
+                if (ii < this.attri_filters.length) {
+                  resolv(this.loopAttribFilter(i, filter, ii));
+                } else {
+                  resolv({
+                    status: false,
+                    i: i,
+                    verificateur: this.attri_filters[attri_index]
+                  });
+                }
+              }
+            });
+            break;
+          case "periode_desactivee":
+            this.PeriodeDesactivee(
+              i,
+              filter.periode_desactivee,
+              this.app_date_current_en,
+              this.app_date_current_string_en,
+              "creneau"
+            ).then(statePeriodeDesactivee => {
+              if (statePeriodeDesactivee) {
+                resolv({
+                  status: statePeriodeDesactivee,
+                  i: i,
+                  verificateur: "periode_desactivee"
+                });
+                return;
+              } else {
+                let ii = attri_index + 1;
+                if (ii < this.attri_filters.length) {
+                  resolv(this.loopAttribFilter(i, filter, ii));
+                } else {
+                  resolv({
+                    status: false,
+                    i: i,
+                    verificateur: this.attri_filters[attri_index]
+                  });
+                }
+              }
+            });
+            break;
+          default:
+            resolv({
+              status: false,
+              i: i,
+              verificateur: "non definit"
+            });
+        }
+      } else {
+        let ii = attri_index + 1;
+        if (ii < this.attri_filters.length) {
+          resolv(this.loopAttribFilter(i, filter, ii));
+        } else {
+          resolv({
+            status: false,
+            i: i,
+            verificateur: "non definit END"
+          });
+        }
+      }
+    });
   }
 };
 export default Filters;

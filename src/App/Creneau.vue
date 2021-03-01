@@ -714,6 +714,60 @@ export default {
                   date_min_string
                 )
               ) {
+                //Filtres.test_type = self.type_creneau;
+                Filtres.app_date_current_string_en =
+                  self.app_date_current_string_en;
+                Filtres.app_date_current_en = self.app_date_current_en;
+                Filtres.loopAttribFilter(i, filter).then(result => {
+                  resolv(result);
+                });
+              } else {
+                resolv({ status: false, i: i, verificateur: "plage_heure" });
+              }
+            } else {
+              resolv({ status: false, i: i, verificateur: "nothing" });
+            }
+          });
+        };
+        const execution = (i = 0) => {
+          CustomLoop(i).then(result => {
+            var ii = result.i + 1;
+            if (result.status) {
+              resolvEnd(result);
+              return;
+            } else if (self.filters[ii]) {
+              execution(ii);
+            } else {
+              resolvEnd(result);
+              return;
+            }
+          });
+        };
+        execution();
+      });
+    },
+    //174
+    ApplyFiltersV0(creneaux_heure_begin, creneaux_heure_end, date_min_string) {
+      var self = this;
+      return new Promise(resolvEnd => {
+        if (self.filters.length === 0) {
+          resolvEnd({ status: false, verificateur: "filter empty" });
+          return;
+        }
+
+        const CustomLoop = function(i = 0) {
+          return new Promise(resolv => {
+            const filter = self.filters[i];
+            if (filter.h_debut !== "" && filter.h_fin !== "") {
+              if (
+                Filtres.HourIntervalContain(
+                  filter.h_debut,
+                  filter.h_fin,
+                  creneaux_heure_begin,
+                  creneaux_heure_end,
+                  date_min_string
+                )
+              ) {
                 if (filter.jours_select.length) {
                   Filtres.JourSelect(
                     filter.jours_select,
@@ -721,7 +775,7 @@ export default {
                   ).then(stateJourSelect => {
                     if (!stateJourSelect) {
                       resolv({
-                        status: false,
+                        status: stateJourSelect,
                         i: i,
                         verificateur: "jours_select"
                       });
@@ -776,6 +830,68 @@ export default {
                         });
                       }
                     }
+                  });
+                } else if (filter.date_desactivee.length) {
+                  Filtres.DateDesactivee(
+                    i,
+                    filter.date_desactivee,
+                    self.app_date_current_string_en,
+                    "creneau"
+                  ).then(stateDateDesactivee => {
+                    // Si la valeur est true, => la date doit etre desactiver.
+                    if (stateDateDesactivee) {
+                      resolv({
+                        status: stateDateDesactivee,
+                        i: i,
+                        verificateur: "date_desactivee"
+                      });
+                      return;
+                    } else {
+                      if (filter.periode_desactivee.length) {
+                        Filtres.PeriodeDesactivee(
+                          i,
+                          filter.periode_desactivee,
+                          self.app_date_current_en,
+                          self.app_date_current_string_en,
+                          "creneau"
+                        ).then(statePeriodeDesactivee => {
+                          resolv({
+                            status: statePeriodeDesactivee,
+                            i: i,
+                            verificateur: "periode_desactivee"
+                          });
+                          return;
+                        });
+                      } else {
+                        resolv({
+                          status: stateDateDesactivee,
+                          i: i,
+                          verificateur: "date_desactivee"
+                        });
+                        return;
+                      }
+                    }
+                  });
+                } else if (filter.periode_desactivee.length) {
+                  Filtres.PeriodeDesactivee(
+                    i,
+                    filter.periode_desactivee,
+                    self.app_date_current_en,
+                    self.app_date_current_string_en,
+                    "creneau"
+                  ).then(statePeriodeDesactivee => {
+                    resolv({
+                      status: statePeriodeDesactivee,
+                      i: i,
+                      verificateur: "periode_desactivee"
+                    });
+                    return;
+                  });
+                } else {
+                  resolv({
+                    status: false,
+                    i: i,
+                    verificateur: "plage_heure"
                   });
                 }
               } else {
