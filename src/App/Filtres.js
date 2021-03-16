@@ -4,16 +4,16 @@ if (window.moment) {
 
 const Filters = {
   /**
-   * Permettent de reduire le temps d'execution des creneaux.
+   * Permet de reduire le temps d'execution des creneaux.
+   * contient les dates desactivés due à filter.date_desactivee
    */
-  //contient les dates desactivés due à filter.date_desactivee
   filter_date_desactivee: {},
-  //contient les dates desactivés due à filter.periode_desactivee
+  /**
+   * Permet de reduire le temps d'execution des creneaux.
+   * contient les dates desactivés due à filter.periode_desactivee
+   */
   filter_periode_desactivee: {},
   attri_filters: ["jours_select", "date_desactivee", "periode_desactivee"],
-  app_date_current_string_en: "",
-  app_date_current_en: "",
-  test_type: "",
   /**
    * Permet de verifier si la plage d'heure selectionne est inclus ou partielment inclut dans le creneau.
    * cette function est utilisé uniquement lors du passage des creneaux.
@@ -190,10 +190,6 @@ const Filters = {
             self.filter_periode_desactivee[i][app_date_current_string_en] = {
               status: status
             };
-            console.log(
-              "PeriodeDesactivee +++: ",
-              self.filter_periode_desactivee
-            );
             resolv(status);
           });
         }
@@ -221,42 +217,61 @@ const Filters = {
       };
     }
   },
-  loopAttribFilter: function(i, filter, attri_index = 0) {
+  loopAttribFilter: function(
+    i,
+    filter,
+    app_date_current_en,
+    app_date_current_string_en,
+    index_day,
+    typefilter,
+    attri_index = 0,
+    status = false
+  ) {
     return new Promise(resolv => {
       if (filter[this.attri_filters[attri_index]].length) {
         switch (this.attri_filters[attri_index]) {
           case "jours_select":
-            this.JourSelect(
-              filter.jours_select,
-              self.app_date_current_indice
-            ).then(stateJourSelect => {
-              if (!stateJourSelect) {
-                resolv({
-                  status: stateJourSelect,
-                  i: i,
-                  verificateur: "jours_select"
-                });
-                return;
-              } else {
-                let ii = attri_index + 1;
-                if (ii < this.attri_filters.length) {
-                  resolv(this.loopAttribFilter(i, filter, ii));
-                } else {
+            this.JourSelect(filter.jours_select, index_day).then(
+              stateJourSelect => {
+                if (!stateJourSelect) {
                   resolv({
-                    status: false,
+                    status: stateJourSelect,
                     i: i,
-                    verificateur: this.attri_filters[attri_index]
+                    verificateur: "jours_select"
                   });
+                  return;
+                } else {
+                  let ii = attri_index + 1;
+                  if (ii < this.attri_filters.length) {
+                    resolv(
+                      this.loopAttribFilter(
+                        i,
+                        filter,
+                        app_date_current_en,
+                        app_date_current_string_en,
+                        index_day,
+                        typefilter,
+                        ii,
+                        stateJourSelect
+                      )
+                    );
+                  } else {
+                    resolv({
+                      status: stateJourSelect,
+                      i: i,
+                      verificateur: this.attri_filters[attri_index]
+                    });
+                  }
                 }
               }
-            });
+            );
             break;
           case "date_desactivee":
             this.DateDesactivee(
               i,
               filter.date_desactivee,
-              this.app_date_current_string_en,
-              "creneau"
+              app_date_current_string_en,
+              typefilter
             ).then(stateDateDesactivee => {
               // Si la valeur est true, => la date doit etre desactiver.
               if (stateDateDesactivee) {
@@ -269,10 +284,21 @@ const Filters = {
               } else {
                 let ii = attri_index + 1;
                 if (ii < this.attri_filters.length) {
-                  resolv(this.loopAttribFilter(i, filter, ii));
+                  resolv(
+                    this.loopAttribFilter(
+                      i,
+                      filter,
+                      app_date_current_en,
+                      app_date_current_string_en,
+                      index_day,
+                      typefilter,
+                      ii,
+                      stateDateDesactivee
+                    )
+                  );
                 } else {
                   resolv({
-                    status: false,
+                    status: stateDateDesactivee,
                     i: i,
                     verificateur: this.attri_filters[attri_index]
                   });
@@ -284,9 +310,9 @@ const Filters = {
             this.PeriodeDesactivee(
               i,
               filter.periode_desactivee,
-              this.app_date_current_en,
-              this.app_date_current_string_en,
-              "creneau"
+              app_date_current_en,
+              app_date_current_string_en,
+              typefilter
             ).then(statePeriodeDesactivee => {
               if (statePeriodeDesactivee) {
                 resolv({
@@ -298,10 +324,21 @@ const Filters = {
               } else {
                 let ii = attri_index + 1;
                 if (ii < this.attri_filters.length) {
-                  resolv(this.loopAttribFilter(i, filter, ii));
+                  resolv(
+                    this.loopAttribFilter(
+                      i,
+                      filter,
+                      app_date_current_en,
+                      app_date_current_string_en,
+                      index_day,
+                      typefilter,
+                      ii,
+                      statePeriodeDesactivee
+                    )
+                  );
                 } else {
                   resolv({
-                    status: false,
+                    status: statePeriodeDesactivee,
                     i: i,
                     verificateur: this.attri_filters[attri_index]
                   });
@@ -311,7 +348,7 @@ const Filters = {
             break;
           default:
             resolv({
-              status: false,
+              status: status,
               i: i,
               verificateur: "non definit"
             });
@@ -319,10 +356,21 @@ const Filters = {
       } else {
         let ii = attri_index + 1;
         if (ii < this.attri_filters.length) {
-          resolv(this.loopAttribFilter(i, filter, ii));
+          resolv(
+            this.loopAttribFilter(
+              i,
+              filter,
+              app_date_current_en,
+              app_date_current_string_en,
+              index_day,
+              typefilter,
+              ii,
+              status
+            )
+          );
         } else {
           resolv({
-            status: false,
+            status: status,
             i: i,
             verificateur: "non definit END"
           });

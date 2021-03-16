@@ -1,4 +1,5 @@
-import axios from "axios";
+import { AjaxToastBootStrap as axios } from "wbuutilities";
+
 export default {
   // baseUrl: "http://gestion-tache-new.kksa",
   ModeDebug: true,
@@ -40,14 +41,14 @@ export default {
       metafields: metafields
     });
   },
-  get: function(request, datas = {}) {
+  get: function(request) {
     console.log("ssss");
     return new Promise(resolv => {
       var configs = {
         headers: {}
       };
       axios
-        .get(request, datas, configs)
+        .get(request, configs)
         .then(reponse => {
           console.log("Config get success : ", reponse);
           resolv({ status: true, data: reponse.data, reponse: reponse });
@@ -65,5 +66,11 @@ export default {
     } else {
       return "";
     }
+  },
+  SaveConfigsTest: function(datas) {
+    return axios.post(
+      "/creneaux-shopify/test-config?" + this.GetQuery(),
+      datas
+    );
   }
 };

@@ -291,9 +291,10 @@ export default {
        */
       list_creneaux: [],
       /**
-       * list calendar date
+       * list calendar date, elle gere l'affichage du calendrier.
        */
       list_calander_days: [],
+
       /**
        * current_creneau
        */
@@ -399,7 +400,6 @@ export default {
         "%c rebuild_creneau " + this.type_creneau,
         "background: #22F; color: #FFF"
       );
-      console.log(datas);
       // il faut s'assurrer que les creneaux sont definit avant d'utiliser cette function.
       /**
        * La dateMin cest dans date de depart(heure de depart) + le delai entre les creneaux + ( le delai de latence ).
@@ -602,7 +602,7 @@ export default {
         console.log("dateBorne end");
 
         /**/
-        //
+
         await this.loadCreneauDisable();
         await this.buildHour();
       }
@@ -700,7 +700,6 @@ export default {
           resolvEnd({ status: false, verificateur: "filter empty" });
           return;
         }
-
         const CustomLoop = function(i = 0) {
           return new Promise(resolv => {
             const filter = self.filters[i];
@@ -715,10 +714,14 @@ export default {
                 )
               ) {
                 //Filtres.test_type = self.type_creneau;
-                Filtres.app_date_current_string_en =
-                  self.app_date_current_string_en;
-                Filtres.app_date_current_en = self.app_date_current_en;
-                Filtres.loopAttribFilter(i, filter).then(result => {
+                Filtres.loopAttribFilter(
+                  i,
+                  filter,
+                  self.app_date_current_en,
+                  self.app_date_current_string_en,
+                  self.app_date_current_indice,
+                  "creneau"
+                ).then(result => {
                   resolv(result);
                 });
               } else {
@@ -746,182 +749,7 @@ export default {
         execution();
       });
     },
-    //174
-    ApplyFiltersV0(creneaux_heure_begin, creneaux_heure_end, date_min_string) {
-      var self = this;
-      return new Promise(resolvEnd => {
-        if (self.filters.length === 0) {
-          resolvEnd({ status: false, verificateur: "filter empty" });
-          return;
-        }
 
-        const CustomLoop = function(i = 0) {
-          return new Promise(resolv => {
-            const filter = self.filters[i];
-            if (filter.h_debut !== "" && filter.h_fin !== "") {
-              if (
-                Filtres.HourIntervalContain(
-                  filter.h_debut,
-                  filter.h_fin,
-                  creneaux_heure_begin,
-                  creneaux_heure_end,
-                  date_min_string
-                )
-              ) {
-                if (filter.jours_select.length) {
-                  Filtres.JourSelect(
-                    filter.jours_select,
-                    self.app_date_current_indice
-                  ).then(stateJourSelect => {
-                    if (!stateJourSelect) {
-                      resolv({
-                        status: stateJourSelect,
-                        i: i,
-                        verificateur: "jours_select"
-                      });
-                      return;
-                    } else {
-                      if (filter.date_desactivee.length) {
-                        Filtres.DateDesactivee(
-                          i,
-                          filter.date_desactivee,
-                          self.app_date_current_string_en,
-                          "creneau"
-                        ).then(stateDateDesactivee => {
-                          // Si la valeur est true, => la date doit etre desactiver.
-                          if (stateDateDesactivee) {
-                            resolv({
-                              status: stateDateDesactivee,
-                              i: i,
-                              verificateur: "date_desactivee"
-                            });
-                            return;
-                          } else {
-                            if (filter.periode_desactivee.length) {
-                              Filtres.PeriodeDesactivee(
-                                i,
-                                filter.periode_desactivee,
-                                self.app_date_current_en,
-                                self.app_date_current_string_en,
-                                "creneau"
-                              ).then(statePeriodeDesactivee => {
-                                resolv({
-                                  status: statePeriodeDesactivee,
-                                  i: i,
-                                  verificateur: "periode_desactivee"
-                                });
-                                return;
-                              });
-                            } else {
-                              resolv({
-                                status: stateDateDesactivee,
-                                i: i,
-                                verificateur: "date_desactivee"
-                              });
-                              return;
-                            }
-                          }
-                        });
-                      } else {
-                        resolv({
-                          status: true,
-                          i: i,
-                          verificateur: "jours_select"
-                        });
-                      }
-                    }
-                  });
-                } else if (filter.date_desactivee.length) {
-                  Filtres.DateDesactivee(
-                    i,
-                    filter.date_desactivee,
-                    self.app_date_current_string_en,
-                    "creneau"
-                  ).then(stateDateDesactivee => {
-                    // Si la valeur est true, => la date doit etre desactiver.
-                    if (stateDateDesactivee) {
-                      resolv({
-                        status: stateDateDesactivee,
-                        i: i,
-                        verificateur: "date_desactivee"
-                      });
-                      return;
-                    } else {
-                      if (filter.periode_desactivee.length) {
-                        Filtres.PeriodeDesactivee(
-                          i,
-                          filter.periode_desactivee,
-                          self.app_date_current_en,
-                          self.app_date_current_string_en,
-                          "creneau"
-                        ).then(statePeriodeDesactivee => {
-                          resolv({
-                            status: statePeriodeDesactivee,
-                            i: i,
-                            verificateur: "periode_desactivee"
-                          });
-                          return;
-                        });
-                      } else {
-                        resolv({
-                          status: stateDateDesactivee,
-                          i: i,
-                          verificateur: "date_desactivee"
-                        });
-                        return;
-                      }
-                    }
-                  });
-                } else if (filter.periode_desactivee.length) {
-                  Filtres.PeriodeDesactivee(
-                    i,
-                    filter.periode_desactivee,
-                    self.app_date_current_en,
-                    self.app_date_current_string_en,
-                    "creneau"
-                  ).then(statePeriodeDesactivee => {
-                    resolv({
-                      status: statePeriodeDesactivee,
-                      i: i,
-                      verificateur: "periode_desactivee"
-                    });
-                    return;
-                  });
-                } else {
-                  resolv({
-                    status: false,
-                    i: i,
-                    verificateur: "plage_heure"
-                  });
-                }
-              } else {
-                resolv({ status: false, i: i, verificateur: "plage_heure" });
-              }
-            } else {
-              resolv({ status: false, i: i, verificateur: "nothing" });
-            }
-          });
-        };
-
-        const execution = (i = 0) => {
-          CustomLoop(i).then(result => {
-            var ii = result.i + 1;
-            if (result.status) {
-              //Filtres.saveData(result, i, self.app_date_current_string_en);
-              resolvEnd(result);
-              return;
-            } else if (self.filters[ii]) {
-              execution(ii);
-            } else {
-              //Filtres.saveData(result, i, self.app_date_current_string_en);
-              resolvEnd(result);
-              return;
-            }
-          });
-        };
-        execution();
-      });
-    },
     /**
      * Permet de detecter si une plage doit etre desactiver
      * @param creneaux_heure_begin moment()
@@ -1193,6 +1021,7 @@ export default {
                   : false,
               status: stateValidationDay.status
             });
+
             calander_day_min.add(1, "days");
             resolve(self.getPlageDate(calander_day_min, calender_day_max));
           });
@@ -1203,9 +1032,117 @@ export default {
     },
 
     /**
+     * @param date object moment
      * Return true si la date doit etre desactivée, et false sinon.
      */
     ValidationDay(date) {
+      var self = this;
+      return new Promise(resolvEnd => {
+        var index_day = date.day();
+
+        // Desactivation du jour avant la date min.
+        if (date.diff(self.app_date_current, "minutes") < 0) {
+          resolvEnd({ status: true, custom_class: "default-disable" });
+        }
+        // Desactivation du jour en function des jours selectionnées.
+        else if (
+          self.jour_desactivee.length &&
+          self.jour_desactivee.includes(index_day)
+        ) {
+          resolvEnd({ status: true, custom_class: "jour_desactivee" });
+          return;
+        } else if (self.filters.length === 0) {
+          resolvEnd({ status: false, custom_class: "filter empty" });
+          return;
+        } else {
+          resolvEnd(self.DisableDateByfilter(date));
+          // Desactivation du jour en function des filtres.
+          /*
+          const CustomLoop = function(i = 0) {
+            return new Promise(resolv => {
+              const filter = self.filters[i];
+              if (filter.h_debut.length === 0 && filter.h_fin.length === 0) {
+                Filtres.loopAttribFilter(
+                  i,
+                  filter,
+                  app_date_current_en,
+                  app_date_current_string_en,
+                  index_day,
+                  "date"
+                ).then(result => {
+                  resolv(result);
+                });
+              } else {
+                resolv({ status: false, i: i, custom_class: "nothing" });
+              }
+            });
+          };
+          const execution = (i = 0) => {
+            CustomLoop(i).then(result => {
+              var ii = result.i + 1;
+              if (result.status) {
+                resolvEnd(result);
+                return;
+              } else if (self.filters[ii]) {
+                execution(ii);
+              } else {
+                resolvEnd(result);
+                return;
+              }
+            });
+          };
+          execution();
+          /**/
+        }
+      });
+    },
+    DisableDateByfilter(date) {
+      var self = this;
+      return new Promise(resolvEnd => {
+        var index_day = date.day();
+        var app_date_current_string_en = date.format("YYYY-MM-DD");
+        var app_date_current_en = moment(
+          app_date_current_string_en,
+          "YYYY-MM-DD"
+        );
+        // Desactivation du jour en function des filtres.
+        const CustomLoop = function(i = 0) {
+          return new Promise(resolv => {
+            const filter = self.filters[i];
+            if (filter.h_debut.length === 0 && filter.h_fin.length === 0) {
+              Filtres.loopAttribFilter(
+                i,
+                filter,
+                app_date_current_en,
+                app_date_current_string_en,
+                index_day,
+                "date"
+              ).then(result => {
+                resolv(result);
+              });
+            } else {
+              resolv({ status: false, i: i, custom_class: "nothing" });
+            }
+          });
+        };
+        const execution = (i = 0) => {
+          CustomLoop(i).then(result => {
+            var ii = result.i + 1;
+            if (result.status) {
+              resolvEnd(result);
+              return;
+            } else if (self.filters[ii]) {
+              execution(ii);
+            } else {
+              resolvEnd(result);
+              return;
+            }
+          });
+        };
+        execution();
+      });
+    },
+    ValidationDay_0(date) {
       var self = this;
       return new Promise(resolvEnd => {
         var index_day = date.day();
@@ -1347,9 +1284,15 @@ export default {
       );
       /**/
       var date_utile = await this.getDayUtilisable(date);
+      if (this.type_creneau === "livraison") {
+        console.log(
+          "getDayUtilisable",
+          date_utile.format("DD-MM-YYYY HH:mm:ss")
+        );
+      }
+
       if (date_utile) {
         self.app_date_current = date_utile;
-
         self.dateBorne();
         return date_utile;
       }
@@ -1368,7 +1311,7 @@ export default {
      * - test_date_desactivee
      * @return un object moment (complet jour, mois, année, heure, mn, s)
      */
-    async getDayUtilisable(date, provider = null) {
+    getDayUtilisable(date, provider = null) {
       var self = this;
       return new Promise(function(resolve, reject) {
         //console.log("getDayUtilisable debut", "provider : ", provider);
@@ -1383,7 +1326,7 @@ export default {
           return false;
         }
         var index_day_week = date.day();
-        var date_string = moment(date).format("DD-MM-YYYY");
+        //var date_string = date.format("YYYY-MM-DD");
         /*var date_string =
           date.date() + "-" + (date.month() + 1) + "-" + date.year();/**/
         // la date ne doit pas etre un jour de la semaine desactive.
@@ -1397,8 +1340,31 @@ export default {
           // on passe au suivant.
           date.add(1, "days");
           resolve(self.getDayUtilisable(date, "jour desactivée"));
+        } else {
+          self.DisableDateByfilter(date).then(Filter => {
+            if (Filter.status) {
+              self.test_date_desactivee++;
+              date.add(1, "days");
+              resolve(self.getDayUtilisable(date, "date desactivée"));
+            }
+            // on applique egalement le decallage.
+            else if (
+              self.app_delai_jour &&
+              self.app_delai_jour > self.test_delai_jour
+            ) {
+              //console.log("delai : ", self.app_delai_jour);
+              //console.log("interval : ", self.app_interval);
+              self.test_delai_jour++;
+              date.add(1, "days");
+              resolve(self.getDayUtilisable(date, "delai jour"));
+            } else {
+              //console.log("getDayUtilisable end", "provider : ", provider);
+              resolve(date);
+            }
+          });
         }
         // la date ne doit pas etre un jour explicitement desactivé.
+        /*
         else if (
           self.date_desactivee.length &&
           self.date_desactivee.includes(date_string)
@@ -1421,33 +1387,10 @@ export default {
           //console.log("getDayUtilisable end", "provider : ", provider);
           resolve(date);
         }
+        /**/
       });
     },
-    /**
-     * Pour valider la date du jour
-     * @depreciate à supprimer avec toutes variables incluses.
-     */
-    validation_day__(date) {
-      var self = this;
-      var status = true;
-      var index_day_week = date.day();
-      var date_string = moment(date).format("DD-MM-YYYY");
-      if (
-        self.jour_desactivee.length &&
-        self.jour_desactivee.includes(index_day_week)
-      ) {
-        status = false;
-        return status;
-      } else if (
-        self.date_desactivee.length &&
-        self.date_desactivee.includes(date_string)
-      ) {
-        status = false;
-        return status;
-      } else {
-        return status;
-      }
-    },
+
     plage_creneau({ begin, end }) {
       return `${begin} - ${end}`;
     },
@@ -1481,7 +1424,6 @@ export default {
       }
     },
     async select_date(date, i) {
-      console.log(date);
       if (!date.status) {
         this.app_date_current = moment(date.date_string, "DD-MM-YYYY");
         // on applique le reste du temps.( fourni par l'initialisation du syteme ).
@@ -1532,6 +1474,9 @@ export default {
         date_string: this.app_date_current.format("DD-MM-YYYY HH:mm:ss")
       });
     },
+    /**
+     * le chargement doit se faire à l'exterieur et de mainere unique.
+     */
     loadCreneauDisable: function() {
       var self = this;
       return new Promise(resolve => {
@@ -1541,26 +1486,17 @@ export default {
           encodeURIComponent(self.app_date_current.format("YYYY-MM-DD"));
         url += "&limit_creneau=" + self.nombre_res_creneau;
         url += "&type=" + self.type_creneau;
-        $.getJSON(url, function(datas, textStatus) {
-          console.log(
-            "LoadCreneauDisable datas :  ",
-            self.type_creneau,
-            " : ",
-            datas
-          );
-          if (textStatus) {
+        $.ajax({
+          dataType: "json",
+          url: url,
+          timeout: 5000,
+          success: function(datas) {
             self.disable_heuredate_limit = datas;
             resolve(true);
-          } else {
-            self.disable_heuredate_limit = [];
+          },
+          error: function() {
             resolve(false);
           }
-        }).fail(function() {
-          console.log(
-            "Impossible de recuperer les données sur le site : ",
-            self.url_get_creneau
-          );
-          resolve(false);
         });
       });
     }

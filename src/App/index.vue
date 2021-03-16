@@ -709,8 +709,6 @@ export default {
       });
     },
     ev_change_type_livraison(datas) {
-      console.log("ev_change_type_livraison : ", datas);
-      //console.log("this.VueCollecte", this.VueCollecte);
       //on MAJ la livraison à partir des valeurs de types de livraiosns.
       this.TypeLivraison = datas;
       //on MAJ la collecte à partir des valeurs de types de livraiosns.

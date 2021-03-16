@@ -1,12 +1,12 @@
 <template lang="html">
-  <div class="container my-4 app-admin">
+  <div class="container my-4 app-admin border py-4 px-5 bg-white">
     <h3>Configuration de l'application</h3>
     <div class="my-4">
       <b-tabs content-class="my-3">
-        <b-tab title="Configuration de base">
+        <b-tab title="Configuration de base" active>
           <CreneauBase :creneau_configs="creneau_configs"></CreneauBase>
         </b-tab>
-        <b-tab title="Configuration des creneaux et dates" active>
+        <b-tab title="Configuration des creneaux et dates">
           <CreneauFilters
             :filters="creneau_filters"
             :jours-active="joursActive"
@@ -22,7 +22,7 @@
       <div class="d-flex justify-content-end">
         <b-button
           size="sm"
-          @click="DeleteData"
+          @click="ResetConfigTest"
           variant="outline-info"
           class="mr-2"
         >
@@ -30,21 +30,30 @@
         </b-button>
 
         <!--
-          Le bouton preview enregistre les données dans localStorage.
+          Le bouton  enregistre les données dans localStorage.
         -->
         <b-button
           size="sm"
-          @click="Preview"
+          @click="SaveConfigTestReload"
           variant="outline-info"
           class="mr-2"
         >
           Voir l'aperçu
         </b-button>
         <hr />
-        <b-button size="sm" @click="load" variant="outline-info" class="mr-2">
+        <b-button
+          size="sm"
+          @click="loadMetafieldConfig"
+          variant="outline-info"
+          class="mr-2"
+        >
           Charge la config de production
         </b-button>
-        <b-button size="sm" @click="save" variant="outline-success">
+        <b-button
+          size="sm"
+          @click="SaveMetafieldConfig"
+          variant="outline-success"
+        >
           Enregistrer en production
         </b-button>
       </div>
@@ -102,18 +111,18 @@ export default {
     }
   },
   methods: {
-    resetDatas() {
+    async resetDatas() {
       this.creneau_configs = Utilities.DefaultCreneauConfigs();
       this.creneau_filters = [Utilities.filter()];
       this.creneau_types = Utilities.DefaultCreneauTypes();
     },
-    BuildDays() {
+    async BuildDays() {
       if (this.creneau_configs.days && this.creneau_configs.days.length == 0)
         Utilities.JourInfos().forEach(item => {
           this.creneau_configs.days.push(item);
         });
     },
-    save() {
+    SaveMetafieldConfig() {
       configs.saveMetaFields([
         {
           key: "creneau_configs",
@@ -124,55 +133,119 @@ export default {
           key: "creneau_filters",
           value: this.creneau_filters,
           value_type: "json_string"
+        },
+        {
+          key: "creneau_types",
+          value: this.creneau_types,
+          value_type: "json_string"
         }
       ]);
     },
-    Preview() {
-      localStorage.setItem(
-        "creneau_configs",
-        JSON.stringify(this.creneau_configs)
-      );
-      localStorage.setItem(
-        "creneau_filters",
-        JSON.stringify(this.creneau_filters)
-      );
-      localStorage.setItem("creneau_types", JSON.stringify(this.creneau_types));
-      window.location.reload();
+    SaveConfigTestReload() {
+      if (
+        window.location.host === "localhost:8080" &&
+        typeof localStorage !== "undefined"
+      ) {
+        localStorage.setItem(
+          "creneau_configs",
+          JSON.stringify(this.creneau_configs)
+        );
+        localStorage.setItem(
+          "creneau_filters",
+          JSON.stringify(this.creneau_filters)
+        );
+        localStorage.setItem(
+          "creneau_types",
+          JSON.stringify(this.creneau_types)
+        );
+        window.location.reload();
+      } else {
+        configs
+          .SaveConfigsTest({
+            creneau_configs: this.creneau_configs,
+            creneau_filters: this.creneau_filters,
+            creneau_types: this.creneau_types
+          })
+          .then(() => {
+            window.location.reload();
+          });
+      }
     },
-    DeleteData() {
-      localStorage.removeItem("creneau_configs");
-      localStorage.removeItem("creneau_filters");
-      localStorage.removeItem("creneau_types");
+    /**
+     * re-initialise la configuration et l'enregistre en DB pour les tests.
+     */
+    async ResetConfigTest() {
+      if (
+        window.location.host === "localhost:8080" &&
+        typeof localStorage !== "undefined"
+      ) {
+        localStorage.removeItem("creneau_configs");
+        localStorage.removeItem("creneau_filters");
+        localStorage.removeItem("creneau_types");
+      }
       //load default datas
-      this.resetDatas();
-      this.loadDefaultDatas();
-      window.location.reload();
+      await this.resetDatas();
+      await this.loadDefaultDatas();
+      this.SaveConfigTestReload();
     },
-    load() {
-      configs.post("/app/creneaux/shopify/request/LoadMetafields", {
-        endPoint: "/admin/metafields.json"
-      });
+    loadMetafieldConfig() {
+      configs
+        .post("/app/creneaux/shopify/request/LoadMetafields", {
+          endPoint: "/admin/metafields.json"
+        })
+        .then(reponse => {
+          var StoreHasConfig = false;
+          if (reponse.status && reponse.data.metafields) {
+            for (const i in reponse.data.metafields) {
+              const metafield = reponse.data.metafields[i];
+              if (metafield.namespace === "wbu_creneaux") {
+                StoreHasConfig = true;
+                switch (metafield.key) {
+                  case "creneau_configs":
+                    this.creneau_configs = JSON.parse(metafield.value);
+                    break;
+                  case "creneau_filters":
+                    this.creneau_filters = JSON.parse(metafield.value);
+                    break;
+                  case "creneau_types":
+                    this.creneau_types = JSON.parse(metafield.value);
+                    break;
+                }
+              }
+              var ii = parseInt(i) + 1;
+              if (ii === reponse.data.metafields.length && !StoreHasConfig) {
+                this.LoadValues();
+              }
+            }
+          } else {
+            this.LoadValues();
+          }
+        });
     },
-    LoadValues() {
-      var creneau_configs = JSON.parse(localStorage.getItem("creneau_configs"));
+    async LoadValues() {
+      var StoreHasTestConfig = false;
+      var creneau_configs = window.creneau_configs;
       if (creneau_configs && creneau_configs.days) {
         this.creneau_configs = creneau_configs;
+        StoreHasTestConfig = true;
       }
       //
-      var creneau_types = JSON.parse(localStorage.getItem("creneau_types"));
+      var creneau_types = window.creneau_types;
       if (creneau_types && creneau_types.typelivraison) {
         this.creneau_types = creneau_types;
       }
       //
-      var creneau_filters = JSON.parse(localStorage.getItem("creneau_filters"));
+      var creneau_filters = window.creneau_filters;
       if (creneau_filters && creneau_filters.length) {
         this.creneau_filters = creneau_filters;
       }
-      //load default datas
+      if (!StoreHasTestConfig) {
+        await this.resetDatas();
+      }
       this.loadDefaultDatas();
     },
-    loadDefaultDatas() {
-      this.BuildDays();
+    async loadDefaultDatas() {
+      await this.BuildDays();
     }
   }
 };
