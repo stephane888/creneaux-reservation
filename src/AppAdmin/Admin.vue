@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="container my-4 app-admin border py-4 px-5 bg-white">
+  <div class="container my-4 app-admin border py-4 px-5">
     <h3>Configuration de l'application</h3>
     <div class="my-4">
       <b-tabs content-class="my-3">
@@ -252,6 +252,18 @@ export default {
 </script>
 
 <style lang="scss">
+$color_bg: #f3f3f3;
+.creneaux-mbt {
+  .first-block {
+    background-color: #fff !important;
+    padding: 0em 2em 2em 2em;
+    border: 1px solid #eee;
+  }
+
+  .app-admin {
+    background-color: $color_bg !important;
+  }
+}
 .app-admin {
   @import "~bootstrap/scss/bootstrap.scss";
   @import "~bootstrap-vue/src/index.scss";
