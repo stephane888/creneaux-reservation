@@ -29,24 +29,13 @@
       <div
         class=" row list-inline mt-3 ml-md-4 font-weight-bold type-livraison"
       >
-        <div
-          v-for="(texte, index) in active_type_body"
-          class="list-inline-item col-md-4"
-          :key="index"
-        >
-          <p>{{ remplace(texte, index) }}</p>
-        </div>
+        <div class="list-inline-item col-md-8" v-html="active_type_body"></div>
         <div
           class="list-inline-item col-md-4"
           v-if="active_type && active_type.montant"
         >
           <p>
-            <span v-if="active_type.montant != '0'">
-              Frais de livraison: {{ active_type.montant }}€</span
-            >
-            <span v-if="active_type.montant == '0'"
-              >Frais de livraison : Gratuit</span
-            >
+            <span> {{ formatString(active_type.montant_libele) }} </span>
           </p>
         </div>
       </div>
@@ -155,24 +144,21 @@ export default {
     this.setEvent();
   },
   methods: {
-    remplace(texte, index) {
+    /*
+    remplace(texte, index = 0) {
       var rep = "";
       if (index == 0) {
         rep = this.active_type.creneau;
       } else if (index == 1) {
         rep = this.active_type.delai_override * 24;
-        console.log(
-          "this.active_type.delai_override",
-          this.active_type.delai_override
-        );
       }
       this.active_type;
       return texte.replace("XXXX", rep);
     },
+    /**/
     open_map() {
       //trigger open map
       console.log("Trigger open map");
-
       $("#trigger-simple-map3map-google-field").trigger("click");
     },
     getValuesAdress() {
@@ -215,7 +201,7 @@ export default {
     },
     display_prise: function(price) {
       if (price == 0) {
-        return "+0€"; //'FREE';
+        return "+0€";
       } else {
         return "+" + price + "€";
       }
@@ -235,6 +221,20 @@ export default {
       $(document).on("adresseUpdate", function() {
         self.getValuesAdress();
       });
+    },
+    formatString(str) {
+      var regex = /\{\{(.*?)\}\}/g;
+      let found;
+      var int = 0;
+      while ((found = regex.exec(str)) !== null && int < 10) {
+        int++;
+        var attr = found[1].trim(" ");
+        str = str.replace(
+          found[0],
+          this.active_type[attr] ? this.active_type[attr] : "..."
+        );
+      }
+      return str;
     }
   },
   computed: {
@@ -244,9 +244,9 @@ export default {
     active_type_body: {
       get() {
         if (this.active_type && this.active_type.body) {
-          return this.active_type.body;
+          return this.formatString(this.active_type.body);
         } else {
-          return [];
+          return "";
         }
       }
     }

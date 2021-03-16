@@ -6,9 +6,16 @@
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+<<<<<<< HEAD
     "CreneauxProd": "vue-cli-service build --mode production --dest files/prod --target lib --name AppCreneaux 'src/Creneaux.vue'",
     "CreneauxDev": "vue-cli-service build --mode development --dest files/Dev --target lib --name AppCreneaux 'src/Creneaux.vue'",
     "CreneauxConfigsDev": "vue-cli-service build --mode development --dest files/AppAll --target lib --name AppAllCreneaux 'src/main.js'"
+=======
+    "CreneauxProd": "vue-cli-service build --mode production --dest files/prod --target lib --name AppCreneaux 'src/app_main.js'",
+    "CreneauxDev": "vue-cli-service build --mode development --dest files/Dev --target lib --name AppCreneaux 'src/app_main.js'",
+    "CreneauxConfigsDev": "vue-cli-service build --mode development --dest files/AppAll --target lib --name AppAllCreneaux 'src/main.js'",
+    "CreneauxConfigsProd": "vue-cli-service build --mode development --dest files/AppAll --target lib --name AppAllCreneaux 'src/main.js'"
+>>>>>>> pre_production
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -19,7 +26,8 @@
     "sass-loader": "^10.1.1",
     "vue": "^2.6.12",
     "vue-loading-template": "^1.3.2",
-    "vue-multiselect": "^2.1.6"
+    "vue-multiselect": "^2.1.6",
+    "wbuutilities": "file:../wbuutilities"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

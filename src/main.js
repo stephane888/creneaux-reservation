@@ -55,6 +55,25 @@ window.creneau_heures = {
   heureday: []
 };
 
+<<<<<<< HEAD
+=======
+/**
+ *  On place les données pour la configuration preview.
+ */
+if (
+  window.location.host === "localhost:8080" &&
+  typeof localStorage !== "undefined"
+) {
+  // Chargment de la configuration de base.
+  window.creneau_configs = JSON.parse(localStorage.getItem("creneau_configs"));
+
+  // Chargement du type de livraison.
+  window.creneau_types = JSON.parse(localStorage.getItem("creneau_types"));
+
+  // Chargement du type de livraison.
+  window.creneau_filters = JSON.parse(localStorage.getItem("creneau_filters"));
+}
+>>>>>>> pre_production
 //
 import Vue from "vue";
 import App from "./App.vue";

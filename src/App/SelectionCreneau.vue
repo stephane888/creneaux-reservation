@@ -19,6 +19,7 @@
       :url_get_creneau="url_get_creneau"
       :type_creneau="'collecte'"
       :deccalage_creneau_depart="collecte_deccalage_creneau_depart"
+      :filters="filters"
       ref="collecte"
       @ev_select_current_creneau="ev_select_current_creneau_collecte"
     ></creneau>
@@ -40,6 +41,7 @@
       :disable_heuredate="disable_heuredate"
       :url_get_creneau="url_get_creneau"
       :type_creneau="'livraison'"
+      :filters="filters"
       ref="livraison"
       @ev_select_current_creneau="ev_select_current_creneau_livraison"
     ></creneau>
@@ -128,6 +130,9 @@ export default {
     },
     livraison_current_date: {
       type: Object
+    },
+    filters: {
+      type: Array
     }
   },
   components: {

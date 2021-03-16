@@ -46,6 +46,7 @@
                 :disable_heureday="disable_heureday"
                 :disable_heuredate="disable_heuredate"
                 :url_get_creneau="url_get_creneau"
+                :filters="filters"
                 ref="selectionhoraire"
                 @ev_creneau_collecte="ev_creneau_collecte"
                 @ev_creneau_livraison="ev_creneau_livraison"
@@ -249,6 +250,9 @@ export default {
     app_env_prod: {
       type: Boolean,
       default: true
+    },
+    filters: {
+      type: Array
     }
   },
   components: {
@@ -709,8 +713,6 @@ export default {
       });
     },
     ev_change_type_livraison(datas) {
-      console.log("ev_change_type_livraison : ", datas);
-      //console.log("this.VueCollecte", this.VueCollecte);
       //on MAJ la livraison à partir des valeurs de types de livraiosns.
       this.TypeLivraison = datas;
       //on MAJ la collecte à partir des valeurs de types de livraiosns.

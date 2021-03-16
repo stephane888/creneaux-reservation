@@ -26,7 +26,7 @@
         <div class="d-flex flex-wrap ">
           <div
             class="d-flex mr-3"
-            v-for="(input, index) in creneau_configs.heures"
+            v-for="(input, index) in creneau_configs.days"
             :key="index"
           >
             <b-form-group>
@@ -62,6 +62,23 @@
           class="mb-2"
         ></b-form-input>
       </b-form-group>
+
+      <b-form-group label="Titre de l'application">
+        <b-form-input
+          v-model="creneau_configs.title"
+          placeholder="titre du block"
+          class="mb-2"
+        ></b-form-input>
+      </b-form-group>
+      <b-form-group
+        label="Decallage entre l'heure reelle et le premier creneau (en minutes)"
+      >
+        <b-form-input
+          v-model.number="creneau_configs.deccalage_creneau_depart"
+          type="number"
+          class="mb-2"
+        ></b-form-input>
+      </b-form-group>
     </b-form>
   </div>
 </template>
@@ -86,27 +103,10 @@ export default {
     //
   },
   data() {
-    return {
-      jourInfo: [
-        { text: "Lundi", value: 1, debut: "7:30", fin: "21:30", indice: 1 },
-        { text: "Mardi", value: 1, debut: "7:30", fin: "21:30", indice: 2 },
-        { text: "Mercredi", value: 1, debut: "7:30", fin: "21:30", indice: 3 },
-        { text: "Jeudi", value: 1, debut: "7:30", fin: "21:30", indice: 4 },
-        { text: "Vendredi", value: 1, debut: "7:30", fin: "21:30", indice: 5 },
-        { text: "Samedi", value: 1, debut: "7:30", fin: "21:30", indice: 6 },
-        { text: "Dimanche", value: 0, debut: "7:30", fin: "21:30", indice: 0 }
-      ]
-      /*
-      creneau_configs: {
-        days: [],
-        heures: []
-      }
-      /**/
-    };
+    return {};
   },
   mounted() {
-    this.BuildDays();
-    this.BuildHaure();
+    //
   },
   watch: {
     //
@@ -115,14 +115,7 @@ export default {
     //
   },
   methods: {
-    BuildDays() {
-      this.jourInfo.forEach(item => {
-        this.creneau_configs.days.push(item);
-      });
-    },
-    BuildHaure() {
-      this.creneau_configs.heures = this.jourInfo;
-    }
+    //
   }
 };
 </script>

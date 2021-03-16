@@ -84,7 +84,7 @@
           :key="i"
           :class="[
             'date',
-            date.status ? 'actif' : 'disable',
+            date.status ? 'disable' : 'actif',
             date.custom_class,
             date.select ? 'selected' : ''
           ]"
@@ -117,8 +117,10 @@ if (window.jQuery) {
 if (window.moment) {
   var moment = window.moment;
 }
+//import configSite from "./config.js";
 import AdvancedSelect from "vue-multiselect";
 import SvgCalandar from "./SvgCalandar.vue";
+import Filtres from "./Filtres.js";
 
 export default {
   name: "SelectionHoraire",
@@ -251,6 +253,14 @@ export default {
     deccalage_creneau_depart: {
       type: Number,
       default: 0
+    },
+    /**
+     * Cette variable contient les données permettant d'appliquer des modifications avant le rendu des creneaux et jours.
+     * example: desactivé un creneau, une date, une plage de date, en function de certains critaires.
+     */
+    filters: {
+      type: Array,
+      required: true
     }
   },
   data() {
@@ -281,9 +291,10 @@ export default {
        */
       list_creneaux: [],
       /**
-       * list calendar date
+       * list calendar date, elle gere l'affichage du calendrier.
        */
       list_calander_days: [],
+
       /**
        * current_creneau
        */
@@ -389,7 +400,6 @@ export default {
         "%c rebuild_creneau " + this.type_creneau,
         "background: #22F; color: #FFF"
       );
-      console.log(datas);
       // il faut s'assurrer que les creneaux sont definit avant d'utiliser cette function.
       /**
        * La dateMin cest dans date de depart(heure de depart) + le delai entre les creneaux + ( le delai de latence ).
@@ -434,6 +444,9 @@ export default {
     }
   },
   computed: {
+    /**
+     * Date affiché.
+     */
     app_date_display: {
       get() {
         if (this.app_date_current != "") {
@@ -443,6 +456,25 @@ export default {
         }
         return "";
       }
+    },
+    /**
+     * for test
+     */
+    /*
+    app_date_current_display() {
+      if (this.app_date_current != "") {
+        return this.app_date_current.format("DD-MM-YYYY HH:mm:ss");
+      }
+      return "";
+    },
+    /**
+     * indice du jour.
+     */
+    app_date_current_indice() {
+      if (this.app_date_current != "") {
+        return this.app_date_current.day();
+      }
+      return "";
     },
     calandar_title: {
       get() {
@@ -471,6 +503,21 @@ export default {
       get() {
         return this.app_date_current.format("DD-MM-YYYY");
       }
+    },
+    /**
+     * format de date en anglais, utile pour l'app.
+     */
+    app_date_current_string_en: {
+      get() {
+        return this.app_date_current.format("YYYY-MM-DD");
+      }
+    },
+    /**
+     * date de l'application sans les heure et les minutes.
+     * Utiliser pour effectuer les calculs liée à la date.
+     */
+    app_date_current_en() {
+      return moment(this.app_date_current_string_en, "YYYY-MM-DD");
     },
     /**
      * Date la plus petite de l'application.
@@ -541,7 +588,7 @@ export default {
         this.date_max.hours(h_fin);
         this.date_max.minutes(m_fin);
         this.date_max.seconds(0);
-
+        /*
         console.log(
           "default date : ",
           this.app_date_current.format("DD-MM-YYYY HH:mm:ss"),
@@ -553,8 +600,9 @@ export default {
           this.date_max.format("DD-MM-YYYY HH:mm:ss")
         );
         console.log("dateBorne end");
+
         /**/
-        //
+
         await this.loadCreneauDisable();
         await this.buildHour();
       }
@@ -603,13 +651,25 @@ export default {
         ).add(self.app_delai_next_creneau, "minutes");
         bloc_date.begin = date_time.format("HH:mm");
         //
-        // on pourra ajouter un delai à ce niveau.
         self
           .checkIsCreneauValide(date_time, date_time_end, date_min_string)
-          .then(function(valeur) {
+          .then(async function(valeur) {
+            // la date est desactivé.
             if (valeur.status) {
               bloc_date.$isDisabled = true;
               bloc_date.checkstatus = valeur.verificateur;
+            } else {
+              // on patiente le temps de la verification.
+              const filter = await self.ApplyFilters(
+                date_time,
+                date_time_end,
+                date_min_string
+              );
+
+              if (filter.status) {
+                bloc_date.$isDisabled = filter.status;
+                bloc_date.checkstatus = filter.verificateur;
+              }
             }
 
             if (self.date_max.diff(date_time_end, "minutes") >= 0) {
@@ -629,6 +689,67 @@ export default {
           });
       });
     },
+    /**
+     * Applique le filtre sur chaque creneau ou chaque date.
+     * On retourne true si le creneau doit etre desactiver.
+     */
+    ApplyFilters(creneaux_heure_begin, creneaux_heure_end, date_min_string) {
+      var self = this;
+      return new Promise(resolvEnd => {
+        if (self.filters.length === 0) {
+          resolvEnd({ status: false, verificateur: "filter empty" });
+          return;
+        }
+        const CustomLoop = function(i = 0) {
+          return new Promise(resolv => {
+            const filter = self.filters[i];
+            if (filter.h_debut !== "" && filter.h_fin !== "") {
+              if (
+                Filtres.HourIntervalContain(
+                  filter.h_debut,
+                  filter.h_fin,
+                  creneaux_heure_begin,
+                  creneaux_heure_end,
+                  date_min_string
+                )
+              ) {
+                //Filtres.test_type = self.type_creneau;
+                Filtres.loopAttribFilter(
+                  i,
+                  filter,
+                  self.app_date_current_en,
+                  self.app_date_current_string_en,
+                  self.app_date_current_indice,
+                  "creneau"
+                ).then(result => {
+                  resolv(result);
+                });
+              } else {
+                resolv({ status: false, i: i, verificateur: "plage_heure" });
+              }
+            } else {
+              resolv({ status: false, i: i, verificateur: "nothing" });
+            }
+          });
+        };
+        const execution = (i = 0) => {
+          CustomLoop(i).then(result => {
+            var ii = result.i + 1;
+            if (result.status) {
+              resolvEnd(result);
+              return;
+            } else if (self.filters[ii]) {
+              execution(ii);
+            } else {
+              resolvEnd(result);
+              return;
+            }
+          });
+        };
+        execution();
+      });
+    },
+
     /**
      * Permet de detecter si une plage doit etre desactiver
      * @param creneaux_heure_begin moment()
@@ -762,18 +883,6 @@ export default {
             var date_min = moment(self.app_date_string, "DD-MM-YYYY HH:mm:ss");
             date_min.add(self.deccalage_creneau_depart, "minutes");
             var diff = creneaux_heure_begin.diff(date_min, "minutes");
-            /*
-            console.log(
-              "Diff : ",
-              diff,
-              "\n self.app_date_string : ",
-              self.app_date_string,
-              "\n date_min_string ",
-              date_min_string,
-              "\n date depart + decallage",
-              moment(date_min).format("DD-MM-YYYY HH:mm:ss")
-            );
-            /**/
             if (diff < 0) {
               resolve(true);
             } else {
@@ -897,29 +1006,25 @@ export default {
           reject(false);
           return false;
         }
-        //on verifie si la date est inferieur à la date de base de l'application. app_date_current.
-        var status = true;
-        var custom_class = "";
-        if (calander_day_min.diff(self.app_date_current, "minutes") < 0) {
-          status = false;
-          custom_class = "default-disable";
-        }
+
         if (calander_day_min.diff(calender_day_max, "days")) {
-          self.list_calander_days.push({
-            date_string: calander_day_min.format("DD-MM-YYYY"),
-            day_french: calander_day_min.locale("fr").format("Do <br /> MMM"),
-            date_month: calander_day_min.locale("fr").format("DD"),
-            custom_class: custom_class,
-            select:
-              calander_day_min.format("DD-MM-YYYY") ==
-              self.app_date_current_string
-                ? true
-                : false,
-            status:
-              status && self.validation_day(calander_day_min) ? true : false
+          self.ValidationDay(calander_day_min).then(stateValidationDay => {
+            self.list_calander_days.push({
+              date_string: calander_day_min.format("DD-MM-YYYY"),
+              day_french: calander_day_min.locale("fr").format("Do <br /> MMM"),
+              date_month: calander_day_min.locale("fr").format("DD"),
+              custom_class: stateValidationDay.custom_class,
+              select:
+                calander_day_min.format("DD-MM-YYYY") ==
+                self.app_date_current_string
+                  ? true
+                  : false,
+              status: stateValidationDay.status
+            });
+
+            calander_day_min.add(1, "days");
+            resolve(self.getPlageDate(calander_day_min, calender_day_max));
           });
-          calander_day_min.add(1, "days");
-          resolve(self.getPlageDate(calander_day_min, calender_day_max));
         } else {
           resolve(true);
         }
@@ -927,13 +1032,234 @@ export default {
     },
 
     /**
-     * function appalle uniquement à l'initialisation des creneaux.
+     * @param date object moment
+     * Return true si la date doit etre desactivée, et false sinon.
+     */
+    ValidationDay(date) {
+      var self = this;
+      return new Promise(resolvEnd => {
+        var index_day = date.day();
+
+        // Desactivation du jour avant la date min.
+        if (date.diff(self.app_date_current, "minutes") < 0) {
+          resolvEnd({ status: true, custom_class: "default-disable" });
+        }
+        // Desactivation du jour en function des jours selectionnées.
+        else if (
+          self.jour_desactivee.length &&
+          self.jour_desactivee.includes(index_day)
+        ) {
+          resolvEnd({ status: true, custom_class: "jour_desactivee" });
+          return;
+        } else if (self.filters.length === 0) {
+          resolvEnd({ status: false, custom_class: "filter empty" });
+          return;
+        } else {
+          resolvEnd(self.DisableDateByfilter(date));
+          // Desactivation du jour en function des filtres.
+          /*
+          const CustomLoop = function(i = 0) {
+            return new Promise(resolv => {
+              const filter = self.filters[i];
+              if (filter.h_debut.length === 0 && filter.h_fin.length === 0) {
+                Filtres.loopAttribFilter(
+                  i,
+                  filter,
+                  app_date_current_en,
+                  app_date_current_string_en,
+                  index_day,
+                  "date"
+                ).then(result => {
+                  resolv(result);
+                });
+              } else {
+                resolv({ status: false, i: i, custom_class: "nothing" });
+              }
+            });
+          };
+          const execution = (i = 0) => {
+            CustomLoop(i).then(result => {
+              var ii = result.i + 1;
+              if (result.status) {
+                resolvEnd(result);
+                return;
+              } else if (self.filters[ii]) {
+                execution(ii);
+              } else {
+                resolvEnd(result);
+                return;
+              }
+            });
+          };
+          execution();
+          /**/
+        }
+      });
+    },
+    DisableDateByfilter(date) {
+      var self = this;
+      return new Promise(resolvEnd => {
+        var index_day = date.day();
+        var app_date_current_string_en = date.format("YYYY-MM-DD");
+        var app_date_current_en = moment(
+          app_date_current_string_en,
+          "YYYY-MM-DD"
+        );
+        // Desactivation du jour en function des filtres.
+        const CustomLoop = function(i = 0) {
+          return new Promise(resolv => {
+            const filter = self.filters[i];
+            if (filter.h_debut.length === 0 && filter.h_fin.length === 0) {
+              Filtres.loopAttribFilter(
+                i,
+                filter,
+                app_date_current_en,
+                app_date_current_string_en,
+                index_day,
+                "date"
+              ).then(result => {
+                resolv(result);
+              });
+            } else {
+              resolv({ status: false, i: i, custom_class: "nothing" });
+            }
+          });
+        };
+        const execution = (i = 0) => {
+          CustomLoop(i).then(result => {
+            var ii = result.i + 1;
+            if (result.status) {
+              resolvEnd(result);
+              return;
+            } else if (self.filters[ii]) {
+              execution(ii);
+            } else {
+              resolvEnd(result);
+              return;
+            }
+          });
+        };
+        execution();
+      });
+    },
+    ValidationDay_0(date) {
+      var self = this;
+      return new Promise(resolvEnd => {
+        var index_day = date.day();
+        var app_date_current_string_en = date.format("YYYY-MM-DD");
+        // Desactivation du jour avant la date min.
+        if (date.diff(self.app_date_current, "minutes") < 0) {
+          resolvEnd({ status: true, custom_class: "default-disable" });
+        }
+        // Desactivation du jour en function des jours selectionnées.
+        else if (
+          self.jour_desactivee.length &&
+          self.jour_desactivee.includes(index_day)
+        ) {
+          resolvEnd({ status: true, custom_class: "jour_desactivee" });
+          return;
+        } else if (self.filters.length === 0) {
+          resolvEnd({ status: false, custom_class: "filter empty" });
+          return;
+        } else {
+          // Desactivation du jour en function des filtres.
+          const CustomLoop = function(i = 0) {
+            return new Promise(resolv => {
+              const filter = self.filters[i];
+              if (filter.h_debut.length === 0 && filter.h_fin.length === 0) {
+                Filtres.JourSelect(filter.jours_select, index_day).then(
+                  stateJourSelect => {
+                    // On verifie si on doit tester l'etape des dates.
+                    // 1- Date desactivée.
+                    // Si filter.date_desactivee n'est pas vide, alors on teste ce denier.
+                    if (filter.date_desactivee.length && stateJourSelect) {
+                      Filtres.DateDesactivee(
+                        filter.date_desactivee,
+                        app_date_current_string_en
+                      ).then(stateDateDesactivee => {
+                        if (
+                          !stateDateDesactivee &&
+                          filter.periode_desactivee.length
+                        ) {
+                          Filtres.PeriodeDesactivee(
+                            filter.periode_desactivee,
+                            date,
+                            app_date_current_string_en
+                          ).then(statePeriodeDesactivee => {
+                            resolv({
+                              status: statePeriodeDesactivee,
+                              i: i,
+                              custom_class: "filter.periode_desactivee"
+                            });
+                          });
+                        } else {
+                          resolv({
+                            status: stateDateDesactivee,
+                            i: i,
+                            custom_class: "filter.date_desactivee"
+                          });
+                          return;
+                        }
+                      });
+                    }
+                    // 2- periode desactivée.
+                    // Si Filter.date_desactivee n'est pas vide, alors on teste ce denier.
+                    else if (
+                      filter.periode_desactivee.length &&
+                      stateJourSelect
+                    ) {
+                      Filtres.PeriodeDesactivee(
+                        filter.periode_desactivee,
+                        date,
+                        app_date_current_string_en
+                      ).then(statePeriodeDesactivee => {
+                        resolv({
+                          status: statePeriodeDesactivee,
+                          i: i,
+                          custom_class: "filter.periode_desactivee"
+                        });
+                      });
+                    } else {
+                      resolv({
+                        status: stateJourSelect,
+                        i: i,
+                        custom_class: "filter.jours_select"
+                      });
+                      return;
+                    }
+                  }
+                );
+              } else {
+                resolv({ status: false, custom_class: "nothing" });
+              }
+            });
+          };
+          const execution = (i = 0) => {
+            CustomLoop(i).then(result => {
+              var ii = result.i + 1;
+              if (result.status) {
+                resolvEnd(result);
+                return;
+              } else if (self.filters[ii]) {
+                execution(ii);
+              } else {
+                resolvEnd(result);
+                return;
+              }
+            });
+          };
+          execution();
+        }
+      });
+    },
+    /**
+     * function appelle uniquement à l'initialisation des creneaux.
      * Permet d'obtenir la date utilisable par l'application,
      * qui peut etre diffrente de la date du jour( different de * *   current_date);
      */
     async init_creneau() {
       this.app_date = "";
-      //lors de l'initialisation on desactive les creneaux inferieurs à l'heure utilisable par le client.
+      //Lors de l'initialisation on desactive les creneaux inferieurs à l'heure utilisable par le client.
       this.datetime_min = moment(this.current_date);
       var date_utile = await this.date_utilisable(moment(this.current_date));
       if (date_utile) {
@@ -958,9 +1284,15 @@ export default {
       );
       /**/
       var date_utile = await this.getDayUtilisable(date);
+      if (this.type_creneau === "livraison") {
+        console.log(
+          "getDayUtilisable",
+          date_utile.format("DD-MM-YYYY HH:mm:ss")
+        );
+      }
+
       if (date_utile) {
         self.app_date_current = date_utile;
-
         self.dateBorne();
         return date_utile;
       }
@@ -979,7 +1311,7 @@ export default {
      * - test_date_desactivee
      * @return un object moment (complet jour, mois, année, heure, mn, s)
      */
-    async getDayUtilisable(date, provider = null) {
+    getDayUtilisable(date, provider = null) {
       var self = this;
       return new Promise(function(resolve, reject) {
         //console.log("getDayUtilisable debut", "provider : ", provider);
@@ -994,7 +1326,7 @@ export default {
           return false;
         }
         var index_day_week = date.day();
-        var date_string = moment(date).format("DD-MM-YYYY");
+        //var date_string = date.format("YYYY-MM-DD");
         /*var date_string =
           date.date() + "-" + (date.month() + 1) + "-" + date.year();/**/
         // la date ne doit pas etre un jour de la semaine desactive.
@@ -1008,8 +1340,31 @@ export default {
           // on passe au suivant.
           date.add(1, "days");
           resolve(self.getDayUtilisable(date, "jour desactivée"));
+        } else {
+          self.DisableDateByfilter(date).then(Filter => {
+            if (Filter.status) {
+              self.test_date_desactivee++;
+              date.add(1, "days");
+              resolve(self.getDayUtilisable(date, "date desactivée"));
+            }
+            // on applique egalement le decallage.
+            else if (
+              self.app_delai_jour &&
+              self.app_delai_jour > self.test_delai_jour
+            ) {
+              //console.log("delai : ", self.app_delai_jour);
+              //console.log("interval : ", self.app_interval);
+              self.test_delai_jour++;
+              date.add(1, "days");
+              resolve(self.getDayUtilisable(date, "delai jour"));
+            } else {
+              //console.log("getDayUtilisable end", "provider : ", provider);
+              resolve(date);
+            }
+          });
         }
         // la date ne doit pas etre un jour explicitement desactivé.
+        /*
         else if (
           self.date_desactivee.length &&
           self.date_desactivee.includes(date_string)
@@ -1032,32 +1387,10 @@ export default {
           //console.log("getDayUtilisable end", "provider : ", provider);
           resolve(date);
         }
+        /**/
       });
     },
-    /**
-     * Pour valider la date du jour
-     */
-    validation_day(date) {
-      var self = this;
-      var status = true;
-      var index_day_week = date.day();
-      var date_string = moment(date).format("DD-MM-YYYY");
-      if (
-        self.jour_desactivee.length &&
-        self.jour_desactivee.includes(index_day_week)
-      ) {
-        status = false;
-        return status;
-      } else if (
-        self.date_desactivee.length &&
-        self.date_desactivee.includes(date_string)
-      ) {
-        status = false;
-        return status;
-      } else {
-        return status;
-      }
-    },
+
     plage_creneau({ begin, end }) {
       return `${begin} - ${end}`;
     },
@@ -1091,8 +1424,7 @@ export default {
       }
     },
     async select_date(date, i) {
-      console.log(date);
-      if (date.status) {
+      if (!date.status) {
         this.app_date_current = moment(date.date_string, "DD-MM-YYYY");
         // on applique le reste du temps.( fourni par l'initialisation du syteme ).
         this.app_date_current.hour(this.current_date.hour());
@@ -1142,6 +1474,9 @@ export default {
         date_string: this.app_date_current.format("DD-MM-YYYY HH:mm:ss")
       });
     },
+    /**
+     * le chargement doit se faire à l'exterieur et de mainere unique.
+     */
     loadCreneauDisable: function() {
       var self = this;
       return new Promise(resolve => {
@@ -1151,26 +1486,17 @@ export default {
           encodeURIComponent(self.app_date_current.format("YYYY-MM-DD"));
         url += "&limit_creneau=" + self.nombre_res_creneau;
         url += "&type=" + self.type_creneau;
-        $.getJSON(url, function(datas, textStatus) {
-          console.log(
-            "LoadCreneauDisable datas :  ",
-            self.type_creneau,
-            " : ",
-            datas
-          );
-          if (textStatus) {
+        $.ajax({
+          dataType: "json",
+          url: url,
+          timeout: 5000,
+          success: function(datas) {
             self.disable_heuredate_limit = datas;
             resolve(true);
-          } else {
-            self.disable_heuredate_limit = [];
+          },
+          error: function() {
             resolve(false);
           }
-        }).fail(function() {
-          console.log(
-            "Impossible de recuperer les données sur le site : ",
-            self.url_get_creneau
-          );
-          resolve(false);
         });
       });
     }
