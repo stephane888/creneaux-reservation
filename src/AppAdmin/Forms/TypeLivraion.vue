@@ -227,7 +227,11 @@ export default {
   },
   data() {
     return {
-      products: []
+      products: [
+        { text: "32583132807228", value: "32583132807228" },
+        { text: "32583132839996", value: "32583132839996" },
+        { text: "32583132872764", value: "32583132872764" }
+      ]
     };
   },
   mounted() {

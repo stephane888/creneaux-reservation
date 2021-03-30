@@ -79,7 +79,7 @@ const Utilities = {
         ],
         /**/
         delais_jour: [],
-        id: 31058498125884,
+        id: 32583132807228,
         active: true
         //delai_override est ajoute de maniere dynamique à object, il permet de partager la valeur dynamique du delai.
         // il a pour avantages d'etre court donc plus performant qu'un $emit.
@@ -94,7 +94,7 @@ const Utilities = {
         delai_next_creneau: 30, // la durée entre les creneaux.
         delai: 2,
         delais_jour: [],
-        id: 31058498158652,
+        id: 32583132839996,
         active: false
       },
       {
@@ -107,10 +107,15 @@ const Utilities = {
         delai_next_creneau: 30, // la durée entre les creneaux.
         delai: 1,
         delais_jour: [],
-        id: 31058498191420,
+        id: 32583132872764,
         active: false
       }
     ];
   }
 };
 export default Utilities;
+// Les ids de produits.
+
+// 32583132807228
+// 32583132839996
+// 32583132872764
