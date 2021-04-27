@@ -157,7 +157,3 @@ export default {
   }
 };
 </script>
-
-<!--
-/siteweb/PluginsModules/stephane888/wbu-components/src/components/Crenneaux/v2/SelectionCreneau.vue
--->

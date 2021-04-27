@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import MapCalandarSvg from "/siteweb/PluginsModules/stephane888/wbu-components/src/components/Crenneaux/v2/MapCalandarSvg.vue";
+import MapCalandarSvg from "../assets/MapCalandarSvg.vue";
 var $;
 if (window.jQuery) {
   $ = window.jQuery;
@@ -253,6 +253,3 @@ export default {
   }
 };
 </script>
-<!--
-/siteweb/PluginsModules/stephane888/wbu-components/src/components/Crenneaux/v2/TypeLivraison.vue
--->
