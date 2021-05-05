@@ -304,6 +304,13 @@ export default {
     this.initcreneau();
   },
   methods: {
+    ev_toggle_month_collecte(direction) {
+      console.log("direction_collecte", direction);
+      return this.collecte_current_date.add(direction, "month");
+    },
+    ev_toggle_month_livraison(direction) {
+      console.log("direction_livraison", direction);
+    },
     /**
      * Charge le panier.
      * Retourne true si la requte est terminée avec succes et false si non.
@@ -772,6 +779,7 @@ export default {
 
     ev_creneau_collecte(creneau) {
       this.creneau_collecte = creneau;
+      console.log("index", creneau);
     },
     HideStaticLoading() {
       $(".londing-cover.static").fadeOut(600);

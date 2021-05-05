@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>100</x>
+      <y>570</y>
+      <w>370</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Etape3
+--
+halign=left
+la methode re_contruction_du_creneau à 3 roles:
+- definir l'heure de debut valide (via set_min_date )
+- determiner le prochain jour utilisable (via 
+  date_utilisable );</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>100</x>
+      <y>80</y>
+      <w>360</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>Etape1
+--
+halign=left
+une foix la collecte 
+initialisé elle envoit
+la date et la plage d'heure courante à la
+livraison.
+creneau.begin ["13:30"]
+creneau.end ["15:30"]
+creneau.date (date au format moment)
+creneau.date_string ["04-05-2021 11:54:14"]
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>160</x>
+      <y>290</y>
+      <w>30</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>100</x>
+      <y>400</y>
+      <w>360</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Etape2
+--
+halign=left
+les données arrivent via un 
+watch(rebuild_creneau) qui transmet cela à
+la methode re_contruction_du_creneau</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>620</x>
+      <y>600</y>
+      <w>320</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>NB:
+lorsque le creneau livraison s'initialise 
+il tient compte du decallage de jour.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>460</x>
+      <y>620</y>
+      <w>180</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;160.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>180</x>
+      <y>500</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

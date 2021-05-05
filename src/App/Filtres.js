@@ -4,6 +4,12 @@ if (window.moment) {
 
 const Filters = {
   /**
+   * Elle permet de determiner le prochain jour disponible, en passant par la function
+   * getDayUtilisable.
+   * si sa valeur est à 1, on applique le delai
+   */
+  apply__app_delai_jour: true,
+  /**
    * Permet de reduire le temps d'execution des creneaux.
    * contient les dates desactivés due à filter.date_desactivee
    */
