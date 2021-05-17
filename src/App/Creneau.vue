@@ -584,10 +584,9 @@ export default {
           this.date_max.format("DD-MM-YYYY HH:mm:ss")
         );
         console.log("dateBorne end");
-
         /**/
 
-        await this.loadCreneauDisable();
+        //await this.loadCreneauDisable();
         await this.buildHour();
       }
     },
