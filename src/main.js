@@ -62,7 +62,7 @@ if (
   window.location.host === "localhost:8080" &&
   typeof localStorage !== "undefined"
 ) {
-  //  window.wbu_current_date = "04-05-2021 08:39:00";
+  window.wbu_current_date = "15-05-2021 0:13:00";
   //Chargment de la configuration de base.
   window.creneau_configs = JSON.parse(localStorage.getItem("creneau_configs"));
 

@@ -61,6 +61,7 @@
       :datetime_min="datetime_min"
       :nombre_semaine="nombre_semaine"
       :type_creneau="type_creneau"
+      :rebuild_creneau="rebuild_creneau"
       ref="calendar"
       @select_date="select_date_calendar"
     ></calendar>
@@ -246,7 +247,7 @@ export default {
        * date utilisable par l'application ou date de reference.
        * Elle ne  change pas durant le precessus.
        */
-      app_date: "",
+      app_date: moment(),
       //app_date_string: "",
       /**
        * Est la date utilisable par le client.(Peut etre forunit par l'app ou selectionner par le client)
@@ -294,7 +295,8 @@ export default {
       show_calandar: false,
       /**
        * datetime minimal.
-       * Les creneaux inferieurs à cette date sont desactivés.
+       * Les creneaux inferieurs à cette date sont desactivés. C'est la date min utilisable par le creneau. elle se definit une seule foix
+       * et ne change pas aucours du processus.
        */
       datetime_min: "",
       // # les variables # //
@@ -1042,10 +1044,23 @@ export default {
      * qui peut etre diffrente de la date du jour( different de * *   current_date);
      */
     async init_creneau() {
-      this.app_date = "";
+      //this.app_date = "";
       //Lors de l'initialisation on desactive les creneaux inferieurs à l'heure utilisable par le client.
       this.datetime_min = moment(this.current_date);
-      var date_utile = await this.date_utilisable(moment(this.current_date));
+      const current_date = moment(this.current_date);
+      var index_day_week = current_date.day();
+      // si la date de debut est un jour fermé, on remet les heures... à 0, pour permettre que l'heure de debut ne tient pas compte de l'heure de la journée femer.
+      if (
+        this.jour_desactivee.length &&
+        this.jour_desactivee.includes(index_day_week)
+      ) {
+        current_date.set({
+          hour: 0,
+          minute: 0,
+          second: 0
+        });
+      }
+      const date_utile = await this.date_utilisable(current_date);
       if (date_utile) {
         this.app_date = date_utile;
         this.$refs.calendar.builderCalandar();
@@ -1217,10 +1232,11 @@ export default {
           "DD-MM-YYYY HH:mm:ss"
         )
       };
+      // Permet de passer les données tout en empechant les MAJ retours.
       this.$emit("ev_select_current_creneau", JSON.stringify(datas));
     },
     /**
-     * le chargement doit se faire à l'exterieur et de mainere unique.
+     * Le chargement doit se faire à l'exterieur et de mainere unique.
      */
     loadCreneauDisable: function() {
       var self = this;

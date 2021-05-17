@@ -119,9 +119,12 @@ export default {
      * date utilisable par l'application ou date de reference.
      * Elle ne  change pas durant le precessus.
      */
-    // app_date: {
-    //   type: [Object, String]
-    // },
+    app_date: {
+      type: [Object, String],
+      validator: function(value) {
+        return value ? true : false;
+      }
+    },
     // list_calander_days: {
     //   type: Array,
     //   default() {
@@ -140,6 +143,12 @@ export default {
         return moment();
         //return "";
       }
+    },
+    rebuild_creneau: {
+      type: [Object, String]
+    },
+    datetime_min: {
+      type: [Object, String]
     }
   },
   data() {
@@ -227,7 +236,11 @@ export default {
         calander_day_min.add(-day_remove, "days");
       }
       calender_day_max.add(nJr, "days");
-
+      if (this.type_creneau === "livraison")
+        console.log(
+          "this.datetime_min : ",
+          this.datetime_min.format("DD-MM-YYYY HH:mm:ss")
+        );
       this.getPlageDate(calander_day_min, calender_day_max);
     },
     // permet d'obtenir l'index de la semaine du current_day en fonction du mois
@@ -257,7 +270,8 @@ export default {
       FFilter.app_date = this.app_date;
       FFilter.jour_desactivee = this.jour_desactivee;
       FFilter.type_creneau = this.type_creneau;
-      FFilter.app_date_current = this.app_date_current;
+      //FFilter.app_date_current = this.datetime_min; //this.app_date_current;
+      FFilter.datetime_min = this.datetime_min;
       FFilter.filters = this.filters;
       FFilter.h_debut = this.h_debut;
       var self = this;
@@ -307,13 +321,11 @@ export default {
     //permet de naviguer entre les mois
     toggleMonth(direction) {
       //this.$emit("toggleMonth", direction);
-
       if (direction > 0) {
         this.calendar_nav++;
       } else {
         this.calendar_nav--;
       }
-
       this.builderCalandar();
     }
   }

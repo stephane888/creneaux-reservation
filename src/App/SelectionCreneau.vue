@@ -49,6 +49,10 @@
 </template>
 
 <script>
+//import moment from "moment";
+if (window.moment) {
+  var moment = window.moment;
+}
 import creneau from "./Creneau.vue";
 export default {
   name: "SelectionHoraire",
@@ -149,10 +153,24 @@ export default {
   methods: {
     ev_select_current_creneau_collecte(creneau) {
       this.livraison_rebuild_creneau = creneau;
-      this.$emit("ev_creneau_collecte", creneau);
+      this.$emit("ev_creneau_collecte", this.getValidData(creneau));
     },
     ev_select_current_creneau_livraison(creneau) {
-      this.$emit("ev_creneau_livraison", creneau);
+      this.$emit("ev_creneau_livraison", this.getValidData(creneau));
+    },
+    /**
+     * Permet de convertir les données String en JSON,
+     * de les mettre dans un format valide pour la sauvegarde.
+     */
+    getValidData(creneau) {
+      var validCreneau = JSON.parse(creneau);
+      const date = moment(
+        validCreneau.date_string_not_change,
+        "DD-MM-YYYY HH:mm:ss"
+      );
+      validCreneau.date = date;
+      validCreneau.date_string = date.format("DD-MM-YYYY HH:mm:ss");
+      return validCreneau;
     }
   }
 };

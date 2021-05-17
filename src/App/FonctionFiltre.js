@@ -7,7 +7,8 @@ const FFilter = {
   jour_desactivee: [],
   type_creneau: "",
   app_date: {},
-  app_date_current: {},
+  //app_date_current: {},
+  datetime_min: {},
   filters: [],
   h_debut: 0,
   /**
@@ -16,19 +17,43 @@ const FFilter = {
    */
   ValidationDay: function(date) {
     var self = this;
+    if (
+      !(self.app_date && self.app_date.isValid()) ||
+      !(self.datetime_min && self.datetime_min.isValid())
+    ) {
+      throw "La variable self.app_date|self.datetime_min est requise";
+    }
     return new Promise(resolvEnd => {
       var index_day = date.day();
-
+      /*
+      if (self.type_creneau === "livraison")
+        console.log(
+          "ValidationDay : ",
+          "\n",
+          "date selectionée : ",
+          self.datetime_min.format("DD-MM-YYYY HH:mm:ss"),
+          "\n",
+          self.app_date.format("DD-MM-YYYY HH:mm:ss"),
+          "\n",
+          date.format("DD-MM-YYYY HH:mm:ss")
+        );
+      /**/
       // Desactivation du jour avant la date min.
       if (date.diff(self.app_date, "minutes") < 0) {
-        resolvEnd({ status: true, custom_class: "default-disable" });
+        resolvEnd({ status: true, custom_class: "default-disable-app-date" });
       }
       //
       else if (
-        date.diff(self.app_date_current, "minutes") < 0 &&
+        date.diff(self.datetime_min, "days") < 0 &&
         self.type_creneau === "livraison"
       ) {
-        resolvEnd({ status: true, custom_class: "default-disable" });
+        /*
+        console.log(
+          'date.diff(self.datetime_min, "days") ',
+          date.diff(self.datetime_min, "days")
+        );
+        /**/
+        resolvEnd({ status: true, custom_class: "default-disable-livraison" });
       }
       // Desactivation du jour en function des jours selectionnées.
       else if (
@@ -69,6 +94,7 @@ const FFilter = {
               index_day,
               "date"
             ).then(result => {
+              result.custom_class = "filtre-" + i + " " + result.verificateur;
               resolv(result);
             });
           } else {
