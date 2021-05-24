@@ -23,7 +23,7 @@
       ref="collecte"
       @ev_select_current_creneau="ev_select_current_creneau_collecte"
     ></creneau>
-
+    <!--
     <creneau
       :title="title_livraison"
       :classes="classes_livraison"
@@ -45,7 +45,7 @@
       ref="livraison"
       @ev_select_current_creneau="ev_select_current_creneau_livraison"
     ></creneau>
-  </div>
+  --></div>
 </template>
 
 <script>

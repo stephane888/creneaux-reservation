@@ -2,30 +2,28 @@
   La construction des heures est declenché par app_date_utilisable_string_hour;
 -->
 <template lang="html">
-  <div>
-    <advanced-select
-      v-model="current_creneau"
-      :disabled="disabled_creneau"
-      :options="list_creneaux"
-      :show-labels="false"
-      :searchable="false"
-      placeholder="00:00 - 00:00"
-      track-by="begin"
-    >
-      <!-- Pour l'affichege de la selection. -->
-      <template slot="singleLabel" slot-scope="{ option }">
-        {{ option.begin }} - {{ option.end }}
-      </template>
-      <template slot="option" slot-scope="props">
-        <span :checkstatus="props.option.checkstatus">
-          {{ props.option.begin }} - {{ props.option.end }}
-        </span>
-      </template>
-      <template slot="noOptions">
-        Aucun créneau disponible à cette date
-      </template>
-    </advanced-select>
-  </div>
+  <advanced-select
+    v-model="current_creneau"
+    :disabled="disabled_creneau"
+    :options="list_creneaux"
+    :show-labels="false"
+    :searchable="false"
+    placeholder="00:00 - 00:00"
+    track-by="begin"
+  >
+    <!-- Pour l'affichege de la selection. -->
+    <template slot="singleLabel" slot-scope="{ option }">
+      {{ option.begin }} - {{ option.end }}
+    </template>
+    <template slot="option" slot-scope="props">
+      <span :checkstatus="props.option.checkstatus">
+        {{ props.option.begin }} - {{ props.option.end }}
+      </span>
+    </template>
+    <template slot="noOptions">
+      <span>Aucun créneau disponible à cette date</span>
+    </template>
+  </advanced-select>
 </template>
 
 <script>
@@ -61,6 +59,14 @@ export default {
     plage_heures_valide: {
       type: Array,
       required: true
+    },
+    filters: {
+      type: Array,
+      required: true
+    },
+    configs: {
+      type: Object,
+      required: true
     }
   },
   components: {
@@ -79,7 +85,12 @@ export default {
     //
   },
   watch: {
+    /*
     app_date_utilisable_string_hour() {
+      //this.init();
+    },
+    /**/
+    app_date_utilisable_string() {
       this.init();
     }
   },
@@ -94,9 +105,15 @@ export default {
         this.m_debut,
         this.h_fin,
         this.m_fin,
-        this.plage_heures_valide
+        this.plage_heures_valide,
+        this.configs.creneau,
+        this.configs.delai_next_creneau,
+        this.filters
       );
       await Build.dateBorne();
+      await Build.buildHour();
+      this.list_creneaux = Build.list_creneaux;
+      console.log("list_creneaux : ", this.list_creneaux);
     }
   }
 };

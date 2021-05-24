@@ -10,7 +10,6 @@ const FFilter = {
   //app_date_current: {},
   datetime_min: {},
   filters: [],
-  h_debut: 0,
   /**
    * @param date object moment
    * Return true si la date doit etre desactivée, et false sinon.

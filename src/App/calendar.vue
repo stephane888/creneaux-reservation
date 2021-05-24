@@ -53,12 +53,13 @@
           date.custom_class,
           date.select ? 'selected' : ''
         ]"
-        @click="select_date(date, i)"
+        @click="select_date(date)"
       >
         <span v-if="show_month_in_date" v-html="date.day_french"></span>
         <span v-if="!show_month_in_date" v-html="date.date_month"></span>
       </li>
     </ul>
+    {{ date_select }}
   </div>
 </template>
 
@@ -67,32 +68,17 @@
 if (window.moment) {
   var moment = window.moment;
 }
-import FFilter from "./FonctionFiltre";
+import { BuildCalendar } from "./AppResouces.js";
 export default {
   name: "calendar",
   props: {
-    // h_debut: {
-    //   type: Number,
-    //   default: 8
-    // },
-    // m_debut: {
-    //   type: Number,
-    //   default: 0
-    // },
-    // h_fin: {
-    //   type: Number,
-    //   default: 21
-    // },
-    // m_fin: {
-    //   type: Number,
-    //   default: 0
-    // },
     type_creneau: {
       type: String,
       default: ""
     },
-    app_date_current: {
-      type: [Object, String]
+    app_date_utilisable_string: {
+      type: String,
+      required: true
     },
     filters: {
       type: Array,
@@ -115,218 +101,77 @@ export default {
         return [0, 6];
       }
     },
-    /**
-     * date utilisable par l'application ou date de reference.
-     * Elle ne  change pas durant le precessus.
-     */
-    app_date: {
-      type: [Object, String],
-      validator: function(value) {
-        return value ? true : false;
-      }
-    },
-    // list_calander_days: {
-    //   type: Array,
-    //   default() {
-    //     return [];
-    //   }
-    // },
-    /**
-     * C'est la date encours.
-     * ( Elle doit etre fournit par le serveur et convertie en un object moment() ).
-     *
-     * @param object moment()
-     */
-    current_date: {
-      type: Object,
-      default() {
-        return moment();
-        //return "";
-      }
-    },
     rebuild_creneau: {
-      type: [Object, String]
-    },
-    datetime_min: {
       type: [Object, String]
     }
   },
   data() {
     return {
-      ///**
-      //  * Permet d'eviter une boucle infinie. limit à 100; (3 mois)
-      //  */
-      // test_calandar_day: 0,
       /**
        * list calendar date, elle gere l'affichage du calendrier.
        */
       list_calander_days: [],
       calendar_nav: 0,
       /**
-       * list calendar date, elle gere l'affichage du calendrier.
-       */
-
-      /**
        * configuration de la date.
        */
       show_month_in_date: false,
-      show_day_label: true
+      show_day_label: true,
+      date_select: null
     };
+  },
+  watch: {
+    app_date_utilisable_string(val) {
+      this.init(val);
+    }
   },
   computed: {
     calandar_title: {
       get() {
-        if (this.app_date_current != "") {
-          return moment(this.app_date_current)
+        if (this.app_date_utilisable_string != "") {
+          return moment(this.app_date_utilisable_string, "DD-MM-YYYY")
             .add(this.calendar_nav, "month")
             .locale("fr")
             .format("MMMM  YYYY");
         }
         return "";
       }
-    },
-    //Permet au filtre d'appliquer un style à la date du jour
-    app_date_current_string: {
-      get() {
-        return this.app_date_current.format("DD-MM-YYYY");
-      }
     }
   },
   methods: {
-    /**
-     * le calendrier demarre toujours un lunid.
-     * Lundi(index) = 1
-     * Saturday = 6
-     * Sunday = 0;
-     */
-    async builderCalandar() {
-      // var mom = moment("01/05/2021", "DD/MM/YYYY").add(1, "Month");
-      this.list_calander_days = [];
-      this.test_calandar_day = 0;
-      var date_string = (date_string = moment(this.app_date_current).format(
-        "DD-MM-YYYY HH:mm:ss"
-      ));
-
-      var calander_day_min = moment(date_string, "DD-MM-YYYY HH:mm:ss").add(
+    async init() {
+      const Build = new BuildCalendar(
+        this.app_date_utilisable_string,
         this.calendar_nav,
-        "month"
+        this.nombre_semaine,
+        this.jour_desactivee,
+        this.type_creneau,
+        this.filters,
+        this.date_select
       );
-      var calender_day_max = moment(date_string, "DD-MM-YYYY HH:mm:ss").add(
-        this.calendar_nav,
-        "month"
-      );
-      var nJr = this.nombre_semaine * 7;
-
-      // on determine la date min à partir de la date app_date .add(this.calendar_nav,'month')
-      var day_current_index = calander_day_min.day();
-      if (!day_current_index) {
-        day_current_index = 7;
-      }
-      //on recupère l'index du weekend du jour encour pour calculer le additional_day_to_remove
-      var week_index = this.weekOfMonth(moment(date_string, "DD/MM/YYYY"));
-
-      var additional_day_to_remove = 0;
-      for (let i = 1; i < week_index; i++) {
-        additional_day_to_remove += 7;
-      }
-      var day_remove = 6 + day_current_index - 7 + additional_day_to_remove;
-
-      if (day_remove > 0) {
-        nJr -= day_remove;
-        calander_day_min.add(-day_remove, "days");
-      }
-      calender_day_max.add(nJr, "days");
-      if (this.type_creneau === "livraison")
-        console.log(
-          "this.datetime_min : ",
-          this.datetime_min.format("DD-MM-YYYY HH:mm:ss")
-        );
-      this.getPlageDate(calander_day_min, calender_day_max);
+      await Build.builderCalandar();
+      this.list_calander_days = Build.list_calander_days;
+      if (!this.date_select) this.date_select = Build.date_default_select;
+      console.log("list_calander_days : ", this.list_calander_days);
     },
-    // permet d'obtenir l'index de la semaine du current_day en fonction du mois
-    weekOfMonth(input) {
-      const firstDayOfMonth = input.clone().startOf("month");
-      const firstDayOfWeek = firstDayOfMonth.clone().startOf("week");
-
-      const offset = firstDayOfMonth.diff(firstDayOfWeek, "days");
-
-      return Math.ceil((input.date() + offset) / 7);
-    },
-
-    /**
-     * Obtient la date utilisable.
-     * La paramettre date doit etre un object moment.
-     * Pour la validation on a 3 cas :
-     * - Validation des jours de la semaine.
-     * - Validation des dates desactivées.
-     * - Validation des delais.
-     * NB: les function qui doivent integrer cette derniere doivent remettre les variables suivante à leurs valeurs par defaut :
-     * - test_delai_jour
-     * - test_jour_semaine
-     * - test_date_desactivee
-     * @return un object moment (complet jour, mois, année, heure, mn, s)
-     */
-    getPlageDate(calander_day_min, calender_day_max) {
-      FFilter.app_date = this.app_date;
-      FFilter.jour_desactivee = this.jour_desactivee;
-      FFilter.type_creneau = this.type_creneau;
-      //FFilter.app_date_current = this.datetime_min; //this.app_date_current;
-      FFilter.datetime_min = this.datetime_min;
-      FFilter.filters = this.filters;
-      FFilter.h_debut = this.h_debut;
-      var self = this;
-      return new Promise(function(resolve, reject) {
-        self.test_calandar_day++;
-        if (self.test_calandar_day > 99) {
-          reject(false);
-          return false;
-        }
-
-        if (calander_day_min.diff(calender_day_max, "days")) {
-          FFilter.ValidationDay(calander_day_min).then(stateValidationDay => {
-            self.list_calander_days.push({
-              date_string: calander_day_min.format("DD-MM-YYYY"),
-              day_french: calander_day_min.locale("fr").format("Do <br /> MMM"),
-              date_month: calander_day_min.locale("fr").format("DD"),
-              custom_class: stateValidationDay.custom_class,
-              select:
-                calander_day_min.format("DD-MM-YYYY") ==
-                self.app_date_current_string
-                  ? true
-                  : false,
-              status: stateValidationDay.status
-            });
-
-            calander_day_min.add(1, "days");
-            resolve(self.getPlageDate(calander_day_min, calender_day_max));
-          });
-        } else {
-          resolve(true);
-        }
-      });
-    },
-    async select_date(date, i) {
-      this.$emit("select_date", { date: date, i: i });
-      this.calendar_nav = 0;
-    },
-    async select_date_in_calander(k) {
+    select_date(date) {
       for (const i in this.list_calander_days) {
-        if (k == i) {
-          this.list_calander_days[i].select = true;
-        } else {
-          this.list_calander_days[i].select = false;
-        }
+        const datePass = this.list_calander_days[i];
+        if (datePass.select) datePass.select = false;
+        var j = parseInt(i) + 1;
+        if (j === this.list_calander_days.length) date.select = true;
       }
+      this.$emit("select_date", date);
+      this.date_select = date;
     },
     //permet de naviguer entre les mois
     toggleMonth(direction) {
-      //this.$emit("toggleMonth", direction);
       if (direction > 0) {
         this.calendar_nav++;
       } else {
         this.calendar_nav--;
       }
-      this.builderCalandar();
+      this.init();
     }
   }
 };

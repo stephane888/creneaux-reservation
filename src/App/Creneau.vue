@@ -18,6 +18,8 @@
         :h_fin="h_fin"
         :m_fin="m_fin"
         :plage_heures_valide="plage_heures_valide"
+        :filters="filters"
+        :configs="configs"
       ></Hours>
       <i
         class="icone-svg mb-md-1 mb-lg-2 cursor-pointer"
@@ -39,22 +41,19 @@
       v-if="show_calandar"
       @click="display_hide_calandar"
     ></div>
-    <!--
+
     <calendar
       v-show="show_calandar"
-      :app_date_current="app_date_utilisable"
+      :app_date_utilisable_string="app_date_utilisable_string"
       :filters="filters"
-      :app_date="app_date"
-      :current_date="current_date"
       :jour_desactivee="jour_desactivee"
-      :datetime_min="datetime_min"
       :nombre_semaine="nombre_semaine"
       :type_creneau="type_creneau"
       :rebuild_creneau="rebuild_creneau"
       ref="calendar"
       @select_date="select_date_calendar"
     ></calendar>
-  --></div>
+  </div>
 </template>
 
 <script>
@@ -69,7 +68,7 @@ if (window.moment) {
 
 import SvgCalandar from "./SvgCalandar.vue";
 //import Filtres from "./Filtres.js";
-//import calendar from "./calendar";
+import calendar from "./calendar";
 import Hours from "./Hours";
 import { DateUtilisable } from "./AppResouces.js";
 
@@ -226,7 +225,7 @@ export default {
   },
   components: {
     "svg-calandear": SvgCalandar,
-    //calendar,
+    calendar,
     Hours
   },
   watch: {
@@ -286,6 +285,9 @@ export default {
       } else {
         this.show_calandar = true;
       }
+    },
+    select_date_calendar(date) {
+      console.log("date selectionner : ", date.date);
     }
   }
 };

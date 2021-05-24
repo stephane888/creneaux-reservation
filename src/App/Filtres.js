@@ -23,6 +23,12 @@ const Filters = {
   /**
    * Permet de verifier si la plage d'heure selectionne est inclus ou partielment inclut dans le creneau.
    * cette function est utilisé uniquement lors du passage des creneaux.
+   * tests:
+   * il faut desactiver, une plage inferieur au creneau, à l'intervalle entre deux creneau.
+   * egal ------
+   * superieur ------
+   * NB:il manque une 4 condition.
+   * L'execution est importante.
    */
   HourIntervalContain: function(
     heure_begin_disable,
@@ -40,11 +46,17 @@ const Filters = {
     var date_max = moment(date_min_string, "DD-MM-YYYY HH:mm:ss");
     date_max.hours(h_f[0]);
     date_max.minutes(h_f[1]);
+    //
+    const time_H_B_min = creneaux_heure_begin.diff(date_min, "minutes");
+    const time_H_B_max = creneaux_heure_begin.diff(date_max, "minutes");
+    const time_H_E_min = creneaux_heure_end.diff(date_min, "minutes");
+    const time_H_E_max = creneaux_heure_end.diff(date_max, "minutes");
+    //console.log("time_H_B_min : ", time_H_B_min);
+    //console.log("time_H_E_max : ", time_H_E_max);
     if (
-      (creneaux_heure_begin.diff(date_min, "minutes") >= 0 &&
-        creneaux_heure_begin.diff(date_max, "minutes") < 0) ||
-      (creneaux_heure_end.diff(date_min, "minutes") > 0 &&
-        creneaux_heure_end.diff(date_max, "minutes") <= 0)
+      (time_H_B_min >= 0 && time_H_B_max < 0) ||
+      (time_H_E_min > 0 && time_H_E_max <= 0) ||
+      (time_H_B_min < 0 && time_H_E_max >= 0)
     ) {
       return true;
     } else {
