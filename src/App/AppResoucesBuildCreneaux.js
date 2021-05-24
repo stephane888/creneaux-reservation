@@ -1,153 +1,10 @@
 import Filtres from "./Filtres.js";
-import FFilter from "./FonctionFiltre";
+//import FFilter from "./FonctionFiltre";
 if (window.moment) {
   var moment = window.moment;
 }
 
-class DateUtilisable {
-  constructor(jour_desactivee, app_delai_jour, filters) {
-    this.jour_desactivee = jour_desactivee;
-    this.app_delai_jour = app_delai_jour;
-    this.filters = filters;
-    //
-    this.test_delai_jour = 0;
-    this.test_jour_semaine = 0;
-    this.test_date_desactivee = 0;
-  }
-
-  /**
-   * @parameter date doit etre un object moment.
-   */
-  async date_utilisable(date, apply_delai_true = true) {
-    return await this.getDayUtilisable(date, null, apply_delai_true);
-  }
-
-  /**
-   * Obtient la date utilisable, et permet aussi de determiner le prochain jour utilisable.
-   * La paramettre date doit etre un object moment.
-   * Pour la validation on a 3 cas :
-   * - Validation des jours de la semaine.
-   * - Validation des dates desactivées.
-   * - Validation des delais.
-   * - Application du delai.
-   * NB: les function qui doivent integrer cette derniere doivent remettre les variables suivante à leurs valeurs par defaut :
-   * - test_delai_jour
-   * - test_jour_semaine
-   * - test_date_desactivee
-   * @return un object moment (complet jour, mois, année, heure, mn, s)
-   */
-  getDayUtilisable(date, provider = null, apply_delai_true = true) {
-    var self = this;
-    return new Promise(function(resolve, reject) {
-      /*
-      console.log(
-        "valeur de apply_delai_true " + self.type_creneau + ": ",
-        apply_delai_true
-      );
-      /**/
-      if (self.test_jour_semaine > 6) {
-        alert("Boucle infinie detecter ..." + provider);
-        reject(false);
-        return false;
-      }
-      if (self.test_date_desactivee > 99) {
-        alert("Boucle infinie detecter ...");
-        reject(false);
-        return false;
-      }
-      var index_day_week = date.day();
-      if (
-        self.jour_desactivee.length &&
-        self.jour_desactivee.includes(index_day_week)
-      ) {
-        self.test_jour_semaine++;
-        // si ce jour est automatiquement desactivée,
-        // on passe au suivant.
-        date.add(1, "days");
-        resolve(
-          self.getDayUtilisable(date, "jour desactivée", apply_delai_true)
-        );
-      } else {
-        self.DisableDateByfilter(date).then(Filter => {
-          if (Filter.status) {
-            self.test_date_desactivee++;
-            date.add(1, "days");
-            resolve(
-              self.getDayUtilisable(date, "date desactivée", apply_delai_true)
-            );
-          }
-          // on applique egalement le decallage.
-          else if (
-            apply_delai_true &&
-            self.app_delai_jour &&
-            self.app_delai_jour > self.test_delai_jour
-          ) {
-            self.test_delai_jour++;
-            /**
-             * On applique le delai en jour apres jour afin de s'assurer que les jours
-             * desactivées ne sont pas pris en compte.
-             */
-            date.add(1, "days");
-            resolve(
-              self.getDayUtilisable(date, "delai jour", apply_delai_true)
-            );
-          } else {
-            resolve(date);
-          }
-        });
-      }
-    });
-  }
-
-  DisableDateByfilter(date) {
-    var self = this;
-    return new Promise(resolvEnd => {
-      var index_day = date.day();
-      var app_date_current_string_en = date.format("YYYY-MM-DD");
-      var app_date_current_en = moment(
-        app_date_current_string_en,
-        "YYYY-MM-DD"
-      );
-      // Desactivation du jour en function des filtres.
-      const CustomLoop = function(i = 0) {
-        return new Promise(resolv => {
-          const filter = self.filters[i];
-          if (filter.h_debut.length === 0 && filter.h_fin.length === 0) {
-            Filtres.loopAttribFilter(
-              i,
-              filter,
-              app_date_current_en,
-              app_date_current_string_en,
-              index_day,
-              "date"
-            ).then(result => {
-              resolv(result);
-            });
-          } else {
-            resolv({ status: false, i: i, custom_class: "nothing" });
-          }
-        });
-      };
-      const execution = (i = 0) => {
-        CustomLoop(i).then(result => {
-          var ii = result.i + 1;
-          if (result.status) {
-            resolvEnd(result);
-            return;
-          } else if (self.filters[ii]) {
-            execution(ii);
-          } else {
-            resolvEnd(result);
-            return;
-          }
-        });
-      };
-      execution();
-    });
-  }
-}
-
-class BuildCreneaux {
+export class BuildCreneaux {
   constructor(
     app_date_utilisable_string,
     app_date_utilisable_string_hour,
@@ -363,7 +220,7 @@ class BuildCreneaux {
     var self = this;
     return new Promise(resolvEnd => {
       if (self.filters.length === 0) {
-        resolvEnd({ status: false, verificateur: "filter empty" });
+        resolvEnd({status: false, verificateur: "filter empty"});
         return;
       }
       const CustomLoop = function(i = 0) {
@@ -391,10 +248,10 @@ class BuildCreneaux {
                 resolv(result);
               });
             } else {
-              resolv({ status: false, i: i, verificateur: "plage_heure" });
+              resolv({status: false, i: i, verificateur: "plage_heure"});
             }
           } else {
-            resolv({ status: false, i: i, verificateur: "nothing" });
+            resolv({status: false, i: i, verificateur: "nothing"});
           }
         });
       };
@@ -564,14 +421,14 @@ class BuildCreneaux {
         self.datetime_min &&
         self.datetime_min.diff(creneaux_heure_begin, "minutes") > 0
       ) {
-        resolve({ status: true, verificateur: "datetime-min" });
+        resolve({status: true, verificateur: "datetime-min"});
         return true;
       } else {
         // Verification en function du jour.
         var test1 = disable_heureday();
         test1.then(function(result) {
           if (result) {
-            resolve({ status: true, verificateur: "disable-heureday" });
+            resolve({status: true, verificateur: "disable-heureday"});
             return true;
           } else {
             var test2 = disable_heuredate();
@@ -601,7 +458,7 @@ class BuildCreneaux {
                         });
                         return true;
                       } else {
-                        resolve({ status: false, verificateur: "none" });
+                        resolve({status: false, verificateur: "none"});
                         return false;
                       }
                     });
@@ -615,151 +472,3 @@ class BuildCreneaux {
     });
   }
 }
-
-class BuildCalendar {
-  constructor(
-    app_date_utilisable_string,
-    calendar_nav,
-    nombre_semaine,
-    jour_desactivee,
-    type_creneau,
-    filters,
-    date_select
-  ) {
-    this.app_date_utilisable_string = app_date_utilisable_string;
-    this.calendar_nav = calendar_nav;
-    this.nombre_semaine = nombre_semaine;
-    this.jour_desactivee = jour_desactivee;
-    this.type_creneau = type_creneau;
-    this.filters = filters;
-    this.date_select = date_select;
-    //
-    this.list_calander_days = [];
-    this.test_calandar_day = 0;
-    this.app_date_utilisable = moment(app_date_utilisable_string, "DD-MM-YYYY");
-    this.datetime_min = moment(app_date_utilisable_string, "DD-MM-YYYY");
-    this.date_default_select = null;
-  }
-  /**
-   * le calendrier demarre toujours un lunid.
-   * Lundi(index) = 1
-   * Saturday = 6
-   * Sunday = 0;
-   */
-  async builderCalandar() {
-    console.log(
-      "this.app_date_utilisable_string : ",
-      this.app_date_utilisable_string
-    );
-    var calander_day_min = moment(
-      this.app_date_utilisable_string,
-      "DD-MM-YYYY"
-    ).add(this.calendar_nav, "month");
-    var calender_day_max = moment(
-      this.app_date_utilisable_string,
-      "DD-MM-YYYY"
-    ).add(this.calendar_nav, "month");
-    var nJr = this.nombre_semaine * 7;
-
-    var day_current_index = calander_day_min.day();
-    if (!day_current_index) {
-      day_current_index = 7;
-    }
-    //on recupère l'index du weekend du jour encour pour calculer le additional_day_to_remove
-    var week_index = this.weekOfMonth(
-      moment(this.app_date_utilisable_string, "DD-MM-YYYY")
-    );
-
-    var additional_day_to_remove = 0;
-    for (let i = 1; i < week_index; i++) {
-      additional_day_to_remove += 7;
-    }
-    var day_remove = 6 + day_current_index - 7 + additional_day_to_remove;
-
-    if (day_remove > 0) {
-      nJr -= day_remove;
-      calander_day_min.add(-day_remove, "days");
-    }
-    calender_day_max.add(nJr, "days");
-
-    console.log(
-      "calander_day_min : ",
-      calander_day_min.format("DD-MM-YYYY"),
-      "\n calender_day_max : ",
-      calender_day_max.format("DD-MM-YYYY")
-    );
-    /**/
-    await this.getPlageDate(calander_day_min, calender_day_max);
-  }
-
-  // permet d'obtenir l'index de la semaine du current_day en fonction du mois
-  weekOfMonth(input) {
-    const firstDayOfMonth = input.clone().startOf("month");
-    const firstDayOfWeek = firstDayOfMonth.clone().startOf("week");
-
-    const offset = firstDayOfMonth.diff(firstDayOfWeek, "days");
-
-    return Math.ceil((input.date() + offset) / 7);
-  }
-
-  /**
-   * Obtient la date utilisable.
-   * La paramettre date doit etre un object moment.
-   * Pour la validation on a 3 cas :
-   * - Validation des jours de la semaine.
-   * - Validation des dates desactivées.
-   * - Validation des delais.
-   * NB: les function qui doivent integrer cette derniere doivent remettre les variables suivante à leurs valeurs par defaut :
-   * - test_delai_jour
-   * - test_jour_semaine
-   * - test_date_desactivee
-   * @return un object moment (complet jour, mois, année, heure, mn, s)
-   */
-  getPlageDate(calander_day_min, calender_day_max) {
-    FFilter.app_date = this.app_date_utilisable;
-    FFilter.jour_desactivee = this.jour_desactivee;
-    FFilter.type_creneau = this.type_creneau;
-    //FFilter.app_date_current = this.datetime_min; //this.app_date_current;
-    FFilter.datetime_min = this.datetime_min;
-    FFilter.filters = this.filters;
-    var self = this;
-    return new Promise(function(resolve, reject) {
-      self.test_calandar_day++;
-      if (self.test_calandar_day > 99) {
-        reject(false);
-        return false;
-      }
-
-      if (calander_day_min.diff(calender_day_max, "days")) {
-        FFilter.ValidationDay(calander_day_min).then(stateValidationDay => {
-          const day_min_sting = calander_day_min.format("DD-MM-YYYY");
-          const StatusSelectDate =
-            (self.date_select &&
-              self.date_select.date_string === day_min_sting) ||
-            (!self.date_select &&
-              day_min_sting == self.app_date_utilisable_string)
-              ? true
-              : false;
-          const date = {
-            date_string: day_min_sting,
-            day_french: calander_day_min.locale("fr").format("Do <br /> MMM"),
-            date_month: calander_day_min.locale("fr").format("DD"),
-            custom_class: stateValidationDay.custom_class,
-            select: StatusSelectDate,
-            status: stateValidationDay.status
-          };
-          if (!self.date_select && StatusSelectDate)
-            self.date_default_select = date;
-          self.list_calander_days.push(date);
-
-          calander_day_min.add(1, "days");
-          resolve(self.getPlageDate(calander_day_min, calender_day_max));
-        });
-      } else {
-        resolve(true);
-      }
-    });
-  }
-}
-
-export { DateUtilisable, BuildCreneaux, BuildCalendar };

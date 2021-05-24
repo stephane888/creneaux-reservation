@@ -8,7 +8,6 @@
       :jour_desactivee="collecte_jour_desactivee"
       :date_desactivee="collecte_date_desactivee"
       :interval="collecte_interval"
-      :rebuild_creneau="collecte_plages_debut"
       :configs="collecte_configs"
       :current_date="collecte_current_date"
       :nombre_semaine="nombre_semaine"
@@ -23,7 +22,7 @@
       ref="collecte"
       @ev_select_current_creneau="ev_select_current_creneau_collecte"
     ></creneau>
-    <!--
+
     <creneau
       :title="title_livraison"
       :classes="classes_livraison"
@@ -31,7 +30,6 @@
       :jour_desactivee="livraison_jour_desactivee"
       :date_desactivee="livraison_date_desactivee"
       :interval="livraison_interval"
-      :rebuild_creneau="livraison_rebuild_creneau"
       :configs="livraison_configs"
       :current_date="livraison_current_date"
       :nombre_semaine="nombre_semaine"
@@ -45,7 +43,7 @@
       ref="livraison"
       @ev_select_current_creneau="ev_select_current_creneau_livraison"
     ></creneau>
-  --></div>
+  </div>
 </template>
 
 <script>
@@ -96,9 +94,6 @@ export default {
     collecte_interval: {
       type: Number
     },
-    collecte_plages_debut: {
-      type: Object
-    },
     collecte_configs: {
       type: Object
     },
@@ -132,9 +127,6 @@ export default {
     livraison_configs: {
       type: Object
     },
-    livraison_current_date: {
-      type: Object
-    },
     filters: {
       type: Array
     }
@@ -144,7 +136,7 @@ export default {
   },
   data() {
     return {
-      livraison_rebuild_creneau: {}
+      livraison_current_date: null
     };
   },
   mounted() {
@@ -152,11 +144,12 @@ export default {
   },
   methods: {
     ev_select_current_creneau_collecte(creneau) {
-      this.livraison_rebuild_creneau = creneau;
-      this.$emit("ev_creneau_collecte", this.getValidData(creneau));
+      this.$emit("ev_creneau_collecte", creneau);
+      this.livraison_current_date = creneau.date;
+      console.log("ev_select_current_creneau_collecte");
     },
     ev_select_current_creneau_livraison(creneau) {
-      this.$emit("ev_creneau_livraison", this.getValidData(creneau));
+      this.$emit("ev_creneau_livraison", creneau);
     },
     /**
      * Permet de convertir les données String en JSON,

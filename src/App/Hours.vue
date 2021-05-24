@@ -1,41 +1,45 @@
 <!--
-  La construction des heures est declenché par app_date_utilisable_string_hour;
+  La construction des heures est declenché par app_date_utilisable_string;
 -->
 <template lang="html">
-  <advanced-select
-    v-model="current_creneau"
-    :disabled="disabled_creneau"
-    :options="list_creneaux"
-    :show-labels="false"
-    :searchable="false"
-    placeholder="00:00 - 00:00"
-    track-by="begin"
-  >
-    <!-- Pour l'affichege de la selection. -->
-    <template slot="singleLabel" slot-scope="{ option }">
-      {{ option.begin }} - {{ option.end }}
-    </template>
-    <template slot="option" slot-scope="props">
-      <span :checkstatus="props.option.checkstatus">
-        {{ props.option.begin }} - {{ props.option.end }}
-      </span>
-    </template>
-    <template slot="noOptions">
-      <span>Aucun créneau disponible à cette date</span>
-    </template>
-  </advanced-select>
+  <div style="width:100%">
+    <advanced-select
+      v-model="current_creneau"
+      :disabled="disabled_creneau"
+      :options="list_creneaux"
+      :show-labels="false"
+      :searchable="false"
+      placeholder="00:00 - 00:00"
+      track-by="begin"
+    >
+      <!-- Pour l'affichege de la selection. -->
+      <template slot="singleLabel" slot-scope="{ option }">
+        {{ option.begin }} - {{ option.end }}
+      </template>
+      <template slot="option" slot-scope="props">
+        <span :checkstatus="props.option.checkstatus">
+          {{ props.option.begin }} - {{ props.option.end }}
+        </span>
+      </template>
+      <template slot="noOptions">
+        <span>Aucun créneau disponible à cette date</span>
+      </template>
+    </advanced-select>
+    <pre class="d-none">
+      <small>{{ app_date_utilisable_string_hour }}</small>
+    </pre>
+  </div>
 </template>
 
 <script>
 import AdvancedSelect from "vue-multiselect";
 import { BuildCreneaux } from "./AppResouces.js";
+if (window.moment) {
+  var moment = window.moment;
+}
 export default {
   name: "Hours",
   props: {
-    app_date_utilisable_string: {
-      type: String,
-      required: true
-    },
     app_date_utilisable_string_hour: {
       type: String,
       required: true
@@ -81,17 +85,13 @@ export default {
       heure_creneau_fin: null
     };
   },
-  mounted() {
-    //
-  },
+  mounted() {},
   watch: {
-    /*
     app_date_utilisable_string_hour() {
-      //this.init();
-    },
-    /**/
-    app_date_utilisable_string() {
       this.init();
+    },
+    current_creneau(val) {
+      this.$emit("select_creneau", val);
     }
   },
   computed: {
@@ -99,8 +99,13 @@ export default {
   },
   methods: {
     async init() {
+      console.log(
+        "this.app_date_utilisable_string : ",
+        this.app_date_utilisable_string
+      );
       const Build = new BuildCreneaux(
-        this.app_date_utilisable_string,
+        moment(this.app_date_utilisable_string_hour, "DD-MM-YYYY"),
+        this.app_date_utilisable_string_hour,
         this.h_debut,
         this.m_debut,
         this.h_fin,
@@ -113,6 +118,7 @@ export default {
       await Build.dateBorne();
       await Build.buildHour();
       this.list_creneaux = Build.list_creneaux;
+      this.current_creneau = this.list_creneaux[0];
       console.log("list_creneaux : ", this.list_creneaux);
     }
   }

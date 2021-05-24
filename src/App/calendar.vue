@@ -59,7 +59,6 @@
         <span v-if="!show_month_in_date" v-html="date.date_month"></span>
       </li>
     </ul>
-    {{ date_select }}
   </div>
 </template>
 
@@ -76,7 +75,7 @@ export default {
       type: String,
       default: ""
     },
-    app_date_utilisable_string: {
+    app_date_utilisable_string_hour: {
       type: String,
       required: true
     },
@@ -121,15 +120,24 @@ export default {
     };
   },
   watch: {
-    app_date_utilisable_string(val) {
-      this.init(val);
+    app_date_utilisable_string_hour(val) {
+      console.log("app_date_utilisable_string_hour : ", val);
+      this.init();
+    },
+    date_select: {
+      deep: true,
+      handler(date) {
+        if (this.type_creneau)
+          console.log("MAJ de la date de ", this.type_creneau, " : ", date);
+        this.$emit("select_date", date);
+      }
     }
   },
   computed: {
     calandar_title: {
       get() {
-        if (this.app_date_utilisable_string != "") {
-          return moment(this.app_date_utilisable_string, "DD-MM-YYYY")
+        if (this.app_date_utilisable_string_hour != "") {
+          return moment(this.app_date_utilisable_string_hour, "DD-MM-YYYY")
             .add(this.calendar_nav, "month")
             .locale("fr")
             .format("MMMM  YYYY");
@@ -141,7 +149,10 @@ export default {
   methods: {
     async init() {
       const Build = new BuildCalendar(
-        this.app_date_utilisable_string,
+        moment(
+          this.app_date_utilisable_string_hour,
+          "DD-MM-YYYY HH:mm:ss"
+        ).format("DD-MM-YYYY"),
         this.calendar_nav,
         this.nombre_semaine,
         this.jour_desactivee,
@@ -161,7 +172,6 @@ export default {
         var j = parseInt(i) + 1;
         if (j === this.list_calander_days.length) date.select = true;
       }
-      this.$emit("select_date", date);
       this.date_select = date;
     },
     //permet de naviguer entre les mois
