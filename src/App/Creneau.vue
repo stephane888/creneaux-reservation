@@ -227,7 +227,7 @@ export default {
   data() {
     return {
       /**
-       * Est la date utilisable par le client.(Peut etre forunit par l'app ou selectionner par le client)
+       * Est la date de base de l'application, forunit uniquement par l'application.
        */
       app_date_utilisable: moment(),
       show_calandar: false,
@@ -259,17 +259,23 @@ export default {
      */
     app_date_display: {
       get() {
-        if (this.app_date_utilisable != "") {
-          return moment(this.app_date_utilisable, "DD-MM-YYYY")
+        if (this.app_date_generate_by_calendar != "") {
+          return moment(this.app_date_generate_by_calendar, "DD-MM-YYYY")
             .locale("fr")
             .format("dddd Do MMMM");
         }
         return "";
       }
     },
+    /**
+     * ne peut pas etre MAJ par l'application.
+     */
     app_date_utilisable_string() {
       return this.app_date_utilisable.format("DD-MM-YYYY");
     },
+    /**
+     * ne peut pas etre MAJ par l'application.
+     */
     app_date_utilisable_string_hour() {
       return this.app_date_utilisable.format("DD-MM-YYYY HH:mm:ss");
     }

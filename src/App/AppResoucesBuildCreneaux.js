@@ -4,7 +4,7 @@ if (window.moment) {
   var moment = window.moment;
 }
 
-export class BuildCreneaux {
+export default class BuildCreneaux {
   constructor(
     app_date_utilisable_string,
     app_date_utilisable_string_hour,
@@ -220,7 +220,7 @@ export class BuildCreneaux {
     var self = this;
     return new Promise(resolvEnd => {
       if (self.filters.length === 0) {
-        resolvEnd({status: false, verificateur: "filter empty"});
+        resolvEnd({ status: false, verificateur: "filter empty" });
         return;
       }
       const CustomLoop = function(i = 0) {
@@ -248,10 +248,10 @@ export class BuildCreneaux {
                 resolv(result);
               });
             } else {
-              resolv({status: false, i: i, verificateur: "plage_heure"});
+              resolv({ status: false, i: i, verificateur: "plage_heure" });
             }
           } else {
-            resolv({status: false, i: i, verificateur: "nothing"});
+            resolv({ status: false, i: i, verificateur: "nothing" });
           }
         });
       };
@@ -421,14 +421,14 @@ export class BuildCreneaux {
         self.datetime_min &&
         self.datetime_min.diff(creneaux_heure_begin, "minutes") > 0
       ) {
-        resolve({status: true, verificateur: "datetime-min"});
+        resolve({ status: true, verificateur: "datetime-min" });
         return true;
       } else {
         // Verification en function du jour.
         var test1 = disable_heureday();
         test1.then(function(result) {
           if (result) {
-            resolve({status: true, verificateur: "disable-heureday"});
+            resolve({ status: true, verificateur: "disable-heureday" });
             return true;
           } else {
             var test2 = disable_heuredate();
@@ -458,7 +458,7 @@ export class BuildCreneaux {
                         });
                         return true;
                       } else {
-                        resolve({status: false, verificateur: "none"});
+                        resolve({ status: false, verificateur: "none" });
                         return false;
                       }
                     });

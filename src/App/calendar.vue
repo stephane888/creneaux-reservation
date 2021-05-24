@@ -121,13 +121,14 @@ export default {
   },
   watch: {
     app_date_utilisable_string_hour(val) {
-      console.log("app_date_utilisable_string_hour : ", val);
+      if (this.type_creneau === "livraison")
+        console.log("app_date_utilisable_string_hour : ", val);
       this.init();
     },
     date_select: {
       deep: true,
       handler(date) {
-        if (this.type_creneau)
+        if (this.type_creneau === "livraison")
           console.log("MAJ de la date de ", this.type_creneau, " : ", date);
         this.$emit("select_date", date);
       }
@@ -162,8 +163,16 @@ export default {
       );
       await Build.builderCalandar();
       this.list_calander_days = Build.list_calander_days;
-      if (!this.date_select) this.date_select = Build.date_default_select;
-      console.log("list_calander_days : ", this.list_calander_days);
+      this.date_select = Build.date_select;
+      if (this.type_creneau === "livraison")
+        console.log(
+          "list_calander_days",
+          this.type_creneau,
+          " : ",
+          this.date_select,
+          "\n",
+          this.list_calander_days
+        );
     },
     select_date(date) {
       for (const i in this.list_calander_days) {
