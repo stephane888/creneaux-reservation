@@ -4,12 +4,6 @@
     <div
       class="d-flex justify-content-between justify-content-md-start line-creneau h1"
     >
-      <!--
-      on peut egalment utiliser cette option pour fournir rapidement
-      les options.
-      :custom-label="plage_creneau"
-
-      -->
       <Hours
         :app_date_utilisable_string_hour="date_string_generate_by_calendar"
         :h_debut="h_debut"
@@ -130,6 +124,7 @@ export default {
         return [];
       }
     },
+    /*
     disable_heureday: {
       type: Array,
       default() {
@@ -142,10 +137,12 @@ export default {
         return [];
       }
     },
+
     url_get_creneau: {
       type: String,
       default: "http://habeuk.kksa/api/shopify/creneaux/checks.js"
     },
+    /**/
     type_creneau: {
       type: String,
       default: ""
@@ -181,7 +178,7 @@ export default {
      */
     nombre_semaine: {
       type: Number,
-      default: 4
+      default: 6
     },
     /**
      * Nombre de reservation par crerneau.
@@ -313,7 +310,6 @@ export default {
         current_date,
         apply_delai_true
       );
-      console.log("current_date ", this.app_date_utilisable_string_hour);
     },
     display_hide_calandar() {
       if (this.show_calandar) {
@@ -323,14 +319,13 @@ export default {
       }
     },
     select_date_calendar(date) {
-      //console.log("date selectionner  ", this.type_creneau, " : ", date);
       if (date.date_string == this.app_date_utilisable_string)
         this.date_string_generate_by_calendar = this.app_date_utilisable_string_hour;
       else this.date_string_generate_by_calendar = date.date_string;
+      //on ferme le calendrier apres la selection d'une date.
+      this.show_calandar = false;
     },
     select_creneau(val) {
-      //if (!val) return null;
-      //console.log("configs : ", this.configs);
       const date = moment(this.date_string_generate_by_calendar, "DD-MM-YYYY");
       const creneau_begin = val.begin.split(":");
       date.set({
@@ -340,13 +335,12 @@ export default {
       });
       var datas = {
         creneau: val,
-        date_string: date.format("DD-MM-YYYY HH:mm:ss"),
+        date_string: date.format("DD-MM-YYYY"),
         date: date
       };
       this.$emit("ev_select_current_creneau", datas);
     },
     select_next_day() {
-      console.log("Jour suivant");
       const nextDay = moment(
         this.date_string_generate_by_calendar,
         "DD-MM-YYYY"

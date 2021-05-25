@@ -26,7 +26,7 @@ export default class BuildCalendar {
     this.test_calandar_day = 0;
     this.app_date_utilisable = moment(app_date_utilisable_string, "DD-MM-YYYY");
     this.datetime_min = moment(app_date_utilisable_string, "DD-MM-YYYY");
-    //console.log("app_date_utilisable_string : ", app_date_utilisable_string);
+
     //permet de savoir si une date a été selectionner ?
     this.selectedDate = false;
   }
@@ -68,12 +68,6 @@ export default class BuildCalendar {
     }
     calender_day_max.add(nJr, "days");
 
-    console.log(
-      "calander_day_min : ",
-      calander_day_min.format("DD-MM-YYYY"),
-      "\n calender_day_max : ",
-      calender_day_max.format("DD-MM-YYYY")
-    );
     /**/
     await this.getPlageDate(calander_day_min, calender_day_max);
     if (!self.selectedDate) {
@@ -175,33 +169,10 @@ export default class BuildCalendar {
             status: stateValidationDay.status
           };
           if (StatusSelectDate) {
-            /*
-            if (self.type_creneau === "livraison")
-              console.log(
-                "Echec ValidationDay : ",
-                date,
-                "\n date_select : ",
-                self.date_select,
-                "\n app_date_utilisable_string : ",
-                self.app_date_utilisable_string
-              );
-            /**/
             self.selectedDate = true;
             self.date_select = date;
           }
-          /*
-          else {
-            if (self.type_creneau)
-              console.log(
-                "Echec ValidationDay : ",
-                date,
-                "\n date_select : ",
-                self.date_select,
-                "\n app_date_utilisable_string : ",
-                self.app_date_utilisable_string
-              );
-          }
-          /**/
+
           self.list_calander_days.push(date);
           calander_day_min.add(1, "days");
           resolve(self.getPlageDate(calander_day_min, calender_day_max));

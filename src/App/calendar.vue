@@ -127,8 +127,6 @@ export default {
     date_select: {
       deep: true,
       handler(date) {
-        if (this.type_creneau === "livraison")
-          console.log("MAJ de la date de ", this.type_creneau, " : ", date);
         this.$emit("select_date", date);
       }
     }
@@ -164,15 +162,6 @@ export default {
       await Build.builderCalandar();
       this.list_calander_days = Build.list_calander_days;
       this.date_select = Build.date_select;
-      if (this.type_creneau)
-        console.log(
-          "list_calander_days",
-          this.type_creneau,
-          " : ",
-          this.date_select,
-          "\n",
-          this.list_calander_days
-        );
     },
     select_date(date) {
       for (const i in this.list_calander_days) {

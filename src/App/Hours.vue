@@ -122,7 +122,6 @@ export default {
       await Build.buildHour();
       this.list_creneaux = Build.list_creneaux;
       this.current_creneau = this.list_creneaux[0];
-      console.log("list_creneaux : ", this.list_creneaux);
     }
   }
 };

@@ -53,7 +53,6 @@ export default class BuildCreneaux {
    * La paramettre date doit etre un object moment.
    */
   async dateBorne() {
-    // console.log("dateBorne");
     // On ne pas utiliser directement la valeur de date pour crrer la valeur de min et max date, car vuejs concerve
     // la meme valeur entre les variables la MAJ d'une mettra automatiquement la suivante.
 
@@ -84,19 +83,6 @@ export default class BuildCreneaux {
       this.date_max.hours(h_fin);
       this.date_max.minutes(m_fin);
       this.date_max.seconds(0);
-      /*
-      console.log(
-        "\n h_debut : ",
-        this.h_debut,
-        "\n h_fin : ",
-        this.h_fin,
-        "\n min date : ",
-        this.data_min.format("DD-MM-YYYY HH:mm:ss"),
-        "\n max date : ",
-        this.date_max.format("DD-MM-YYYY HH:mm:ss")
-      );
-      console.log("dateBorne end");
-      /**/
     }
   }
 
@@ -120,11 +106,10 @@ export default class BuildCreneaux {
    * @private
    */
   getIntervalUtilisable(date_min_string) {
-    //console.log("getIntervalUtilisable debut : ", date_min_string);
     var self = this;
     return new Promise(function(resolve, reject) {
       self.test_creneau++;
-      //  console.log("getIntervalUtilisable");
+
       if (self.test_creneau > 99) {
         alert("Probleme de configuration : Creneau");
         reject(false);
@@ -278,7 +263,6 @@ export default class BuildCreneaux {
         return new Promise(resolv => {
           const filter = self.filters[i];
           if (filter.h_debut !== "" && filter.h_fin !== "") {
-            //console.log("filter : ", filter);
             if (
               Filtres.HourIntervalContain(
                 filter.h_debut,

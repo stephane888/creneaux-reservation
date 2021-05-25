@@ -40,12 +40,6 @@ class DateUtilisable {
   getDayUtilisable(date, provider = null, apply_delai_true = true) {
     var self = this;
     return new Promise(function(resolve, reject) {
-      /*
-      console.log(
-        "valeur de apply_delai_true " + self.type_creneau + ": ",
-        apply_delai_true
-      );
-      /**/
       if (self.test_jour_semaine > 6) {
         alert("Boucle infinie detecter ..." + provider);
         reject(false);
