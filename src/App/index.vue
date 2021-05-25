@@ -775,11 +775,12 @@ export default {
     },
     ev_creneau_livraison(creneau) {
       this.creneau_livraison = creneau;
+      console.log("index ev_creneau_livraison", creneau);
     },
 
     ev_creneau_collecte(creneau) {
       this.creneau_collecte = creneau;
-      console.log("index", creneau);
+      console.log("index ev_creneau_collecte", creneau);
     },
     HideStaticLoading() {
       $(".londing-cover.static").fadeOut(600);

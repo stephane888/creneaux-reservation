@@ -120,9 +120,8 @@ export default {
     };
   },
   watch: {
-    app_date_utilisable_string_hour(val) {
-      if (this.type_creneau === "livraison")
-        console.log("app_date_utilisable_string_hour : ", val);
+    app_date_utilisable_string_hour() {
+      this.calendar_nav = 0;
       this.init();
     },
     date_select: {
@@ -149,11 +148,12 @@ export default {
   },
   methods: {
     async init() {
+      const app_date_utilisable_string = moment(
+        this.app_date_utilisable_string_hour,
+        "DD-MM-YYYY HH:mm:ss"
+      );
       const Build = new BuildCalendar(
-        moment(
-          this.app_date_utilisable_string_hour,
-          "DD-MM-YYYY HH:mm:ss"
-        ).format("DD-MM-YYYY"),
+        app_date_utilisable_string.format("DD-MM-YYYY"),
         this.calendar_nav,
         this.nombre_semaine,
         this.jour_desactivee,
@@ -164,7 +164,7 @@ export default {
       await Build.builderCalandar();
       this.list_calander_days = Build.list_calander_days;
       this.date_select = Build.date_select;
-      if (this.type_creneau === "livraison")
+      if (this.type_creneau)
         console.log(
           "list_calander_days",
           this.type_creneau,

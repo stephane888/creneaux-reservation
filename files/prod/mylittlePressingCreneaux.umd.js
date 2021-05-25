@@ -528,32 +528,6 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ "1dde":
-/***/ (function(module, exports, __webpack_require__) {
-
-var fails = __webpack_require__("d039");
-var wellKnownSymbol = __webpack_require__("b622");
-var V8_VERSION = __webpack_require__("2d00");
-
-var SPECIES = wellKnownSymbol('species');
-
-module.exports = function (METHOD_NAME) {
-  // We can't use this feature detection in V8 since it causes
-  // deoptimization and serious performance degradation
-  // https://github.com/zloirock/core-js/issues/677
-  return V8_VERSION >= 51 || !fails(function () {
-    var array = [];
-    var constructor = array.constructor = {};
-    constructor[SPECIES] = function () {
-      return { foo: 1 };
-    };
-    return array[METHOD_NAME](Boolean).foo !== 1;
-  });
-};
-
-
-/***/ }),
-
 /***/ "2266":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1219,17 +1193,6 @@ $({ target: 'String', proto: true, forced: forcedStringTrimMethod('trim') }, {
 
 /***/ }),
 
-/***/ "4cb9":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Creneau_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("f66e");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Creneau_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Creneau_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
-
-
-/***/ }),
-
 /***/ "4d64":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1563,33 +1526,6 @@ module.exports = {
   // `String.prototype.at` method
   // https://github.com/mathiasbynens/String.prototype.at
   charAt: createMethod(true)
-};
-
-
-/***/ }),
-
-/***/ "65f0":
-/***/ (function(module, exports, __webpack_require__) {
-
-var isObject = __webpack_require__("861d");
-var isArray = __webpack_require__("e8b5");
-var wellKnownSymbol = __webpack_require__("b622");
-
-var SPECIES = wellKnownSymbol('species');
-
-// `ArraySpeciesCreate` abstract operation
-// https://tc39.es/ecma262/#sec-arrayspeciescreate
-module.exports = function (originalArray, length) {
-  var C;
-  if (isArray(originalArray)) {
-    C = originalArray.constructor;
-    // cross-realm fallback
-    if (typeof C == 'function' && (C === Array || isArray(C.prototype))) C = undefined;
-    else if (isObject(C)) {
-      C = C[SPECIES];
-      if (C === null) C = undefined;
-    }
-  } return new (C === undefined ? Array : C)(length === 0 ? 0 : length);
 };
 
 
@@ -1995,24 +1931,6 @@ var fails = __webpack_require__("d039");
 module.exports = !fails(function () {
   return Object.defineProperty({}, 1, { get: function () { return 7; } })[1] != 7;
 });
-
-
-/***/ }),
-
-/***/ "8418":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var toPrimitive = __webpack_require__("c04e");
-var definePropertyModule = __webpack_require__("9bf2");
-var createPropertyDescriptor = __webpack_require__("5c6c");
-
-module.exports = function (object, key, value) {
-  var propertyKey = toPrimitive(key);
-  if (propertyKey in object) definePropertyModule.f(object, propertyKey, createPropertyDescriptor(0, value));
-  else object[propertyKey] = value;
-};
 
 
 /***/ }),
@@ -3072,74 +2990,6 @@ try {
   // problems, please detail your unique predicament in a GitHub issue.
   Function("r", "regeneratorRuntime = r")(runtime);
 }
-
-
-/***/ }),
-
-/***/ "99af":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $ = __webpack_require__("23e7");
-var fails = __webpack_require__("d039");
-var isArray = __webpack_require__("e8b5");
-var isObject = __webpack_require__("861d");
-var toObject = __webpack_require__("7b0b");
-var toLength = __webpack_require__("50c4");
-var createProperty = __webpack_require__("8418");
-var arraySpeciesCreate = __webpack_require__("65f0");
-var arrayMethodHasSpeciesSupport = __webpack_require__("1dde");
-var wellKnownSymbol = __webpack_require__("b622");
-var V8_VERSION = __webpack_require__("2d00");
-
-var IS_CONCAT_SPREADABLE = wellKnownSymbol('isConcatSpreadable');
-var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF;
-var MAXIMUM_ALLOWED_INDEX_EXCEEDED = 'Maximum allowed index exceeded';
-
-// We can't use this feature detection in V8 since it causes
-// deoptimization and serious performance degradation
-// https://github.com/zloirock/core-js/issues/679
-var IS_CONCAT_SPREADABLE_SUPPORT = V8_VERSION >= 51 || !fails(function () {
-  var array = [];
-  array[IS_CONCAT_SPREADABLE] = false;
-  return array.concat()[0] !== array;
-});
-
-var SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('concat');
-
-var isConcatSpreadable = function (O) {
-  if (!isObject(O)) return false;
-  var spreadable = O[IS_CONCAT_SPREADABLE];
-  return spreadable !== undefined ? !!spreadable : isArray(O);
-};
-
-var FORCED = !IS_CONCAT_SPREADABLE_SUPPORT || !SPECIES_SUPPORT;
-
-// `Array.prototype.concat` method
-// https://tc39.es/ecma262/#sec-array.prototype.concat
-// with adding support of @@isConcatSpreadable and @@species
-$({ target: 'Array', proto: true, forced: FORCED }, {
-  concat: function concat(arg) { // eslint-disable-line no-unused-vars
-    var O = toObject(this);
-    var A = arraySpeciesCreate(O, 0);
-    var n = 0;
-    var i, k, length, len, E;
-    for (i = -1, length = arguments.length; i < length; i++) {
-      E = i === -1 ? O : arguments[i];
-      if (isConcatSpreadable(E)) {
-        len = toLength(E.length);
-        if (n + len > MAX_SAFE_INTEGER) throw TypeError(MAXIMUM_ALLOWED_INDEX_EXCEEDED);
-        for (k = 0; k < len; k++, n++) if (k in E) createProperty(A, n, E[k]);
-      } else {
-        if (n >= MAX_SAFE_INTEGER) throw TypeError(MAXIMUM_ALLOWED_INDEX_EXCEEDED);
-        createProperty(A, n++, E);
-      }
-    }
-    A.length = n;
-    return A;
-  }
-});
 
 
 /***/ }),
@@ -7748,20 +7598,6 @@ module.exports = function (target, source) {
 
 /***/ }),
 
-/***/ "e8b5":
-/***/ (function(module, exports, __webpack_require__) {
-
-var classof = __webpack_require__("c6b6");
-
-// `IsArray` abstract operation
-// https://tc39.es/ecma262/#sec-isarray
-module.exports = Array.isArray || function isArray(arg) {
-  return classof(arg) == 'Array';
-};
-
-
-/***/ }),
-
 /***/ "e95a":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7838,13 +7674,6 @@ module.exports = TO_STRING_TAG_SUPPORT ? classofRaw : function (it) {
 
 /***/ }),
 
-/***/ "f66e":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "f772":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7902,7 +7731,7 @@ if (typeof window !== 'undefined') {
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 var external_commonjs_vue_commonjs2_vue_root_Vue_default = /*#__PURE__*/__webpack_require__.n(external_commonjs_vue_commonjs2_vue_root_Vue_);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6bc187d1-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Creneaux.vue?vue&type=template&id=f1a7a56c&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5da2cd20-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Creneaux.vue?vue&type=template&id=f1a7a56c&
 var Creneauxvue_type_template_id_f1a7a56c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('creneau',{staticClass:"container first-block ",attrs:{"blocks_type_livraisons":_vm.blocks_type_livraisons,"app_env_prod":_vm.app_env_prod,"titre_module":_vm.titre_module,"nombre_res_creneau":_vm.nombre_res_creneau,"collecte_current_date":_vm.collecte_current_date,"livraison_current_date":_vm.livraison_current_date,"nombre_semaine":_vm.nombre_semaine,"plage_heures_valide":_vm.plage_heures_valide,"collecte_jour_desactivee":_vm.collecte_jour_desactivee,"livraison_jour_desactivee":_vm.livraison_jour_desactivee,"collecte_date_desactivee":_vm.collecte_date_desactivee,"livraison_date_desactivee":_vm.livraison_date_desactivee,"disable_heureday":_vm.disable_heureday,"disable_heuredate":_vm.disable_heuredate,"url_get_creneau":_vm.url_get_creneau,"url_save_creneau":_vm.url_save_creneau,"collecte_delai_jour":_vm.collecte_delai_jour,"collecte_interval":_vm.collecte_interval,"livraison_delai_jour":_vm.livraison_delai_jour,"livraison_interval":_vm.livraison_interval,"collecte_deccalage_creneau_depart":_vm.collecte_deccalage_creneau_depart,"filters":_vm.filters}})],1)}
 var staticRenderFns = []
 
@@ -8115,12 +7944,12 @@ var configApp = {
   filters: window.creneau_filters && window.creneau_filters.length ? window.creneau_filters : []
 };
 /* harmony default export */ var config = (configApp);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6bc187d1-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/index.vue?vue&type=template&id=da1afeaa&
-var Appvue_type_template_id_da1afeaa_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('transition',{attrs:{"name":"fade","mode":"out-in"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.show),expression:"show"}],staticClass:"creneaux-mbt--block mt-5"},[_c('div',[_c('h1',{staticClass:"text-left font-weight-bold",domProps:{"innerHTML":_vm._s(_vm.titre_module)}})]),_c('type-livraison',{ref:"typelivraison",attrs:{"blocks_type_livraisons":_vm.blocks_type_livraisons,"price_shipping":_vm.newpriceshipping},on:{"ev_change_type_livraison":_vm.ev_change_type_livraison},scopedSlots:_vm._u([{key:"alert",fn:function(){return [_c('div',{staticClass:"col-md-12 "},[_c('alert',{attrs:{"show_alert":_vm.show_alert,"alert_message":_vm.alert_message,"alert_attribut_class":_vm.alert_attribut_class},on:{"ev_alert_close":_vm.alert_close}})],1)]},proxy:true}])},[[_c('div',{staticClass:"col-md-7"},[_c('selectionhoraire',{ref:"selectionhoraire",attrs:{"collecte_delai_jour":_vm.collecte_delai_jour,"collecte_jour_desactivee":_vm.collecte_jour_desactivee,"collecte_date_desactivee":_vm.collecte_date_desactivee,"collecte_interval":_vm.collecte_interval,"collecte_configs":_vm.collecte_configs,"collecte_current_date":_vm.collecte_current_date,"collecte_deccalage_creneau_depart":_vm.collecte_deccalage_creneau_depart,"livraison_delai_jour":_vm.livraison_delai_jour,"livraison_jour_desactivee":_vm.livraison_jour_desactivee,"livraison_date_desactivee":_vm.livraison_date_desactivee,"livraison_interval":_vm.livraison_interval,"livraison_configs":_vm.TypeLivraison,"livraison_current_date":_vm.livraison_current_date,"nombre_semaine":_vm.nombre_semaine,"nombre_res_creneau":_vm.nombre_res_creneau,"plage_heures_valide":_vm.plage_heures_valide,"disable_heureday":_vm.disable_heureday,"disable_heuredate":_vm.disable_heuredate,"url_get_creneau":_vm.url_get_creneau,"filters":_vm.filters},on:{"ev_creneau_collecte":_vm.ev_creneau_collecte,"ev_creneau_livraison":_vm.ev_creneau_livraison}})],1)]],2),(_vm.show && _vm.show_cover)?_c('div',{staticClass:"londing-cover dynamique d-flex"},[_c('VueLoading',{attrs:{"type":"bars","color":"#00a3dd","size":{ width: '90px', height: '50px' }}})],1):_vm._e()],1)])],1)}
-var Appvue_type_template_id_da1afeaa_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5da2cd20-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/index.vue?vue&type=template&id=4e558af1&
+var Appvue_type_template_id_4e558af1_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('transition',{attrs:{"name":"fade","mode":"out-in"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.show),expression:"show"}],staticClass:"creneaux-mbt--block mt-5"},[_c('div',[_c('h1',{staticClass:"text-left font-weight-bold",domProps:{"innerHTML":_vm._s(_vm.titre_module)}})]),_c('type-livraison',{ref:"typelivraison",attrs:{"blocks_type_livraisons":_vm.blocks_type_livraisons,"price_shipping":_vm.newpriceshipping},on:{"ev_change_type_livraison":_vm.ev_change_type_livraison},scopedSlots:_vm._u([{key:"alert",fn:function(){return [_c('div',{staticClass:"col-md-12 "},[_c('alert',{attrs:{"show_alert":_vm.show_alert,"alert_message":_vm.alert_message,"alert_attribut_class":_vm.alert_attribut_class},on:{"ev_alert_close":_vm.alert_close}})],1)]},proxy:true}])},[[_c('div',{staticClass:"col-md-7"},[_c('selectionhoraire',{ref:"selectionhoraire",attrs:{"collecte_delai_jour":_vm.collecte_delai_jour,"collecte_jour_desactivee":_vm.collecte_jour_desactivee,"collecte_date_desactivee":_vm.collecte_date_desactivee,"collecte_interval":_vm.collecte_interval,"collecte_configs":_vm.collecte_configs,"collecte_current_date":_vm.collecte_current_date,"collecte_deccalage_creneau_depart":_vm.collecte_deccalage_creneau_depart,"livraison_delai_jour":_vm.livraison_delai_jour,"livraison_jour_desactivee":_vm.livraison_jour_desactivee,"livraison_date_desactivee":_vm.livraison_date_desactivee,"livraison_interval":_vm.livraison_interval,"livraison_configs":_vm.TypeLivraison,"livraison_current_date":_vm.livraison_current_date,"nombre_semaine":_vm.nombre_semaine,"nombre_res_creneau":_vm.nombre_res_creneau,"plage_heures_valide":_vm.plage_heures_valide,"disable_heureday":_vm.disable_heureday,"disable_heuredate":_vm.disable_heuredate,"url_get_creneau":_vm.url_get_creneau,"filters":_vm.filters},on:{"ev_creneau_collecte":_vm.ev_creneau_collecte,"ev_creneau_livraison":_vm.ev_creneau_livraison}})],1)]],2),(_vm.show && _vm.show_cover)?_c('div',{staticClass:"londing-cover dynamique d-flex"},[_c('VueLoading',{attrs:{"type":"bars","color":"#00a3dd","size":{ width: '90px', height: '50px' }}})],1):_vm._e()],1)])],1)}
+var Appvue_type_template_id_4e558af1_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App/index.vue?vue&type=template&id=da1afeaa&
+// CONCATENATED MODULE: ./src/App/index.vue?vue&type=template&id=4e558af1&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.iterator.js
 var es_array_iterator = __webpack_require__("e260");
@@ -8194,7 +8023,7 @@ function _asyncToGenerator(fn) {
     });
   };
 }
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6bc187d1-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/TypeLivraison.vue?vue&type=template&id=59b308c1&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5da2cd20-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/TypeLivraison.vue?vue&type=template&id=59b308c1&
 var TypeLivraisonvue_type_template_id_59b308c1_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"block-left"},[(_vm.show_title)?_c('div',[_c('h3',{staticClass:"title",domProps:{"innerHTML":_vm._s(_vm.titre)}})]):_vm._e(),_c('div',{staticClass:"first-row justify-content-start d-flex text-center"},_vm._l((_vm.blocks_type_livraisons),function(type,index){return _c('div',{key:index,staticClass:"option d-flex btn align-items-center",class:[
         index == 0 ? 'option--tl-radius' : 'option--bdr-right',
         type.active ? 'badge-primary' : ''
@@ -8207,7 +8036,7 @@ var TypeLivraisonvue_type_template_id_59b308c1_staticRenderFns = []
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.trim.js
 var es_string_trim = __webpack_require__("498a");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6bc187d1-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/assets/MapCalandarSvg.vue?vue&type=template&id=5f9ca9b8&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5da2cd20-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/assets/MapCalandarSvg.vue?vue&type=template&id=5f9ca9b8&
 var MapCalandarSvgvue_type_template_id_5f9ca9b8_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('svg',{staticStyle:{"enable-background":"new 0 0 512.053 512.053"},attrs:{"version":"1.1","id":"Capa_1","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink","x":"0px","y":"0px","viewBox":"0 0 512.053 512.053","xml:space":"preserve"}},[_c('g',[_c('g',[_c('path',{staticStyle:{"fill":"#010002"},attrs:{"d":"M365.027,44.5c-30-29.667-66.333-44.5-109-44.5s-79,14.833-109,44.5s-45,65.5-45,107.5\n\t\t\tc0,25.333,12.833,67.667,38.5,127c25.667,59.334,51.333,113.334,77,162s38.5,72.334,38.5,71c4-7.334,9.5-17.334,16.5-30\n\t\t\ts19.333-36.5,37-71.5s33.167-67.166,46.5-96.5c13.334-29.332,25.667-59.667,37-91s17-55,17-71\n\t\t\tC410.027,110,395.027,74.167,365.027,44.5z M289.027,184c-9.333,9.333-20.5,14-33.5,14c-13,0-24.167-4.667-33.5-14\n\t\t\ts-14-20.5-14-33.5s4.667-24,14-33s20.5-13.5,33.5-13.5c13,0,24.167,4.5,33.5,13.5s14,20,14,33S298.36,174.667,289.027,184z"}})])]),_c('g'),_c('g'),_c('g'),_c('g'),_c('g'),_c('g'),_c('g'),_c('g'),_c('g'),_c('g'),_c('g'),_c('g'),_c('g'),_c('g'),_c('g')])])}
 var MapCalandarSvgvue_type_template_id_5f9ca9b8_staticRenderFns = []
 
@@ -8671,30 +8500,21 @@ var TypeLivraison_component = normalizeComponent(
 )
 
 /* harmony default export */ var TypeLivraison = (TypeLivraison_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6bc187d1-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/SelectionCreneau.vue?vue&type=template&id=515a5eed&
-var SelectionCreneauvue_type_template_id_515a5eed_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"row ml-md-4"},[_c('creneau',{ref:"collecte",attrs:{"title":_vm.collecte_title,"classes":_vm.collecte_livraison,"delai_jour":_vm.collecte_delai_jour,"jour_desactivee":_vm.collecte_jour_desactivee,"date_desactivee":_vm.collecte_date_desactivee,"interval":_vm.collecte_interval,"rebuild_creneau":_vm.collecte_plages_debut,"configs":_vm.collecte_configs,"current_date":_vm.collecte_current_date,"nombre_semaine":_vm.nombre_semaine,"nombre_res_creneau":_vm.nombre_res_creneau,"plage_heures_valide":_vm.plage_heures_valide,"disable_heureday":_vm.disable_heureday,"disable_heuredate":_vm.disable_heuredate,"url_get_creneau":_vm.url_get_creneau,"type_creneau":'collecte',"deccalage_creneau_depart":_vm.collecte_deccalage_creneau_depart,"filters":_vm.filters},on:{"ev_select_current_creneau":_vm.ev_select_current_creneau_collecte}}),_c('creneau',{ref:"livraison",attrs:{"title":_vm.title_livraison,"classes":_vm.classes_livraison,"delai_jour":_vm.livraison_delai_jour,"jour_desactivee":_vm.livraison_jour_desactivee,"date_desactivee":_vm.livraison_date_desactivee,"interval":_vm.livraison_interval,"rebuild_creneau":_vm.livraison_rebuild_creneau,"configs":_vm.livraison_configs,"current_date":_vm.livraison_current_date,"nombre_semaine":_vm.nombre_semaine,"nombre_res_creneau":_vm.nombre_res_creneau,"plage_heures_valide":_vm.plage_heures_valide,"disable_heureday":_vm.disable_heureday,"disable_heuredate":_vm.disable_heuredate,"url_get_creneau":_vm.url_get_creneau,"type_creneau":'livraison',"filters":_vm.filters},on:{"ev_select_current_creneau":_vm.ev_select_current_creneau_livraison}})],1)}
-var SelectionCreneauvue_type_template_id_515a5eed_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5da2cd20-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/SelectionCreneau.vue?vue&type=template&id=9cbebd20&
+var SelectionCreneauvue_type_template_id_9cbebd20_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"row ml-md-4"},[_c('creneau',{ref:"collecte",attrs:{"title":_vm.collecte_title,"classes":_vm.collecte_livraison,"delai_jour":_vm.collecte_delai_jour,"jour_desactivee":_vm.collecte_jour_desactivee,"date_desactivee":_vm.collecte_date_desactivee,"interval":_vm.collecte_interval,"configs":_vm.collecte_configs,"current_date":_vm.collecte_current_date,"nombre_semaine":_vm.nombre_semaine,"nombre_res_creneau":_vm.nombre_res_creneau,"plage_heures_valide":_vm.plage_heures_valide,"disable_heureday":_vm.disable_heureday,"disable_heuredate":_vm.disable_heuredate,"url_get_creneau":_vm.url_get_creneau,"type_creneau":'collecte',"deccalage_creneau_depart":_vm.collecte_deccalage_creneau_depart,"filters":_vm.filters},on:{"ev_select_current_creneau":_vm.ev_select_current_creneau_collecte}}),_c('creneau',{ref:"livraison",attrs:{"title":_vm.title_livraison,"classes":_vm.classes_livraison,"delai_jour":_vm.livraison_delai_jour,"jour_desactivee":_vm.livraison_jour_desactivee,"date_desactivee":_vm.livraison_date_desactivee,"interval":_vm.livraison_interval,"configs":_vm.livraison_configs,"current_date":_vm.livraison_current_date,"nombre_semaine":_vm.nombre_semaine,"nombre_res_creneau":_vm.nombre_res_creneau,"plage_heures_valide":_vm.plage_heures_valide,"disable_heureday":_vm.disable_heureday,"disable_heuredate":_vm.disable_heuredate,"url_get_creneau":_vm.url_get_creneau,"type_creneau":'livraison',"filters":_vm.filters},on:{"ev_select_current_creneau":_vm.ev_select_current_creneau_livraison}})],1)}
+var SelectionCreneauvue_type_template_id_9cbebd20_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App/SelectionCreneau.vue?vue&type=template&id=515a5eed&
+// CONCATENATED MODULE: ./src/App/SelectionCreneau.vue?vue&type=template&id=9cbebd20&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6bc187d1-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/Creneau.vue?vue&type=template&id=357bbaae&
-var Creneauvue_type_template_id_357bbaae_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:_vm.classes},[_c('div',{staticClass:"title-creneau h2",domProps:{"innerHTML":_vm._s(_vm.title)}}),_c('div',{staticClass:"d-flex justify-content-between justify-content-md-start line-creneau h1"},[_c('advanced-select',{attrs:{"disabled":_vm.disabled_creneau,"options":_vm.list_creneaux,"show-labels":false,"searchable":false,"placeholder":"00:00 - 00:00","track-by":"begin"},scopedSlots:_vm._u([{key:"singleLabel",fn:function(ref){
-var option = ref.option;
-return [_vm._v(" "+_vm._s(option.begin)+" - "+_vm._s(option.end)+" ")]}},{key:"option",fn:function(props){return [_c('span',{attrs:{"checkstatus":props.option.checkstatus}},[_vm._v(" "+_vm._s(props.option.begin)+" - "+_vm._s(props.option.end)+" ")])]}}]),model:{value:(_vm.current_creneau),callback:function ($$v) {_vm.current_creneau=$$v},expression:"current_creneau"}},[_c('template',{slot:"noOptions"},[_vm._v(" Aucun créneau disponible à cette date ")])],2),_c('i',{staticClass:"icone-svg mb-md-1 mb-lg-2 cursor-pointer",on:{"click":_vm.display_hide_calandar}},[_c('svg-calandear')],1)],1),_c('p',{staticClass:"cursor-pointer",on:{"click":_vm.display_hide_calandar}},[_vm._v(" "+_vm._s(_vm.app_date_display)+" ")]),(_vm.show_calandar)?_c('div',{staticClass:"over-container-date",on:{"click":_vm.display_hide_calandar}}):_vm._e(),_c('calendar',{directives:[{name:"show",rawName:"v-show",value:(_vm.show_calandar),expression:"show_calandar"}],ref:"calendar",attrs:{"app_date_current":_vm.app_date_current,"filters":_vm.filters,"app_date":_vm.app_date,"current_date":_vm.current_date,"jour_desactivee":_vm.jour_desactivee,"datetime_min":_vm.datetime_min,"nombre_semaine":_vm.nombre_semaine,"type_creneau":_vm.type_creneau,"rebuild_creneau":_vm.rebuild_creneau},on:{"select_date":_vm.select_date_calendar}})],1)}
-var Creneauvue_type_template_id_357bbaae_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5da2cd20-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/Creneau.vue?vue&type=template&id=c9452158&
+var Creneauvue_type_template_id_c9452158_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:_vm.classes},[_c('div',{staticClass:"title-creneau h2",domProps:{"innerHTML":_vm._s(_vm.title)}}),_c('div',{staticClass:"d-flex justify-content-between justify-content-md-start line-creneau h1"},[_c('Hours',{attrs:{"app_date_utilisable_string_hour":_vm.date_string_generate_by_calendar,"h_debut":_vm.h_debut,"m_debut":_vm.m_debut,"h_fin":_vm.h_fin,"m_fin":_vm.m_fin,"plage_heures_valide":_vm.plage_heures_valide,"filters":_vm.filters,"configs":_vm.configs,"type_creneau":_vm.type_creneau,"deccalage_creneau_depart":_vm.deccalage_creneau_depart},on:{"select_creneau":_vm.select_creneau,"select_next_day":_vm.select_next_day}}),_c('i',{staticClass:"icone-svg mb-md-1 mb-lg-2 cursor-pointer",on:{"click":_vm.display_hide_calandar}},[_c('svg-calandear')],1)],1),_c('p',{staticClass:"cursor-pointer",on:{"click":_vm.display_hide_calandar}},[_vm._v(" "+_vm._s(_vm.app_date_display)+" ")]),(_vm.show_calandar)?_c('div',{staticClass:"over-container-date",on:{"click":_vm.display_hide_calandar}}):_vm._e(),_c('calendar',{directives:[{name:"show",rawName:"v-show",value:(_vm.show_calandar),expression:"show_calandar"}],ref:"calendar",attrs:{"app_date_utilisable_string_hour":_vm.app_date_utilisable_string_hour,"filters":_vm.filters,"jour_desactivee":_vm.jour_desactivee,"nombre_semaine":_vm.nombre_semaine,"type_creneau":_vm.type_creneau,"rebuild_creneau":_vm.rebuild_creneau},on:{"select_date":_vm.select_date_calendar}})],1)}
+var Creneauvue_type_template_id_c9452158_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App/Creneau.vue?vue&type=template&id=357bbaae&
+// CONCATENATED MODULE: ./src/App/Creneau.vue?vue&type=template&id=c9452158&
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
-var es_array_concat = __webpack_require__("99af");
-
-// EXTERNAL MODULE: ./node_modules/vue-multiselect/dist/vue-multiselect.min.js
-var vue_multiselect_min = __webpack_require__("8e5f");
-var vue_multiselect_min_default = /*#__PURE__*/__webpack_require__.n(vue_multiselect_min);
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6bc187d1-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/SvgCalandar.vue?vue&type=template&id=66c27226&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5da2cd20-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/SvgCalandar.vue?vue&type=template&id=66c27226&
 var SvgCalandarvue_type_template_id_66c27226_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('svg',{staticStyle:{"enable-background":"new 0 0 122.88 122.88"},attrs:{"version":"1.1","id":"Layer_1","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink","x":"0px","y":"0px","viewBox":"0 0 122.88 122.88","xml:space":"preserve"}},[_c('g',[_c('path',{attrs:{"d":"M81.61,4.73c0-2.61,2.58-4.73,5.77-4.73c3.19,0,5.77,2.12,5.77,4.73v20.72c0,2.61-2.58,4.73-5.77,4.73 c-3.19,0-5.77-2.12-5.77-4.73V4.73L81.61,4.73z M66.11,103.81c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2H81.9 c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H66.11L66.11,103.81z M15.85,67.09c-0.34,0-0.61-1.43-0.61-3.2 c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H15.85L15.85,67.09z M40.98,67.09 c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H40.98 L40.98,67.09z M66.11,67.09c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2H81.9c0.34,0,0.61,1.43,0.61,3.2 c0,1.77-0.27,3.2-0.61,3.2H66.11L66.11,67.09z M91.25,67.09c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79 c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H91.25L91.25,67.09z M15.85,85.45c-0.34,0-0.61-1.43-0.61-3.2 c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H15.85L15.85,85.45z M40.98,85.45 c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H40.98 L40.98,85.45z M66.11,85.45c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2H81.9c0.34,0,0.61,1.43,0.61,3.2 c0,1.77-0.27,3.2-0.61,3.2H66.11L66.11,85.45z M91.25,85.45c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79 c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H91.25L91.25,85.45z M15.85,103.81c-0.34,0-0.61-1.43-0.61-3.2 c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H15.85L15.85,103.81z M40.98,103.81 c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H40.98 L40.98,103.81z M29.61,4.73c0-2.61,2.58-4.73,5.77-4.73s5.77,2.12,5.77,4.73v20.72c0,2.61-2.58,4.73-5.77,4.73 s-5.77-2.12-5.77-4.73V4.73L29.61,4.73z M6.4,45.32h110.07V21.47c0-0.8-0.33-1.53-0.86-2.07c-0.53-0.53-1.26-0.86-2.07-0.86H103 c-1.77,0-3.2-1.43-3.2-3.2c0-1.77,1.43-3.2,3.2-3.2h10.55c2.57,0,4.9,1.05,6.59,2.74c1.69,1.69,2.74,4.02,2.74,6.59v27.06v65.03 c0,2.57-1.05,4.9-2.74,6.59c-1.69,1.69-4.02,2.74-6.59,2.74H9.33c-2.57,0-4.9-1.05-6.59-2.74C1.05,118.45,0,116.12,0,113.55V48.52 V21.47c0-2.57,1.05-4.9,2.74-6.59c1.69-1.69,4.02-2.74,6.59-2.74H20.6c1.77,0,3.2,1.43,3.2,3.2c0,1.77-1.43,3.2-3.2,3.2H9.33 c-0.8,0-1.53,0.33-2.07,0.86c-0.53,0.53-0.86,1.26-0.86,2.07V45.32L6.4,45.32z M116.48,51.73H6.4v61.82c0,0.8,0.33,1.53,0.86,2.07 c0.53,0.53,1.26,0.86,2.07,0.86h104.22c0.8,0,1.53-0.33,2.07-0.86c0.53-0.53,0.86-1.26,0.86-2.07V51.73L116.48,51.73z M50.43,18.54 c-1.77,0-3.2-1.43-3.2-3.2c0-1.77,1.43-3.2,3.2-3.2h21.49c1.77,0,3.2,1.43,3.2,3.2c0,1.77-1.43,3.2-3.2,3.2H50.43L50.43,18.54z"}})])])])}
 var SvgCalandarvue_type_template_id_66c27226_staticRenderFns = []
 
@@ -8749,6 +8569,40 @@ var SvgCalandar_component = normalizeComponent(
 )
 
 /* harmony default export */ var SvgCalandar = (SvgCalandar_component.exports);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5da2cd20-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/calendar.vue?vue&type=template&id=ec22839c&
+var calendarvue_type_template_id_ec22839c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container-date flat cercle"},[_c('div',{staticClass:"single-date-picker__calendar-month-header"},[_c('div',{staticClass:"single-date-picker__arrow left",on:{"click":function($event){return _vm.toggleMonth(-1)}}}),(_vm.calandar_title != '')?_c('div',{staticClass:"single-date-picker__year",domProps:{"innerHTML":_vm._s(_vm.calandar_title)}}):_vm._e(),_c('div',{staticClass:"single-date-picker__arrow right",on:{"click":function($event){return _vm.toggleMonth(1)}}})]),_c('ul',{staticClass:"d-flex flex-wrap justify-content-center"},[(_vm.show_day_label)?_c('div',{staticClass:"d-flex flex-wrap justify-content-center w-100"},[_c('li',{staticClass:"date day"},[_vm._v(" Lun ")]),_c('li',{staticClass:"date day"},[_vm._v(" Mar ")]),_c('li',{staticClass:"date day"},[_vm._v(" Mer ")]),_c('li',{staticClass:"date day"},[_vm._v(" Jeu ")]),_c('li',{staticClass:"date day"},[_vm._v(" Ven ")]),_c('li',{staticClass:"date day"},[_vm._v(" Sam ")]),_c('li',{staticClass:"date day"},[_vm._v(" Dim ")])]):_vm._e(),_vm._l((_vm.list_calander_days),function(date,i){return _c('li',{key:i,class:[
+        'date',
+        date.status ? 'disable' : 'actif',
+        date.custom_class,
+        date.select ? 'selected' : ''
+      ],on:{"click":function($event){return _vm.select_date(date)}}},[(_vm.show_month_in_date)?_c('span',{domProps:{"innerHTML":_vm._s(date.day_french)}}):_vm._e(),(!_vm.show_month_in_date)?_c('span',{domProps:{"innerHTML":_vm._s(date.date_month)}}):_vm._e()])})],2)])}
+var calendarvue_type_template_id_ec22839c_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/App/calendar.vue?vue&type=template&id=ec22839c&
+
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
 // CONCATENATED MODULE: ./src/App/Filtres.js
 
 
@@ -8783,6 +8637,12 @@ var Filters = {
   /**
    * Permet de verifier si la plage d'heure selectionne est inclus ou partielment inclut dans le creneau.
    * cette function est utilisé uniquement lors du passage des creneaux.
+   * tests:
+   * il faut desactiver, une plage inferieur au creneau, à l'intervalle entre deux creneau.
+   * egal ------
+   * superieur ------
+   * NB:il manque une 4 condition.
+   * L'execution est importante.
    */
   HourIntervalContain: function HourIntervalContain(heure_begin_disable, heure_end_disable, creneaux_heure_begin, creneaux_heure_end, date_min_string) {
     var h_d = heure_begin_disable.split(":");
@@ -8793,9 +8653,15 @@ var Filters = {
     var h_f = heure_end_disable.split(":");
     var date_max = moment(date_min_string, "DD-MM-YYYY HH:mm:ss");
     date_max.hours(h_f[0]);
-    date_max.minutes(h_f[1]);
+    date_max.minutes(h_f[1]); //
 
-    if (creneaux_heure_begin.diff(date_min, "minutes") >= 0 && creneaux_heure_begin.diff(date_max, "minutes") < 0 || creneaux_heure_end.diff(date_min, "minutes") > 0 && creneaux_heure_end.diff(date_max, "minutes") <= 0) {
+    var time_H_B_min = creneaux_heure_begin.diff(date_min, "minutes");
+    var time_H_B_max = creneaux_heure_begin.diff(date_max, "minutes");
+    var time_H_E_min = creneaux_heure_end.diff(date_min, "minutes");
+    var time_H_E_max = creneaux_heure_end.diff(date_max, "minutes"); //console.log("time_H_B_min : ", time_H_B_min);
+    //console.log("time_H_E_max : ", time_H_E_max);
+
+    if (time_H_B_min >= 0 && time_H_B_max < 0 || time_H_E_min > 0 && time_H_E_max <= 0 || time_H_B_min < 0 && time_H_E_max >= 0) {
       return true;
     } else {
       return false;
@@ -9080,17 +8946,396 @@ var Filters = {
   }
 };
 /* harmony default export */ var Filtres = (Filters);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6bc187d1-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/calendar.vue?vue&type=template&id=7b6c2c43&
-var calendarvue_type_template_id_7b6c2c43_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container-date flat cercle"},[_c('div',{staticClass:"single-date-picker__calendar-month-header"},[_c('div',{staticClass:"single-date-picker__arrow left",on:{"click":function($event){return _vm.toggleMonth(-1)}}}),(_vm.calandar_title != '')?_c('div',{staticClass:"single-date-picker__year",domProps:{"innerHTML":_vm._s(_vm.calandar_title)}}):_vm._e(),_c('div',{staticClass:"single-date-picker__arrow right",on:{"click":function($event){return _vm.toggleMonth(1)}}})]),_c('ul',{staticClass:"d-flex flex-wrap justify-content-center"},[(_vm.show_day_label)?_c('div',{staticClass:"d-flex flex-wrap justify-content-center w-100"},[_c('li',{staticClass:"date day"},[_vm._v(" Lun ")]),_c('li',{staticClass:"date day"},[_vm._v(" Mar ")]),_c('li',{staticClass:"date day"},[_vm._v(" Mer ")]),_c('li',{staticClass:"date day"},[_vm._v(" Jeu ")]),_c('li',{staticClass:"date day"},[_vm._v(" Ven ")]),_c('li',{staticClass:"date day"},[_vm._v(" Sam ")]),_c('li',{staticClass:"date day"},[_vm._v(" Dim ")])]):_vm._e(),_vm._l((_vm.list_calander_days),function(date,i){return _c('li',{key:i,class:[
-        'date',
-        date.status ? 'disable' : 'actif',
-        date.custom_class,
-        date.select ? 'selected' : ''
-      ],on:{"click":function($event){return _vm.select_date(date, i)}}},[(_vm.show_month_in_date)?_c('span',{domProps:{"innerHTML":_vm._s(date.day_french)}}):_vm._e(),(!_vm.show_month_in_date)?_c('span',{domProps:{"innerHTML":_vm._s(date.date_month)}}):_vm._e()])})],2)])}
-var calendarvue_type_template_id_7b6c2c43_staticRenderFns = []
+// CONCATENATED MODULE: ./src/App/AppResoucesBuildCreneaux.js
 
 
-// CONCATENATED MODULE: ./src/App/calendar.vue?vue&type=template&id=7b6c2c43&
+
+
+
+
+
+
+ //import FFilter from "./FonctionFiltre";
+
+if (window.moment) {
+  var AppResoucesBuildCreneaux_moment = window.moment;
+}
+
+var AppResoucesBuildCreneaux_BuildCreneaux = /*#__PURE__*/function () {
+  function BuildCreneaux(app_date_utilisable_string, app_date_utilisable_string_hour, h_debut, m_debut, h_fin, m_fin, plage_heures_valide, app_interval, app_delai_next_creneau, filters, deccalage_creneau_depart) {
+    _classCallCheck(this, BuildCreneaux);
+
+    this.app_date_utilisable_string = app_date_utilisable_string;
+    this.app_date_utilisable_string_hour = app_date_utilisable_string_hour;
+    this.h_debut = h_debut;
+    this.m_debut = m_debut;
+    this.h_fin = h_fin;
+    this.m_fin = m_fin;
+    this.plage_heures_valide = plage_heures_valide;
+    this.app_interval = app_interval;
+    this.app_delai_next_creneau = app_delai_next_creneau;
+    this.filters = filters;
+    this.deccalage_creneau_depart = deccalage_creneau_depart; //
+
+    this.date_max = null;
+    this.data_min = null;
+    this.list_creneaux = [];
+    this.test_creneau = 0;
+    this.current_creneau = null;
+    /**
+     * Permet de limiter le nombre de passage auto vers la prochaine date.
+     * à l'initialisation on definit une valeur et on decremente.
+     */
+
+    this.test_auto_select_next_day = 99;
+    this.app_date_utilisable = AppResoucesBuildCreneaux_moment(app_date_utilisable_string, "DD-MM-YYYY");
+    this.app_date_utilisable_hour = AppResoucesBuildCreneaux_moment(app_date_utilisable_string_hour, "DD-MM-YYYY HH:mm:ss");
+    this.checkIsApplay = false;
+  }
+  /**
+   * Action : construit les creneaux à partir de la date definit ou choist par l'utilisateur.
+   * Creer les dates min et max du jour utilisable par l'application.
+   * La paramettre date doit etre un object moment.
+   */
+
+
+  _createClass(BuildCreneaux, [{
+    key: "dateBorne",
+    value: function () {
+      var _dateBorne = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var h_debut, m_debut, h_fin, m_fin, day_indice, h_d, h_f;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                // console.log("dateBorne");
+                // On ne pas utiliser directement la valeur de date pour crrer la valeur de min et max date, car vuejs concerve
+                // la meme valeur entre les variables la MAJ d'une mettra automatiquement la suivante.
+                this.data_min = AppResoucesBuildCreneaux_moment(this.app_date_utilisable_string, "DD-MM-YYYY");
+                this.date_max = AppResoucesBuildCreneaux_moment(this.app_date_utilisable_string, "DD-MM-YYYY");
+
+                if (this.date_max.isValid()) {
+                  h_debut = this.h_debut;
+                  m_debut = this.m_debut;
+                  h_fin = this.h_fin;
+                  m_fin = this.m_fin;
+                  day_indice = this.date_max.day(); //surcharge la valeur par defaut avec celle definit en configuration
+
+                  if (this.plage_heures_valide.length > 0) {
+                    if (this.plage_heures_valide[day_indice]) {
+                      h_d = this.plage_heures_valide[day_indice].debut.split(":");
+                      h_debut = parseInt(h_d[0]);
+                      m_debut = parseInt(h_d[1]);
+                      h_f = this.plage_heures_valide[day_indice].fin.split(":");
+                      h_fin = parseInt(h_f[0]);
+                      m_fin = parseInt(h_f[1]);
+                    }
+                  }
+
+                  this.data_min.hours(h_debut);
+                  this.data_min.minutes(m_debut);
+                  this.data_min.seconds(0); //
+
+                  this.date_max.hours(h_fin);
+                  this.date_max.minutes(m_fin);
+                  this.date_max.seconds(0);
+                  /*
+                  console.log(
+                    "\n h_debut : ",
+                    this.h_debut,
+                    "\n h_fin : ",
+                    this.h_fin,
+                    "\n min date : ",
+                    this.data_min.format("DD-MM-YYYY HH:mm:ss"),
+                    "\n max date : ",
+                    this.date_max.format("DD-MM-YYYY HH:mm:ss")
+                  );
+                  console.log("dateBorne end");
+                  /**/
+                }
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function dateBorne() {
+        return _dateBorne.apply(this, arguments);
+      }
+
+      return dateBorne;
+    }()
+    /**
+     * Contruit les plages d'heures.
+     * on vide le creneau
+     * Parametres : h_debut( heure de debut), h_fin (heure de fin, ), interval.
+     * @public
+     */
+
+  }, {
+    key: "buildHour",
+    value: function () {
+      var _buildHour = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!this.data_min) {
+                  _context2.next = 3;
+                  break;
+                }
+
+                _context2.next = 3;
+                return this.getIntervalUtilisable(this.data_min);
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function buildHour() {
+        return _buildHour.apply(this, arguments);
+      }
+
+      return buildHour;
+    }()
+    /**
+     * date_min_strin est un string.
+     * @private
+     */
+
+  }, {
+    key: "getIntervalUtilisable",
+    value: function getIntervalUtilisable(date_min_string) {
+      //console.log("getIntervalUtilisable debut : ", date_min_string);
+      var self = this;
+      return new Promise(function (resolve, reject) {
+        self.test_creneau++; //  console.log("getIntervalUtilisable");
+
+        if (self.test_creneau > 99) {
+          alert("Probleme de configuration : Creneau");
+          reject(false);
+          return false;
+        }
+
+        var bloc_date = {};
+        var date_time = AppResoucesBuildCreneaux_moment(date_min_string, "DD-MM-YYYY HH:mm:ss");
+        var date_time_end = AppResoucesBuildCreneaux_moment(date_min_string, "DD-MM-YYYY HH:mm:ss").add(self.app_interval, "minutes");
+        var date_time_next_creneau = AppResoucesBuildCreneaux_moment(date_min_string, "DD-MM-YYYY HH:mm:ss").add(self.app_delai_next_creneau, "minutes");
+        bloc_date.begin = date_time.format("HH:mm"); //
+
+        self.checkIsCreneauValide(date_time, date_time_end, date_min_string).then( /*#__PURE__*/function () {
+          var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(valeur) {
+            var filter;
+            return regeneratorRuntime.wrap(function _callee3$(_context3) {
+              while (1) {
+                switch (_context3.prev = _context3.next) {
+                  case 0:
+                    bloc_date.$isDisabled = false;
+                    bloc_date.checkstatus = "none"; // la date est desactivé.
+
+                    if (!valeur.status) {
+                      _context3.next = 7;
+                      break;
+                    }
+
+                    bloc_date.$isDisabled = true;
+                    bloc_date.checkstatus = valeur.verificateur;
+                    _context3.next = 11;
+                    break;
+
+                  case 7:
+                    _context3.next = 9;
+                    return self.ApplyFilters(date_time, date_time_end, date_min_string);
+
+                  case 9:
+                    filter = _context3.sent;
+
+                    if (filter.status) {
+                      bloc_date.$isDisabled = filter.status;
+                      bloc_date.checkstatus = filter.verificateur;
+                    }
+
+                  case 11:
+                    if (self.date_max.diff(date_time_end, "minutes") >= 0) {
+                      bloc_date.end = date_time_end.format("HH:mm");
+
+                      if (!bloc_date.$isDisabled) {
+                        self.list_creneaux.push(bloc_date);
+                      }
+
+                      resolve(self.getIntervalUtilisable(date_time_next_creneau.format("DD-MM-YYYY HH:mm:ss")));
+                    } else {
+                      resolve(true);
+                    }
+
+                  case 12:
+                  case "end":
+                    return _context3.stop();
+                }
+              }
+            }, _callee3);
+          }));
+
+          return function (_x) {
+            return _ref.apply(this, arguments);
+          };
+        }());
+      });
+    }
+    /**
+     * Permet de detecter si une plage doit etre desactiver
+     * @param creneaux_heure_begin moment()
+     * @param creneaux_heure_end moment()
+     * @param date_min_string String : Valeur string du creneau de depart.
+     *
+     */
+
+  }, {
+    key: "checkIsCreneauValide",
+    value: function checkIsCreneauValide(creneaux_heure_begin, creneaux_heure_end, date_min_string) {
+      var _this = this;
+
+      var self = this;
+      return new Promise(function (resolve) {
+        // on desactive les creneaux qui ont une heure depassé. example s'il est 10h00,
+        // les creneaux en dessous doivent etre desactivées.
+        var fidfl = creneaux_heure_begin.diff(_this.app_date_utilisable_hour, "minutes");
+
+        if (fidfl < 0) {
+          resolve({
+            status: true,
+            verificateur: "heure depassé"
+          });
+        } else {
+          /**
+           * Effectue le decallage si cela est necessaire.
+           * le decallage s'applique si l'heure fournit par le serveur (heure actuel)
+           * est inferieur à l'heure MIN de l'application plus la valeur du decallage.
+           * Example 1 : il est 7h25, on a definit un decallage de 30. (les autres valeurs par defaut);
+           * ==> Le premier creneau commence à 8h00, car (7h25 + 30 = 7h55)
+           * Example 2 : il est 7h37, on a definit un decallage de 30. (les autres valeurs par defaut);
+           * ==> Le premier creneau commence à 8h30, car (7h37 + 30 = 8h07.
+              Nous avons un ecart de 30 minutes entres les creneaux.
+              Aucun creneau ne commnceà 08h07, donc nous prennons le prochain creneau valide.
+              ),
+           */
+          var disable_for_deccalage = function disable_for_deccalage() {
+            return new Promise(function (resolv) {
+              if (self.deccalage_creneau_depart > 0) {
+                var date_min = AppResoucesBuildCreneaux_moment(self.app_date_utilisable_string_hour, "DD-MM-YYYY HH:mm:ss");
+                date_min.add(self.deccalage_creneau_depart, "minutes");
+                var diff = creneaux_heure_begin.diff(date_min, "minutes");
+
+                if (diff < 0) {
+                  resolv(true);
+                } else {
+                  resolv(false);
+                }
+              } else {
+                resolv(false);
+              }
+            });
+          }; //
+
+
+          disable_for_deccalage().then(function (deccalage) {
+            if (deccalage) {
+              resolve({
+                status: true,
+                verificateur: "disable_for_deccalage"
+              });
+              return true;
+            } else {
+              resolve({
+                status: false,
+                verificateur: "none",
+                creneaux_heure_end: creneaux_heure_end,
+                date_min_string: date_min_string
+              });
+              return false;
+            }
+          });
+        }
+      });
+    }
+    /**
+     * Applique le filtre sur chaque creneau ou chaque date.
+     * On retourne true si le creneau doit etre desactiver.
+     */
+
+  }, {
+    key: "ApplyFilters",
+    value: function ApplyFilters(creneaux_heure_begin, creneaux_heure_end, date_min_string) {
+      var self = this;
+      return new Promise(function (resolvEnd) {
+        if (self.filters.length === 0) {
+          resolvEnd({
+            status: false,
+            verificateur: "filter empty"
+          });
+          return;
+        }
+
+        var CustomLoop = function CustomLoop() {
+          var i = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+          return new Promise(function (resolv) {
+            var filter = self.filters[i];
+
+            if (filter.h_debut !== "" && filter.h_fin !== "") {
+              //console.log("filter : ", filter);
+              if (Filtres.HourIntervalContain(filter.h_debut, filter.h_fin, creneaux_heure_begin, creneaux_heure_end, date_min_string)) {
+                Filtres.loopAttribFilter(i, filter, self.app_date_utilisable, self.app_date_utilisable.format("YYYY-MM-DD"), self.app_date_utilisable.day(), "creneau").then(function (result) {
+                  resolv(result);
+                });
+              } else {
+                resolv({
+                  status: false,
+                  i: i,
+                  verificateur: "plage_heure"
+                });
+              }
+            } else {
+              resolv({
+                status: false,
+                i: i,
+                verificateur: "nothing"
+              });
+            }
+          });
+        };
+
+        var execution = function execution() {
+          var i = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+          CustomLoop(i).then(function (result) {
+            var ii = result.i + 1;
+
+            if (result.status) {
+              resolvEnd(result);
+              return;
+            } else if (self.filters[ii]) {
+              execution(ii);
+            } else {
+              resolvEnd(result);
+              return;
+            }
+          });
+        };
+
+        execution();
+      });
+    }
+  }]);
+
+  return BuildCreneaux;
+}();
+
 
 // CONCATENATED MODULE: ./src/App/FonctionFiltre.js
 
@@ -9110,7 +9355,6 @@ var FFilter = {
   //app_date_current: {},
   datetime_min: {},
   filters: [],
-  h_debut: 0,
 
   /**
    * @param date object moment
@@ -9225,9 +9469,428 @@ var FFilter = {
   }
 };
 /* harmony default export */ var FonctionFiltre = (FFilter);
+// CONCATENATED MODULE: ./src/App/AppResoucesBuildCalendar.js
+
+
+
+
+
+
+
+
+if (window.moment) {
+  var AppResoucesBuildCalendar_moment = window.moment;
+}
+
+var AppResoucesBuildCalendar_BuildCalendar = /*#__PURE__*/function () {
+  function BuildCalendar(app_date_utilisable_string, calendar_nav, nombre_semaine, jour_desactivee, type_creneau, filters, date_select) {
+    _classCallCheck(this, BuildCalendar);
+
+    this.app_date_utilisable_string = app_date_utilisable_string;
+    this.calendar_nav = calendar_nav;
+    this.nombre_semaine = nombre_semaine;
+    this.jour_desactivee = jour_desactivee;
+    this.type_creneau = type_creneau;
+    this.filters = filters;
+    this.date_select = date_select; //
+
+    this.list_calander_days = [];
+    this.test_calandar_day = 0;
+    this.app_date_utilisable = AppResoucesBuildCalendar_moment(app_date_utilisable_string, "DD-MM-YYYY");
+    this.datetime_min = AppResoucesBuildCalendar_moment(app_date_utilisable_string, "DD-MM-YYYY"); //console.log("app_date_utilisable_string : ", app_date_utilisable_string);
+    //permet de savoir si une date a été selectionner ?
+
+    this.selectedDate = false;
+  }
+  /**
+   * le calendrier demarre toujours un lunid.
+   * Lundi(index) = 1
+   * Saturday = 6
+   * Sunday = 0;
+   */
+
+
+  _createClass(BuildCalendar, [{
+    key: "builderCalandar",
+    value: function () {
+      var _builderCalandar = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var calander_day_min, calender_day_max, nJr, day_current_index, week_index, additional_day_to_remove, i, day_remove;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                calander_day_min = AppResoucesBuildCalendar_moment(this.app_date_utilisable_string, "DD-MM-YYYY").add(this.calendar_nav, "month");
+                calender_day_max = AppResoucesBuildCalendar_moment(this.app_date_utilisable_string, "DD-MM-YYYY").add(this.calendar_nav, "month");
+                nJr = this.nombre_semaine * 7;
+                day_current_index = calander_day_min.day();
+
+                if (!day_current_index) {
+                  day_current_index = 7;
+                } //on recupère l'index du weekend du jour encour pour calculer le additional_day_to_remove
+
+
+                week_index = this.weekOfMonth(AppResoucesBuildCalendar_moment(this.app_date_utilisable_string, "DD-MM-YYYY"));
+                additional_day_to_remove = 0;
+
+                for (i = 1; i < week_index; i++) {
+                  additional_day_to_remove += 7;
+                }
+
+                day_remove = 6 + day_current_index - 7 + additional_day_to_remove;
+
+                if (day_remove > 0) {
+                  nJr -= day_remove;
+                  calander_day_min.add(-day_remove, "days");
+                }
+
+                calender_day_max.add(nJr, "days");
+                console.log("calander_day_min : ", calander_day_min.format("DD-MM-YYYY"), "\n calender_day_max : ", calender_day_max.format("DD-MM-YYYY"));
+                /**/
+
+                _context.next = 14;
+                return this.getPlageDate(calander_day_min, calender_day_max);
+
+              case 14:
+                if (!self.selectedDate) {//this.date_select;
+                }
+
+              case 15:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function builderCalandar() {
+        return _builderCalandar.apply(this, arguments);
+      }
+
+      return builderCalandar;
+    }()
+  }, {
+    key: "setDate",
+    value: function setDate(day_min_sting, calander_day, stateValidationDay) {
+      var StatusSelectDate = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+      return {
+        date_string: day_min_sting,
+        day_french: calander_day.locale("fr").format("Do <br /> MMM"),
+        date_month: calander_day.locale("fr").format("DD"),
+        custom_class: stateValidationDay.custom_class,
+        select: StatusSelectDate,
+        status: stateValidationDay
+      };
+    } // permet d'obtenir l'index de la semaine du current_day en fonction du mois
+
+  }, {
+    key: "weekOfMonth",
+    value: function weekOfMonth(input) {
+      var firstDayOfMonth = input.clone().startOf("month");
+      var firstDayOfWeek = firstDayOfMonth.clone().startOf("week");
+      var offset = firstDayOfMonth.diff(firstDayOfWeek, "days");
+      return Math.ceil((input.date() + offset) / 7);
+    }
+    /**
+     * Obtient la date utilisable.
+     * La paramettre date doit etre un object moment.
+     * Pour la validation on a 3 cas :
+     * - Validation des jours de la semaine.
+     * - Validation des dates desactivées.
+     * - Validation des delais.
+     * NB: les function qui doivent integrer cette derniere doivent remettre les variables suivante à leurs valeurs par defaut :
+     * - test_delai_jour
+     * - test_jour_semaine
+     * - test_date_desactivee
+     * @return un object moment (complet jour, mois, année, heure, mn, s)
+     */
+
+  }, {
+    key: "getPlageDate",
+    value: function getPlageDate(calander_day_min, calender_day_max) {
+      FonctionFiltre.app_date = this.app_date_utilisable;
+      FonctionFiltre.jour_desactivee = this.jour_desactivee;
+      FonctionFiltre.type_creneau = this.type_creneau; //FFilter.app_date_current = this.datetime_min; //this.app_date_current;
+
+      FonctionFiltre.datetime_min = this.datetime_min;
+      FonctionFiltre.filters = this.filters;
+      var self = this;
+      return new Promise(function (resolve, reject) {
+        self.test_calandar_day++;
+
+        if (self.test_calandar_day > 99) {
+          reject(false);
+          return false;
+        }
+
+        if (calander_day_min.diff(calender_day_max, "days")) {
+          FonctionFiltre.ValidationDay(calander_day_min).then(function (stateValidationDay) {
+            var day_min_sting = calander_day_min.format("DD-MM-YYYY");
+            var StatusSelectDate = false; // Si on a pas encore selectionné, selectionne la date encours.
+
+            if (!self.date_select && day_min_sting == self.app_date_utilisable_string) {
+              StatusSelectDate = true;
+            } else if (self.date_select && !stateValidationDay.status && day_min_sting == self.date_select.date_string) {
+              StatusSelectDate = true;
+            } else if ( //self.date_select &&
+            //stateValidationDay.status &&
+            day_min_sting == self.app_date_utilisable_string) {
+              StatusSelectDate = true;
+            }
+            /*
+            else if (
+              self.type_creneau === "livraison" &&
+              day_min_sting == self.app_date_utilisable_string
+            ) {
+              StatusSelectDate = true;
+            }
+            /**/
+
+
+            var date = {
+              date_string: day_min_sting,
+              day_french: calander_day_min.locale("fr").format("Do <br /> MMM"),
+              date_month: calander_day_min.locale("fr").format("DD"),
+              custom_class: stateValidationDay.custom_class,
+              select: StatusSelectDate,
+              status: stateValidationDay.status
+            };
+
+            if (StatusSelectDate) {
+              /*
+              if (self.type_creneau === "livraison")
+                console.log(
+                  "Echec ValidationDay : ",
+                  date,
+                  "\n date_select : ",
+                  self.date_select,
+                  "\n app_date_utilisable_string : ",
+                  self.app_date_utilisable_string
+                );
+              /**/
+              self.selectedDate = true;
+              self.date_select = date;
+            }
+            /*
+            else {
+              if (self.type_creneau)
+                console.log(
+                  "Echec ValidationDay : ",
+                  date,
+                  "\n date_select : ",
+                  self.date_select,
+                  "\n app_date_utilisable_string : ",
+                  self.app_date_utilisable_string
+                );
+            }
+            /**/
+
+
+            self.list_calander_days.push(date);
+            calander_day_min.add(1, "days");
+            resolve(self.getPlageDate(calander_day_min, calender_day_max));
+          });
+        } else {
+          resolve(true);
+        }
+      });
+    }
+  }]);
+
+  return BuildCalendar;
+}();
+
+
+// CONCATENATED MODULE: ./src/App/AppResouces.js
+
+
+
+
+
+
+
+
+
+
+
+
+if (window.moment) {
+  var AppResouces_moment = window.moment;
+}
+
+var AppResouces_DateUtilisable = /*#__PURE__*/function () {
+  function DateUtilisable(jour_desactivee, app_delai_jour, filters) {
+    _classCallCheck(this, DateUtilisable);
+
+    this.jour_desactivee = jour_desactivee;
+    this.app_delai_jour = app_delai_jour;
+    this.filters = filters; //
+
+    this.test_delai_jour = 0;
+    this.test_jour_semaine = 0;
+    this.test_date_desactivee = 0;
+  }
+  /**
+   * @parameter date doit etre un object moment.
+   */
+
+
+  _createClass(DateUtilisable, [{
+    key: "date_utilisable",
+    value: function () {
+      var _date_utilisable = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(date) {
+        var apply_delai_true,
+            _args = arguments;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                apply_delai_true = _args.length > 1 && _args[1] !== undefined ? _args[1] : true;
+                _context.next = 3;
+                return this.getDayUtilisable(date, null, apply_delai_true);
+
+              case 3:
+                return _context.abrupt("return", _context.sent);
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function date_utilisable(_x) {
+        return _date_utilisable.apply(this, arguments);
+      }
+
+      return date_utilisable;
+    }()
+    /**
+     * Obtient la date utilisable, et permet aussi de determiner le prochain jour utilisable.
+     * La paramettre date doit etre un object moment.
+     * Pour la validation on a 3 cas :
+     * - Validation des jours de la semaine.
+     * - Validation des dates desactivées.
+     * - Validation des delais.
+     * - Application du delai.
+     * NB: les function qui doivent integrer cette derniere doivent remettre les variables suivante à leurs valeurs par defaut :
+     * - test_delai_jour
+     * - test_jour_semaine
+     * - test_date_desactivee
+     * @return un object moment (complet jour, mois, année, heure, mn, s)
+     */
+
+  }, {
+    key: "getDayUtilisable",
+    value: function getDayUtilisable(date) {
+      var provider = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var apply_delai_true = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+      var self = this;
+      return new Promise(function (resolve, reject) {
+        /*
+        console.log(
+          "valeur de apply_delai_true " + self.type_creneau + ": ",
+          apply_delai_true
+        );
+        /**/
+        if (self.test_jour_semaine > 6) {
+          alert("Boucle infinie detecter ..." + provider);
+          reject(false);
+          return false;
+        }
+
+        if (self.test_date_desactivee > 99) {
+          alert("Boucle infinie detecter ...");
+          reject(false);
+          return false;
+        }
+
+        var index_day_week = date.day();
+
+        if (self.jour_desactivee.length && self.jour_desactivee.includes(index_day_week)) {
+          self.test_jour_semaine++; // si ce jour est automatiquement desactivée,
+          // on passe au suivant.
+
+          date.add(1, "days");
+          resolve(self.getDayUtilisable(date, "jour desactivée", apply_delai_true));
+        } else {
+          self.DisableDateByfilter(date).then(function (Filter) {
+            if (Filter.status) {
+              self.test_date_desactivee++;
+              date.add(1, "days");
+              resolve(self.getDayUtilisable(date, "date desactivée", apply_delai_true));
+            } // on applique egalement le decallage.
+            else if (apply_delai_true && self.app_delai_jour && self.app_delai_jour > self.test_delai_jour) {
+                self.test_delai_jour++;
+                /**
+                 * On applique le delai en jour apres jour afin de s'assurer que les jours
+                 * desactivées ne sont pas pris en compte.
+                 */
+
+                date.add(1, "days");
+                resolve(self.getDayUtilisable(date, "delai jour", apply_delai_true));
+              } else {
+                resolve(date);
+              }
+          });
+        }
+      });
+    }
+  }, {
+    key: "DisableDateByfilter",
+    value: function DisableDateByfilter(date) {
+      var self = this;
+      return new Promise(function (resolvEnd) {
+        var index_day = date.day();
+        var app_date_current_string_en = date.format("YYYY-MM-DD");
+        var app_date_current_en = AppResouces_moment(app_date_current_string_en, "YYYY-MM-DD"); // Desactivation du jour en function des filtres.
+
+        var CustomLoop = function CustomLoop() {
+          var i = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+          return new Promise(function (resolv) {
+            var filter = self.filters[i];
+
+            if (filter.h_debut.length === 0 && filter.h_fin.length === 0) {
+              Filtres.loopAttribFilter(i, filter, app_date_current_en, app_date_current_string_en, index_day, "date").then(function (result) {
+                resolv(result);
+              });
+            } else {
+              resolv({
+                status: false,
+                i: i,
+                custom_class: "nothing"
+              });
+            }
+          });
+        };
+
+        var execution = function execution() {
+          var i = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+          CustomLoop(i).then(function (result) {
+            var ii = result.i + 1;
+
+            if (result.status) {
+              resolvEnd(result);
+              return;
+            } else if (self.filters[ii]) {
+              execution(ii);
+            } else {
+              resolvEnd(result);
+              return;
+            }
+          });
+        };
+
+        execution();
+      });
+    }
+  }]);
+
+  return DateUtilisable;
+}();
+
+
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/calendar.vue?vue&type=script&lang=js&
-
-
 
 
 
@@ -9305,28 +9968,13 @@ if (window.moment) {
 /* harmony default export */ var calendarvue_type_script_lang_js_ = ({
   name: "calendar",
   props: {
-    // h_debut: {
-    //   type: Number,
-    //   default: 8
-    // },
-    // m_debut: {
-    //   type: Number,
-    //   default: 0
-    // },
-    // h_fin: {
-    //   type: Number,
-    //   default: 21
-    // },
-    // m_fin: {
-    //   type: Number,
-    //   default: 0
-    // },
     type_creneau: {
       type: String,
       default: ""
     },
-    app_date_current: {
-      type: [Object, String]
+    app_date_utilisable_string_hour: {
+      type: String,
+      required: true
     },
     filters: {
       type: Array,
@@ -9351,50 +9999,12 @@ if (window.moment) {
         return [0, 6];
       }
     },
-
-    /**
-     * date utilisable par l'application ou date de reference.
-     * Elle ne  change pas durant le precessus.
-     */
-    app_date: {
-      type: [Object, String],
-      validator: function validator(value) {
-        return value ? true : false;
-      }
-    },
-    // list_calander_days: {
-    //   type: Array,
-    //   default() {
-    //     return [];
-    //   }
-    // },
-
-    /**
-     * C'est la date encours.
-     * ( Elle doit etre fournit par le serveur et convertie en un object moment() ).
-     *
-     * @param object moment()
-     */
-    current_date: {
-      type: Object,
-      default: function _default() {
-        return calendarvue_type_script_lang_js_moment(); //return "";
-      }
-    },
     rebuild_creneau: {
-      type: [Object, String]
-    },
-    datetime_min: {
       type: [Object, String]
     }
   },
   data: function data() {
     return {
-      ///**
-      //  * Permet d'eviter une boucle infinie. limit à 100; (3 mois)
-      //  */
-      // test_calandar_day: 0,
-
       /**
        * list calendar date, elle gere l'affichage du calendrier.
        */
@@ -9402,84 +10012,58 @@ if (window.moment) {
       calendar_nav: 0,
 
       /**
-       * list calendar date, elle gere l'affichage du calendrier.
-       */
-
-      /**
        * configuration de la date.
        */
       show_month_in_date: false,
-      show_day_label: true
+      show_day_label: true,
+      date_select: null
     };
+  },
+  watch: {
+    app_date_utilisable_string_hour: function app_date_utilisable_string_hour() {
+      this.calendar_nav = 0;
+      this.init();
+    },
+    date_select: {
+      deep: true,
+      handler: function handler(date) {
+        if (this.type_creneau === "livraison") console.log("MAJ de la date de ", this.type_creneau, " : ", date);
+        this.$emit("select_date", date);
+      }
+    }
   },
   computed: {
     calandar_title: {
       get: function get() {
-        if (this.app_date_current != "") {
-          return calendarvue_type_script_lang_js_moment(this.app_date_current).add(this.calendar_nav, "month").locale("fr").format("MMMM  YYYY");
+        if (this.app_date_utilisable_string_hour != "") {
+          return calendarvue_type_script_lang_js_moment(this.app_date_utilisable_string_hour, "DD-MM-YYYY").add(this.calendar_nav, "month").locale("fr").format("MMMM  YYYY");
         }
 
         return "";
       }
-    },
-    //Permet au filtre d'appliquer un style à la date du jour
-    app_date_current_string: {
-      get: function get() {
-        return this.app_date_current.format("DD-MM-YYYY");
-      }
     }
   },
   methods: {
-    /**
-     * le calendrier demarre toujours un lunid.
-     * Lundi(index) = 1
-     * Saturday = 6
-     * Sunday = 0;
-     */
-    builderCalandar: function builderCalandar() {
+    init: function init() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var date_string, calander_day_min, calender_day_max, nJr, day_current_index, week_index, additional_day_to_remove, i, day_remove;
+        var app_date_utilisable_string, Build;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                // var mom = moment("01/05/2021", "DD/MM/YYYY").add(1, "Month");
-                _this.list_calander_days = [];
-                _this.test_calandar_day = 0;
-                date_string = date_string = calendarvue_type_script_lang_js_moment(_this.app_date_current).format("DD-MM-YYYY HH:mm:ss");
-                calander_day_min = calendarvue_type_script_lang_js_moment(date_string, "DD-MM-YYYY HH:mm:ss").add(_this.calendar_nav, "month");
-                calender_day_max = calendarvue_type_script_lang_js_moment(date_string, "DD-MM-YYYY HH:mm:ss").add(_this.calendar_nav, "month");
-                nJr = _this.nombre_semaine * 7; // on determine la date min à partir de la date app_date .add(this.calendar_nav,'month')
+                app_date_utilisable_string = calendarvue_type_script_lang_js_moment(_this.app_date_utilisable_string_hour, "DD-MM-YYYY HH:mm:ss");
+                Build = new AppResoucesBuildCalendar_BuildCalendar(app_date_utilisable_string.format("DD-MM-YYYY"), _this.calendar_nav, _this.nombre_semaine, _this.jour_desactivee, _this.type_creneau, _this.filters, _this.date_select);
+                _context.next = 4;
+                return Build.builderCalandar();
 
-                day_current_index = calander_day_min.day();
+              case 4:
+                _this.list_calander_days = Build.list_calander_days;
+                _this.date_select = Build.date_select;
+                if (_this.type_creneau) console.log("list_calander_days", _this.type_creneau, " : ", _this.date_select, "\n", _this.list_calander_days);
 
-                if (!day_current_index) {
-                  day_current_index = 7;
-                } //on recupère l'index du weekend du jour encour pour calculer le additional_day_to_remove
-
-
-                week_index = _this.weekOfMonth(calendarvue_type_script_lang_js_moment(date_string, "DD/MM/YYYY"));
-                additional_day_to_remove = 0;
-
-                for (i = 1; i < week_index; i++) {
-                  additional_day_to_remove += 7;
-                }
-
-                day_remove = 6 + day_current_index - 7 + additional_day_to_remove;
-
-                if (day_remove > 0) {
-                  nJr -= day_remove;
-                  calander_day_min.add(-day_remove, "days");
-                }
-
-                calender_day_max.add(nJr, "days");
-                if (_this.type_creneau === "livraison") console.log("this.datetime_min : ", _this.datetime_min.format("DD-MM-YYYY HH:mm:ss"));
-
-                _this.getPlageDate(calander_day_min, calender_day_max);
-
-              case 16:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -9487,120 +10071,25 @@ if (window.moment) {
         }, _callee);
       }))();
     },
-    // permet d'obtenir l'index de la semaine du current_day en fonction du mois
-    weekOfMonth: function weekOfMonth(input) {
-      var firstDayOfMonth = input.clone().startOf("month");
-      var firstDayOfWeek = firstDayOfMonth.clone().startOf("week");
-      var offset = firstDayOfMonth.diff(firstDayOfWeek, "days");
-      return Math.ceil((input.date() + offset) / 7);
-    },
+    select_date: function select_date(date) {
+      for (var i in this.list_calander_days) {
+        var datePass = this.list_calander_days[i];
+        if (datePass.select) datePass.select = false;
+        var j = parseInt(i) + 1;
+        if (j === this.list_calander_days.length) date.select = true;
+      }
 
-    /**
-     * Obtient la date utilisable.
-     * La paramettre date doit etre un object moment.
-     * Pour la validation on a 3 cas :
-     * - Validation des jours de la semaine.
-     * - Validation des dates desactivées.
-     * - Validation des delais.
-     * NB: les function qui doivent integrer cette derniere doivent remettre les variables suivante à leurs valeurs par defaut :
-     * - test_delai_jour
-     * - test_jour_semaine
-     * - test_date_desactivee
-     * @return un object moment (complet jour, mois, année, heure, mn, s)
-     */
-    getPlageDate: function getPlageDate(calander_day_min, calender_day_max) {
-      FonctionFiltre.app_date = this.app_date;
-      FonctionFiltre.jour_desactivee = this.jour_desactivee;
-      FonctionFiltre.type_creneau = this.type_creneau; //FFilter.app_date_current = this.datetime_min; //this.app_date_current;
-
-      FonctionFiltre.datetime_min = this.datetime_min;
-      FonctionFiltre.filters = this.filters;
-      FonctionFiltre.h_debut = this.h_debut;
-      var self = this;
-      return new Promise(function (resolve, reject) {
-        self.test_calandar_day++;
-
-        if (self.test_calandar_day > 99) {
-          reject(false);
-          return false;
-        }
-
-        if (calander_day_min.diff(calender_day_max, "days")) {
-          FonctionFiltre.ValidationDay(calander_day_min).then(function (stateValidationDay) {
-            self.list_calander_days.push({
-              date_string: calander_day_min.format("DD-MM-YYYY"),
-              day_french: calander_day_min.locale("fr").format("Do <br /> MMM"),
-              date_month: calander_day_min.locale("fr").format("DD"),
-              custom_class: stateValidationDay.custom_class,
-              select: calander_day_min.format("DD-MM-YYYY") == self.app_date_current_string ? true : false,
-              status: stateValidationDay.status
-            });
-            calander_day_min.add(1, "days");
-            resolve(self.getPlageDate(calander_day_min, calender_day_max));
-          });
-        } else {
-          resolve(true);
-        }
-      });
-    },
-    select_date: function select_date(date, i) {
-      var _this2 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _this2.$emit("select_date", {
-                  date: date,
-                  i: i
-                });
-
-                _this2.calendar_nav = 0;
-
-              case 2:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
-    },
-    select_date_in_calander: function select_date_in_calander(k) {
-      var _this3 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-        var i;
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                for (i in _this3.list_calander_days) {
-                  if (k == i) {
-                    _this3.list_calander_days[i].select = true;
-                  } else {
-                    _this3.list_calander_days[i].select = false;
-                  }
-                }
-
-              case 1:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
+      this.date_select = date;
     },
     //permet de naviguer entre les mois
     toggleMonth: function toggleMonth(direction) {
-      //this.$emit("toggleMonth", direction);
       if (direction > 0) {
         this.calendar_nav++;
       } else {
         this.calendar_nav--;
       }
 
-      this.builderCalandar();
+      this.init();
     }
   }
 });
@@ -9620,8 +10109,8 @@ var calendarvue_type_style_index_0_lang_scss_ = __webpack_require__("5174");
 
 var calendar_component = normalizeComponent(
   App_calendarvue_type_script_lang_js_,
-  calendarvue_type_template_id_7b6c2c43_render,
-  calendarvue_type_template_id_7b6c2c43_staticRenderFns,
+  calendarvue_type_template_id_ec22839c_render,
+  calendarvue_type_template_id_ec22839c_staticRenderFns,
   false,
   null,
   null,
@@ -9630,6 +10119,178 @@ var calendar_component = normalizeComponent(
 )
 
 /* harmony default export */ var calendar = (calendar_component.exports);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5da2cd20-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/Hours.vue?vue&type=template&id=521f7fb8&scoped=true&lang=html&
+var Hoursvue_type_template_id_521f7fb8_scoped_true_lang_html_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticStyle:{"width":"100%"}},[_c('advanced-select',{attrs:{"disabled":_vm.disabled_creneau,"options":_vm.list_creneaux,"show-labels":false,"searchable":false,"placeholder":"00:00 - 00:00","track-by":"begin"},scopedSlots:_vm._u([{key:"singleLabel",fn:function(ref){
+var option = ref.option;
+return [_vm._v(" "+_vm._s(option.begin)+" - "+_vm._s(option.end)+" ")]}},{key:"option",fn:function(props){return [_c('span',{attrs:{"checkstatus":props.option.checkstatus}},[_vm._v(" "+_vm._s(props.option.begin)+" - "+_vm._s(props.option.end)+" ")])]}}]),model:{value:(_vm.current_creneau),callback:function ($$v) {_vm.current_creneau=$$v},expression:"current_creneau"}},[_c('template',{slot:"noOptions"},[_c('span',[_vm._v("Aucun créneau disponible à cette date")])])],2)],1)}
+var Hoursvue_type_template_id_521f7fb8_scoped_true_lang_html_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/App/Hours.vue?vue&type=template&id=521f7fb8&scoped=true&lang=html&
+
+// EXTERNAL MODULE: ./node_modules/vue-multiselect/dist/vue-multiselect.min.js
+var vue_multiselect_min = __webpack_require__("8e5f");
+var vue_multiselect_min_default = /*#__PURE__*/__webpack_require__.n(vue_multiselect_min);
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/Hours.vue?vue&type=script&lang=js&
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+if (window.moment) {
+  var Hoursvue_type_script_lang_js_moment = window.moment;
+}
+
+/* harmony default export */ var Hoursvue_type_script_lang_js_ = ({
+  name: "Hours",
+  props: {
+    app_date_utilisable_string_hour: {
+      type: String,
+      required: true
+    },
+    h_debut: {
+      type: Number,
+      required: true
+    },
+    m_debut: {
+      type: Number,
+      required: true
+    },
+    h_fin: {
+      type: Number,
+      required: true
+    },
+    m_fin: {
+      type: Number,
+      required: true
+    },
+    plage_heures_valide: {
+      type: Array,
+      required: true
+    },
+    filters: {
+      type: Array,
+      required: true
+    },
+    configs: {
+      type: Object,
+      required: true
+    },
+    deccalage_creneau_depart: {
+      type: Number
+    }
+  },
+  components: {
+    AdvancedSelect: vue_multiselect_min_default.a
+  },
+  data: function data() {
+    return {
+      current_creneau: "",
+      disabled_creneau: false,
+      list_creneaux: [],
+      heure_creneau_debut: null,
+      heure_creneau_fin: null
+    };
+  },
+  mounted: function mounted() {},
+  watch: {
+    app_date_utilisable_string_hour: function app_date_utilisable_string_hour() {
+      this.init();
+    },
+    current_creneau: function current_creneau(val) {
+      if (!val) this.$emit("select_next_day", val);else this.$emit("select_creneau", val);
+    }
+  },
+  computed: {//
+  },
+  methods: {
+    init: function init() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var app_date_utilisable_string, Build;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                app_date_utilisable_string = Hoursvue_type_script_lang_js_moment(_this.app_date_utilisable_string_hour, "DD-MM-YYYY HH:mm:ss");
+                Build = new AppResoucesBuildCreneaux_BuildCreneaux(app_date_utilisable_string.format("DD-MM-YYYY"), _this.app_date_utilisable_string_hour, _this.h_debut, _this.m_debut, _this.h_fin, _this.m_fin, _this.plage_heures_valide, _this.configs.creneau, _this.configs.delai_next_creneau, _this.filters, _this.deccalage_creneau_depart);
+                _context.next = 4;
+                return Build.dateBorne();
+
+              case 4:
+                _context.next = 6;
+                return Build.buildHour();
+
+              case 6:
+                _this.list_creneaux = Build.list_creneaux;
+                _this.current_creneau = _this.list_creneaux[0];
+                console.log("list_creneaux : ", _this.list_creneaux);
+
+              case 9:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/App/Hours.vue?vue&type=script&lang=js&
+ /* harmony default export */ var App_Hoursvue_type_script_lang_js_ = (Hoursvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/App/Hours.vue
+
+
+
+
+
+/* normalize component */
+
+var Hours_component = normalizeComponent(
+  App_Hoursvue_type_script_lang_js_,
+  Hoursvue_type_template_id_521f7fb8_scoped_true_lang_html_render,
+  Hoursvue_type_template_id_521f7fb8_scoped_true_lang_html_staticRenderFns,
+  false,
+  null,
+  "521f7fb8",
+  null
+  
+)
+
+/* harmony default export */ var Hours = (Hours_component.exports);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/Creneau.vue?vue&type=script&lang=js&
 
 
@@ -9639,10 +10300,6 @@ var calendar_component = normalizeComponent(
 
 
 
-
-
-
-
 //
 //
 //
@@ -9713,22 +10370,18 @@ var calendar_component = normalizeComponent(
 //
 //
 //
-var Creneauvue_type_script_lang_js_$;
-
-if (window.jQuery) {
-  Creneauvue_type_script_lang_js_$ = window.jQuery;
-} else if (window.$) {
-  Creneauvue_type_script_lang_js_$ = window.$;
-} //pourquoi ajouter true come dernier paramettre ?
+//
+//
+//
+//pourquoi ajouter true come dernier paramettre ?
 //moment('24/12/2019 09:15:00', "DD MM YYYY hh:mm:ss", true);
 //import moment from "moment";
-
-
 if (window.moment) {
   var Creneauvue_type_script_lang_js_moment = window.moment;
 } //import configSite from "./config.js";
 
 
+ //import Filtres from "./Filtres.js";
 
 
 
@@ -9763,6 +10416,7 @@ if (window.moment) {
       type: Number,
       default: 0
     },
+    // à supprimer.
     date_desactivee: {
       type: Array,
       default: function _default() {
@@ -9822,10 +10476,7 @@ if (window.moment) {
      * @param object moment()
      */
     current_date: {
-      type: Object,
-      default: function _default() {
-        return Creneauvue_type_script_lang_js_moment(); //return "";
-      }
+      type: Object
     },
 
     /**
@@ -9873,7 +10524,8 @@ if (window.moment) {
     },
 
     /**
-     * Cette variable contient les données permettant d'appliquer des modifications avant le rendu des creneaux et jours.
+     * Cette variable contient les données permettant d'appliquer
+     * des modifications avant le rendu des creneaux et jours.
      * example: desactivé un creneau, une date, une plage de date, en function de certains critaires.
      */
     filters: {
@@ -9883,186 +10535,31 @@ if (window.moment) {
   },
   data: function data() {
     return {
-      calendar_nav: 0,
-
       /**
-       *
-       * La date la plus haute.
-       * La place ne peux aller au dela de cette date.
+       * Est la date de base de l'application, forunit uniquement par l'application.
        */
-      date_max: "",
-
-      /**
-       * La date la plus basse.
-       * La place ne peux aller en dessous de cette date.
-       */
-      data_min: "",
-
-      /**
-       * date utilisable par l'application ou date de reference.
-       * Elle ne  change pas durant le precessus.
-       */
-      app_date: Creneauvue_type_script_lang_js_moment(),
-      //app_date_string: "",
-
-      /**
-       * Est la date utilisable par le client.(Peut etre forunit par l'app ou selectionner par le client)
-       */
-      app_date_current: "",
-      //app_date_current_string
-
-      /**
-       * Contient la liste des dates.
-       */
-      list_creneaux: [],
-
-      /**
-       * list calendar date, elle gere l'affichage du calendrier.
-       */
-      list_calander_days: [],
-
-      /**
-       * current_creneau
-       */
-      current_creneau: "",
-
-      /**
-       *
-       */
-      disabled_creneau: false,
-
-      /**
-       * Pour empecher la date de faire une boucle infinie, on limite le nombre de valeur à 100
-       */
-      test_creneau: 0,
-
-      /**
-       * Pour pouvoir suivre le decallage.
-       */
-      test_delai_jour: 0,
-
-      /**
-       * permet de se rassurer qu'on moins un jour est definit dans la semain et d'empecher une boucle infinie.
-       */
-      test_jour_semaine: 0,
-
-      /**
-       * Permet d'eviter une boucle infinie, dué à une muavaise configuration ou tout autre bug.
-       * Le nombre de jour desactivable ne doit pas depassé 100;
-       */
-      test_date_desactivee: 0,
-
-      /**
-       * Permet d'eviter une boucle infinie. limit à 100; (3 mois)
-       */
-      test_calandar_day: 0,
+      app_date_utilisable: Creneauvue_type_script_lang_js_moment(),
       show_calandar: false,
-
-      /**
-       * datetime minimal.
-       * Les creneaux inferieurs à cette date sont desactivés. C'est la date min utilisable par le creneau. elle se definit une seule foix
-       * et ne change pas aucours du processus.
-       */
-      datetime_min: "",
-      // # les variables # //
-
-      /**
-       * La durée d'un creneau en minutes.
-       * example : 120 => 07h00 - 09h00
-       */
-      app_interval: 120,
-
-      /**
-       * La durée entre les creneaux.
-       * example : 30 => [ 07h00 - 09h00, 07h30 - 09h30, 8h00 - 10h00, 8h30 - 10h30 ...]
-       */
-      app_delai_next_creneau: 30,
-
-      /**
-       * Le nombre de jour entre la collecte et la livraison.
-       */
-      app_delai_jour: 0,
-
-      /**
-       * Contient la plage de creneau désactivé du au fait que la limit soit atteinte.
-       */
-      disable_heuredate_limit: [],
-
-      /**
-       * configuration de la date.
-       */
-      show_month_in_date: false,
-      show_day_label: true,
-      //calandar_title: "",
-
-      /**
-       * permet de limiter le nombre de passage auto vers la prochaine date.
-       * à l'initialisation on definit une valeur et on decremente.
-       */
-      test_auto_select_next_day: 99
+      date_string_generate_by_calendar: ""
     };
   },
   components: {
-    "advanced-select": vue_multiselect_min_default.a,
     "svg-calandear": SvgCalandar,
-    calendar: calendar
-  },
-  mounted: function mounted() {
-    //console.log("init creneau");
-    //on defnit les variables lors du chargement.
-    this.app_interval = this.interval;
-    this.app_delai_jour = this.delai_jour; // on initialise le creneau
-
-    /**
-     * Pour le moment on desactive l'initialisation par defaut.
-     * cela se fait via le watch.configs qui est initialisé par le module TypeLivraison.
-     */
-    //this.init_creneau();
+    calendar: calendar,
+    Hours: Hours
   },
   watch: {
-    current_creneau: function current_creneau() {
-      //console.log("watch current_creneau", creneau);
-      this.renvoit_donnees();
-    },
     configs: {
-      handler: function handler(val) {
-        //console.log("%c watch configs ", "background: #222; color: #bada55");
-        //console.log(val);
-        this.app_interval = val.creneau;
-        this.app_delai_jour = val.delai;
-        this.app_delai_next_creneau = val.delai_next_creneau;
-        this.init_creneau();
+      handler: function handler() {
+        this.init_creneau(this.current_date);
       },
       deep: true
     },
-
-    /**
-     * S'execute uniquement pour la livraiosn.
-     */
-    rebuild_creneau: function rebuild_creneau(datas) {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _this.test_auto_select_next_day = 99;
-                datas = JSON.parse(datas); //datas.date = moment(datas.date_string, "DD-MM-YYYY HH:mm:ss");
-                // Pour eviter le suivie des modifications, on cree un attribut à ce niveau,
-                // les modificaions de cet object nimpactera.
-
-                datas.date_string = datas.date_string_not_change; ///moment(datas.date_string_not_change,"DD-MM-YYYY HH:mm:ss")//datas.date.format("DD-MM-YYYY HH:mm:ss");
-
-                _this.re_contruction_du_creneau(datas);
-
-              case 4:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
+    current_date: {
+      handler: function handler(val) {
+        this.init_creneau(val);
+      },
+      deep: true
     }
   },
   computed: {
@@ -10071,8 +10568,8 @@ if (window.moment) {
      */
     app_date_display: {
       get: function get() {
-        if (this.app_date_current != "") {
-          return Creneauvue_type_script_lang_js_moment(this.app_date_current).locale("fr").format("dddd Do MMMM");
+        if (this.date_string_generate_by_calendar != "") {
+          return Creneauvue_type_script_lang_js_moment(this.date_string_generate_by_calendar, "DD-MM-YYYY").locale("fr").format("dddd Do MMMM");
         }
 
         return "";
@@ -10080,188 +10577,66 @@ if (window.moment) {
     },
 
     /**
-     * for test
+     * ne peut pas etre MAJ par l'application.
      */
-
-    /*
-    app_date_current_display() {
-      if (this.app_date_current != "") {
-        return this.app_date_current.format("DD-MM-YYYY HH:mm:ss");
-      }
-      return "";
-    },
-    /**
-     * indice du jour.
-     */
-    app_date_current_indice: function app_date_current_indice() {
-      if (this.app_date_current != "") {
-        return this.app_date_current.day();
-      }
-
-      return "";
-    },
-    calandar_title: {
-      get: function get() {
-        if (this.app_date_current != "") {
-          return Creneauvue_type_script_lang_js_moment(this.app_date_current).add(this.calendar_nav, "month").locale("fr").format("MMMM  YYYY");
-        }
-
-        return "";
-      }
+    app_date_utilisable_string: function app_date_utilisable_string() {
+      return this.app_date_utilisable.format("DD-MM-YYYY");
     },
 
     /**
-     * Date de début de l'application.
-     *
+     * ne peut pas etre MAJ par l'application.
      */
-    app_date_string: {
-      get: function get() {
-        if (this.app_date) {
-          return this.app_date.format("DD-MM-YYYY HH:mm:ss");
-        } else {
-          return false;
-        }
-      }
-    },
-    app_date_current_string: function app_date_current_string() {
-      return this.app_date_current.format("DD-MM-YYYY");
-    },
-
-    /**
-     * format de date en anglais, utile pour l'app.
-     */
-    app_date_current_string_en: {
-      get: function get() {
-        return this.app_date_current.format("YYYY-MM-DD");
-      }
-    },
-
-    /**
-     * date de l'application sans les heure et les minutes.
-     * Utiliser pour effectuer les calculs liée à la date.
-     */
-    app_date_current_en: function app_date_current_en() {
-      return Creneauvue_type_script_lang_js_moment(this.app_date_current_string_en, "YYYY-MM-DD");
-    },
-
-    /**
-     * Date la plus petite de l'application.
-     * Elle est determiné à partir de l'heure de debut.
-     */
-    date_min_string: function date_min_string() {
-      if (this.data_min) return this.data_min.format("DD-MM-YYYY HH:mm:ss");
-      return "";
+    app_date_utilisable_string_hour: function app_date_utilisable_string_hour() {
+      return this.app_date_utilisable.format("DD-MM-YYYY HH:mm:ss");
     }
-    /*
-    date_string_app_current: {
-      get() {
-        var date = moment(this.app_date_string, "DD-MM-YYYY HH:mm:ss");
-        return date.format("DD-MM-YYYY HH:mm:ss");
-      }
-    }
-    /**/
-
   },
   methods: {
-    re_contruction_du_creneau: function re_contruction_du_creneau(datas) {
+    init_creneau: function init_creneau(date) {
       var _arguments = arguments,
-          _this2 = this;
+          _this = this;
 
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-        var apply_delai_true, self, set_min_date, date_from_parent, execution;
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var apply_delai_true, current_date, index_day_week, DateUtil;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context.prev = _context.next) {
               case 0:
                 apply_delai_true = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : true;
-                self = _this2;
-                console.log("%c rebuild_creneau " + _this2.type_creneau, "background: #22F; color: #FFF", "\n"); // il faut s'assurrer que les creneaux sont definit avant d'utiliser cette function.
+                current_date = Creneauvue_type_script_lang_js_moment(date);
 
-                /**
-                 * La dateMin cest dans date de depart(heure de depart) + le delai entre les creneaux + ( le delai de latence ).
-                 * (explication: si le delai entre les creneaux == durée d'un creneau alors le prochain commence à la fin du suivant )
-                 */
-
-                set_min_date = function set_min_date(datas) {
-                  var temps = datas.creneau.begin.split(":");
-                  self.datetime_min = Creneauvue_type_script_lang_js_moment(self.app_date_current_string, "DD-MM-YYYY");
-                  self.datetime_min.hour(temps[0]);
-                  self.datetime_min.minute(temps[1]); //on ajoute le delai entre les creneaux
-
-                  self.datetime_min.add(self.app_delai_next_creneau, "minutes");
-                }; // on verifie si la date est definit
-
-
-                if (!(datas.date_string && datas.date_string != "")) {
-                  _context3.next = 16;
+                if (current_date.isValid()) {
+                  _context.next = 5;
                   break;
                 }
 
-                date_from_parent = Creneauvue_type_script_lang_js_moment(datas.date_string, "DD-MM-YYYY HH:mm:ss");
+                console.log("format de date non valide : ", date);
+                return _context.abrupt("return", false);
 
-                if (!date_from_parent.isValid()) {
-                  _context3.next = 13;
-                  break;
+              case 5:
+                index_day_week = current_date.day(); // si la date de debut est un jour fermé, on remet les heures... à 0, pour permettre que l'heure de debut ne tient pas compte de l'heure de la journée femer.
+
+                if (_this.type_creneau === "collecte" && _this.jour_desactivee.length && _this.jour_desactivee.includes(index_day_week)) {
+                  current_date.set({
+                    hour: 0,
+                    minute: 0,
+                    second: 0
+                  });
                 }
 
-                _context3.next = 9;
-                return _this2.OverrideDelaiTraitement(date_from_parent);
+                DateUtil = new AppResouces_DateUtilisable(_this.jour_desactivee, _this.configs.delai, _this.filters);
+                _context.next = 10;
+                return DateUtil.date_utilisable(current_date, apply_delai_true);
 
-              case 9:
-                // à partir de la date fournit on evalue la datetime_min utilisable par le client.
-                execution = /*#__PURE__*/function () {
-                  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(date_from_parent) {
-                    return regeneratorRuntime.wrap(function _callee2$(_context2) {
-                      while (1) {
-                        switch (_context2.prev = _context2.next) {
-                          case 0:
-                            _context2.next = 2;
-                            return self.date_utilisable(date_from_parent, apply_delai_true);
+              case 10:
+                _this.app_date_utilisable = _context.sent;
+                console.log("current_date ", _this.app_date_utilisable_string_hour);
 
-                          case 2:
-                            _context2.next = 4;
-                            return self.$refs.calendar.builderCalandar();
-
-                          case 4:
-                            //
-                            if (datas.creneau && datas.creneau.end && datas.creneau.end != "") {
-                              console.log("self.app_date_current_string : ", self.app_date_current_string);
-                              set_min_date(datas);
-                            }
-
-                          case 5:
-                          case "end":
-                            return _context2.stop();
-                        }
-                      }
-                    }, _callee2);
-                  }));
-
-                  return function execution(_x) {
-                    return _ref.apply(this, arguments);
-                  };
-                }();
-
-                execution(date_from_parent);
-                _context3.next = 14;
-                break;
-
-              case 13:
-                alert("Date fournit non valide");
-
-              case 14:
-                _context3.next = 17;
-                break;
-
-              case 16:
-                alert("date error");
-
-              case 17:
+              case 12:
               case "end":
-                return _context3.stop();
+                return _context.stop();
             }
           }
-        }, _callee3);
+        }, _callee);
       }))();
     },
     display_hide_calandar: function display_hide_calandar() {
@@ -10271,958 +10646,37 @@ if (window.moment) {
         this.show_calandar = true;
       }
     },
-
-    /**
-     * Action : construit les creneaux à partir de la date definit ou choist par l'utilisateur.
-     * Creer les dates min et max du jour utilisable par l'application.
-     * La paramettre date doit etre un object moment.
-     */
-    dateBorne: function dateBorne() {
-      var _this3 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-        var date_string, h_debut, m_debut, h_fin, m_fin, day_indice, h_d, h_f;
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                // console.log("dateBorne");
-                // On ne pas utiliser directement la valeur de date pour crrer la valeur de min et max date, car vuejs concerve
-                // la meme valeur entre les variables la MAJ d'une mettra automatiquement la suivante.
-
-                /**
-                 * il faudra verfier si on peut directemùent utiliser : app_date_current_string
-                 */
-                //var date_string = moment(this.app_date_current).format("DD-MM-YYYY");
-                // on utilise app_date_current_string;
-                date_string = _this3.app_date_current_string;
-                _this3.date_max = Creneauvue_type_script_lang_js_moment(date_string, "DD-MM-YYYY");
-                _this3.data_min = Creneauvue_type_script_lang_js_moment(date_string, "DD-MM-YYYY");
-
-                if (!_this3.date_max.isValid()) {
-                  _context4.next = 20;
-                  break;
-                }
-
-                h_debut = _this3.h_debut;
-                m_debut = _this3.m_debut;
-                h_fin = _this3.h_fin;
-                m_fin = _this3.m_fin;
-                day_indice = _this3.date_max.day(); //surcharge la valeur par defaut avec celle definit en configuration
-
-                if (_this3.plage_heures_valide.length > 0) {
-                  if (_this3.plage_heures_valide[day_indice]) {
-                    h_d = _this3.plage_heures_valide[day_indice].debut.split(":");
-                    h_debut = parseInt(h_d[0]);
-                    m_debut = parseInt(h_d[1]);
-                    h_f = _this3.plage_heures_valide[day_indice].fin.split(":");
-                    h_fin = parseInt(h_f[0]);
-                    m_fin = parseInt(h_f[1]);
-                  }
-                }
-
-                _this3.data_min.hours(h_debut);
-
-                _this3.data_min.minutes(m_debut);
-
-                _this3.data_min.seconds(0); //
-
-
-                _this3.date_max.hours(h_fin);
-
-                _this3.date_max.minutes(m_fin);
-
-                _this3.date_max.seconds(0);
-                /*
-                console.log(
-                  "default date : ",
-                  this.app_date_current.format("DD-MM-YYYY HH:mm:ss"),
-                  "\n app_date_string : ",
-                  this.app_date_string,
-                  "\n min date : ",
-                  this.data_min.format("DD-MM-YYYY HH:mm:ss"),
-                  "\n max date : ",
-                  this.date_max.format("DD-MM-YYYY HH:mm:ss")
-                );
-                console.log("dateBorne end");
-                 /**/
-
-
-                _context4.next = 18;
-                return _this3.loadCreneauDisable();
-
-              case 18:
-                _context4.next = 20;
-                return _this3.buildHour();
-
-              case 20:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4);
-      }))();
-    },
-
-    /**
-     * Contruit les plages d'heures.
-     * on vide le creneau
-     * Parametres : h_debut( heure de debut), h_fin (heure de fin, ), interval.
-     * @public
-     */
-    buildHour: function buildHour() {
-      var _this4 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-        var datas;
-        return regeneratorRuntime.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                //console.log("buildHour debut : ", this.type_creneau);
-                //var self = this;
-                _this4.list_creneaux = [];
-                _this4.test_creneau = 0;
-                _this4.current_creneau = ""; // On utilise la valeur string, pour eviter que les valeurs min et max changent.
-                // var date_min_string = moment(this.data_min).format("DD-MM-YYYY HH:mm:ss");
-
-                _context5.next = 5;
-                return _this4.getIntervalUtilisable(_this4.date_min_string);
-
-              case 5:
-                if (!(_this4.list_creneaux.length == 0)) {
-                  _context5.next = 14;
-                  break;
-                }
-
-                _this4.test_auto_select_next_day--;
-
-                if (_this4.test_auto_select_next_day) {
-                  _context5.next = 10;
-                  break;
-                }
-
-                alert("Une erreur s'est produite ... .");
-                return _context5.abrupt("return");
-
-              case 10:
-                datas = {
-                  creneau: {},
-                  date_string: Creneauvue_type_script_lang_js_moment(_this4.date_min_string, "DD-MM-YYYY HH:mm:ss").add(1, "days").format("DD-MM-YYYY HH:mm:ss")
-                };
-                /*
-                datas["date_string"] = this.data_min
-                  .add(1, "days")
-                  .format("DD-MM-YYYY");
-                 datas.date = moment(datas.date_string, "DD-MM-YYYY HH:mm:ss").add(
-                  1,
-                  "days"
-                );
-                /**/
-                //datas.date_string = datas.date.format("DD-MM-YYYY");
-
-                /*
-                console.log(
-                  "%c Ajout d'un jour " +
-                    this.type_creneau +
-                    "\n this.date_min_string : " +
-                    this.date_min_string,
-                  "background: #C00; color: #FFF",
-                  datas
-                );
-                /**/
-
-                _this4.re_contruction_du_creneau(datas, false);
-
-                _context5.next = 16;
-                break;
-
-              case 14:
-                _context5.next = 16;
-                return _this4.selectFirtValideCreneau();
-
-              case 16:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5);
-      }))();
-    },
-
-    /**
-     * date_min_strin est un string.
-     * @private
-     */
-    getIntervalUtilisable: function getIntervalUtilisable(date_min_string) {
-      //console.log("getIntervalUtilisable debut : ", date_min_string);
-      var self = this;
-      return new Promise(function (resolve, reject) {
-        self.test_creneau++; //  console.log("getIntervalUtilisable");
-
-        if (self.test_creneau > 99) {
-          alert("Probleme de configuration : Creneau");
-          reject(false);
-          return false;
-        }
-
-        var bloc_date = {};
-        var date_time = Creneauvue_type_script_lang_js_moment(date_min_string, "DD-MM-YYYY HH:mm:ss");
-        var date_time_end = Creneauvue_type_script_lang_js_moment(date_min_string, "DD-MM-YYYY HH:mm:ss").add(self.app_interval, "minutes");
-        var date_time_next_creneau = Creneauvue_type_script_lang_js_moment(date_min_string, "DD-MM-YYYY HH:mm:ss").add(self.app_delai_next_creneau, "minutes");
-        bloc_date.begin = date_time.format("HH:mm"); //
-
-        self.checkIsCreneauValide(date_time, date_time_end, date_min_string).then( /*#__PURE__*/function () {
-          var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(valeur) {
-            var filter;
-            return regeneratorRuntime.wrap(function _callee6$(_context6) {
-              while (1) {
-                switch (_context6.prev = _context6.next) {
-                  case 0:
-                    if (!valeur.status) {
-                      _context6.next = 5;
-                      break;
-                    }
-
-                    bloc_date.$isDisabled = true;
-                    bloc_date.checkstatus = valeur.verificateur;
-                    _context6.next = 9;
-                    break;
-
-                  case 5:
-                    _context6.next = 7;
-                    return self.ApplyFilters(date_time, date_time_end, date_min_string);
-
-                  case 7:
-                    filter = _context6.sent;
-
-                    if (filter.status) {
-                      bloc_date.$isDisabled = filter.status;
-                      bloc_date.checkstatus = filter.verificateur;
-                    }
-
-                  case 9:
-                    if (self.date_max.diff(date_time_end, "minutes") >= 0) {
-                      bloc_date.end = date_time_end.format("HH:mm");
-
-                      if (!bloc_date.$isDisabled) {
-                        self.list_creneaux.push(bloc_date);
-                      }
-
-                      resolve(self.getIntervalUtilisable(date_time_next_creneau.format("DD-MM-YYYY HH:mm:ss")));
-                    } else {
-                      resolve(true);
-                    }
-
-                  case 10:
-                  case "end":
-                    return _context6.stop();
-                }
-              }
-            }, _callee6);
-          }));
-
-          return function (_x2) {
-            return _ref2.apply(this, arguments);
-          };
-        }());
-      });
-    },
-
-    /**
-     * Applique le filtre sur chaque creneau ou chaque date.
-     * On retourne true si le creneau doit etre desactiver.
-     */
-    ApplyFilters: function ApplyFilters(creneaux_heure_begin, creneaux_heure_end, date_min_string) {
-      var self = this;
-      return new Promise(function (resolvEnd) {
-        if (self.filters.length === 0) {
-          resolvEnd({
-            status: false,
-            verificateur: "filter empty"
-          });
-          return;
-        }
-
-        var CustomLoop = function CustomLoop() {
-          var i = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-          return new Promise(function (resolv) {
-            var filter = self.filters[i];
-
-            if (filter.h_debut !== "" && filter.h_fin !== "") {
-              if (Filtres.HourIntervalContain(filter.h_debut, filter.h_fin, creneaux_heure_begin, creneaux_heure_end, date_min_string)) {
-                //Filtres.test_type = self.type_creneau;
-                Filtres.loopAttribFilter(i, filter, self.app_date_current_en, self.app_date_current_string_en, self.app_date_current_indice, "creneau").then(function (result) {
-                  resolv(result);
-                });
-              } else {
-                resolv({
-                  status: false,
-                  i: i,
-                  verificateur: "plage_heure"
-                });
-              }
-            } else {
-              resolv({
-                status: false,
-                i: i,
-                verificateur: "nothing"
-              });
-            }
-          });
-        };
-
-        var execution = function execution() {
-          var i = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-          CustomLoop(i).then(function (result) {
-            var ii = result.i + 1;
-
-            if (result.status) {
-              resolvEnd(result);
-              return;
-            } else if (self.filters[ii]) {
-              execution(ii);
-            } else {
-              resolvEnd(result);
-              return;
-            }
-          });
-        };
-
-        execution();
-      });
-    },
-
-    /**
-     * Permet de detecter si une plage doit etre desactiver
-     * @param creneaux_heure_begin moment()
-     * @param creneaux_heure_end moment()
-     * @param date_min_string String : Valeur string du creneau de depart.
-     *
-     */
-    checkIsCreneauValide: function checkIsCreneauValide(creneaux_heure_begin, creneaux_heure_end, date_min_string) {
-      var _this5 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
-        var self, loopCreneau, disable_heureday, disable_heuredate, disable_heuredate_limit, disable_for_deccalage;
-        return regeneratorRuntime.wrap(function _callee7$(_context7) {
-          while (1) {
-            switch (_context7.prev = _context7.next) {
-              case 0:
-                self = _this5;
-
-                loopCreneau = function loopCreneau(heure_begin_disable, heure_end_disable) {
-                  var h_d = heure_begin_disable.split(":");
-                  var date_min = Creneauvue_type_script_lang_js_moment(date_min_string, "DD-MM-YYYY HH:mm:ss");
-                  date_min.hours(h_d[0]);
-                  date_min.minutes(h_d[1]); //
-
-                  var h_f = heure_end_disable.split(":");
-                  var date_max = Creneauvue_type_script_lang_js_moment(date_min_string, "DD-MM-YYYY HH:mm:ss");
-                  date_max.hours(h_f[0]);
-                  date_max.minutes(h_f[1]);
-
-                  if (creneaux_heure_begin.diff(date_min, "minutes") >= 0 && creneaux_heure_begin.diff(date_max, "minutes") < 0 || creneaux_heure_end.diff(date_min, "minutes") > 0 && creneaux_heure_end.diff(date_max, "minutes") <= 0) {
-                    return true;
-                  } else {
-                    return false;
-                  }
-                };
-
-                disable_heureday = function disable_heureday() {
-                  return new Promise(function (resolve) {
-                    //console.log("Debut disable_heureday() ");
-                    if (self.disable_heureday.length > 0) {
-                      var day_indice = creneaux_heure_begin.day();
-
-                      for (var j in self.disable_heureday) {
-                        if (day_indice == self.disable_heureday[j].day) {
-                          if (loopCreneau(self.disable_heureday[j].heure_begin_disable, self.disable_heureday[j].heure_end_disable)) {
-                            resolve(true);
-                            return true;
-                          }
-                        }
-                      }
-                    }
-
-                    resolve(false);
-                  });
-                };
-
-                disable_heuredate = function disable_heuredate() {
-                  return new Promise(function (resolve) {
-                    //console.log("Debut disable_heuredate() ");
-                    if (self.disable_heuredate.length > 0) {
-                      var date_string = creneaux_heure_begin.format("DD-MM-YYYY");
-
-                      for (var k in self.disable_heuredate) {
-                        if (date_string == self.disable_heuredate[k].date) {
-                          //console.log("disable_heuredate date_string : ", date_string);
-                          if (loopCreneau(self.disable_heuredate[k].heure_begin_disable, self.disable_heuredate[k].heure_end_disable)) {
-                            resolve(true);
-                            return true;
-                          }
-                        }
-                      }
-                    }
-
-                    resolve(false);
-                  });
-                };
-                /**
-                 * Desactive les creneaux.
-                 */
-
-
-                disable_heuredate_limit = function disable_heuredate_limit() {
-                  return new Promise(function (resolve) {
-                    //console.log("Debut disable_heuredate_limit() ");
-                    if (self.disable_heuredate_limit.length > 0) {
-                      var date_string = creneaux_heure_begin.format("DD-MM-YYYY");
-
-                      for (var k in self.disable_heuredate_limit) {
-                        if (date_string == self.disable_heuredate_limit[k].date) {
-                          //console.log("disable_heuredate date_string : ", date_string);
-                          if (self.disable_heuredate_limit[k].heure_begin_disable == creneaux_heure_begin.format("HH:mm") && self.disable_heuredate_limit[k].heure_end_disable == creneaux_heure_end.format("HH:mm")) {
-                            /*
-                            console.log(
-                              " Disable_heuredate_limit creneaux : ",
-                              self.disable_heuredate_limit[k].heure_begin_disable,
-                              " :: ",
-                              self.disable_heuredate_limit[k].heure_end_disable
-                            );
-                            /**/
-                            resolve(true);
-                            return true;
-                          }
-                        }
-                      }
-                    }
-
-                    resolve(false);
-                  });
-                };
-                /**
-                 * Effectue le decallage si cela est necessaire.
-                 * le decallage s'applique si l'heure fournit par le serveur (heure actuel)
-                 * est inferieur à l'heure MIN de l'application plus la valeur du decallage.
-                 * Example 1 : il est 7h25, on a definit un decallage de 30. (les autres valeurs par defaut);
-                 * ==> Le premier creneau commence à 8h00, car (7h25 + 30 = 7h55)
-                 * Example 2 : il est 7h37, on a definit un decallage de 30. (les autres valeurs par defaut);
-                 * ==> Le premier creneau commence à 8h30, car (7h37 + 30 = 8h07.
-                    Nous avons un ecart de 30 minutes entres les creneaux.
-                    Aucun creneau ne commnceà 08h07, donc nous prennons le prochain creneau valide.
-                    ),
-                 */
-
-
-                disable_for_deccalage = function disable_for_deccalage() {
-                  return new Promise(function (resolve) {
-                    if (self.deccalage_creneau_depart > 0) {
-                      var date_min = Creneauvue_type_script_lang_js_moment(self.app_date_string, "DD-MM-YYYY HH:mm:ss");
-                      date_min.add(self.deccalage_creneau_depart, "minutes");
-                      var diff = creneaux_heure_begin.diff(date_min, "minutes");
-
-                      if (diff < 0) {
-                        resolve(true);
-                      } else {
-                        resolve(false);
-                      }
-                    } else {
-                      resolve(false);
-                    }
-                  });
-                };
-
-                return _context7.abrupt("return", new Promise(function (resolve) {
-                  if (self.datetime_min && self.datetime_min.diff(creneaux_heure_begin, "minutes") > 0) {
-                    resolve({
-                      status: true,
-                      verificateur: "datetime-min"
-                    });
-                    return true;
-                  } else {
-                    // Verification en function du jour.
-                    var test1 = disable_heureday();
-                    test1.then(function (result) {
-                      if (result) {
-                        resolve({
-                          status: true,
-                          verificateur: "disable-heureday"
-                        });
-                        return true;
-                      } else {
-                        var test2 = disable_heuredate();
-                        test2.then(function (result2) {
-                          if (result2) {
-                            resolve({
-                              status: true,
-                              verificateur: "disable-heuredate"
-                            });
-                            return true;
-                          } else {
-                            var test3 = disable_heuredate_limit();
-                            test3.then(function (result3) {
-                              if (result3) {
-                                resolve({
-                                  status: true,
-                                  verificateur: "disable-heuredate-limit"
-                                });
-                                return true;
-                              } else {
-                                //verification en function du decallage
-                                disable_for_deccalage().then(function (result0) {
-                                  if (result0) {
-                                    resolve({
-                                      status: true,
-                                      verificateur: "disable_for_deccalage"
-                                    });
-                                    return true;
-                                  } else {
-                                    resolve({
-                                      status: false,
-                                      verificateur: "none"
-                                    });
-                                    return false;
-                                  }
-                                });
-                              }
-                            });
-                          }
-                        });
-                      }
-                    });
-                  }
-                }));
-
-              case 7:
-              case "end":
-                return _context7.stop();
-            }
-          }
-        }, _callee7);
-      }))();
-    },
-
-    /**
-     * Selectionne le premier creneau valide ( apres la construction des crenneaux );
-     */
-    selectFirtValideCreneau: function selectFirtValideCreneau() {
-      var _this6 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
-        var i, creneau;
-        return regeneratorRuntime.wrap(function _callee8$(_context8) {
-          while (1) {
-            switch (_context8.prev = _context8.next) {
-              case 0:
-                if (!(_this6.list_creneaux.length > 0)) {
-                  _context8.next = 10;
-                  break;
-                }
-
-                _context8.t0 = regeneratorRuntime.keys(_this6.list_creneaux);
-
-              case 2:
-                if ((_context8.t1 = _context8.t0()).done) {
-                  _context8.next = 10;
-                  break;
-                }
-
-                i = _context8.t1.value;
-                creneau = _this6.list_creneaux[i];
-
-                if (creneau.$isDisabled) {
-                  _context8.next = 8;
-                  break;
-                }
-
-                _this6.current_creneau = {
-                  begin: creneau.begin,
-                  end: creneau.end
-                };
-                return _context8.abrupt("break", 10);
-
-              case 8:
-                _context8.next = 2;
-                break;
-
-              case 10:
-              case "end":
-                return _context8.stop();
-            }
-          }
-        }, _callee8);
-      }))();
-    },
-    DisableDateByfilter: function DisableDateByfilter(date) {
-      var self = this;
-      return new Promise(function (resolvEnd) {
-        var index_day = date.day();
-        var app_date_current_string_en = date.format("YYYY-MM-DD");
-        var app_date_current_en = Creneauvue_type_script_lang_js_moment(app_date_current_string_en, "YYYY-MM-DD"); // Desactivation du jour en function des filtres.
-
-        var CustomLoop = function CustomLoop() {
-          var i = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-          return new Promise(function (resolv) {
-            var filter = self.filters[i];
-
-            if (filter.h_debut.length === 0 && filter.h_fin.length === 0) {
-              Filtres.loopAttribFilter(i, filter, app_date_current_en, app_date_current_string_en, index_day, "date").then(function (result) {
-                resolv(result);
-              });
-            } else {
-              resolv({
-                status: false,
-                i: i,
-                custom_class: "nothing"
-              });
-            }
-          });
-        };
-
-        var execution = function execution() {
-          var i = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-          CustomLoop(i).then(function (result) {
-            var ii = result.i + 1;
-
-            if (result.status) {
-              resolvEnd(result);
-              return;
-            } else if (self.filters[ii]) {
-              execution(ii);
-            } else {
-              resolvEnd(result);
-              return;
-            }
-          });
-        };
-
-        execution();
-      });
-    },
-
-    /**
-     * function appelle uniquement à l'initialisation des creneaux.
-     * Permet d'obtenir la date utilisable par l'application,
-     * qui peut etre diffrente de la date du jour( different de * *   current_date);
-     */
-    init_creneau: function init_creneau() {
-      var _this7 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
-        var current_date, index_day_week, date_utile;
-        return regeneratorRuntime.wrap(function _callee9$(_context9) {
-          while (1) {
-            switch (_context9.prev = _context9.next) {
-              case 0:
-                //this.app_date = "";
-                //Lors de l'initialisation on desactive les creneaux inferieurs à l'heure utilisable par le client.
-                _this7.datetime_min = Creneauvue_type_script_lang_js_moment(_this7.current_date);
-                current_date = Creneauvue_type_script_lang_js_moment(_this7.current_date);
-                index_day_week = current_date.day(); // si la date de debut est un jour fermé, on remet les heures... à 0, pour permettre que l'heure de debut ne tient pas compte de l'heure de la journée femer.
-
-                if (_this7.jour_desactivee.length && _this7.jour_desactivee.includes(index_day_week)) {
-                  current_date.set({
-                    hour: 0,
-                    minute: 0,
-                    second: 0
-                  });
-                }
-
-                _context9.next = 6;
-                return _this7.date_utilisable(current_date);
-
-              case 6:
-                date_utile = _context9.sent;
-
-                if (date_utile) {
-                  _this7.app_date = date_utile;
-
-                  _this7.$refs.calendar.builderCalandar();
-                } else {
-                  alert("erreur d'initialisation");
-                }
-
-              case 8:
-              case "end":
-                return _context9.stop();
-            }
-          }
-        }, _callee9);
-      }))();
-    },
-
-    /**
-     * @parameter date doit etre un object moment.
-     */
-    date_utilisable: function date_utilisable(date) {
-      var _arguments2 = arguments,
-          _this8 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
-        var apply_delai_true, self, date_utile;
-        return regeneratorRuntime.wrap(function _callee10$(_context10) {
-          while (1) {
-            switch (_context10.prev = _context10.next) {
-              case 0:
-                apply_delai_true = _arguments2.length > 1 && _arguments2[1] !== undefined ? _arguments2[1] : true;
-                self = _this8;
-                _this8.test_delai_jour = 0;
-                _this8.test_jour_semaine = 0;
-                _this8.test_date_desactivee = 0;
-                _context10.next = 7;
-                return _this8.getDayUtilisable(date, null, apply_delai_true);
-
-              case 7:
-                date_utile = _context10.sent;
-
-                if (!date_utile) {
-                  _context10.next = 12;
-                  break;
-                }
-
-                self.app_date_current = date_utile;
-                self.dateBorne();
-                return _context10.abrupt("return", date_utile);
-
-              case 12:
-                return _context10.abrupt("return", false);
-
-              case 13:
-              case "end":
-                return _context10.stop();
-            }
-          }
-        }, _callee10);
-      }))();
-    },
-
-    /**
-     * Obtient la date utilisable, et permet aussi de determiner le prochain jour utilisable.
-     * La paramettre date doit etre un object moment.
-     * Pour la validation on a 3 cas :
-     * - Validation des jours de la semaine.
-     * - Validation des dates desactivées.
-     * - Validation des delais.
-     * - Application du delai.
-     * NB: les function qui doivent integrer cette derniere doivent remettre les variables suivante à leurs valeurs par defaut :
-     * - test_delai_jour
-     * - test_jour_semaine
-     * - test_date_desactivee
-     * @return un object moment (complet jour, mois, année, heure, mn, s)
-     */
-    getDayUtilisable: function getDayUtilisable(date) {
-      var provider = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-      var apply_delai_true = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-      var self = this;
-      return new Promise(function (resolve, reject) {
-        /*
-        console.log(
-          "valeur de apply_delai_true " + self.type_creneau + ": ",
-          apply_delai_true
-        );
-        /**/
-        if (self.test_jour_semaine > 6) {
-          self.display_error("Boucle infinie detecter ..." + provider);
-          reject(false);
-          return false;
-        }
-
-        if (self.test_date_desactivee > 99) {
-          self.display_error("Boucle infinie detecter ...");
-          reject(false);
-          return false;
-        }
-
-        var index_day_week = date.day();
-
-        if (self.jour_desactivee.length && self.jour_desactivee.includes(index_day_week)) {
-          self.test_jour_semaine++; // si ce jour est automatiquement desactivée,
-          // on passe au suivant.
-
-          date.add(1, "days");
-          resolve(self.getDayUtilisable(date, "jour desactivée", apply_delai_true));
-        } else {
-          self.DisableDateByfilter(date).then(function (Filter) {
-            if (Filter.status) {
-              self.test_date_desactivee++;
-              date.add(1, "days");
-              resolve(self.getDayUtilisable(date, "date desactivée", apply_delai_true));
-            } // on applique egalement le decallage.
-            else if (apply_delai_true && self.app_delai_jour && self.app_delai_jour > self.test_delai_jour) {
-                self.test_delai_jour++;
-                /**
-                 * On applique le delai en jour apres jour afin de s'assurer que les jours
-                 * desactivées ne sont pas pris en compte.
-                 */
-
-                date.add(1, "days");
-                resolve(self.getDayUtilisable(date, "delai jour", apply_delai_true));
-              } else {
-                resolve(date);
-              }
-          });
-        }
-      });
-    },
-    plage_creneau: function plage_creneau(_ref3) {
-      var begin = _ref3.begin,
-          end = _ref3.end;
-      return "".concat(begin, " - ").concat(end);
-    },
-    display_error: function display_error(msg) {
-      alert(msg);
-    },
-
-    /**
-     * Surcharge la valeur du delai de traitement de livraison en fonction du jour selectionner sur la collecte.
-     */
-    OverrideDelaiTraitement: function OverrideDelaiTraitement(date_collecte) {
-      var _this9 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
-        var indice_jr, i, j;
-        return regeneratorRuntime.wrap(function _callee11$(_context11) {
-          while (1) {
-            switch (_context11.prev = _context11.next) {
-              case 0:
-                if (!(_this9.configs.delais_jour && _this9.configs.delais_jour.length > 0)) {
-                  _context11.next = 13;
-                  break;
-                }
-
-                indice_jr = date_collecte.day(); //console.log(indice_jr);
-
-                _context11.t0 = regeneratorRuntime.keys(_this9.configs.delais_jour);
-
-              case 3:
-                if ((_context11.t1 = _context11.t0()).done) {
-                  _context11.next = 13;
-                  break;
-                }
-
-                i = _context11.t1.value;
-
-                if (!(_this9.configs.delais_jour[i].day == indice_jr)) {
-                  _context11.next = 9;
-                  break;
-                }
-
-                _this9.app_delai_jour = _this9.configs.delais_jour[i].delai;
-                _this9.configs.delai_override = _this9.configs.delais_jour[i].delai; //console.log("delai de 4 jours");
-
-                return _context11.abrupt("break", 13);
-
-              case 9:
-                j = parseInt(i) + 2;
-
-                if (_this9.configs.delais_jour.length < j) {
-                  _this9.app_delai_jour = _this9.configs.delai;
-                  _this9.configs.delai_override = _this9.configs.delai; //console.log("delai de 3 jours");
-                }
-
-                _context11.next = 3;
-                break;
-
-              case 13:
-              case "end":
-                return _context11.stop();
-            }
-          }
-        }, _callee11);
-      }))();
-    },
     select_date_calendar: function select_date_calendar(date) {
-      var _this10 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
-        return regeneratorRuntime.wrap(function _callee12$(_context12) {
-          while (1) {
-            switch (_context12.prev = _context12.next) {
-              case 0:
-                //console.log("date selectionner : ", date.date);
-                if (!date.date.status) {
-                  _this10.app_date_current = Creneauvue_type_script_lang_js_moment(date.date.date_string, "DD-MM-YYYY"); // on applique le reste du temps.( fourni par l'initialisation du syteme ).
-
-                  _this10.app_date_current.hour(_this10.current_date.hour());
-
-                  _this10.app_date_current.minute(_this10.current_date.minute());
-
-                  _this10.app_date_current.second(_this10.current_date.second()); //on cache le block calandar
-
-
-                  _this10.display_hide_calandar(); //on essaie de recharger l'affichage
-
-
-                  _this10.$refs.calendar.select_date_in_calander(date.i); //on construit les creneaux.
-
-
-                  _this10.dateBorne(); //ceci permet de supprimer les creneaux s'ils ont ete presedamant selectionné.
-                  // ainsi on force l'utilisateur à reselectionner les creneaux.
-
-
-                  if (_this10.current_creneau != "") {
-                    // ce ci entraine egalment la MAJ  de livraions ( si nous sommes sur la collecte)
-                    _this10.current_creneau = "";
-                  } else {
-                    _this10.renvoit_donnees();
-                  }
-                  /**/
-
-                }
-
-              case 1:
-              case "end":
-                return _context12.stop();
-            }
-          }
-        }, _callee12);
-      }))();
+      //console.log("date selectionner  ", this.type_creneau, " : ", date);
+      if (date.date_string == this.app_date_utilisable_string) this.date_string_generate_by_calendar = this.app_date_utilisable_string_hour;else this.date_string_generate_by_calendar = date.date_string;
     },
-    renvoit_donnees: function renvoit_donnees() {
-      var datas = {
-        creneau: this.current_creneau,
-        //date: this.app_date_current
-        date_string_not_change: this.app_date_current.format("DD-MM-YYYY HH:mm:ss")
-      }; // Permet de passer les données tout en empechant les MAJ retours.
-
-      this.$emit("ev_select_current_creneau", JSON.stringify(datas));
-    },
-
-    /**
-     * Le chargement doit se faire à l'exterieur et de mainere unique.
-     */
-    loadCreneauDisable: function loadCreneauDisable() {
-      var self = this;
-      return new Promise(function (resolve) {
-        var url = self.url_get_creneau;
-        url += "?app_date_current=" + encodeURIComponent(self.app_date_current.format("YYYY-MM-DD"));
-        url += "&limit_creneau=" + self.nombre_res_creneau;
-        url += "&type=" + self.type_creneau;
-        Creneauvue_type_script_lang_js_$.ajax({
-          dataType: "json",
-          url: url,
-          timeout: 5000,
-          success: function success(datas) {
-            self.disable_heuredate_limit = datas;
-            resolve(true);
-          },
-          error: function error() {
-            resolve(false);
-          }
-        });
+    select_creneau: function select_creneau(val) {
+      //if (!val) return null;
+      //console.log("configs : ", this.configs);
+      var date = Creneauvue_type_script_lang_js_moment(this.date_string_generate_by_calendar, "DD-MM-YYYY");
+      var creneau_begin = val.begin.split(":");
+      date.set({
+        hour: creneau_begin[0],
+        minute: parseInt(creneau_begin[1]) + parseInt(this.configs.delai_next_creneau)
       });
+      var datas = {
+        creneau: val,
+        date_string: date.format("DD-MM-YYYY HH:mm:ss"),
+        date: date
+      };
+      this.$emit("ev_select_current_creneau", datas);
+    },
+    select_next_day: function select_next_day() {
+      console.log("Jour suivant");
+      var nextDay = Creneauvue_type_script_lang_js_moment(this.date_string_generate_by_calendar, "DD-MM-YYYY");
+      nextDay.add(1, "days");
+      this.init_creneau(nextDay, false);
     }
   }
 });
 // CONCATENATED MODULE: ./src/App/Creneau.vue?vue&type=script&lang=js&
  /* harmony default export */ var App_Creneauvue_type_script_lang_js_ = (Creneauvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/App/Creneau.vue?vue&type=style&index=0&lang=scss&
-var Creneauvue_type_style_index_0_lang_scss_ = __webpack_require__("4cb9");
-
 // CONCATENATED MODULE: ./src/App/Creneau.vue
-
 
 
 
@@ -11232,8 +10686,8 @@ var Creneauvue_type_style_index_0_lang_scss_ = __webpack_require__("4cb9");
 
 var Creneau_component = normalizeComponent(
   App_Creneauvue_type_script_lang_js_,
-  Creneauvue_type_template_id_357bbaae_render,
-  Creneauvue_type_template_id_357bbaae_staticRenderFns,
+  Creneauvue_type_template_id_c9452158_render,
+  Creneauvue_type_template_id_c9452158_staticRenderFns,
   false,
   null,
   null,
@@ -11245,8 +10699,6 @@ var Creneau_component = normalizeComponent(
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/SelectionCreneau.vue?vue&type=script&lang=js&
 
 
-//
-//
 //
 //
 //
@@ -11342,9 +10794,6 @@ if (window.moment) {
     collecte_interval: {
       type: Number
     },
-    collecte_plages_debut: {
-      type: Object
-    },
     collecte_configs: {
       type: Object
     },
@@ -11377,9 +10826,6 @@ if (window.moment) {
     livraison_configs: {
       type: Object
     },
-    livraison_current_date: {
-      type: Object
-    },
     filters: {
       type: Array
     }
@@ -11389,18 +10835,19 @@ if (window.moment) {
   },
   data: function data() {
     return {
-      livraison_rebuild_creneau: {}
+      livraison_current_date: null
     };
   },
   mounted: function mounted() {//
   },
   methods: {
     ev_select_current_creneau_collecte: function ev_select_current_creneau_collecte(creneau) {
-      this.livraison_rebuild_creneau = creneau;
-      this.$emit("ev_creneau_collecte", this.getValidData(creneau));
+      this.$emit("ev_creneau_collecte", creneau);
+      this.livraison_current_date = creneau.date;
+      console.log("ev_select_current_creneau_collecte");
     },
     ev_select_current_creneau_livraison: function ev_select_current_creneau_livraison(creneau) {
-      this.$emit("ev_creneau_livraison", this.getValidData(creneau));
+      this.$emit("ev_creneau_livraison", creneau);
     },
 
     /**
@@ -11428,8 +10875,8 @@ if (window.moment) {
 
 var SelectionCreneau_component = normalizeComponent(
   App_SelectionCreneauvue_type_script_lang_js_,
-  SelectionCreneauvue_type_template_id_515a5eed_render,
-  SelectionCreneauvue_type_template_id_515a5eed_staticRenderFns,
+  SelectionCreneauvue_type_template_id_9cbebd20_render,
+  SelectionCreneauvue_type_template_id_9cbebd20_staticRenderFns,
   false,
   null,
   null,
@@ -11441,7 +10888,7 @@ var SelectionCreneau_component = normalizeComponent(
 // EXTERNAL MODULE: ./node_modules/vue-loading-template/dist/vueLoading.common.js
 var vueLoading_common = __webpack_require__("d523");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6bc187d1-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Alert/index.vue?vue&type=template&id=5a28c8a6&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5da2cd20-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Alert/index.vue?vue&type=template&id=5a28c8a6&
 var Alertvue_type_template_id_5a28c8a6_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.show_alert)?_c('div',{class:_vm.class_alert,attrs:{"attribut":_vm.alert_attribut_class,"role":"alert","id":_vm.alert_id_html}},[_c('div',{domProps:{"innerHTML":_vm._s(_vm.alert_message)}}),_c(_vm.alert_template,{tag:"component",attrs:{"sub_datas":_vm.datas},on:{"ev_alert_action":_vm.alert_action}}),_vm._t("default"),_c('button',{staticClass:"close",attrs:{"type":"button","aria-label":"Close"}},[_c('span',{attrs:{"aria-hidden":"true"},on:{"click":_vm.closeByParent}},[_vm._v("×")])])],2):_vm._e()}
 var Alertvue_type_template_id_5a28c8a6_staticRenderFns = []
 
@@ -12571,10 +12018,11 @@ var ShopifyformatMoney = function ShopifyformatMoney(cents, format) {
     },
     ev_creneau_livraison: function ev_creneau_livraison(creneau) {
       this.creneau_livraison = creneau;
+      console.log("index ev_creneau_livraison", creneau);
     },
     ev_creneau_collecte: function ev_creneau_collecte(creneau) {
       this.creneau_collecte = creneau;
-      console.log("index", creneau);
+      console.log("index ev_creneau_collecte", creneau);
     },
     HideStaticLoading: function HideStaticLoading() {
       Appvue_type_script_lang_js_$(".londing-cover.static").fadeOut(600);
@@ -12638,8 +12086,8 @@ var Appvue_type_style_index_0_lang_scss_ = __webpack_require__("459d");
 
 var App_component = normalizeComponent(
   src_Appvue_type_script_lang_js_,
-  Appvue_type_template_id_da1afeaa_render,
-  Appvue_type_template_id_da1afeaa_staticRenderFns,
+  Appvue_type_template_id_4e558af1_render,
+  Appvue_type_template_id_4e558af1_staticRenderFns,
   false,
   null,
   null,
@@ -12763,6 +12211,11 @@ external_commonjs_vue_commonjs2_vue_root_Vue_default.a.config.productionTip = fa
 var idApp = "AppCreneau"; //var element = document.getElementById(idApp);
 //var displayAdmin = element.getAttribute("display-admin");
 
+if (window.moment) {
+  var app_main_moment = window.moment;
+}
+
+window.wbu_current_date = app_main_moment();
 new external_commonjs_vue_commonjs2_vue_root_Vue_default.a({
   render: function render(h) {
     return h(Creneaux, {

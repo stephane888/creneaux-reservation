@@ -11,7 +11,7 @@
 
       -->
       <Hours
-        :app_date_utilisable_string_hour="app_date_generate_by_calendar"
+        :app_date_utilisable_string_hour="date_string_generate_by_calendar"
         :h_debut="h_debut"
         :m_debut="m_debut"
         :h_fin="h_fin"
@@ -20,7 +20,9 @@
         :filters="filters"
         :configs="configs"
         :type_creneau="type_creneau"
+        :deccalage_creneau_depart="deccalage_creneau_depart"
         @select_creneau="select_creneau"
+        @select_next_day="select_next_day"
       ></Hours>
       <i
         class="icone-svg mb-md-1 mb-lg-2 cursor-pointer"
@@ -54,16 +56,19 @@
       ref="calendar"
       @select_date="select_date_calendar"
     ></calendar>
-    {{ current_date }}
-    <pre style="margin:0;">
-      app_date_generate_by_calendar :
-      {{ app_date_generate_by_calendar }}
-    </pre>
-    <pre style="margin:0;">
-      app_date_utilisable_string_hour :
-      {{ app_date_utilisable_string_hour }}
-    </pre>
-  </div>
+    <!--
+    <div style="font-size:10px;">
+      {{ current_date }}
+      <pre style="margin:0;">
+        date_string_generate_by_calendar :
+        {{ date_string_generate_by_calendar }}
+      </pre>
+      <pre style="margin:0;">
+        app_date_utilisable_string_hour :
+        {{ app_date_utilisable_string_hour }}
+      </pre>
+    </div>
+  --></div>
 </template>
 
 <script>
@@ -169,11 +174,7 @@ export default {
      * @param object moment()
      */
     current_date: {
-      type: Object,
-      default() {
-        return moment();
-        //return "";
-      }
+      type: Object
     },
     /**
      * Nombre de semaine exact à afficher.
@@ -216,7 +217,8 @@ export default {
       default: 0
     },
     /**
-     * Cette variable contient les données permettant d'appliquer des modifications avant le rendu des creneaux et jours.
+     * Cette variable contient les données permettant d'appliquer
+     * des modifications avant le rendu des creneaux et jours.
      * example: desactivé un creneau, une date, une plage de date, en function de certains critaires.
      */
     filters: {
@@ -231,7 +233,7 @@ export default {
        */
       app_date_utilisable: moment(),
       show_calandar: false,
-      app_date_generate_by_calendar: ""
+      date_string_generate_by_calendar: ""
     };
   },
   components: {
@@ -242,13 +244,13 @@ export default {
   watch: {
     configs: {
       handler() {
-        this.init_creneau();
+        this.init_creneau(this.current_date);
       },
       deep: true
     },
     current_date: {
-      handler() {
-        this.init_creneau();
+      handler(val) {
+        this.init_creneau(val);
       },
       deep: true
     }
@@ -259,8 +261,8 @@ export default {
      */
     app_date_display: {
       get() {
-        if (this.app_date_generate_by_calendar != "") {
-          return moment(this.app_date_generate_by_calendar, "DD-MM-YYYY")
+        if (this.date_string_generate_by_calendar != "") {
+          return moment(this.date_string_generate_by_calendar, "DD-MM-YYYY")
             .locale("fr")
             .format("dddd Do MMMM");
         }
@@ -281,10 +283,13 @@ export default {
     }
   },
   methods: {
-    async init_creneau() {
-      if (this.type_creneau === "livraison") console.log(this.current_date);
+    async init_creneau(date, apply_delai_true = true) {
+      const current_date = moment(date);
 
-      const current_date = moment(this.current_date);
+      if (!current_date.isValid()) {
+        console.log("format de date non valide : ", date);
+        return false;
+      }
       var index_day_week = current_date.day();
       // si la date de debut est un jour fermé, on remet les heures... à 0, pour permettre que l'heure de debut ne tient pas compte de l'heure de la journée femer.
       if (
@@ -303,7 +308,12 @@ export default {
         this.configs.delai,
         this.filters
       );
-      this.app_date_utilisable = await DateUtil.date_utilisable(current_date);
+
+      this.app_date_utilisable = await DateUtil.date_utilisable(
+        current_date,
+        apply_delai_true
+      );
+      console.log("current_date ", this.app_date_utilisable_string_hour);
     },
     display_hide_calandar() {
       if (this.show_calandar) {
@@ -313,30 +323,36 @@ export default {
       }
     },
     select_date_calendar(date) {
-      console.log("date selectionner  ", this.type_creneau, " : ", date);
+      //console.log("date selectionner  ", this.type_creneau, " : ", date);
       if (date.date_string == this.app_date_utilisable_string)
-        this.app_date_generate_by_calendar = this.app_date_utilisable_string_hour;
-      else this.app_date_generate_by_calendar = date.date_string;
+        this.date_string_generate_by_calendar = this.app_date_utilisable_string_hour;
+      else this.date_string_generate_by_calendar = date.date_string;
     },
     select_creneau(val) {
-      if (!val) return null;
-      const date = moment(this.app_date_generate_by_calendar, "DD-MM-YYYY");
+      //if (!val) return null;
+      //console.log("configs : ", this.configs);
+      const date = moment(this.date_string_generate_by_calendar, "DD-MM-YYYY");
       const creneau_begin = val.begin.split(":");
-      date.set({ hour: creneau_begin[0], minute: creneau_begin[1] });
+      date.set({
+        hour: creneau_begin[0],
+        minute:
+          parseInt(creneau_begin[1]) + parseInt(this.configs.delai_next_creneau)
+      });
       var datas = {
         creneau: val,
         date_string: date.format("DD-MM-YYYY HH:mm:ss"),
         date: date
       };
-      console.log(
-        "select_creneau : ",
-        this.type_creneau,
-        "\n",
-        val,
-        "\n",
-        datas
-      );
       this.$emit("ev_select_current_creneau", datas);
+    },
+    select_next_day() {
+      console.log("Jour suivant");
+      const nextDay = moment(
+        this.date_string_generate_by_calendar,
+        "DD-MM-YYYY"
+      );
+      nextDay.add(1, "days");
+      this.init_creneau(nextDay, false);
     }
   }
 };

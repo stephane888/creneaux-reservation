@@ -25,9 +25,6 @@
         <span>Aucun créneau disponible à cette date</span>
       </template>
     </advanced-select>
-    <pre class="d-none">
-      <small>{{ app_date_utilisable_string_hour }}</small>
-    </pre>
   </div>
 </template>
 
@@ -71,6 +68,9 @@ export default {
     configs: {
       type: Object,
       required: true
+    },
+    deccalage_creneau_depart: {
+      type: Number
     }
   },
   components: {
@@ -91,7 +91,8 @@ export default {
       this.init();
     },
     current_creneau(val) {
-      this.$emit("select_creneau", val);
+      if (!val) this.$emit("select_next_day", val);
+      else this.$emit("select_creneau", val);
     }
   },
   computed: {
@@ -99,12 +100,13 @@ export default {
   },
   methods: {
     async init() {
-      console.log(
-        "this.app_date_utilisable_string : ",
-        this.app_date_utilisable_string
+      const app_date_utilisable_string = moment(
+        this.app_date_utilisable_string_hour,
+        "DD-MM-YYYY HH:mm:ss"
       );
+
       const Build = new BuildCreneaux(
-        moment(this.app_date_utilisable_string_hour, "DD-MM-YYYY"),
+        app_date_utilisable_string.format("DD-MM-YYYY"),
         this.app_date_utilisable_string_hour,
         this.h_debut,
         this.m_debut,
@@ -113,7 +115,8 @@ export default {
         this.plage_heures_valide,
         this.configs.creneau,
         this.configs.delai_next_creneau,
-        this.filters
+        this.filters,
+        this.deccalage_creneau_depart
       );
       await Build.dateBorne();
       await Build.buildHour();

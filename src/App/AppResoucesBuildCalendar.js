@@ -26,6 +26,9 @@ export default class BuildCalendar {
     this.test_calandar_day = 0;
     this.app_date_utilisable = moment(app_date_utilisable_string, "DD-MM-YYYY");
     this.datetime_min = moment(app_date_utilisable_string, "DD-MM-YYYY");
+    //console.log("app_date_utilisable_string : ", app_date_utilisable_string);
+    //permet de savoir si une date a été selectionner ?
+    this.selectedDate = false;
   }
   /**
    * le calendrier demarre toujours un lunid.
@@ -34,10 +37,6 @@ export default class BuildCalendar {
    * Sunday = 0;
    */
   async builderCalandar() {
-    console.log(
-      "this.app_date_utilisable_string : ",
-      this.app_date_utilisable_string
-    );
     var calander_day_min = moment(
       this.app_date_utilisable_string,
       "DD-MM-YYYY"
@@ -77,6 +76,25 @@ export default class BuildCalendar {
     );
     /**/
     await this.getPlageDate(calander_day_min, calender_day_max);
+    if (!self.selectedDate) {
+      //this.date_select;
+    }
+  }
+
+  setDate(
+    day_min_sting,
+    calander_day,
+    stateValidationDay,
+    StatusSelectDate = false
+  ) {
+    return {
+      date_string: day_min_sting,
+      day_french: calander_day.locale("fr").format("Do <br /> MMM"),
+      date_month: calander_day.locale("fr").format("DD"),
+      custom_class: stateValidationDay.custom_class,
+      select: StatusSelectDate,
+      status: stateValidationDay
+    };
   }
 
   // permet d'obtenir l'index de la semaine du current_day en fonction du mois
@@ -120,14 +138,34 @@ export default class BuildCalendar {
       if (calander_day_min.diff(calender_day_max, "days")) {
         FFilter.ValidationDay(calander_day_min).then(stateValidationDay => {
           const day_min_sting = calander_day_min.format("DD-MM-YYYY");
-          const StatusSelectDate =
-            // si on a pas encor selectionné, selectionne la date encours.
-            (!self.date_select &&
-              day_min_sting == self.app_date_utilisable_string) ||
-            // si on a deja selectionner, selectionne la date qui l'a été.
-            (self.date_select && day_min_sting == self.date_select.date_string)
-              ? true
-              : false;
+          var StatusSelectDate = false;
+          // Si on a pas encore selectionné, selectionne la date encours.
+          if (
+            !self.date_select &&
+            day_min_sting == self.app_date_utilisable_string
+          ) {
+            StatusSelectDate = true;
+          } else if (
+            self.date_select &&
+            !stateValidationDay.status &&
+            day_min_sting == self.date_select.date_string
+          ) {
+            StatusSelectDate = true;
+          } else if (
+            //self.date_select &&
+            //stateValidationDay.status &&
+            day_min_sting == self.app_date_utilisable_string
+          ) {
+            StatusSelectDate = true;
+          }
+          /*
+          else if (
+            self.type_creneau === "livraison" &&
+            day_min_sting == self.app_date_utilisable_string
+          ) {
+            StatusSelectDate = true;
+          }
+          /**/
           const date = {
             date_string: day_min_sting,
             day_french: calander_day_min.locale("fr").format("Do <br /> MMM"),
@@ -137,11 +175,34 @@ export default class BuildCalendar {
             status: stateValidationDay.status
           };
           if (StatusSelectDate) {
-            console.log("ValidationDay : ", date);
+            /*
+            if (self.type_creneau === "livraison")
+              console.log(
+                "Echec ValidationDay : ",
+                date,
+                "\n date_select : ",
+                self.date_select,
+                "\n app_date_utilisable_string : ",
+                self.app_date_utilisable_string
+              );
+            /**/
+            self.selectedDate = true;
             self.date_select = date;
           }
+          /*
+          else {
+            if (self.type_creneau)
+              console.log(
+                "Echec ValidationDay : ",
+                date,
+                "\n date_select : ",
+                self.date_select,
+                "\n app_date_utilisable_string : ",
+                self.app_date_utilisable_string
+              );
+          }
+          /**/
           self.list_calander_days.push(date);
-
           calander_day_min.add(1, "days");
           resolve(self.getPlageDate(calander_day_min, calender_day_max));
         });
