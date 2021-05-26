@@ -171,6 +171,7 @@ export default {
         if (j === this.list_calander_days.length) date.select = true;
       }
       this.date_select = date;
+      this.$emit("close_calendar", true);
     },
     //permet de naviguer entre les mois
     toggleMonth(direction) {

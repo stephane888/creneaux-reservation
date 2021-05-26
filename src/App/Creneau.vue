@@ -49,6 +49,7 @@
       :rebuild_creneau="rebuild_creneau"
       ref="calendar"
       @select_date="select_date_calendar"
+      @close_calendar="show_calandar = false"
     ></calendar>
     <!--
     <div style="font-size:10px;">
@@ -322,8 +323,6 @@ export default {
       if (date.date_string == this.app_date_utilisable_string)
         this.date_string_generate_by_calendar = this.app_date_utilisable_string_hour;
       else this.date_string_generate_by_calendar = date.date_string;
-      //on ferme le calendrier apres la selection d'une date.
-      this.show_calandar = false;
     },
     select_creneau(val) {
       const date = moment(this.date_string_generate_by_calendar, "DD-MM-YYYY");
