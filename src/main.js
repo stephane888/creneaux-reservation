@@ -59,10 +59,11 @@ window.creneau_heures = {
  *  On place les données pour la configuration preview.
  */
 if (
-  window.location.host === "localhost:8080" &&
+  window.location.host.includes("localhost:80") &&
   typeof localStorage !== "undefined"
 ) {
-  window.wbu_current_date = "25-05-2021 02:09:00";
+  //alert("");
+  window.wbu_current_date = "25-06-2021 02:09:00";
   // Chargment de la configuration de base.
   window.creneau_configs = JSON.parse(localStorage.getItem("creneau_configs"));
 

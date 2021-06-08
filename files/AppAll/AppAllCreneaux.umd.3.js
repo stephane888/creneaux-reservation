@@ -1,277 +1,3902 @@
 ((typeof self !== 'undefined' ? self : this)["webpackJsonpAppAllCreneaux"] = (typeof self !== 'undefined' ? self : this)["webpackJsonpAppAllCreneaux"] || []).push([[3],{
 
-/***/ "../wbuutilities/index.js":
-/*!********************************!*\
-  !*** ../wbuutilities/index.js ***!
-  \********************************/
-/*! exports provided: ButtonSave, ButtonDelete, AjaxBasic, AjaxToastBootStrap */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _src_Buttons_ButtonSave_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/Buttons/ButtonSave.vue */ \"../wbuutilities/src/Buttons/ButtonSave.vue\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"ButtonSave\", function() { return _src_Buttons_ButtonSave_vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"]; });\n\n/* harmony import */ var _src_Buttons_ButtonDelete_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/Buttons/ButtonDelete.vue */ \"../wbuutilities/src/Buttons/ButtonDelete.vue\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"ButtonDelete\", function() { return _src_Buttons_ButtonDelete_vue__WEBPACK_IMPORTED_MODULE_1__[\"default\"]; });\n\n/* harmony import */ var _src_Ajax_basic_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./src/Ajax/basic.js */ \"../wbuutilities/src/Ajax/basic.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"AjaxBasic\", function() { return _src_Ajax_basic_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"]; });\n\n/* harmony import */ var _src_Toasts_BootStrap_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./src/Toasts/BootStrap.js */ \"../wbuutilities/src/Toasts/BootStrap.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"AjaxToastBootStrap\", function() { return _src_Toasts_BootStrap_js__WEBPACK_IMPORTED_MODULE_3__[\"default\"]; });\n\n//import Vue from \"vue\";\n\n\n/*\nconst HelloWorldSimple = {\n  install(Vue) {\n    // Let's register our component globally\n    // https://vuejs.org/v2/guide/components-registration.html\n    Vue.component(\"button-save\", ButtonSave);\n  }\n};\n// Automatic installation if Vue has been added to the global scope.\nif (typeof window !== \"undefined\" && window.Vue) {\n  window.Vue.use(HelloWorldSimple);\n}\n/**/\n\n\n\n\n\n//# sourceURL=webpack://AppAllCreneaux/../wbuutilities/index.js?");
-
-/***/ }),
-
-/***/ "../wbuutilities/src/Ajax/basic.js":
-/*!*****************************************!*\
-  !*** ../wbuutilities/src/Ajax/basic.js ***!
-  \*****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ \"../wbuutilities/node_modules/core-js/modules/es.object.to-string.js\");\n/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);\n\n\n/**\n * Permet d'effectuer les requetes\n * pour modifier ou definir les paramettres par defaut de l'instance, {AjaxBasic}.axiosInstance.defaults.timeout = 30000;\n */\n\nvar InstAxios = axios__WEBPACK_IMPORTED_MODULE_1___default.a.create({\n  timeout: 5000\n});\nvar basicRequest = {\n  axiosInstance: InstAxios,\n  post: function post(url, datas, configs) {\n    return new Promise(function (resolv, reject) {\n      InstAxios.post(url, datas, configs).then(function (reponse) {\n        resolv({\n          status: true,\n          data: reponse.data,\n          reponse: reponse\n        });\n      }).catch(function (error) {\n        reject({\n          status: false,\n          error: error.response,\n          code: error.code,\n          stack: error.stack\n        });\n      });\n    });\n  },\n  get: function get(url, configs) {\n    return new Promise(function (resolv, reject) {\n      InstAxios.get(url, configs).then(function (reponse) {\n        resolv({\n          status: true,\n          data: reponse.data,\n          reponse: reponse\n        });\n      }).catch(function (error) {\n        reject({\n          status: false,\n          error: error.response,\n          code: error.code,\n          stack: error.stack\n        });\n      });\n    });\n  }\n};\n/* harmony default export */ __webpack_exports__[\"default\"] = (basicRequest);\n\n//# sourceURL=webpack://AppAllCreneaux/../wbuutilities/src/Ajax/basic.js?");
-
-/***/ }),
-
-/***/ "../wbuutilities/src/Buttons/ButtonDelete.vue":
-/*!****************************************************!*\
-  !*** ../wbuutilities/src/Buttons/ButtonDelete.vue ***!
-  \****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ButtonDelete_vue_vue_type_template_id_415847a7_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ButtonDelete.vue?vue&type=template&id=415847a7&scoped=true&lang=html& */ \"../wbuutilities/src/Buttons/ButtonDelete.vue?vue&type=template&id=415847a7&scoped=true&lang=html&\");\n/* harmony import */ var _ButtonDelete_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ButtonDelete.vue?vue&type=script&lang=js& */ \"../wbuutilities/src/Buttons/ButtonDelete.vue?vue&type=script&lang=js&\");\n/* empty/unused harmony star reexport *//* harmony import */ var _creneaux_reservation_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../creneaux-reservation/node_modules/vue-loader/lib/runtime/componentNormalizer.js */ \"./node_modules/vue-loader/lib/runtime/componentNormalizer.js\");\n\n\n\n\n\n/* normalize component */\n\nvar component = Object(_creneaux_reservation_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"])(\n  _ButtonDelete_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[\"default\"],\n  _ButtonDelete_vue_vue_type_template_id_415847a7_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__[\"render\"],\n  _ButtonDelete_vue_vue_type_template_id_415847a7_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__[\"staticRenderFns\"],\n  false,\n  null,\n  \"415847a7\",\n  null\n  \n)\n\n/* hot reload */\nif (false) { var api; }\ncomponent.options.__file = \"wbuutilities/src/Buttons/ButtonDelete.vue\"\n/* harmony default export */ __webpack_exports__[\"default\"] = (component.exports);\n\n//# sourceURL=webpack://AppAllCreneaux/../wbuutilities/src/Buttons/ButtonDelete.vue?");
-
-/***/ }),
-
-/***/ "../wbuutilities/src/Buttons/ButtonDelete.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************!*\
-  !*** ../wbuutilities/src/Buttons/ButtonDelete.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _creneaux_reservation_node_modules_cache_loader_dist_cjs_js_ref_12_0_creneaux_reservation_node_modules_babel_loader_lib_index_js_creneaux_reservation_node_modules_cache_loader_dist_cjs_js_ref_0_0_creneaux_reservation_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonDelete_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../creneaux-reservation/node_modules/cache-loader/dist/cjs.js??ref--12-0!../../../creneaux-reservation/node_modules/babel-loader/lib!../../../creneaux-reservation/node_modules/cache-loader/dist/cjs.js??ref--0-0!../../../creneaux-reservation/node_modules/vue-loader/lib??vue-loader-options!./ButtonDelete.vue?vue&type=script&lang=js& */ \"./node_modules/cache-loader/dist/cjs.js?!./node_modules/babel-loader/lib/index.js!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!../wbuutilities/src/Buttons/ButtonDelete.vue?vue&type=script&lang=js&\");\n/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__[\"default\"] = (_creneaux_reservation_node_modules_cache_loader_dist_cjs_js_ref_12_0_creneaux_reservation_node_modules_babel_loader_lib_index_js_creneaux_reservation_node_modules_cache_loader_dist_cjs_js_ref_0_0_creneaux_reservation_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonDelete_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[\"default\"]); \n\n//# sourceURL=webpack://AppAllCreneaux/../wbuutilities/src/Buttons/ButtonDelete.vue?");
-
-/***/ }),
-
-/***/ "../wbuutilities/src/Buttons/ButtonDelete.vue?vue&type=template&id=415847a7&scoped=true&lang=html&":
-/*!*********************************************************************************************************!*\
-  !*** ../wbuutilities/src/Buttons/ButtonDelete.vue?vue&type=template&id=415847a7&scoped=true&lang=html& ***!
-  \*********************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _creneaux_reservation_node_modules_cache_loader_dist_cjs_js_cacheDirectory_node_modules_cache_vue_loader_cacheIdentifier_5d8e9870_vue_loader_template_creneaux_reservation_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_creneaux_reservation_node_modules_cache_loader_dist_cjs_js_ref_0_0_creneaux_reservation_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonDelete_vue_vue_type_template_id_415847a7_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../creneaux-reservation/node_modules/cache-loader/dist/cjs.js?{\"cacheDirectory\":\"node_modules/.cache/vue-loader\",\"cacheIdentifier\":\"5d8e9870-vue-loader-template\"}!../../../creneaux-reservation/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../creneaux-reservation/node_modules/cache-loader/dist/cjs.js??ref--0-0!../../../creneaux-reservation/node_modules/vue-loader/lib??vue-loader-options!./ButtonDelete.vue?vue&type=template&id=415847a7&scoped=true&lang=html& */ \"./node_modules/cache-loader/dist/cjs.js?{\\\"cacheDirectory\\\":\\\"node_modules/.cache/vue-loader\\\",\\\"cacheIdentifier\\\":\\\"5d8e9870-vue-loader-template\\\"}!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!../wbuutilities/src/Buttons/ButtonDelete.vue?vue&type=template&id=415847a7&scoped=true&lang=html&\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return _creneaux_reservation_node_modules_cache_loader_dist_cjs_js_cacheDirectory_node_modules_cache_vue_loader_cacheIdentifier_5d8e9870_vue_loader_template_creneaux_reservation_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_creneaux_reservation_node_modules_cache_loader_dist_cjs_js_ref_0_0_creneaux_reservation_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonDelete_vue_vue_type_template_id_415847a7_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__[\"render\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"staticRenderFns\", function() { return _creneaux_reservation_node_modules_cache_loader_dist_cjs_js_cacheDirectory_node_modules_cache_vue_loader_cacheIdentifier_5d8e9870_vue_loader_template_creneaux_reservation_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_creneaux_reservation_node_modules_cache_loader_dist_cjs_js_ref_0_0_creneaux_reservation_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonDelete_vue_vue_type_template_id_415847a7_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__[\"staticRenderFns\"]; });\n\n\n\n//# sourceURL=webpack://AppAllCreneaux/../wbuutilities/src/Buttons/ButtonDelete.vue?");
-
-/***/ }),
-
-/***/ "../wbuutilities/src/Buttons/ButtonSave.vue":
-/*!**************************************************!*\
-  !*** ../wbuutilities/src/Buttons/ButtonSave.vue ***!
-  \**************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ButtonSave_vue_vue_type_template_id_aa09990e_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ButtonSave.vue?vue&type=template&id=aa09990e&scoped=true&lang=html& */ \"../wbuutilities/src/Buttons/ButtonSave.vue?vue&type=template&id=aa09990e&scoped=true&lang=html&\");\n/* harmony import */ var _ButtonSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ButtonSave.vue?vue&type=script&lang=js& */ \"../wbuutilities/src/Buttons/ButtonSave.vue?vue&type=script&lang=js&\");\n/* empty/unused harmony star reexport *//* harmony import */ var _creneaux_reservation_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../creneaux-reservation/node_modules/vue-loader/lib/runtime/componentNormalizer.js */ \"./node_modules/vue-loader/lib/runtime/componentNormalizer.js\");\n\n\n\n\n\n/* normalize component */\n\nvar component = Object(_creneaux_reservation_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"])(\n  _ButtonSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[\"default\"],\n  _ButtonSave_vue_vue_type_template_id_aa09990e_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__[\"render\"],\n  _ButtonSave_vue_vue_type_template_id_aa09990e_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__[\"staticRenderFns\"],\n  false,\n  null,\n  \"aa09990e\",\n  null\n  \n)\n\n/* hot reload */\nif (false) { var api; }\ncomponent.options.__file = \"wbuutilities/src/Buttons/ButtonSave.vue\"\n/* harmony default export */ __webpack_exports__[\"default\"] = (component.exports);\n\n//# sourceURL=webpack://AppAllCreneaux/../wbuutilities/src/Buttons/ButtonSave.vue?");
-
-/***/ }),
-
-/***/ "../wbuutilities/src/Buttons/ButtonSave.vue?vue&type=script&lang=js&":
-/*!***************************************************************************!*\
-  !*** ../wbuutilities/src/Buttons/ButtonSave.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _creneaux_reservation_node_modules_cache_loader_dist_cjs_js_ref_12_0_creneaux_reservation_node_modules_babel_loader_lib_index_js_creneaux_reservation_node_modules_cache_loader_dist_cjs_js_ref_0_0_creneaux_reservation_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../creneaux-reservation/node_modules/cache-loader/dist/cjs.js??ref--12-0!../../../creneaux-reservation/node_modules/babel-loader/lib!../../../creneaux-reservation/node_modules/cache-loader/dist/cjs.js??ref--0-0!../../../creneaux-reservation/node_modules/vue-loader/lib??vue-loader-options!./ButtonSave.vue?vue&type=script&lang=js& */ \"./node_modules/cache-loader/dist/cjs.js?!./node_modules/babel-loader/lib/index.js!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!../wbuutilities/src/Buttons/ButtonSave.vue?vue&type=script&lang=js&\");\n/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__[\"default\"] = (_creneaux_reservation_node_modules_cache_loader_dist_cjs_js_ref_12_0_creneaux_reservation_node_modules_babel_loader_lib_index_js_creneaux_reservation_node_modules_cache_loader_dist_cjs_js_ref_0_0_creneaux_reservation_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[\"default\"]); \n\n//# sourceURL=webpack://AppAllCreneaux/../wbuutilities/src/Buttons/ButtonSave.vue?");
-
-/***/ }),
-
-/***/ "../wbuutilities/src/Buttons/ButtonSave.vue?vue&type=template&id=aa09990e&scoped=true&lang=html&":
-/*!*******************************************************************************************************!*\
-  !*** ../wbuutilities/src/Buttons/ButtonSave.vue?vue&type=template&id=aa09990e&scoped=true&lang=html& ***!
-  \*******************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _creneaux_reservation_node_modules_cache_loader_dist_cjs_js_cacheDirectory_node_modules_cache_vue_loader_cacheIdentifier_5d8e9870_vue_loader_template_creneaux_reservation_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_creneaux_reservation_node_modules_cache_loader_dist_cjs_js_ref_0_0_creneaux_reservation_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonSave_vue_vue_type_template_id_aa09990e_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../creneaux-reservation/node_modules/cache-loader/dist/cjs.js?{\"cacheDirectory\":\"node_modules/.cache/vue-loader\",\"cacheIdentifier\":\"5d8e9870-vue-loader-template\"}!../../../creneaux-reservation/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../creneaux-reservation/node_modules/cache-loader/dist/cjs.js??ref--0-0!../../../creneaux-reservation/node_modules/vue-loader/lib??vue-loader-options!./ButtonSave.vue?vue&type=template&id=aa09990e&scoped=true&lang=html& */ \"./node_modules/cache-loader/dist/cjs.js?{\\\"cacheDirectory\\\":\\\"node_modules/.cache/vue-loader\\\",\\\"cacheIdentifier\\\":\\\"5d8e9870-vue-loader-template\\\"}!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!../wbuutilities/src/Buttons/ButtonSave.vue?vue&type=template&id=aa09990e&scoped=true&lang=html&\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return _creneaux_reservation_node_modules_cache_loader_dist_cjs_js_cacheDirectory_node_modules_cache_vue_loader_cacheIdentifier_5d8e9870_vue_loader_template_creneaux_reservation_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_creneaux_reservation_node_modules_cache_loader_dist_cjs_js_ref_0_0_creneaux_reservation_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonSave_vue_vue_type_template_id_aa09990e_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__[\"render\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"staticRenderFns\", function() { return _creneaux_reservation_node_modules_cache_loader_dist_cjs_js_cacheDirectory_node_modules_cache_vue_loader_cacheIdentifier_5d8e9870_vue_loader_template_creneaux_reservation_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_creneaux_reservation_node_modules_cache_loader_dist_cjs_js_ref_0_0_creneaux_reservation_node_modules_vue_loader_lib_index_js_vue_loader_options_ButtonSave_vue_vue_type_template_id_aa09990e_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__[\"staticRenderFns\"]; });\n\n\n\n//# sourceURL=webpack://AppAllCreneaux/../wbuutilities/src/Buttons/ButtonSave.vue?");
-
-/***/ }),
-
-/***/ "../wbuutilities/src/Toasts/BootStrap.js":
-/*!***********************************************!*\
-  !*** ../wbuutilities/src/Toasts/BootStrap.js ***!
-  \***********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ \"../wbuutilities/node_modules/core-js/modules/es.object.to-string.js\");\n/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _siteweb_AppVuejs_creneaux_reservation_node_modules_babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/objectSpread2 */ \"./node_modules/@babel/runtime/helpers/esm/objectSpread2.js\");\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ \"vue\");\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _Ajax_basic__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Ajax/basic */ \"../wbuutilities/src/Ajax/basic.js\");\n/* harmony import */ var bootstrap_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! bootstrap-vue */ \"./node_modules/bootstrap-vue/esm/index.js\");\n\n\n\n\n\nvue__WEBPACK_IMPORTED_MODULE_2___default.a.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_4__[\"ToastPlugin\"]);\nvar vm = new vue__WEBPACK_IMPORTED_MODULE_2___default.a();\n\nvar AjaxToastBootStrap = Object(_siteweb_AppVuejs_creneaux_reservation_node_modules_babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(Object(_siteweb_AppVuejs_creneaux_reservation_node_modules_babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_1__[\"default\"])({}, _Ajax_basic__WEBPACK_IMPORTED_MODULE_3__[\"default\"]), {}, {\n  $bvModal: vm.$bvModal,\n  $bvToast: vm.$bvToast,\n  notification: function notification(ajaxTitle) {\n    var variant = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : \"success\";\n    this.$bvToast.toast(\" \", {\n      title: ajaxTitle,\n      variant: variant,\n      solid: true,\n      toaster: \"b-toaster-top-right\"\n    });\n  },\n  post: function post(url, datas, configs) {\n    var _this = this;\n\n    var showNotification = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;\n    return new Promise(function (resolv, reject) {\n      _Ajax_basic__WEBPACK_IMPORTED_MODULE_3__[\"default\"].post(url, datas, configs).then(function (reponse) {\n        if (showNotification) {\n          _this.notification(\"success\");\n        }\n\n        resolv(reponse);\n      }).catch(function (error) {\n        //console.log(\"error : \", error);\n        _this.notification(_this.GetErrorTitle(error), \"warning\");\n\n        reject(error);\n      });\n    });\n  },\n  get: function get(url, configs) {\n    var _this2 = this;\n\n    var showNotification = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;\n    return new Promise(function (resolv, reject) {\n      _Ajax_basic__WEBPACK_IMPORTED_MODULE_3__[\"default\"].post(url, configs).then(function (reponse) {\n        if (showNotification) {\n          _this2.notification(\"success\");\n        }\n\n        resolv(reponse);\n      }).catch(function (error) {\n        //console.log(\"error : \", error);\n        _this2.notification(_this2.GetErrorTitle(error), \"warning\");\n\n        reject(error);\n      });\n    });\n  },\n  GetErrorTitle: function GetErrorTitle(error) {\n    var title; //\n\n    if (error.code) {\n      switch (error.code) {\n        case \"ECONNABORTED\":\n          var temps = this.axiosInstance.defaults.timeout / 1000 + \"s\";\n          title = \"Impossible de joindre l'hote distant, temps impartie epuisé. (\" + temps + \")\";\n          break;\n\n        default:\n          title = \"Une erreur s'est produite\";\n      }\n    } //\n    else if (error.error && error.error.statusText) {\n        title = decodeURI(error.error.statusText);\n      }\n\n    return title;\n  }\n});\n/**\n * Intercept la reponse ajax pour declenche le toast adapter.\n */\n\n/*\n pas adapter pour gerer les messages d'erreurs.\n(function() {\n  AjaxToastBootStrap.axiosInstance.interceptors.response.use(\n    function(response) {\n      console.log(\"interceptor success\");\n      AjaxToastBootStrap.notification(\"success\");\n      return response;\n    },\n    function(error) {\n      console.log(\"interceptor error\");\n      AjaxToastBootStrap.notification(\"Error\", \"warning\");\n      return error;\n    }\n  );\n})();\n/**/\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (AjaxToastBootStrap);\n\n//# sourceURL=webpack://AppAllCreneaux/../wbuutilities/src/Toasts/BootStrap.js?");
-
-/***/ }),
-
-/***/ "./node_modules/cache-loader/dist/cjs.js?!./node_modules/babel-loader/lib/index.js!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!../wbuutilities/src/Buttons/ButtonDelete.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!../wbuutilities/src/Buttons/ButtonDelete.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//import magentoSynchroListSites from \"./ListSites.vue\";\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  name: \"ButtonDelete\",\n  props: {\n    running: {\n      type: Boolean,\n      required: true\n    },\n    texte: {\n      type: String,\n      default: \"Supprimer\"\n    }\n  },\n  components: {//\n  },\n  data: function data() {\n    return {//\n    };\n  },\n  mounted: function mounted() {//\n  },\n  watch: {//\n  },\n  computed: {//\n  },\n  methods: {\n    DeleteFile: function DeleteFile() {\n      this.$emit(\"ev-click\");\n    }\n  }\n});\n\n//# sourceURL=webpack://AppAllCreneaux/../wbuutilities/src/Buttons/ButtonDelete.vue?./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options");
-
-/***/ }),
-
-/***/ "./node_modules/cache-loader/dist/cjs.js?!./node_modules/babel-loader/lib/index.js!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!../wbuutilities/src/Buttons/ButtonSave.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!../wbuutilities/src/Buttons/ButtonSave.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//import magentoSynchroListSites from \"./ListSites.vue\";\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  name: \"ButtonSave\",\n  props: {\n    running: {\n      type: Boolean,\n      required: true\n    },\n    texte: {\n      type: String,\n      default: \"Enregistrer\"\n    }\n  },\n  components: {//\n  },\n  data: function data() {\n    return {//\n    };\n  },\n  mounted: function mounted() {//\n  },\n  watch: {//\n  },\n  computed: {//\n  },\n  methods: {\n    onSubmit: function onSubmit() {\n      this.$emit(\"ev-click\");\n    }\n  }\n});\n\n//# sourceURL=webpack://AppAllCreneaux/../wbuutilities/src/Buttons/ButtonSave.vue?./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options");
-
-/***/ }),
-
-/***/ "./node_modules/cache-loader/dist/cjs.js?!./node_modules/babel-loader/lib/index.js!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./src/AppAdmin/Admin.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/AppAdmin/Admin.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.filter.js */ \"./node_modules/core-js/modules/es.array.filter.js\");\n/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ \"./node_modules/core-js/modules/es.array.for-each.js\");\n/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ \"./node_modules/core-js/modules/es.object.to-string.js\");\n/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ \"./node_modules/core-js/modules/web.dom-collections.for-each.js\");\n/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! regenerator-runtime/runtime.js */ \"./node_modules/regenerator-runtime/runtime.js\");\n/* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_4__);\n/* harmony import */ var _siteweb_AppVuejs_creneaux_reservation_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator */ \"./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js\");\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue */ \"vue\");\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_6__);\n/* harmony import */ var bootstrap_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! bootstrap-vue */ \"./node_modules/bootstrap-vue/esm/index.js\");\n/* harmony import */ var _configs_config_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./configs/config.js */ \"./src/AppAdmin/configs/config.js\");\n/* harmony import */ var _Utilities__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Utilities */ \"./src/AppAdmin/Utilities.js\");\n\n\n\n\n\n\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n\n\n //\n\n/**\n * Cette approche ne limite pas BootstrapVue pour ce composant, mais il sera charge si ce composant est demandé.\n */\n// Make BootstrapVue available throughout your project\n\nvue__WEBPACK_IMPORTED_MODULE_6___default.a.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_7__[\"BootstrapVue\"]); // Optionally install the BootstrapVue icon components plugin\n\nvue__WEBPACK_IMPORTED_MODULE_6___default.a.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_7__[\"IconsPlugin\"]);\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  name: \"Admin\",\n  props: {//\n  },\n  components: {\n    CreneauBase: function CreneauBase() {\n      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./Forms/CreneauBase */ \"./src/AppAdmin/Forms/CreneauBase.vue\"));\n    },\n    CreneauFilters: function CreneauFilters() {\n      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./Forms/CreneauFilters */ \"./src/AppAdmin/Forms/CreneauFilters.vue\"));\n    },\n    TypeLivraison: function TypeLivraison() {\n      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./Forms/TypeLivraion */ \"./src/AppAdmin/Forms/TypeLivraion.vue\"));\n    }\n  },\n  data: function data() {\n    return {\n      creneau_configs: {},\n      creneau_filters: [],\n      creneau_types: {}\n    };\n  },\n  mounted: function mounted() {\n    this.LoadValues();\n  },\n  watch: {//\n  },\n  computed: {\n    joursActive: function joursActive() {\n      var result = [];\n\n      if (this.creneau_configs.days) {\n        for (var i in this.creneau_configs.days) {\n          if (this.creneau_configs.days[i].value) {\n            result.push(this.creneau_configs.days[i]);\n          }\n        }\n      }\n\n      return result;\n    }\n  },\n  methods: {\n    resetDatas: function resetDatas() {\n      var _this = this;\n\n      return Object(_siteweb_AppVuejs_creneaux_reservation_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__[\"default\"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {\n        return regeneratorRuntime.wrap(function _callee$(_context) {\n          while (1) {\n            switch (_context.prev = _context.next) {\n              case 0:\n                _this.creneau_configs = _Utilities__WEBPACK_IMPORTED_MODULE_9__[\"default\"].DefaultCreneauConfigs();\n                _this.creneau_filters = [_Utilities__WEBPACK_IMPORTED_MODULE_9__[\"default\"].filter()];\n                _this.creneau_types = _Utilities__WEBPACK_IMPORTED_MODULE_9__[\"default\"].DefaultCreneauTypes();\n\n              case 3:\n              case \"end\":\n                return _context.stop();\n            }\n          }\n        }, _callee);\n      }))();\n    },\n    BuildDays: function BuildDays() {\n      var _this2 = this;\n\n      return Object(_siteweb_AppVuejs_creneaux_reservation_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__[\"default\"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {\n        return regeneratorRuntime.wrap(function _callee2$(_context2) {\n          while (1) {\n            switch (_context2.prev = _context2.next) {\n              case 0:\n                if (_this2.creneau_configs.days && _this2.creneau_configs.days.length == 0) _Utilities__WEBPACK_IMPORTED_MODULE_9__[\"default\"].JourInfos().forEach(function (item) {\n                  _this2.creneau_configs.days.push(item);\n                });\n\n              case 1:\n              case \"end\":\n                return _context2.stop();\n            }\n          }\n        }, _callee2);\n      }))();\n    },\n    SaveMetafieldConfig: function SaveMetafieldConfig() {\n      _configs_config_js__WEBPACK_IMPORTED_MODULE_8__[\"default\"].saveMetaFields([{\n        key: \"creneau_configs\",\n        value: this.creneau_configs,\n        value_type: \"json_string\"\n      }, {\n        key: \"creneau_filters\",\n        value: this.creneau_filters,\n        value_type: \"json_string\"\n      }, {\n        key: \"creneau_types\",\n        value: this.creneau_types,\n        value_type: \"json_string\"\n      }]);\n    },\n    SaveConfigTestReload: function SaveConfigTestReload() {\n      if (window.location.host === \"localhost:8080\" && typeof localStorage !== \"undefined\") {\n        localStorage.setItem(\"creneau_configs\", JSON.stringify(this.creneau_configs));\n        localStorage.setItem(\"creneau_filters\", JSON.stringify(this.creneau_filters));\n        localStorage.setItem(\"creneau_types\", JSON.stringify(this.creneau_types));\n        window.location.reload();\n      } else {\n        _configs_config_js__WEBPACK_IMPORTED_MODULE_8__[\"default\"].SaveConfigsTest({\n          creneau_configs: this.creneau_configs,\n          creneau_filters: this.creneau_filters,\n          creneau_types: this.creneau_types\n        }).then(function () {\n          window.location.reload();\n        });\n      }\n    },\n\n    /**\n     * re-initialise la configuration et l'enregistre en DB pour les tests.\n     */\n    ResetConfigTest: function ResetConfigTest() {\n      var _this3 = this;\n\n      return Object(_siteweb_AppVuejs_creneaux_reservation_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__[\"default\"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {\n        return regeneratorRuntime.wrap(function _callee3$(_context3) {\n          while (1) {\n            switch (_context3.prev = _context3.next) {\n              case 0:\n                if (window.location.host === \"localhost:8080\" && typeof localStorage !== \"undefined\") {\n                  localStorage.removeItem(\"creneau_configs\");\n                  localStorage.removeItem(\"creneau_filters\");\n                  localStorage.removeItem(\"creneau_types\");\n                } //load default datas\n\n\n                _context3.next = 3;\n                return _this3.resetDatas();\n\n              case 3:\n                _context3.next = 5;\n                return _this3.loadDefaultDatas();\n\n              case 5:\n                _this3.SaveConfigTestReload();\n\n              case 6:\n              case \"end\":\n                return _context3.stop();\n            }\n          }\n        }, _callee3);\n      }))();\n    },\n    loadMetafieldConfig: function loadMetafieldConfig() {\n      var _this4 = this;\n\n      _configs_config_js__WEBPACK_IMPORTED_MODULE_8__[\"default\"].post(\"/app/creneaux/shopify/request/LoadMetafields\", {\n        endPoint: \"/admin/metafields.json\"\n      }).then(function (reponse) {\n        var StoreHasConfig = false;\n\n        if (reponse.status && reponse.data.metafields) {\n          for (var i in reponse.data.metafields) {\n            var metafield = reponse.data.metafields[i];\n\n            if (metafield.namespace === \"wbu_creneaux\") {\n              StoreHasConfig = true;\n\n              switch (metafield.key) {\n                case \"creneau_configs\":\n                  _this4.creneau_configs = JSON.parse(metafield.value);\n                  break;\n\n                case \"creneau_filters\":\n                  _this4.creneau_filters = JSON.parse(metafield.value);\n                  break;\n\n                case \"creneau_types\":\n                  _this4.creneau_types = JSON.parse(metafield.value);\n                  break;\n              }\n            }\n\n            var ii = parseInt(i) + 1;\n\n            if (ii === reponse.data.metafields.length && !StoreHasConfig) {\n              _this4.LoadValues();\n            }\n          }\n        } else {\n          _this4.LoadValues();\n        }\n      });\n    },\n    LoadValues: function LoadValues() {\n      var _this5 = this;\n\n      return Object(_siteweb_AppVuejs_creneaux_reservation_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__[\"default\"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {\n        var StoreHasTestConfig, creneau_configs, creneau_types, creneau_filters;\n        return regeneratorRuntime.wrap(function _callee4$(_context4) {\n          while (1) {\n            switch (_context4.prev = _context4.next) {\n              case 0:\n                StoreHasTestConfig = false;\n                creneau_configs = window.creneau_configs;\n\n                if (creneau_configs && creneau_configs.days) {\n                  _this5.creneau_configs = creneau_configs;\n                  StoreHasTestConfig = true;\n                } //\n\n\n                creneau_types = window.creneau_types;\n\n                if (creneau_types && creneau_types.typelivraison) {\n                  _this5.creneau_types = creneau_types;\n                } //\n\n\n                creneau_filters = window.creneau_filters;\n\n                if (creneau_filters && creneau_filters.length) {\n                  _this5.creneau_filters = creneau_filters;\n                }\n\n                if (StoreHasTestConfig) {\n                  _context4.next = 10;\n                  break;\n                }\n\n                _context4.next = 10;\n                return _this5.resetDatas();\n\n              case 10:\n                _this5.loadDefaultDatas();\n\n              case 11:\n              case \"end\":\n                return _context4.stop();\n            }\n          }\n        }, _callee4);\n      }))();\n    },\n    loadDefaultDatas: function loadDefaultDatas() {\n      var _this6 = this;\n\n      return Object(_siteweb_AppVuejs_creneaux_reservation_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__[\"default\"])( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {\n        return regeneratorRuntime.wrap(function _callee5$(_context5) {\n          while (1) {\n            switch (_context5.prev = _context5.next) {\n              case 0:\n                _context5.next = 2;\n                return _this6.BuildDays();\n\n              case 2:\n              case \"end\":\n                return _context5.stop();\n            }\n          }\n        }, _callee5);\n      }))();\n    }\n  }\n});\n\n//# sourceURL=webpack://AppAllCreneaux/./src/AppAdmin/Admin.vue?./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options");
-
-/***/ }),
-
-/***/ "./node_modules/cache-loader/dist/cjs.js?{\"cacheDirectory\":\"node_modules/.cache/vue-loader\",\"cacheIdentifier\":\"5d8e9870-vue-loader-template\"}!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!../wbuutilities/src/Buttons/ButtonDelete.vue?vue&type=template&id=415847a7&scoped=true&lang=html&":
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5d8e9870-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!../wbuutilities/src/Buttons/ButtonDelete.vue?vue&type=template&id=415847a7&scoped=true&lang=html& ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return render; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"staticRenderFns\", function() { return staticRenderFns; });\nvar render = function() {\n  var _vm = this\n  var _h = _vm.$createElement\n  var _c = _vm._self._c || _h\n  return _c(\n    \"div\",\n    [\n      _c(\n        \"b-button\",\n        {\n          attrs: { variant: \"outline-danger\", size: \"sm\" },\n          on: { click: _vm.DeleteFile }\n        },\n        [\n          _c(\"span\", [_vm._v(\" \" + _vm._s(_vm.texte) + \" \")]),\n          _vm.running\n            ? _c(\"b-icon\", {\n                staticClass: \"ml-2\",\n                attrs: { icon: \"arrow-clockwise\", animation: \"spin-pulse\" }\n              })\n            : _vm._e()\n        ],\n        1\n      )\n    ],\n    1\n  )\n}\nvar staticRenderFns = []\nrender._withStripped = true\n\n\n\n//# sourceURL=webpack://AppAllCreneaux/../wbuutilities/src/Buttons/ButtonDelete.vue?./node_modules/cache-loader/dist/cjs.js?%7B%22cacheDirectory%22:%22node_modules/.cache/vue-loader%22,%22cacheIdentifier%22:%225d8e9870-vue-loader-template%22%7D!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options");
-
-/***/ }),
-
-/***/ "./node_modules/cache-loader/dist/cjs.js?{\"cacheDirectory\":\"node_modules/.cache/vue-loader\",\"cacheIdentifier\":\"5d8e9870-vue-loader-template\"}!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!../wbuutilities/src/Buttons/ButtonSave.vue?vue&type=template&id=aa09990e&scoped=true&lang=html&":
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5d8e9870-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!../wbuutilities/src/Buttons/ButtonSave.vue?vue&type=template&id=aa09990e&scoped=true&lang=html& ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return render; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"staticRenderFns\", function() { return staticRenderFns; });\nvar render = function() {\n  var _vm = this\n  var _h = _vm.$createElement\n  var _c = _vm._self._c || _h\n  return _c(\n    \"div\",\n    [\n      _c(\n        \"b-button\",\n        {\n          attrs: { variant: \"outline-success\", size: \"sm\" },\n          on: { click: _vm.onSubmit }\n        },\n        [\n          _c(\"span\", [_vm._v(_vm._s(_vm.texte))]),\n          _vm.running\n            ? _c(\"b-icon\", {\n                staticClass: \"ml-2\",\n                attrs: { icon: \"arrow-clockwise\", animation: \"spin-pulse\" }\n              })\n            : _vm._e()\n        ],\n        1\n      )\n    ],\n    1\n  )\n}\nvar staticRenderFns = []\nrender._withStripped = true\n\n\n\n//# sourceURL=webpack://AppAllCreneaux/../wbuutilities/src/Buttons/ButtonSave.vue?./node_modules/cache-loader/dist/cjs.js?%7B%22cacheDirectory%22:%22node_modules/.cache/vue-loader%22,%22cacheIdentifier%22:%225d8e9870-vue-loader-template%22%7D!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options");
-
-/***/ }),
-
-/***/ "./node_modules/cache-loader/dist/cjs.js?{\"cacheDirectory\":\"node_modules/.cache/vue-loader\",\"cacheIdentifier\":\"5d8e9870-vue-loader-template\"}!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./src/AppAdmin/Admin.vue?vue&type=template&id=65aeacc7&lang=html&":
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5d8e9870-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/AppAdmin/Admin.vue?vue&type=template&id=65aeacc7&lang=html& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return render; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"staticRenderFns\", function() { return staticRenderFns; });\nvar render = function() {\n  var _vm = this\n  var _h = _vm.$createElement\n  var _c = _vm._self._c || _h\n  return _c(\n    \"div\",\n    { staticClass: \"container my-4 app-admin border py-4 px-5\" },\n    [\n      _c(\"h3\", [_vm._v(\"Configuration de l'application\")]),\n      _c(\n        \"div\",\n        { staticClass: \"my-4\" },\n        [\n          _c(\n            \"b-tabs\",\n            { attrs: { \"content-class\": \"my-3\" } },\n            [\n              _c(\n                \"b-tab\",\n                { attrs: { title: \"Configuration de base\", active: \"\" } },\n                [\n                  _c(\"CreneauBase\", {\n                    attrs: { creneau_configs: _vm.creneau_configs }\n                  })\n                ],\n                1\n              ),\n              _c(\n                \"b-tab\",\n                { attrs: { title: \"Configuration des creneaux et dates\" } },\n                [\n                  _c(\"CreneauFilters\", {\n                    attrs: {\n                      filters: _vm.creneau_filters,\n                      \"jours-active\": _vm.joursActive\n                    }\n                  })\n                ],\n                1\n              ),\n              _c(\n                \"b-tab\",\n                { attrs: { title: \"Type de livraison\" } },\n                [\n                  _c(\"TypeLivraison\", {\n                    attrs: {\n                      \"creneau-types\": _vm.creneau_types,\n                      \"jours-active\": _vm.joursActive\n                    }\n                  })\n                ],\n                1\n              )\n            ],\n            1\n          ),\n          _c(\n            \"div\",\n            { staticClass: \"d-flex justify-content-end\" },\n            [\n              _c(\n                \"b-button\",\n                {\n                  staticClass: \"mr-2\",\n                  attrs: { size: \"sm\", variant: \"outline-info\" },\n                  on: { click: _vm.ResetConfigTest }\n                },\n                [_vm._v(\" Ré-initialise \")]\n              ),\n              _c(\n                \"b-button\",\n                {\n                  staticClass: \"mr-2\",\n                  attrs: { size: \"sm\", variant: \"outline-info\" },\n                  on: { click: _vm.SaveConfigTestReload }\n                },\n                [_vm._v(\" Voir l'aperçu \")]\n              ),\n              _c(\"hr\"),\n              _c(\n                \"b-button\",\n                {\n                  staticClass: \"mr-2\",\n                  attrs: { size: \"sm\", variant: \"outline-info\" },\n                  on: { click: _vm.loadMetafieldConfig }\n                },\n                [_vm._v(\" Charge la config de production \")]\n              ),\n              _c(\n                \"b-button\",\n                {\n                  attrs: { size: \"sm\", variant: \"outline-success\" },\n                  on: { click: _vm.SaveMetafieldConfig }\n                },\n                [_vm._v(\" Enregistrer en production \")]\n              )\n            ],\n            1\n          )\n        ],\n        1\n      )\n    ]\n  )\n}\nvar staticRenderFns = []\nrender._withStripped = true\n\n\n\n//# sourceURL=webpack://AppAllCreneaux/./src/AppAdmin/Admin.vue?./node_modules/cache-loader/dist/cjs.js?%7B%22cacheDirectory%22:%22node_modules/.cache/vue-loader%22,%22cacheIdentifier%22:%225d8e9870-vue-loader-template%22%7D!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options");
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./src/AppAdmin/Admin.vue?vue&type=style&index=0&lang=scss&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-oneOf-1-2!./node_modules/sass-loader/dist/cjs.js??ref--8-oneOf-1-3!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/AppAdmin/Admin.vue?vue&type=style&index=0&lang=scss& ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
+/***/ "0cb2":
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("// Imports\nvar ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\nexports = ___CSS_LOADER_API_IMPORT___(false);\n// Module\nexports.push([module.i, \"@charset \\\"UTF-8\\\";\\n.creneaux-mbt .first-block {\\n  background-color: #fff !important;\\n  padding: 0em 2em 2em 2em;\\n  border: 1px solid #eee;\\n}\\n.creneaux-mbt .app-admin {\\n  background-color: #f3f3f3 !important;\\n}\\n.app-admin {\\n  /*!\\n   * Bootstrap v4.6.0 (https://getbootstrap.com/)\\n   * Copyright 2011-2021 The Bootstrap Authors\\n   * Copyright 2011-2021 Twitter, Inc.\\n   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)\\n   */\\n}\\n.app-admin :root {\\n  --blue: #007bff;\\n  --indigo: #6610f2;\\n  --purple: #6f42c1;\\n  --pink: #e83e8c;\\n  --red: #dc3545;\\n  --orange: #fd7e14;\\n  --yellow: #ffc107;\\n  --green: #28a745;\\n  --teal: #20c997;\\n  --cyan: #17a2b8;\\n  --white: #fff;\\n  --gray: #6c757d;\\n  --gray-dark: #343a40;\\n  --primary: #007bff;\\n  --secondary: #6c757d;\\n  --success: #28a745;\\n  --info: #17a2b8;\\n  --warning: #ffc107;\\n  --danger: #dc3545;\\n  --light: #f8f9fa;\\n  --dark: #343a40;\\n  --breakpoint-xs: 0;\\n  --breakpoint-sm: 576px;\\n  --breakpoint-md: 768px;\\n  --breakpoint-lg: 992px;\\n  --breakpoint-xl: 1200px;\\n  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, \\\"Segoe UI\\\", Roboto, \\\"Helvetica Neue\\\", Arial, \\\"Noto Sans\\\", \\\"Liberation Sans\\\", sans-serif, \\\"Apple Color Emoji\\\", \\\"Segoe UI Emoji\\\", \\\"Segoe UI Symbol\\\", \\\"Noto Color Emoji\\\";\\n  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, \\\"Liberation Mono\\\", \\\"Courier New\\\", monospace;\\n}\\n.app-admin *,\\n.app-admin *::before,\\n.app-admin *::after {\\n  box-sizing: border-box;\\n}\\n.app-admin html {\\n  font-family: sans-serif;\\n  line-height: 1.15;\\n  -webkit-text-size-adjust: 100%;\\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\\n}\\n.app-admin article, .app-admin aside, .app-admin figcaption, .app-admin figure, .app-admin footer, .app-admin header, .app-admin hgroup, .app-admin main, .app-admin nav, .app-admin section {\\n  display: block;\\n}\\n.app-admin body {\\n  margin: 0;\\n  font-family: -apple-system, BlinkMacSystemFont, \\\"Segoe UI\\\", Roboto, \\\"Helvetica Neue\\\", Arial, \\\"Noto Sans\\\", \\\"Liberation Sans\\\", sans-serif, \\\"Apple Color Emoji\\\", \\\"Segoe UI Emoji\\\", \\\"Segoe UI Symbol\\\", \\\"Noto Color Emoji\\\";\\n  font-size: 1rem;\\n  font-weight: 400;\\n  line-height: 1.5;\\n  color: #212529;\\n  text-align: left;\\n  background-color: #fff;\\n}\\n.app-admin [tabindex=\\\"-1\\\"]:focus:not(:focus-visible) {\\n  outline: 0 !important;\\n}\\n.app-admin hr {\\n  box-sizing: content-box;\\n  height: 0;\\n  overflow: visible;\\n}\\n.app-admin h1, .app-admin h2, .app-admin h3, .app-admin h4, .app-admin h5, .app-admin h6 {\\n  margin-top: 0;\\n  margin-bottom: 0.5rem;\\n}\\n.app-admin p {\\n  margin-top: 0;\\n  margin-bottom: 1rem;\\n}\\n.app-admin abbr[title],\\n.app-admin abbr[data-original-title] {\\n  text-decoration: underline;\\n  -webkit-text-decoration: underline dotted;\\n          text-decoration: underline dotted;\\n  cursor: help;\\n  border-bottom: 0;\\n  -webkit-text-decoration-skip-ink: none;\\n          text-decoration-skip-ink: none;\\n}\\n.app-admin address {\\n  margin-bottom: 1rem;\\n  font-style: normal;\\n  line-height: inherit;\\n}\\n.app-admin ol,\\n.app-admin ul,\\n.app-admin dl {\\n  margin-top: 0;\\n  margin-bottom: 1rem;\\n}\\n.app-admin ol ol,\\n.app-admin ul ul,\\n.app-admin ol ul,\\n.app-admin ul ol {\\n  margin-bottom: 0;\\n}\\n.app-admin dt {\\n  font-weight: 700;\\n}\\n.app-admin dd {\\n  margin-bottom: 0.5rem;\\n  margin-left: 0;\\n}\\n.app-admin blockquote {\\n  margin: 0 0 1rem;\\n}\\n.app-admin b,\\n.app-admin strong {\\n  font-weight: bolder;\\n}\\n.app-admin small {\\n  font-size: 80%;\\n}\\n.app-admin sub,\\n.app-admin sup {\\n  position: relative;\\n  font-size: 75%;\\n  line-height: 0;\\n  vertical-align: baseline;\\n}\\n.app-admin sub {\\n  bottom: -0.25em;\\n}\\n.app-admin sup {\\n  top: -0.5em;\\n}\\n.app-admin a {\\n  color: #007bff;\\n  text-decoration: none;\\n  background-color: transparent;\\n}\\n.app-admin a:hover {\\n  color: #0056b3;\\n  text-decoration: underline;\\n}\\n.app-admin a:not([href]):not([class]) {\\n  color: inherit;\\n  text-decoration: none;\\n}\\n.app-admin a:not([href]):not([class]):hover {\\n  color: inherit;\\n  text-decoration: none;\\n}\\n.app-admin pre,\\n.app-admin code,\\n.app-admin kbd,\\n.app-admin samp {\\n  font-family: SFMono-Regular, Menlo, Monaco, Consolas, \\\"Liberation Mono\\\", \\\"Courier New\\\", monospace;\\n  font-size: 1em;\\n}\\n.app-admin pre {\\n  margin-top: 0;\\n  margin-bottom: 1rem;\\n  overflow: auto;\\n  -ms-overflow-style: scrollbar;\\n}\\n.app-admin figure {\\n  margin: 0 0 1rem;\\n}\\n.app-admin img {\\n  vertical-align: middle;\\n  border-style: none;\\n}\\n.app-admin svg {\\n  overflow: hidden;\\n  vertical-align: middle;\\n}\\n.app-admin table {\\n  border-collapse: collapse;\\n}\\n.app-admin caption {\\n  padding-top: 0.75rem;\\n  padding-bottom: 0.75rem;\\n  color: #6c757d;\\n  text-align: left;\\n  caption-side: bottom;\\n}\\n.app-admin th {\\n  text-align: inherit;\\n  text-align: -webkit-match-parent;\\n}\\n.app-admin label {\\n  display: inline-block;\\n  margin-bottom: 0.5rem;\\n}\\n.app-admin button {\\n  border-radius: 0;\\n}\\n.app-admin button:focus:not(:focus-visible) {\\n  outline: 0;\\n}\\n.app-admin input,\\n.app-admin button,\\n.app-admin select,\\n.app-admin optgroup,\\n.app-admin textarea {\\n  margin: 0;\\n  font-family: inherit;\\n  font-size: inherit;\\n  line-height: inherit;\\n}\\n.app-admin button,\\n.app-admin input {\\n  overflow: visible;\\n}\\n.app-admin button,\\n.app-admin select {\\n  text-transform: none;\\n}\\n.app-admin [role=button] {\\n  cursor: pointer;\\n}\\n.app-admin select {\\n  word-wrap: normal;\\n}\\n.app-admin button,\\n.app-admin [type=button],\\n.app-admin [type=reset],\\n.app-admin [type=submit] {\\n  -webkit-appearance: button;\\n}\\n.app-admin button:not(:disabled),\\n.app-admin [type=button]:not(:disabled),\\n.app-admin [type=reset]:not(:disabled),\\n.app-admin [type=submit]:not(:disabled) {\\n  cursor: pointer;\\n}\\n.app-admin button::-moz-focus-inner,\\n.app-admin [type=button]::-moz-focus-inner,\\n.app-admin [type=reset]::-moz-focus-inner,\\n.app-admin [type=submit]::-moz-focus-inner {\\n  padding: 0;\\n  border-style: none;\\n}\\n.app-admin input[type=radio],\\n.app-admin input[type=checkbox] {\\n  box-sizing: border-box;\\n  padding: 0;\\n}\\n.app-admin textarea {\\n  overflow: auto;\\n  resize: vertical;\\n}\\n.app-admin fieldset {\\n  min-width: 0;\\n  padding: 0;\\n  margin: 0;\\n  border: 0;\\n}\\n.app-admin legend {\\n  display: block;\\n  width: 100%;\\n  max-width: 100%;\\n  padding: 0;\\n  margin-bottom: 0.5rem;\\n  font-size: 1.5rem;\\n  line-height: inherit;\\n  color: inherit;\\n  white-space: normal;\\n}\\n.app-admin progress {\\n  vertical-align: baseline;\\n}\\n.app-admin [type=number]::-webkit-inner-spin-button,\\n.app-admin [type=number]::-webkit-outer-spin-button {\\n  height: auto;\\n}\\n.app-admin [type=search] {\\n  outline-offset: -2px;\\n  -webkit-appearance: none;\\n}\\n.app-admin [type=search]::-webkit-search-decoration {\\n  -webkit-appearance: none;\\n}\\n.app-admin ::-webkit-file-upload-button {\\n  font: inherit;\\n  -webkit-appearance: button;\\n}\\n.app-admin output {\\n  display: inline-block;\\n}\\n.app-admin summary {\\n  display: list-item;\\n  cursor: pointer;\\n}\\n.app-admin template {\\n  display: none;\\n}\\n.app-admin [hidden] {\\n  display: none !important;\\n}\\n.app-admin h1, .app-admin h2, .app-admin h3, .app-admin h4, .app-admin h5, .app-admin h6,\\n.app-admin .h1, .app-admin .h2, .app-admin .h3, .app-admin .h4, .app-admin .h5, .app-admin .h6 {\\n  margin-bottom: 0.5rem;\\n  font-weight: 500;\\n  line-height: 1.2;\\n}\\n.app-admin h1, .app-admin .h1 {\\n  font-size: 2.5rem;\\n}\\n.app-admin h2, .app-admin .h2 {\\n  font-size: 2rem;\\n}\\n.app-admin h3, .app-admin .h3 {\\n  font-size: 1.75rem;\\n}\\n.app-admin h4, .app-admin .h4 {\\n  font-size: 1.5rem;\\n}\\n.app-admin h5, .app-admin .h5 {\\n  font-size: 1.25rem;\\n}\\n.app-admin h6, .app-admin .h6 {\\n  font-size: 1rem;\\n}\\n.app-admin .lead {\\n  font-size: 1.25rem;\\n  font-weight: 300;\\n}\\n.app-admin .display-1 {\\n  font-size: 6rem;\\n  font-weight: 300;\\n  line-height: 1.2;\\n}\\n.app-admin .display-2 {\\n  font-size: 5.5rem;\\n  font-weight: 300;\\n  line-height: 1.2;\\n}\\n.app-admin .display-3 {\\n  font-size: 4.5rem;\\n  font-weight: 300;\\n  line-height: 1.2;\\n}\\n.app-admin .display-4 {\\n  font-size: 3.5rem;\\n  font-weight: 300;\\n  line-height: 1.2;\\n}\\n.app-admin hr {\\n  margin-top: 1rem;\\n  margin-bottom: 1rem;\\n  border: 0;\\n  border-top: 1px solid rgba(0, 0, 0, 0.1);\\n}\\n.app-admin small,\\n.app-admin .small {\\n  font-size: 80%;\\n  font-weight: 400;\\n}\\n.app-admin mark,\\n.app-admin .mark {\\n  padding: 0.2em;\\n  background-color: #fcf8e3;\\n}\\n.app-admin .list-unstyled {\\n  padding-left: 0;\\n  list-style: none;\\n}\\n.app-admin .list-inline {\\n  padding-left: 0;\\n  list-style: none;\\n}\\n.app-admin .list-inline-item {\\n  display: inline-block;\\n}\\n.app-admin .list-inline-item:not(:last-child) {\\n  margin-right: 0.5rem;\\n}\\n.app-admin .initialism {\\n  font-size: 90%;\\n  text-transform: uppercase;\\n}\\n.app-admin .blockquote {\\n  margin-bottom: 1rem;\\n  font-size: 1.25rem;\\n}\\n.app-admin .blockquote-footer {\\n  display: block;\\n  font-size: 80%;\\n  color: #6c757d;\\n}\\n.app-admin .blockquote-footer::before {\\n  content: \\\"— \\\";\\n}\\n.app-admin .img-fluid {\\n  max-width: 100%;\\n  height: auto;\\n}\\n.app-admin .img-thumbnail {\\n  padding: 0.25rem;\\n  background-color: #fff;\\n  border: 1px solid #dee2e6;\\n  border-radius: 0.25rem;\\n  max-width: 100%;\\n  height: auto;\\n}\\n.app-admin .figure {\\n  display: inline-block;\\n}\\n.app-admin .figure-img {\\n  margin-bottom: 0.5rem;\\n  line-height: 1;\\n}\\n.app-admin .figure-caption {\\n  font-size: 90%;\\n  color: #6c757d;\\n}\\n.app-admin code {\\n  font-size: 87.5%;\\n  color: #e83e8c;\\n  word-wrap: break-word;\\n}\\na > .app-admin code {\\n  color: inherit;\\n}\\n.app-admin kbd {\\n  padding: 0.2rem 0.4rem;\\n  font-size: 87.5%;\\n  color: #fff;\\n  background-color: #212529;\\n  border-radius: 0.2rem;\\n}\\n.app-admin kbd kbd {\\n  padding: 0;\\n  font-size: 100%;\\n  font-weight: 700;\\n}\\n.app-admin pre {\\n  display: block;\\n  font-size: 87.5%;\\n  color: #212529;\\n}\\n.app-admin pre code {\\n  font-size: inherit;\\n  color: inherit;\\n  word-break: normal;\\n}\\n.app-admin .pre-scrollable {\\n  max-height: 340px;\\n  overflow-y: scroll;\\n}\\n.app-admin .container,\\n.app-admin .container-fluid,\\n.app-admin .container-xl,\\n.app-admin .container-lg,\\n.app-admin .container-md,\\n.app-admin .container-sm {\\n  width: 100%;\\n  padding-right: 15px;\\n  padding-left: 15px;\\n  margin-right: auto;\\n  margin-left: auto;\\n}\\n@media (min-width: 576px) {\\n.app-admin .container-sm, .app-admin .container {\\n    max-width: 540px;\\n}\\n}\\n@media (min-width: 768px) {\\n.app-admin .container-md, .app-admin .container-sm, .app-admin .container {\\n    max-width: 720px;\\n}\\n}\\n@media (min-width: 992px) {\\n.app-admin .container-lg, .app-admin .container-md, .app-admin .container-sm, .app-admin .container {\\n    max-width: 960px;\\n}\\n}\\n@media (min-width: 1200px) {\\n.app-admin .container-xl, .app-admin .container-lg, .app-admin .container-md, .app-admin .container-sm, .app-admin .container {\\n    max-width: 1140px;\\n}\\n}\\n.app-admin .row {\\n  display: flex;\\n  flex-wrap: wrap;\\n  margin-right: -15px;\\n  margin-left: -15px;\\n}\\n.app-admin .no-gutters {\\n  margin-right: 0;\\n  margin-left: 0;\\n}\\n.app-admin .no-gutters > .col,\\n.app-admin .no-gutters > [class*=col-] {\\n  padding-right: 0;\\n  padding-left: 0;\\n}\\n.app-admin .col-xl,\\n.app-admin .col-xl-auto, .app-admin .col-xl-12, .app-admin .col-xl-11, .app-admin .col-xl-10, .app-admin .col-xl-9, .app-admin .col-xl-8, .app-admin .col-xl-7, .app-admin .col-xl-6, .app-admin .col-xl-5, .app-admin .col-xl-4, .app-admin .col-xl-3, .app-admin .col-xl-2, .app-admin .col-xl-1, .app-admin .col-lg,\\n.app-admin .col-lg-auto, .app-admin .col-lg-12, .app-admin .col-lg-11, .app-admin .col-lg-10, .app-admin .col-lg-9, .app-admin .col-lg-8, .app-admin .col-lg-7, .app-admin .col-lg-6, .app-admin .col-lg-5, .app-admin .col-lg-4, .app-admin .col-lg-3, .app-admin .col-lg-2, .app-admin .col-lg-1, .app-admin .col-md,\\n.app-admin .col-md-auto, .app-admin .col-md-12, .app-admin .col-md-11, .app-admin .col-md-10, .app-admin .col-md-9, .app-admin .col-md-8, .app-admin .col-md-7, .app-admin .col-md-6, .app-admin .col-md-5, .app-admin .col-md-4, .app-admin .col-md-3, .app-admin .col-md-2, .app-admin .col-md-1, .app-admin .col-sm,\\n.app-admin .col-sm-auto, .app-admin .col-sm-12, .app-admin .col-sm-11, .app-admin .col-sm-10, .app-admin .col-sm-9, .app-admin .col-sm-8, .app-admin .col-sm-7, .app-admin .col-sm-6, .app-admin .col-sm-5, .app-admin .col-sm-4, .app-admin .col-sm-3, .app-admin .col-sm-2, .app-admin .col-sm-1, .app-admin .col,\\n.app-admin .col-auto, .app-admin .col-12, .app-admin .col-11, .app-admin .col-10, .app-admin .col-9, .app-admin .col-8, .app-admin .col-7, .app-admin .col-6, .app-admin .col-5, .app-admin .col-4, .app-admin .col-3, .app-admin .col-2, .app-admin .col-1 {\\n  position: relative;\\n  width: 100%;\\n  padding-right: 15px;\\n  padding-left: 15px;\\n}\\n.app-admin .col {\\n  flex-basis: 0;\\n  flex-grow: 1;\\n  max-width: 100%;\\n}\\n.app-admin .row-cols-1 > * {\\n  flex: 0 0 100%;\\n  max-width: 100%;\\n}\\n.app-admin .row-cols-2 > * {\\n  flex: 0 0 50%;\\n  max-width: 50%;\\n}\\n.app-admin .row-cols-3 > * {\\n  flex: 0 0 33.3333333333%;\\n  max-width: 33.3333333333%;\\n}\\n.app-admin .row-cols-4 > * {\\n  flex: 0 0 25%;\\n  max-width: 25%;\\n}\\n.app-admin .row-cols-5 > * {\\n  flex: 0 0 20%;\\n  max-width: 20%;\\n}\\n.app-admin .row-cols-6 > * {\\n  flex: 0 0 16.6666666667%;\\n  max-width: 16.6666666667%;\\n}\\n.app-admin .col-auto {\\n  flex: 0 0 auto;\\n  width: auto;\\n  max-width: 100%;\\n}\\n.app-admin .col-1 {\\n  flex: 0 0 8.3333333333%;\\n  max-width: 8.3333333333%;\\n}\\n.app-admin .col-2 {\\n  flex: 0 0 16.6666666667%;\\n  max-width: 16.6666666667%;\\n}\\n.app-admin .col-3 {\\n  flex: 0 0 25%;\\n  max-width: 25%;\\n}\\n.app-admin .col-4 {\\n  flex: 0 0 33.3333333333%;\\n  max-width: 33.3333333333%;\\n}\\n.app-admin .col-5 {\\n  flex: 0 0 41.6666666667%;\\n  max-width: 41.6666666667%;\\n}\\n.app-admin .col-6 {\\n  flex: 0 0 50%;\\n  max-width: 50%;\\n}\\n.app-admin .col-7 {\\n  flex: 0 0 58.3333333333%;\\n  max-width: 58.3333333333%;\\n}\\n.app-admin .col-8 {\\n  flex: 0 0 66.6666666667%;\\n  max-width: 66.6666666667%;\\n}\\n.app-admin .col-9 {\\n  flex: 0 0 75%;\\n  max-width: 75%;\\n}\\n.app-admin .col-10 {\\n  flex: 0 0 83.3333333333%;\\n  max-width: 83.3333333333%;\\n}\\n.app-admin .col-11 {\\n  flex: 0 0 91.6666666667%;\\n  max-width: 91.6666666667%;\\n}\\n.app-admin .col-12 {\\n  flex: 0 0 100%;\\n  max-width: 100%;\\n}\\n.app-admin .order-first {\\n  order: -1;\\n}\\n.app-admin .order-last {\\n  order: 13;\\n}\\n.app-admin .order-0 {\\n  order: 0;\\n}\\n.app-admin .order-1 {\\n  order: 1;\\n}\\n.app-admin .order-2 {\\n  order: 2;\\n}\\n.app-admin .order-3 {\\n  order: 3;\\n}\\n.app-admin .order-4 {\\n  order: 4;\\n}\\n.app-admin .order-5 {\\n  order: 5;\\n}\\n.app-admin .order-6 {\\n  order: 6;\\n}\\n.app-admin .order-7 {\\n  order: 7;\\n}\\n.app-admin .order-8 {\\n  order: 8;\\n}\\n.app-admin .order-9 {\\n  order: 9;\\n}\\n.app-admin .order-10 {\\n  order: 10;\\n}\\n.app-admin .order-11 {\\n  order: 11;\\n}\\n.app-admin .order-12 {\\n  order: 12;\\n}\\n.app-admin .offset-1 {\\n  margin-left: 8.3333333333%;\\n}\\n.app-admin .offset-2 {\\n  margin-left: 16.6666666667%;\\n}\\n.app-admin .offset-3 {\\n  margin-left: 25%;\\n}\\n.app-admin .offset-4 {\\n  margin-left: 33.3333333333%;\\n}\\n.app-admin .offset-5 {\\n  margin-left: 41.6666666667%;\\n}\\n.app-admin .offset-6 {\\n  margin-left: 50%;\\n}\\n.app-admin .offset-7 {\\n  margin-left: 58.3333333333%;\\n}\\n.app-admin .offset-8 {\\n  margin-left: 66.6666666667%;\\n}\\n.app-admin .offset-9 {\\n  margin-left: 75%;\\n}\\n.app-admin .offset-10 {\\n  margin-left: 83.3333333333%;\\n}\\n.app-admin .offset-11 {\\n  margin-left: 91.6666666667%;\\n}\\n@media (min-width: 576px) {\\n.app-admin .col-sm {\\n    flex-basis: 0;\\n    flex-grow: 1;\\n    max-width: 100%;\\n}\\n.app-admin .row-cols-sm-1 > * {\\n    flex: 0 0 100%;\\n    max-width: 100%;\\n}\\n.app-admin .row-cols-sm-2 > * {\\n    flex: 0 0 50%;\\n    max-width: 50%;\\n}\\n.app-admin .row-cols-sm-3 > * {\\n    flex: 0 0 33.3333333333%;\\n    max-width: 33.3333333333%;\\n}\\n.app-admin .row-cols-sm-4 > * {\\n    flex: 0 0 25%;\\n    max-width: 25%;\\n}\\n.app-admin .row-cols-sm-5 > * {\\n    flex: 0 0 20%;\\n    max-width: 20%;\\n}\\n.app-admin .row-cols-sm-6 > * {\\n    flex: 0 0 16.6666666667%;\\n    max-width: 16.6666666667%;\\n}\\n.app-admin .col-sm-auto {\\n    flex: 0 0 auto;\\n    width: auto;\\n    max-width: 100%;\\n}\\n.app-admin .col-sm-1 {\\n    flex: 0 0 8.3333333333%;\\n    max-width: 8.3333333333%;\\n}\\n.app-admin .col-sm-2 {\\n    flex: 0 0 16.6666666667%;\\n    max-width: 16.6666666667%;\\n}\\n.app-admin .col-sm-3 {\\n    flex: 0 0 25%;\\n    max-width: 25%;\\n}\\n.app-admin .col-sm-4 {\\n    flex: 0 0 33.3333333333%;\\n    max-width: 33.3333333333%;\\n}\\n.app-admin .col-sm-5 {\\n    flex: 0 0 41.6666666667%;\\n    max-width: 41.6666666667%;\\n}\\n.app-admin .col-sm-6 {\\n    flex: 0 0 50%;\\n    max-width: 50%;\\n}\\n.app-admin .col-sm-7 {\\n    flex: 0 0 58.3333333333%;\\n    max-width: 58.3333333333%;\\n}\\n.app-admin .col-sm-8 {\\n    flex: 0 0 66.6666666667%;\\n    max-width: 66.6666666667%;\\n}\\n.app-admin .col-sm-9 {\\n    flex: 0 0 75%;\\n    max-width: 75%;\\n}\\n.app-admin .col-sm-10 {\\n    flex: 0 0 83.3333333333%;\\n    max-width: 83.3333333333%;\\n}\\n.app-admin .col-sm-11 {\\n    flex: 0 0 91.6666666667%;\\n    max-width: 91.6666666667%;\\n}\\n.app-admin .col-sm-12 {\\n    flex: 0 0 100%;\\n    max-width: 100%;\\n}\\n.app-admin .order-sm-first {\\n    order: -1;\\n}\\n.app-admin .order-sm-last {\\n    order: 13;\\n}\\n.app-admin .order-sm-0 {\\n    order: 0;\\n}\\n.app-admin .order-sm-1 {\\n    order: 1;\\n}\\n.app-admin .order-sm-2 {\\n    order: 2;\\n}\\n.app-admin .order-sm-3 {\\n    order: 3;\\n}\\n.app-admin .order-sm-4 {\\n    order: 4;\\n}\\n.app-admin .order-sm-5 {\\n    order: 5;\\n}\\n.app-admin .order-sm-6 {\\n    order: 6;\\n}\\n.app-admin .order-sm-7 {\\n    order: 7;\\n}\\n.app-admin .order-sm-8 {\\n    order: 8;\\n}\\n.app-admin .order-sm-9 {\\n    order: 9;\\n}\\n.app-admin .order-sm-10 {\\n    order: 10;\\n}\\n.app-admin .order-sm-11 {\\n    order: 11;\\n}\\n.app-admin .order-sm-12 {\\n    order: 12;\\n}\\n.app-admin .offset-sm-0 {\\n    margin-left: 0;\\n}\\n.app-admin .offset-sm-1 {\\n    margin-left: 8.3333333333%;\\n}\\n.app-admin .offset-sm-2 {\\n    margin-left: 16.6666666667%;\\n}\\n.app-admin .offset-sm-3 {\\n    margin-left: 25%;\\n}\\n.app-admin .offset-sm-4 {\\n    margin-left: 33.3333333333%;\\n}\\n.app-admin .offset-sm-5 {\\n    margin-left: 41.6666666667%;\\n}\\n.app-admin .offset-sm-6 {\\n    margin-left: 50%;\\n}\\n.app-admin .offset-sm-7 {\\n    margin-left: 58.3333333333%;\\n}\\n.app-admin .offset-sm-8 {\\n    margin-left: 66.6666666667%;\\n}\\n.app-admin .offset-sm-9 {\\n    margin-left: 75%;\\n}\\n.app-admin .offset-sm-10 {\\n    margin-left: 83.3333333333%;\\n}\\n.app-admin .offset-sm-11 {\\n    margin-left: 91.6666666667%;\\n}\\n}\\n@media (min-width: 768px) {\\n.app-admin .col-md {\\n    flex-basis: 0;\\n    flex-grow: 1;\\n    max-width: 100%;\\n}\\n.app-admin .row-cols-md-1 > * {\\n    flex: 0 0 100%;\\n    max-width: 100%;\\n}\\n.app-admin .row-cols-md-2 > * {\\n    flex: 0 0 50%;\\n    max-width: 50%;\\n}\\n.app-admin .row-cols-md-3 > * {\\n    flex: 0 0 33.3333333333%;\\n    max-width: 33.3333333333%;\\n}\\n.app-admin .row-cols-md-4 > * {\\n    flex: 0 0 25%;\\n    max-width: 25%;\\n}\\n.app-admin .row-cols-md-5 > * {\\n    flex: 0 0 20%;\\n    max-width: 20%;\\n}\\n.app-admin .row-cols-md-6 > * {\\n    flex: 0 0 16.6666666667%;\\n    max-width: 16.6666666667%;\\n}\\n.app-admin .col-md-auto {\\n    flex: 0 0 auto;\\n    width: auto;\\n    max-width: 100%;\\n}\\n.app-admin .col-md-1 {\\n    flex: 0 0 8.3333333333%;\\n    max-width: 8.3333333333%;\\n}\\n.app-admin .col-md-2 {\\n    flex: 0 0 16.6666666667%;\\n    max-width: 16.6666666667%;\\n}\\n.app-admin .col-md-3 {\\n    flex: 0 0 25%;\\n    max-width: 25%;\\n}\\n.app-admin .col-md-4 {\\n    flex: 0 0 33.3333333333%;\\n    max-width: 33.3333333333%;\\n}\\n.app-admin .col-md-5 {\\n    flex: 0 0 41.6666666667%;\\n    max-width: 41.6666666667%;\\n}\\n.app-admin .col-md-6 {\\n    flex: 0 0 50%;\\n    max-width: 50%;\\n}\\n.app-admin .col-md-7 {\\n    flex: 0 0 58.3333333333%;\\n    max-width: 58.3333333333%;\\n}\\n.app-admin .col-md-8 {\\n    flex: 0 0 66.6666666667%;\\n    max-width: 66.6666666667%;\\n}\\n.app-admin .col-md-9 {\\n    flex: 0 0 75%;\\n    max-width: 75%;\\n}\\n.app-admin .col-md-10 {\\n    flex: 0 0 83.3333333333%;\\n    max-width: 83.3333333333%;\\n}\\n.app-admin .col-md-11 {\\n    flex: 0 0 91.6666666667%;\\n    max-width: 91.6666666667%;\\n}\\n.app-admin .col-md-12 {\\n    flex: 0 0 100%;\\n    max-width: 100%;\\n}\\n.app-admin .order-md-first {\\n    order: -1;\\n}\\n.app-admin .order-md-last {\\n    order: 13;\\n}\\n.app-admin .order-md-0 {\\n    order: 0;\\n}\\n.app-admin .order-md-1 {\\n    order: 1;\\n}\\n.app-admin .order-md-2 {\\n    order: 2;\\n}\\n.app-admin .order-md-3 {\\n    order: 3;\\n}\\n.app-admin .order-md-4 {\\n    order: 4;\\n}\\n.app-admin .order-md-5 {\\n    order: 5;\\n}\\n.app-admin .order-md-6 {\\n    order: 6;\\n}\\n.app-admin .order-md-7 {\\n    order: 7;\\n}\\n.app-admin .order-md-8 {\\n    order: 8;\\n}\\n.app-admin .order-md-9 {\\n    order: 9;\\n}\\n.app-admin .order-md-10 {\\n    order: 10;\\n}\\n.app-admin .order-md-11 {\\n    order: 11;\\n}\\n.app-admin .order-md-12 {\\n    order: 12;\\n}\\n.app-admin .offset-md-0 {\\n    margin-left: 0;\\n}\\n.app-admin .offset-md-1 {\\n    margin-left: 8.3333333333%;\\n}\\n.app-admin .offset-md-2 {\\n    margin-left: 16.6666666667%;\\n}\\n.app-admin .offset-md-3 {\\n    margin-left: 25%;\\n}\\n.app-admin .offset-md-4 {\\n    margin-left: 33.3333333333%;\\n}\\n.app-admin .offset-md-5 {\\n    margin-left: 41.6666666667%;\\n}\\n.app-admin .offset-md-6 {\\n    margin-left: 50%;\\n}\\n.app-admin .offset-md-7 {\\n    margin-left: 58.3333333333%;\\n}\\n.app-admin .offset-md-8 {\\n    margin-left: 66.6666666667%;\\n}\\n.app-admin .offset-md-9 {\\n    margin-left: 75%;\\n}\\n.app-admin .offset-md-10 {\\n    margin-left: 83.3333333333%;\\n}\\n.app-admin .offset-md-11 {\\n    margin-left: 91.6666666667%;\\n}\\n}\\n@media (min-width: 992px) {\\n.app-admin .col-lg {\\n    flex-basis: 0;\\n    flex-grow: 1;\\n    max-width: 100%;\\n}\\n.app-admin .row-cols-lg-1 > * {\\n    flex: 0 0 100%;\\n    max-width: 100%;\\n}\\n.app-admin .row-cols-lg-2 > * {\\n    flex: 0 0 50%;\\n    max-width: 50%;\\n}\\n.app-admin .row-cols-lg-3 > * {\\n    flex: 0 0 33.3333333333%;\\n    max-width: 33.3333333333%;\\n}\\n.app-admin .row-cols-lg-4 > * {\\n    flex: 0 0 25%;\\n    max-width: 25%;\\n}\\n.app-admin .row-cols-lg-5 > * {\\n    flex: 0 0 20%;\\n    max-width: 20%;\\n}\\n.app-admin .row-cols-lg-6 > * {\\n    flex: 0 0 16.6666666667%;\\n    max-width: 16.6666666667%;\\n}\\n.app-admin .col-lg-auto {\\n    flex: 0 0 auto;\\n    width: auto;\\n    max-width: 100%;\\n}\\n.app-admin .col-lg-1 {\\n    flex: 0 0 8.3333333333%;\\n    max-width: 8.3333333333%;\\n}\\n.app-admin .col-lg-2 {\\n    flex: 0 0 16.6666666667%;\\n    max-width: 16.6666666667%;\\n}\\n.app-admin .col-lg-3 {\\n    flex: 0 0 25%;\\n    max-width: 25%;\\n}\\n.app-admin .col-lg-4 {\\n    flex: 0 0 33.3333333333%;\\n    max-width: 33.3333333333%;\\n}\\n.app-admin .col-lg-5 {\\n    flex: 0 0 41.6666666667%;\\n    max-width: 41.6666666667%;\\n}\\n.app-admin .col-lg-6 {\\n    flex: 0 0 50%;\\n    max-width: 50%;\\n}\\n.app-admin .col-lg-7 {\\n    flex: 0 0 58.3333333333%;\\n    max-width: 58.3333333333%;\\n}\\n.app-admin .col-lg-8 {\\n    flex: 0 0 66.6666666667%;\\n    max-width: 66.6666666667%;\\n}\\n.app-admin .col-lg-9 {\\n    flex: 0 0 75%;\\n    max-width: 75%;\\n}\\n.app-admin .col-lg-10 {\\n    flex: 0 0 83.3333333333%;\\n    max-width: 83.3333333333%;\\n}\\n.app-admin .col-lg-11 {\\n    flex: 0 0 91.6666666667%;\\n    max-width: 91.6666666667%;\\n}\\n.app-admin .col-lg-12 {\\n    flex: 0 0 100%;\\n    max-width: 100%;\\n}\\n.app-admin .order-lg-first {\\n    order: -1;\\n}\\n.app-admin .order-lg-last {\\n    order: 13;\\n}\\n.app-admin .order-lg-0 {\\n    order: 0;\\n}\\n.app-admin .order-lg-1 {\\n    order: 1;\\n}\\n.app-admin .order-lg-2 {\\n    order: 2;\\n}\\n.app-admin .order-lg-3 {\\n    order: 3;\\n}\\n.app-admin .order-lg-4 {\\n    order: 4;\\n}\\n.app-admin .order-lg-5 {\\n    order: 5;\\n}\\n.app-admin .order-lg-6 {\\n    order: 6;\\n}\\n.app-admin .order-lg-7 {\\n    order: 7;\\n}\\n.app-admin .order-lg-8 {\\n    order: 8;\\n}\\n.app-admin .order-lg-9 {\\n    order: 9;\\n}\\n.app-admin .order-lg-10 {\\n    order: 10;\\n}\\n.app-admin .order-lg-11 {\\n    order: 11;\\n}\\n.app-admin .order-lg-12 {\\n    order: 12;\\n}\\n.app-admin .offset-lg-0 {\\n    margin-left: 0;\\n}\\n.app-admin .offset-lg-1 {\\n    margin-left: 8.3333333333%;\\n}\\n.app-admin .offset-lg-2 {\\n    margin-left: 16.6666666667%;\\n}\\n.app-admin .offset-lg-3 {\\n    margin-left: 25%;\\n}\\n.app-admin .offset-lg-4 {\\n    margin-left: 33.3333333333%;\\n}\\n.app-admin .offset-lg-5 {\\n    margin-left: 41.6666666667%;\\n}\\n.app-admin .offset-lg-6 {\\n    margin-left: 50%;\\n}\\n.app-admin .offset-lg-7 {\\n    margin-left: 58.3333333333%;\\n}\\n.app-admin .offset-lg-8 {\\n    margin-left: 66.6666666667%;\\n}\\n.app-admin .offset-lg-9 {\\n    margin-left: 75%;\\n}\\n.app-admin .offset-lg-10 {\\n    margin-left: 83.3333333333%;\\n}\\n.app-admin .offset-lg-11 {\\n    margin-left: 91.6666666667%;\\n}\\n}\\n@media (min-width: 1200px) {\\n.app-admin .col-xl {\\n    flex-basis: 0;\\n    flex-grow: 1;\\n    max-width: 100%;\\n}\\n.app-admin .row-cols-xl-1 > * {\\n    flex: 0 0 100%;\\n    max-width: 100%;\\n}\\n.app-admin .row-cols-xl-2 > * {\\n    flex: 0 0 50%;\\n    max-width: 50%;\\n}\\n.app-admin .row-cols-xl-3 > * {\\n    flex: 0 0 33.3333333333%;\\n    max-width: 33.3333333333%;\\n}\\n.app-admin .row-cols-xl-4 > * {\\n    flex: 0 0 25%;\\n    max-width: 25%;\\n}\\n.app-admin .row-cols-xl-5 > * {\\n    flex: 0 0 20%;\\n    max-width: 20%;\\n}\\n.app-admin .row-cols-xl-6 > * {\\n    flex: 0 0 16.6666666667%;\\n    max-width: 16.6666666667%;\\n}\\n.app-admin .col-xl-auto {\\n    flex: 0 0 auto;\\n    width: auto;\\n    max-width: 100%;\\n}\\n.app-admin .col-xl-1 {\\n    flex: 0 0 8.3333333333%;\\n    max-width: 8.3333333333%;\\n}\\n.app-admin .col-xl-2 {\\n    flex: 0 0 16.6666666667%;\\n    max-width: 16.6666666667%;\\n}\\n.app-admin .col-xl-3 {\\n    flex: 0 0 25%;\\n    max-width: 25%;\\n}\\n.app-admin .col-xl-4 {\\n    flex: 0 0 33.3333333333%;\\n    max-width: 33.3333333333%;\\n}\\n.app-admin .col-xl-5 {\\n    flex: 0 0 41.6666666667%;\\n    max-width: 41.6666666667%;\\n}\\n.app-admin .col-xl-6 {\\n    flex: 0 0 50%;\\n    max-width: 50%;\\n}\\n.app-admin .col-xl-7 {\\n    flex: 0 0 58.3333333333%;\\n    max-width: 58.3333333333%;\\n}\\n.app-admin .col-xl-8 {\\n    flex: 0 0 66.6666666667%;\\n    max-width: 66.6666666667%;\\n}\\n.app-admin .col-xl-9 {\\n    flex: 0 0 75%;\\n    max-width: 75%;\\n}\\n.app-admin .col-xl-10 {\\n    flex: 0 0 83.3333333333%;\\n    max-width: 83.3333333333%;\\n}\\n.app-admin .col-xl-11 {\\n    flex: 0 0 91.6666666667%;\\n    max-width: 91.6666666667%;\\n}\\n.app-admin .col-xl-12 {\\n    flex: 0 0 100%;\\n    max-width: 100%;\\n}\\n.app-admin .order-xl-first {\\n    order: -1;\\n}\\n.app-admin .order-xl-last {\\n    order: 13;\\n}\\n.app-admin .order-xl-0 {\\n    order: 0;\\n}\\n.app-admin .order-xl-1 {\\n    order: 1;\\n}\\n.app-admin .order-xl-2 {\\n    order: 2;\\n}\\n.app-admin .order-xl-3 {\\n    order: 3;\\n}\\n.app-admin .order-xl-4 {\\n    order: 4;\\n}\\n.app-admin .order-xl-5 {\\n    order: 5;\\n}\\n.app-admin .order-xl-6 {\\n    order: 6;\\n}\\n.app-admin .order-xl-7 {\\n    order: 7;\\n}\\n.app-admin .order-xl-8 {\\n    order: 8;\\n}\\n.app-admin .order-xl-9 {\\n    order: 9;\\n}\\n.app-admin .order-xl-10 {\\n    order: 10;\\n}\\n.app-admin .order-xl-11 {\\n    order: 11;\\n}\\n.app-admin .order-xl-12 {\\n    order: 12;\\n}\\n.app-admin .offset-xl-0 {\\n    margin-left: 0;\\n}\\n.app-admin .offset-xl-1 {\\n    margin-left: 8.3333333333%;\\n}\\n.app-admin .offset-xl-2 {\\n    margin-left: 16.6666666667%;\\n}\\n.app-admin .offset-xl-3 {\\n    margin-left: 25%;\\n}\\n.app-admin .offset-xl-4 {\\n    margin-left: 33.3333333333%;\\n}\\n.app-admin .offset-xl-5 {\\n    margin-left: 41.6666666667%;\\n}\\n.app-admin .offset-xl-6 {\\n    margin-left: 50%;\\n}\\n.app-admin .offset-xl-7 {\\n    margin-left: 58.3333333333%;\\n}\\n.app-admin .offset-xl-8 {\\n    margin-left: 66.6666666667%;\\n}\\n.app-admin .offset-xl-9 {\\n    margin-left: 75%;\\n}\\n.app-admin .offset-xl-10 {\\n    margin-left: 83.3333333333%;\\n}\\n.app-admin .offset-xl-11 {\\n    margin-left: 91.6666666667%;\\n}\\n}\\n.app-admin .table {\\n  width: 100%;\\n  margin-bottom: 1rem;\\n  color: #212529;\\n}\\n.app-admin .table th,\\n.app-admin .table td {\\n  padding: 0.75rem;\\n  vertical-align: top;\\n  border-top: 1px solid #dee2e6;\\n}\\n.app-admin .table thead th {\\n  vertical-align: bottom;\\n  border-bottom: 2px solid #dee2e6;\\n}\\n.app-admin .table tbody + tbody {\\n  border-top: 2px solid #dee2e6;\\n}\\n.app-admin .table-sm th,\\n.app-admin .table-sm td {\\n  padding: 0.3rem;\\n}\\n.app-admin .table-bordered {\\n  border: 1px solid #dee2e6;\\n}\\n.app-admin .table-bordered th,\\n.app-admin .table-bordered td {\\n  border: 1px solid #dee2e6;\\n}\\n.app-admin .table-bordered thead th,\\n.app-admin .table-bordered thead td {\\n  border-bottom-width: 2px;\\n}\\n.app-admin .table-borderless th,\\n.app-admin .table-borderless td,\\n.app-admin .table-borderless thead th,\\n.app-admin .table-borderless tbody + tbody {\\n  border: 0;\\n}\\n.app-admin .table-striped tbody tr:nth-of-type(odd) {\\n  background-color: rgba(0, 0, 0, 0.05);\\n}\\n.app-admin .table-hover tbody tr:hover {\\n  color: #212529;\\n  background-color: rgba(0, 0, 0, 0.075);\\n}\\n.app-admin .table-primary,\\n.app-admin .table-primary > th,\\n.app-admin .table-primary > td {\\n  background-color: #b8daff;\\n}\\n.app-admin .table-primary th,\\n.app-admin .table-primary td,\\n.app-admin .table-primary thead th,\\n.app-admin .table-primary tbody + tbody {\\n  border-color: #7abaff;\\n}\\n.app-admin .table-hover .table-primary:hover {\\n  background-color: #9fcdff;\\n}\\n.app-admin .table-hover .table-primary:hover > td,\\n.app-admin .table-hover .table-primary:hover > th {\\n  background-color: #9fcdff;\\n}\\n.app-admin .table-secondary,\\n.app-admin .table-secondary > th,\\n.app-admin .table-secondary > td {\\n  background-color: #d6d8db;\\n}\\n.app-admin .table-secondary th,\\n.app-admin .table-secondary td,\\n.app-admin .table-secondary thead th,\\n.app-admin .table-secondary tbody + tbody {\\n  border-color: #b3b7bb;\\n}\\n.app-admin .table-hover .table-secondary:hover {\\n  background-color: #c8cbcf;\\n}\\n.app-admin .table-hover .table-secondary:hover > td,\\n.app-admin .table-hover .table-secondary:hover > th {\\n  background-color: #c8cbcf;\\n}\\n.app-admin .table-success,\\n.app-admin .table-success > th,\\n.app-admin .table-success > td {\\n  background-color: #c3e6cb;\\n}\\n.app-admin .table-success th,\\n.app-admin .table-success td,\\n.app-admin .table-success thead th,\\n.app-admin .table-success tbody + tbody {\\n  border-color: #8fd19e;\\n}\\n.app-admin .table-hover .table-success:hover {\\n  background-color: #b1dfbb;\\n}\\n.app-admin .table-hover .table-success:hover > td,\\n.app-admin .table-hover .table-success:hover > th {\\n  background-color: #b1dfbb;\\n}\\n.app-admin .table-info,\\n.app-admin .table-info > th,\\n.app-admin .table-info > td {\\n  background-color: #bee5eb;\\n}\\n.app-admin .table-info th,\\n.app-admin .table-info td,\\n.app-admin .table-info thead th,\\n.app-admin .table-info tbody + tbody {\\n  border-color: #86cfda;\\n}\\n.app-admin .table-hover .table-info:hover {\\n  background-color: #abdde5;\\n}\\n.app-admin .table-hover .table-info:hover > td,\\n.app-admin .table-hover .table-info:hover > th {\\n  background-color: #abdde5;\\n}\\n.app-admin .table-warning,\\n.app-admin .table-warning > th,\\n.app-admin .table-warning > td {\\n  background-color: #ffeeba;\\n}\\n.app-admin .table-warning th,\\n.app-admin .table-warning td,\\n.app-admin .table-warning thead th,\\n.app-admin .table-warning tbody + tbody {\\n  border-color: #ffdf7e;\\n}\\n.app-admin .table-hover .table-warning:hover {\\n  background-color: #ffe8a1;\\n}\\n.app-admin .table-hover .table-warning:hover > td,\\n.app-admin .table-hover .table-warning:hover > th {\\n  background-color: #ffe8a1;\\n}\\n.app-admin .table-danger,\\n.app-admin .table-danger > th,\\n.app-admin .table-danger > td {\\n  background-color: #f5c6cb;\\n}\\n.app-admin .table-danger th,\\n.app-admin .table-danger td,\\n.app-admin .table-danger thead th,\\n.app-admin .table-danger tbody + tbody {\\n  border-color: #ed969e;\\n}\\n.app-admin .table-hover .table-danger:hover {\\n  background-color: #f1b0b7;\\n}\\n.app-admin .table-hover .table-danger:hover > td,\\n.app-admin .table-hover .table-danger:hover > th {\\n  background-color: #f1b0b7;\\n}\\n.app-admin .table-light,\\n.app-admin .table-light > th,\\n.app-admin .table-light > td {\\n  background-color: #fdfdfe;\\n}\\n.app-admin .table-light th,\\n.app-admin .table-light td,\\n.app-admin .table-light thead th,\\n.app-admin .table-light tbody + tbody {\\n  border-color: #fbfcfc;\\n}\\n.app-admin .table-hover .table-light:hover {\\n  background-color: #ececf6;\\n}\\n.app-admin .table-hover .table-light:hover > td,\\n.app-admin .table-hover .table-light:hover > th {\\n  background-color: #ececf6;\\n}\\n.app-admin .table-dark,\\n.app-admin .table-dark > th,\\n.app-admin .table-dark > td {\\n  background-color: #c6c8ca;\\n}\\n.app-admin .table-dark th,\\n.app-admin .table-dark td,\\n.app-admin .table-dark thead th,\\n.app-admin .table-dark tbody + tbody {\\n  border-color: #95999c;\\n}\\n.app-admin .table-hover .table-dark:hover {\\n  background-color: #b9bbbe;\\n}\\n.app-admin .table-hover .table-dark:hover > td,\\n.app-admin .table-hover .table-dark:hover > th {\\n  background-color: #b9bbbe;\\n}\\n.app-admin .table-active,\\n.app-admin .table-active > th,\\n.app-admin .table-active > td {\\n  background-color: rgba(0, 0, 0, 0.075);\\n}\\n.app-admin .table-hover .table-active:hover {\\n  background-color: rgba(0, 0, 0, 0.075);\\n}\\n.app-admin .table-hover .table-active:hover > td,\\n.app-admin .table-hover .table-active:hover > th {\\n  background-color: rgba(0, 0, 0, 0.075);\\n}\\n.app-admin .table .thead-dark th {\\n  color: #fff;\\n  background-color: #343a40;\\n  border-color: #454d55;\\n}\\n.app-admin .table .thead-light th {\\n  color: #495057;\\n  background-color: #e9ecef;\\n  border-color: #dee2e6;\\n}\\n.app-admin .table-dark {\\n  color: #fff;\\n  background-color: #343a40;\\n}\\n.app-admin .table-dark th,\\n.app-admin .table-dark td,\\n.app-admin .table-dark thead th {\\n  border-color: #454d55;\\n}\\n.app-admin .table-dark.table-bordered {\\n  border: 0;\\n}\\n.app-admin .table-dark.table-striped tbody tr:nth-of-type(odd) {\\n  background-color: rgba(255, 255, 255, 0.05);\\n}\\n.app-admin .table-dark.table-hover tbody tr:hover {\\n  color: #fff;\\n  background-color: rgba(255, 255, 255, 0.075);\\n}\\n@media (max-width: 575.98px) {\\n.app-admin .table-responsive-sm {\\n    display: block;\\n    width: 100%;\\n    overflow-x: auto;\\n    -webkit-overflow-scrolling: touch;\\n}\\n.app-admin .table-responsive-sm > .table-bordered {\\n    border: 0;\\n}\\n}\\n@media (max-width: 767.98px) {\\n.app-admin .table-responsive-md {\\n    display: block;\\n    width: 100%;\\n    overflow-x: auto;\\n    -webkit-overflow-scrolling: touch;\\n}\\n.app-admin .table-responsive-md > .table-bordered {\\n    border: 0;\\n}\\n}\\n@media (max-width: 991.98px) {\\n.app-admin .table-responsive-lg {\\n    display: block;\\n    width: 100%;\\n    overflow-x: auto;\\n    -webkit-overflow-scrolling: touch;\\n}\\n.app-admin .table-responsive-lg > .table-bordered {\\n    border: 0;\\n}\\n}\\n@media (max-width: 1199.98px) {\\n.app-admin .table-responsive-xl {\\n    display: block;\\n    width: 100%;\\n    overflow-x: auto;\\n    -webkit-overflow-scrolling: touch;\\n}\\n.app-admin .table-responsive-xl > .table-bordered {\\n    border: 0;\\n}\\n}\\n.app-admin .table-responsive {\\n  display: block;\\n  width: 100%;\\n  overflow-x: auto;\\n  -webkit-overflow-scrolling: touch;\\n}\\n.app-admin .table-responsive > .table-bordered {\\n  border: 0;\\n}\\n.app-admin .form-control {\\n  display: block;\\n  width: 100%;\\n  height: calc(1.5em + 0.75rem + 2px);\\n  padding: 0.375rem 0.75rem;\\n  font-size: 1rem;\\n  font-weight: 400;\\n  line-height: 1.5;\\n  color: #495057;\\n  background-color: #fff;\\n  background-clip: padding-box;\\n  border: 1px solid #ced4da;\\n  border-radius: 0.25rem;\\n  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .form-control {\\n    transition: none;\\n}\\n}\\n.app-admin .form-control::-ms-expand {\\n  background-color: transparent;\\n  border: 0;\\n}\\n.app-admin .form-control:-moz-focusring {\\n  color: transparent;\\n  text-shadow: 0 0 0 #495057;\\n}\\n.app-admin .form-control:focus {\\n  color: #495057;\\n  background-color: #fff;\\n  border-color: #80bdff;\\n  outline: 0;\\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\\n}\\n.app-admin .form-control::-moz-placeholder {\\n  color: #6c757d;\\n  opacity: 1;\\n}\\n.app-admin .form-control:-ms-input-placeholder {\\n  color: #6c757d;\\n  opacity: 1;\\n}\\n.app-admin .form-control::placeholder {\\n  color: #6c757d;\\n  opacity: 1;\\n}\\n.app-admin .form-control:disabled, .app-admin .form-control[readonly] {\\n  background-color: #e9ecef;\\n  opacity: 1;\\n}\\n.app-admin input[type=date].form-control,\\n.app-admin input[type=time].form-control,\\n.app-admin input[type=datetime-local].form-control,\\n.app-admin input[type=month].form-control {\\n  -webkit-appearance: none;\\n     -moz-appearance: none;\\n          appearance: none;\\n}\\n.app-admin select.form-control:focus::-ms-value {\\n  color: #495057;\\n  background-color: #fff;\\n}\\n.app-admin .form-control-file,\\n.app-admin .form-control-range {\\n  display: block;\\n  width: 100%;\\n}\\n.app-admin .col-form-label {\\n  padding-top: calc(0.375rem + 1px);\\n  padding-bottom: calc(0.375rem + 1px);\\n  margin-bottom: 0;\\n  font-size: inherit;\\n  line-height: 1.5;\\n}\\n.app-admin .col-form-label-lg {\\n  padding-top: calc(0.5rem + 1px);\\n  padding-bottom: calc(0.5rem + 1px);\\n  font-size: 1.25rem;\\n  line-height: 1.5;\\n}\\n.app-admin .col-form-label-sm {\\n  padding-top: calc(0.25rem + 1px);\\n  padding-bottom: calc(0.25rem + 1px);\\n  font-size: 0.875rem;\\n  line-height: 1.5;\\n}\\n.app-admin .form-control-plaintext {\\n  display: block;\\n  width: 100%;\\n  padding: 0.375rem 0;\\n  margin-bottom: 0;\\n  font-size: 1rem;\\n  line-height: 1.5;\\n  color: #212529;\\n  background-color: transparent;\\n  border: solid transparent;\\n  border-width: 1px 0;\\n}\\n.app-admin .form-control-plaintext.form-control-sm, .app-admin .form-control-plaintext.form-control-lg {\\n  padding-right: 0;\\n  padding-left: 0;\\n}\\n.app-admin .form-control-sm {\\n  height: calc(1.5em + 0.5rem + 2px);\\n  padding: 0.25rem 0.5rem;\\n  font-size: 0.875rem;\\n  line-height: 1.5;\\n  border-radius: 0.2rem;\\n}\\n.app-admin .form-control-lg {\\n  height: calc(1.5em + 1rem + 2px);\\n  padding: 0.5rem 1rem;\\n  font-size: 1.25rem;\\n  line-height: 1.5;\\n  border-radius: 0.3rem;\\n}\\n.app-admin select.form-control[size], .app-admin select.form-control[multiple] {\\n  height: auto;\\n}\\n.app-admin textarea.form-control {\\n  height: auto;\\n}\\n.app-admin .form-group {\\n  margin-bottom: 1rem;\\n}\\n.app-admin .form-text {\\n  display: block;\\n  margin-top: 0.25rem;\\n}\\n.app-admin .form-row {\\n  display: flex;\\n  flex-wrap: wrap;\\n  margin-right: -5px;\\n  margin-left: -5px;\\n}\\n.app-admin .form-row > .col,\\n.app-admin .form-row > [class*=col-] {\\n  padding-right: 5px;\\n  padding-left: 5px;\\n}\\n.app-admin .form-check {\\n  position: relative;\\n  display: block;\\n  padding-left: 1.25rem;\\n}\\n.app-admin .form-check-input {\\n  position: absolute;\\n  margin-top: 0.3rem;\\n  margin-left: -1.25rem;\\n}\\n.app-admin .form-check-input[disabled] ~ .form-check-label, .app-admin .form-check-input:disabled ~ .form-check-label {\\n  color: #6c757d;\\n}\\n.app-admin .form-check-label {\\n  margin-bottom: 0;\\n}\\n.app-admin .form-check-inline {\\n  display: inline-flex;\\n  align-items: center;\\n  padding-left: 0;\\n  margin-right: 0.75rem;\\n}\\n.app-admin .form-check-inline .form-check-input {\\n  position: static;\\n  margin-top: 0;\\n  margin-right: 0.3125rem;\\n  margin-left: 0;\\n}\\n.app-admin .valid-feedback {\\n  display: none;\\n  width: 100%;\\n  margin-top: 0.25rem;\\n  font-size: 80%;\\n  color: #28a745;\\n}\\n.app-admin .valid-tooltip {\\n  position: absolute;\\n  top: 100%;\\n  left: 0;\\n  z-index: 5;\\n  display: none;\\n  max-width: 100%;\\n  padding: 0.25rem 0.5rem;\\n  margin-top: 0.1rem;\\n  font-size: 0.875rem;\\n  line-height: 1.5;\\n  color: #fff;\\n  background-color: rgba(40, 167, 69, 0.9);\\n  border-radius: 0.25rem;\\n}\\n.form-row > .col > .app-admin .valid-tooltip, .form-row > [class*=col-] > .app-admin .valid-tooltip {\\n  left: 5px;\\n}\\n.was-validated .app-admin:valid ~ .valid-feedback,\\n.was-validated .app-admin:valid ~ .valid-tooltip, .app-admin.is-valid ~ .valid-feedback,\\n.app-admin.is-valid ~ .valid-tooltip {\\n  display: block;\\n}\\n.was-validated .app-admin .form-control:valid, .app-admin .form-control.is-valid {\\n  border-color: #28a745;\\n  padding-right: calc(1.5em + 0.75rem);\\n  background-image: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e\\\");\\n  background-repeat: no-repeat;\\n  background-position: right calc(0.375em + 0.1875rem) center;\\n  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);\\n}\\n.was-validated .app-admin .form-control:valid:focus, .app-admin .form-control.is-valid:focus {\\n  border-color: #28a745;\\n  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);\\n}\\n.was-validated .app-admin textarea.form-control:valid, .app-admin textarea.form-control.is-valid {\\n  padding-right: calc(1.5em + 0.75rem);\\n  background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);\\n}\\n.was-validated .app-admin .custom-select:valid, .app-admin .custom-select.is-valid {\\n  border-color: #28a745;\\n  padding-right: calc(0.75em + 2.3125rem);\\n  background: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e\\\") right 0.75rem center/8px 10px no-repeat, #fff url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e\\\") center right 1.75rem/calc(0.75em + 0.375rem) calc(0.75em + 0.375rem) no-repeat;\\n}\\n.was-validated .app-admin .custom-select:valid:focus, .app-admin .custom-select.is-valid:focus {\\n  border-color: #28a745;\\n  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);\\n}\\n.was-validated .app-admin .form-check-input:valid ~ .form-check-label, .app-admin .form-check-input.is-valid ~ .form-check-label {\\n  color: #28a745;\\n}\\n.was-validated .app-admin .form-check-input:valid ~ .valid-feedback,\\n.was-validated .app-admin .form-check-input:valid ~ .valid-tooltip, .app-admin .form-check-input.is-valid ~ .valid-feedback,\\n.app-admin .form-check-input.is-valid ~ .valid-tooltip {\\n  display: block;\\n}\\n.was-validated .app-admin .custom-control-input:valid ~ .custom-control-label, .app-admin .custom-control-input.is-valid ~ .custom-control-label {\\n  color: #28a745;\\n}\\n.was-validated .app-admin .custom-control-input:valid ~ .custom-control-label::before, .app-admin .custom-control-input.is-valid ~ .custom-control-label::before {\\n  border-color: #28a745;\\n}\\n.was-validated .app-admin .custom-control-input:valid:checked ~ .custom-control-label::before, .app-admin .custom-control-input.is-valid:checked ~ .custom-control-label::before {\\n  border-color: #34ce57;\\n  background-color: #34ce57;\\n}\\n.was-validated .app-admin .custom-control-input:valid:focus ~ .custom-control-label::before, .app-admin .custom-control-input.is-valid:focus ~ .custom-control-label::before {\\n  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);\\n}\\n.was-validated .app-admin .custom-control-input:valid:focus:not(:checked) ~ .custom-control-label::before, .app-admin .custom-control-input.is-valid:focus:not(:checked) ~ .custom-control-label::before {\\n  border-color: #28a745;\\n}\\n.was-validated .app-admin .custom-file-input:valid ~ .custom-file-label, .app-admin .custom-file-input.is-valid ~ .custom-file-label {\\n  border-color: #28a745;\\n}\\n.was-validated .app-admin .custom-file-input:valid:focus ~ .custom-file-label, .app-admin .custom-file-input.is-valid:focus ~ .custom-file-label {\\n  border-color: #28a745;\\n  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);\\n}\\n.app-admin .invalid-feedback {\\n  display: none;\\n  width: 100%;\\n  margin-top: 0.25rem;\\n  font-size: 80%;\\n  color: #dc3545;\\n}\\n.app-admin .invalid-tooltip {\\n  position: absolute;\\n  top: 100%;\\n  left: 0;\\n  z-index: 5;\\n  display: none;\\n  max-width: 100%;\\n  padding: 0.25rem 0.5rem;\\n  margin-top: 0.1rem;\\n  font-size: 0.875rem;\\n  line-height: 1.5;\\n  color: #fff;\\n  background-color: rgba(220, 53, 69, 0.9);\\n  border-radius: 0.25rem;\\n}\\n.form-row > .col > .app-admin .invalid-tooltip, .form-row > [class*=col-] > .app-admin .invalid-tooltip {\\n  left: 5px;\\n}\\n.was-validated .app-admin:invalid ~ .invalid-feedback,\\n.was-validated .app-admin:invalid ~ .invalid-tooltip, .app-admin.is-invalid ~ .invalid-feedback,\\n.app-admin.is-invalid ~ .invalid-tooltip {\\n  display: block;\\n}\\n.was-validated .app-admin .form-control:invalid, .app-admin .form-control.is-invalid {\\n  border-color: #dc3545;\\n  padding-right: calc(1.5em + 0.75rem);\\n  background-image: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23dc3545' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e\\\");\\n  background-repeat: no-repeat;\\n  background-position: right calc(0.375em + 0.1875rem) center;\\n  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);\\n}\\n.was-validated .app-admin .form-control:invalid:focus, .app-admin .form-control.is-invalid:focus {\\n  border-color: #dc3545;\\n  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);\\n}\\n.was-validated .app-admin textarea.form-control:invalid, .app-admin textarea.form-control.is-invalid {\\n  padding-right: calc(1.5em + 0.75rem);\\n  background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);\\n}\\n.was-validated .app-admin .custom-select:invalid, .app-admin .custom-select.is-invalid {\\n  border-color: #dc3545;\\n  padding-right: calc(0.75em + 2.3125rem);\\n  background: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e\\\") right 0.75rem center/8px 10px no-repeat, #fff url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23dc3545' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e\\\") center right 1.75rem/calc(0.75em + 0.375rem) calc(0.75em + 0.375rem) no-repeat;\\n}\\n.was-validated .app-admin .custom-select:invalid:focus, .app-admin .custom-select.is-invalid:focus {\\n  border-color: #dc3545;\\n  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);\\n}\\n.was-validated .app-admin .form-check-input:invalid ~ .form-check-label, .app-admin .form-check-input.is-invalid ~ .form-check-label {\\n  color: #dc3545;\\n}\\n.was-validated .app-admin .form-check-input:invalid ~ .invalid-feedback,\\n.was-validated .app-admin .form-check-input:invalid ~ .invalid-tooltip, .app-admin .form-check-input.is-invalid ~ .invalid-feedback,\\n.app-admin .form-check-input.is-invalid ~ .invalid-tooltip {\\n  display: block;\\n}\\n.was-validated .app-admin .custom-control-input:invalid ~ .custom-control-label, .app-admin .custom-control-input.is-invalid ~ .custom-control-label {\\n  color: #dc3545;\\n}\\n.was-validated .app-admin .custom-control-input:invalid ~ .custom-control-label::before, .app-admin .custom-control-input.is-invalid ~ .custom-control-label::before {\\n  border-color: #dc3545;\\n}\\n.was-validated .app-admin .custom-control-input:invalid:checked ~ .custom-control-label::before, .app-admin .custom-control-input.is-invalid:checked ~ .custom-control-label::before {\\n  border-color: #e4606d;\\n  background-color: #e4606d;\\n}\\n.was-validated .app-admin .custom-control-input:invalid:focus ~ .custom-control-label::before, .app-admin .custom-control-input.is-invalid:focus ~ .custom-control-label::before {\\n  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);\\n}\\n.was-validated .app-admin .custom-control-input:invalid:focus:not(:checked) ~ .custom-control-label::before, .app-admin .custom-control-input.is-invalid:focus:not(:checked) ~ .custom-control-label::before {\\n  border-color: #dc3545;\\n}\\n.was-validated .app-admin .custom-file-input:invalid ~ .custom-file-label, .app-admin .custom-file-input.is-invalid ~ .custom-file-label {\\n  border-color: #dc3545;\\n}\\n.was-validated .app-admin .custom-file-input:invalid:focus ~ .custom-file-label, .app-admin .custom-file-input.is-invalid:focus ~ .custom-file-label {\\n  border-color: #dc3545;\\n  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);\\n}\\n.app-admin .form-inline {\\n  display: flex;\\n  flex-flow: row wrap;\\n  align-items: center;\\n}\\n.app-admin .form-inline .form-check {\\n  width: 100%;\\n}\\n@media (min-width: 576px) {\\n.app-admin .form-inline label {\\n    display: flex;\\n    align-items: center;\\n    justify-content: center;\\n    margin-bottom: 0;\\n}\\n.app-admin .form-inline .form-group {\\n    display: flex;\\n    flex: 0 0 auto;\\n    flex-flow: row wrap;\\n    align-items: center;\\n    margin-bottom: 0;\\n}\\n.app-admin .form-inline .form-control {\\n    display: inline-block;\\n    width: auto;\\n    vertical-align: middle;\\n}\\n.app-admin .form-inline .form-control-plaintext {\\n    display: inline-block;\\n}\\n.app-admin .form-inline .input-group,\\n.app-admin .form-inline .custom-select {\\n    width: auto;\\n}\\n.app-admin .form-inline .form-check {\\n    display: flex;\\n    align-items: center;\\n    justify-content: center;\\n    width: auto;\\n    padding-left: 0;\\n}\\n.app-admin .form-inline .form-check-input {\\n    position: relative;\\n    flex-shrink: 0;\\n    margin-top: 0;\\n    margin-right: 0.25rem;\\n    margin-left: 0;\\n}\\n.app-admin .form-inline .custom-control {\\n    align-items: center;\\n    justify-content: center;\\n}\\n.app-admin .form-inline .custom-control-label {\\n    margin-bottom: 0;\\n}\\n}\\n.app-admin .btn {\\n  display: inline-block;\\n  font-weight: 400;\\n  color: #212529;\\n  text-align: center;\\n  vertical-align: middle;\\n  -webkit-user-select: none;\\n     -moz-user-select: none;\\n      -ms-user-select: none;\\n          user-select: none;\\n  background-color: transparent;\\n  border: 1px solid transparent;\\n  padding: 0.375rem 0.75rem;\\n  font-size: 1rem;\\n  line-height: 1.5;\\n  border-radius: 0.25rem;\\n  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .btn {\\n    transition: none;\\n}\\n}\\n.app-admin .btn:hover {\\n  color: #212529;\\n  text-decoration: none;\\n}\\n.app-admin .btn:focus, .app-admin .btn.focus {\\n  outline: 0;\\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\\n}\\n.app-admin .btn.disabled, .app-admin .btn:disabled {\\n  opacity: 0.65;\\n}\\n.app-admin .btn:not(:disabled):not(.disabled) {\\n  cursor: pointer;\\n}\\n.app-admin a.btn.disabled,\\n.app-admin fieldset:disabled a.btn {\\n  pointer-events: none;\\n}\\n.app-admin .btn-primary {\\n  color: #fff;\\n  background-color: #007bff;\\n  border-color: #007bff;\\n}\\n.app-admin .btn-primary:hover {\\n  color: #fff;\\n  background-color: #0069d9;\\n  border-color: #0062cc;\\n}\\n.app-admin .btn-primary:focus, .app-admin .btn-primary.focus {\\n  color: #fff;\\n  background-color: #0069d9;\\n  border-color: #0062cc;\\n  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);\\n}\\n.app-admin .btn-primary.disabled, .app-admin .btn-primary:disabled {\\n  color: #fff;\\n  background-color: #007bff;\\n  border-color: #007bff;\\n}\\n.app-admin .btn-primary:not(:disabled):not(.disabled):active, .app-admin .btn-primary:not(:disabled):not(.disabled).active, .show > .app-admin .btn-primary.dropdown-toggle {\\n  color: #fff;\\n  background-color: #0062cc;\\n  border-color: #005cbf;\\n}\\n.app-admin .btn-primary:not(:disabled):not(.disabled):active:focus, .app-admin .btn-primary:not(:disabled):not(.disabled).active:focus, .show > .app-admin .btn-primary.dropdown-toggle:focus {\\n  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);\\n}\\n.app-admin .btn-secondary {\\n  color: #fff;\\n  background-color: #6c757d;\\n  border-color: #6c757d;\\n}\\n.app-admin .btn-secondary:hover {\\n  color: #fff;\\n  background-color: #5a6268;\\n  border-color: #545b62;\\n}\\n.app-admin .btn-secondary:focus, .app-admin .btn-secondary.focus {\\n  color: #fff;\\n  background-color: #5a6268;\\n  border-color: #545b62;\\n  box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);\\n}\\n.app-admin .btn-secondary.disabled, .app-admin .btn-secondary:disabled {\\n  color: #fff;\\n  background-color: #6c757d;\\n  border-color: #6c757d;\\n}\\n.app-admin .btn-secondary:not(:disabled):not(.disabled):active, .app-admin .btn-secondary:not(:disabled):not(.disabled).active, .show > .app-admin .btn-secondary.dropdown-toggle {\\n  color: #fff;\\n  background-color: #545b62;\\n  border-color: #4e555b;\\n}\\n.app-admin .btn-secondary:not(:disabled):not(.disabled):active:focus, .app-admin .btn-secondary:not(:disabled):not(.disabled).active:focus, .show > .app-admin .btn-secondary.dropdown-toggle:focus {\\n  box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);\\n}\\n.app-admin .btn-success {\\n  color: #fff;\\n  background-color: #28a745;\\n  border-color: #28a745;\\n}\\n.app-admin .btn-success:hover {\\n  color: #fff;\\n  background-color: #218838;\\n  border-color: #1e7e34;\\n}\\n.app-admin .btn-success:focus, .app-admin .btn-success.focus {\\n  color: #fff;\\n  background-color: #218838;\\n  border-color: #1e7e34;\\n  box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5);\\n}\\n.app-admin .btn-success.disabled, .app-admin .btn-success:disabled {\\n  color: #fff;\\n  background-color: #28a745;\\n  border-color: #28a745;\\n}\\n.app-admin .btn-success:not(:disabled):not(.disabled):active, .app-admin .btn-success:not(:disabled):not(.disabled).active, .show > .app-admin .btn-success.dropdown-toggle {\\n  color: #fff;\\n  background-color: #1e7e34;\\n  border-color: #1c7430;\\n}\\n.app-admin .btn-success:not(:disabled):not(.disabled):active:focus, .app-admin .btn-success:not(:disabled):not(.disabled).active:focus, .show > .app-admin .btn-success.dropdown-toggle:focus {\\n  box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5);\\n}\\n.app-admin .btn-info {\\n  color: #fff;\\n  background-color: #17a2b8;\\n  border-color: #17a2b8;\\n}\\n.app-admin .btn-info:hover {\\n  color: #fff;\\n  background-color: #138496;\\n  border-color: #117a8b;\\n}\\n.app-admin .btn-info:focus, .app-admin .btn-info.focus {\\n  color: #fff;\\n  background-color: #138496;\\n  border-color: #117a8b;\\n  box-shadow: 0 0 0 0.2rem rgba(58, 176, 195, 0.5);\\n}\\n.app-admin .btn-info.disabled, .app-admin .btn-info:disabled {\\n  color: #fff;\\n  background-color: #17a2b8;\\n  border-color: #17a2b8;\\n}\\n.app-admin .btn-info:not(:disabled):not(.disabled):active, .app-admin .btn-info:not(:disabled):not(.disabled).active, .show > .app-admin .btn-info.dropdown-toggle {\\n  color: #fff;\\n  background-color: #117a8b;\\n  border-color: #10707f;\\n}\\n.app-admin .btn-info:not(:disabled):not(.disabled):active:focus, .app-admin .btn-info:not(:disabled):not(.disabled).active:focus, .show > .app-admin .btn-info.dropdown-toggle:focus {\\n  box-shadow: 0 0 0 0.2rem rgba(58, 176, 195, 0.5);\\n}\\n.app-admin .btn-warning {\\n  color: #212529;\\n  background-color: #ffc107;\\n  border-color: #ffc107;\\n}\\n.app-admin .btn-warning:hover {\\n  color: #212529;\\n  background-color: #e0a800;\\n  border-color: #d39e00;\\n}\\n.app-admin .btn-warning:focus, .app-admin .btn-warning.focus {\\n  color: #212529;\\n  background-color: #e0a800;\\n  border-color: #d39e00;\\n  box-shadow: 0 0 0 0.2rem rgba(222, 170, 12, 0.5);\\n}\\n.app-admin .btn-warning.disabled, .app-admin .btn-warning:disabled {\\n  color: #212529;\\n  background-color: #ffc107;\\n  border-color: #ffc107;\\n}\\n.app-admin .btn-warning:not(:disabled):not(.disabled):active, .app-admin .btn-warning:not(:disabled):not(.disabled).active, .show > .app-admin .btn-warning.dropdown-toggle {\\n  color: #212529;\\n  background-color: #d39e00;\\n  border-color: #c69500;\\n}\\n.app-admin .btn-warning:not(:disabled):not(.disabled):active:focus, .app-admin .btn-warning:not(:disabled):not(.disabled).active:focus, .show > .app-admin .btn-warning.dropdown-toggle:focus {\\n  box-shadow: 0 0 0 0.2rem rgba(222, 170, 12, 0.5);\\n}\\n.app-admin .btn-danger {\\n  color: #fff;\\n  background-color: #dc3545;\\n  border-color: #dc3545;\\n}\\n.app-admin .btn-danger:hover {\\n  color: #fff;\\n  background-color: #c82333;\\n  border-color: #bd2130;\\n}\\n.app-admin .btn-danger:focus, .app-admin .btn-danger.focus {\\n  color: #fff;\\n  background-color: #c82333;\\n  border-color: #bd2130;\\n  box-shadow: 0 0 0 0.2rem rgba(225, 83, 97, 0.5);\\n}\\n.app-admin .btn-danger.disabled, .app-admin .btn-danger:disabled {\\n  color: #fff;\\n  background-color: #dc3545;\\n  border-color: #dc3545;\\n}\\n.app-admin .btn-danger:not(:disabled):not(.disabled):active, .app-admin .btn-danger:not(:disabled):not(.disabled).active, .show > .app-admin .btn-danger.dropdown-toggle {\\n  color: #fff;\\n  background-color: #bd2130;\\n  border-color: #b21f2d;\\n}\\n.app-admin .btn-danger:not(:disabled):not(.disabled):active:focus, .app-admin .btn-danger:not(:disabled):not(.disabled).active:focus, .show > .app-admin .btn-danger.dropdown-toggle:focus {\\n  box-shadow: 0 0 0 0.2rem rgba(225, 83, 97, 0.5);\\n}\\n.app-admin .btn-light {\\n  color: #212529;\\n  background-color: #f8f9fa;\\n  border-color: #f8f9fa;\\n}\\n.app-admin .btn-light:hover {\\n  color: #212529;\\n  background-color: #e2e6ea;\\n  border-color: #dae0e5;\\n}\\n.app-admin .btn-light:focus, .app-admin .btn-light.focus {\\n  color: #212529;\\n  background-color: #e2e6ea;\\n  border-color: #dae0e5;\\n  box-shadow: 0 0 0 0.2rem rgba(216, 217, 219, 0.5);\\n}\\n.app-admin .btn-light.disabled, .app-admin .btn-light:disabled {\\n  color: #212529;\\n  background-color: #f8f9fa;\\n  border-color: #f8f9fa;\\n}\\n.app-admin .btn-light:not(:disabled):not(.disabled):active, .app-admin .btn-light:not(:disabled):not(.disabled).active, .show > .app-admin .btn-light.dropdown-toggle {\\n  color: #212529;\\n  background-color: #dae0e5;\\n  border-color: #d3d9df;\\n}\\n.app-admin .btn-light:not(:disabled):not(.disabled):active:focus, .app-admin .btn-light:not(:disabled):not(.disabled).active:focus, .show > .app-admin .btn-light.dropdown-toggle:focus {\\n  box-shadow: 0 0 0 0.2rem rgba(216, 217, 219, 0.5);\\n}\\n.app-admin .btn-dark {\\n  color: #fff;\\n  background-color: #343a40;\\n  border-color: #343a40;\\n}\\n.app-admin .btn-dark:hover {\\n  color: #fff;\\n  background-color: #23272b;\\n  border-color: #1d2124;\\n}\\n.app-admin .btn-dark:focus, .app-admin .btn-dark.focus {\\n  color: #fff;\\n  background-color: #23272b;\\n  border-color: #1d2124;\\n  box-shadow: 0 0 0 0.2rem rgba(82, 88, 93, 0.5);\\n}\\n.app-admin .btn-dark.disabled, .app-admin .btn-dark:disabled {\\n  color: #fff;\\n  background-color: #343a40;\\n  border-color: #343a40;\\n}\\n.app-admin .btn-dark:not(:disabled):not(.disabled):active, .app-admin .btn-dark:not(:disabled):not(.disabled).active, .show > .app-admin .btn-dark.dropdown-toggle {\\n  color: #fff;\\n  background-color: #1d2124;\\n  border-color: #171a1d;\\n}\\n.app-admin .btn-dark:not(:disabled):not(.disabled):active:focus, .app-admin .btn-dark:not(:disabled):not(.disabled).active:focus, .show > .app-admin .btn-dark.dropdown-toggle:focus {\\n  box-shadow: 0 0 0 0.2rem rgba(82, 88, 93, 0.5);\\n}\\n.app-admin .btn-outline-primary {\\n  color: #007bff;\\n  border-color: #007bff;\\n}\\n.app-admin .btn-outline-primary:hover {\\n  color: #fff;\\n  background-color: #007bff;\\n  border-color: #007bff;\\n}\\n.app-admin .btn-outline-primary:focus, .app-admin .btn-outline-primary.focus {\\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\\n}\\n.app-admin .btn-outline-primary.disabled, .app-admin .btn-outline-primary:disabled {\\n  color: #007bff;\\n  background-color: transparent;\\n}\\n.app-admin .btn-outline-primary:not(:disabled):not(.disabled):active, .app-admin .btn-outline-primary:not(:disabled):not(.disabled).active, .show > .app-admin .btn-outline-primary.dropdown-toggle {\\n  color: #fff;\\n  background-color: #007bff;\\n  border-color: #007bff;\\n}\\n.app-admin .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .app-admin .btn-outline-primary:not(:disabled):not(.disabled).active:focus, .show > .app-admin .btn-outline-primary.dropdown-toggle:focus {\\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\\n}\\n.app-admin .btn-outline-secondary {\\n  color: #6c757d;\\n  border-color: #6c757d;\\n}\\n.app-admin .btn-outline-secondary:hover {\\n  color: #fff;\\n  background-color: #6c757d;\\n  border-color: #6c757d;\\n}\\n.app-admin .btn-outline-secondary:focus, .app-admin .btn-outline-secondary.focus {\\n  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);\\n}\\n.app-admin .btn-outline-secondary.disabled, .app-admin .btn-outline-secondary:disabled {\\n  color: #6c757d;\\n  background-color: transparent;\\n}\\n.app-admin .btn-outline-secondary:not(:disabled):not(.disabled):active, .app-admin .btn-outline-secondary:not(:disabled):not(.disabled).active, .show > .app-admin .btn-outline-secondary.dropdown-toggle {\\n  color: #fff;\\n  background-color: #6c757d;\\n  border-color: #6c757d;\\n}\\n.app-admin .btn-outline-secondary:not(:disabled):not(.disabled):active:focus, .app-admin .btn-outline-secondary:not(:disabled):not(.disabled).active:focus, .show > .app-admin .btn-outline-secondary.dropdown-toggle:focus {\\n  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);\\n}\\n.app-admin .btn-outline-success {\\n  color: #28a745;\\n  border-color: #28a745;\\n}\\n.app-admin .btn-outline-success:hover {\\n  color: #fff;\\n  background-color: #28a745;\\n  border-color: #28a745;\\n}\\n.app-admin .btn-outline-success:focus, .app-admin .btn-outline-success.focus {\\n  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);\\n}\\n.app-admin .btn-outline-success.disabled, .app-admin .btn-outline-success:disabled {\\n  color: #28a745;\\n  background-color: transparent;\\n}\\n.app-admin .btn-outline-success:not(:disabled):not(.disabled):active, .app-admin .btn-outline-success:not(:disabled):not(.disabled).active, .show > .app-admin .btn-outline-success.dropdown-toggle {\\n  color: #fff;\\n  background-color: #28a745;\\n  border-color: #28a745;\\n}\\n.app-admin .btn-outline-success:not(:disabled):not(.disabled):active:focus, .app-admin .btn-outline-success:not(:disabled):not(.disabled).active:focus, .show > .app-admin .btn-outline-success.dropdown-toggle:focus {\\n  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);\\n}\\n.app-admin .btn-outline-info {\\n  color: #17a2b8;\\n  border-color: #17a2b8;\\n}\\n.app-admin .btn-outline-info:hover {\\n  color: #fff;\\n  background-color: #17a2b8;\\n  border-color: #17a2b8;\\n}\\n.app-admin .btn-outline-info:focus, .app-admin .btn-outline-info.focus {\\n  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5);\\n}\\n.app-admin .btn-outline-info.disabled, .app-admin .btn-outline-info:disabled {\\n  color: #17a2b8;\\n  background-color: transparent;\\n}\\n.app-admin .btn-outline-info:not(:disabled):not(.disabled):active, .app-admin .btn-outline-info:not(:disabled):not(.disabled).active, .show > .app-admin .btn-outline-info.dropdown-toggle {\\n  color: #fff;\\n  background-color: #17a2b8;\\n  border-color: #17a2b8;\\n}\\n.app-admin .btn-outline-info:not(:disabled):not(.disabled):active:focus, .app-admin .btn-outline-info:not(:disabled):not(.disabled).active:focus, .show > .app-admin .btn-outline-info.dropdown-toggle:focus {\\n  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5);\\n}\\n.app-admin .btn-outline-warning {\\n  color: #ffc107;\\n  border-color: #ffc107;\\n}\\n.app-admin .btn-outline-warning:hover {\\n  color: #212529;\\n  background-color: #ffc107;\\n  border-color: #ffc107;\\n}\\n.app-admin .btn-outline-warning:focus, .app-admin .btn-outline-warning.focus {\\n  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5);\\n}\\n.app-admin .btn-outline-warning.disabled, .app-admin .btn-outline-warning:disabled {\\n  color: #ffc107;\\n  background-color: transparent;\\n}\\n.app-admin .btn-outline-warning:not(:disabled):not(.disabled):active, .app-admin .btn-outline-warning:not(:disabled):not(.disabled).active, .show > .app-admin .btn-outline-warning.dropdown-toggle {\\n  color: #212529;\\n  background-color: #ffc107;\\n  border-color: #ffc107;\\n}\\n.app-admin .btn-outline-warning:not(:disabled):not(.disabled):active:focus, .app-admin .btn-outline-warning:not(:disabled):not(.disabled).active:focus, .show > .app-admin .btn-outline-warning.dropdown-toggle:focus {\\n  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5);\\n}\\n.app-admin .btn-outline-danger {\\n  color: #dc3545;\\n  border-color: #dc3545;\\n}\\n.app-admin .btn-outline-danger:hover {\\n  color: #fff;\\n  background-color: #dc3545;\\n  border-color: #dc3545;\\n}\\n.app-admin .btn-outline-danger:focus, .app-admin .btn-outline-danger.focus {\\n  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);\\n}\\n.app-admin .btn-outline-danger.disabled, .app-admin .btn-outline-danger:disabled {\\n  color: #dc3545;\\n  background-color: transparent;\\n}\\n.app-admin .btn-outline-danger:not(:disabled):not(.disabled):active, .app-admin .btn-outline-danger:not(:disabled):not(.disabled).active, .show > .app-admin .btn-outline-danger.dropdown-toggle {\\n  color: #fff;\\n  background-color: #dc3545;\\n  border-color: #dc3545;\\n}\\n.app-admin .btn-outline-danger:not(:disabled):not(.disabled):active:focus, .app-admin .btn-outline-danger:not(:disabled):not(.disabled).active:focus, .show > .app-admin .btn-outline-danger.dropdown-toggle:focus {\\n  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);\\n}\\n.app-admin .btn-outline-light {\\n  color: #f8f9fa;\\n  border-color: #f8f9fa;\\n}\\n.app-admin .btn-outline-light:hover {\\n  color: #212529;\\n  background-color: #f8f9fa;\\n  border-color: #f8f9fa;\\n}\\n.app-admin .btn-outline-light:focus, .app-admin .btn-outline-light.focus {\\n  box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);\\n}\\n.app-admin .btn-outline-light.disabled, .app-admin .btn-outline-light:disabled {\\n  color: #f8f9fa;\\n  background-color: transparent;\\n}\\n.app-admin .btn-outline-light:not(:disabled):not(.disabled):active, .app-admin .btn-outline-light:not(:disabled):not(.disabled).active, .show > .app-admin .btn-outline-light.dropdown-toggle {\\n  color: #212529;\\n  background-color: #f8f9fa;\\n  border-color: #f8f9fa;\\n}\\n.app-admin .btn-outline-light:not(:disabled):not(.disabled):active:focus, .app-admin .btn-outline-light:not(:disabled):not(.disabled).active:focus, .show > .app-admin .btn-outline-light.dropdown-toggle:focus {\\n  box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);\\n}\\n.app-admin .btn-outline-dark {\\n  color: #343a40;\\n  border-color: #343a40;\\n}\\n.app-admin .btn-outline-dark:hover {\\n  color: #fff;\\n  background-color: #343a40;\\n  border-color: #343a40;\\n}\\n.app-admin .btn-outline-dark:focus, .app-admin .btn-outline-dark.focus {\\n  box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);\\n}\\n.app-admin .btn-outline-dark.disabled, .app-admin .btn-outline-dark:disabled {\\n  color: #343a40;\\n  background-color: transparent;\\n}\\n.app-admin .btn-outline-dark:not(:disabled):not(.disabled):active, .app-admin .btn-outline-dark:not(:disabled):not(.disabled).active, .show > .app-admin .btn-outline-dark.dropdown-toggle {\\n  color: #fff;\\n  background-color: #343a40;\\n  border-color: #343a40;\\n}\\n.app-admin .btn-outline-dark:not(:disabled):not(.disabled):active:focus, .app-admin .btn-outline-dark:not(:disabled):not(.disabled).active:focus, .show > .app-admin .btn-outline-dark.dropdown-toggle:focus {\\n  box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);\\n}\\n.app-admin .btn-link {\\n  font-weight: 400;\\n  color: #007bff;\\n  text-decoration: none;\\n}\\n.app-admin .btn-link:hover {\\n  color: #0056b3;\\n  text-decoration: underline;\\n}\\n.app-admin .btn-link:focus, .app-admin .btn-link.focus {\\n  text-decoration: underline;\\n}\\n.app-admin .btn-link:disabled, .app-admin .btn-link.disabled {\\n  color: #6c757d;\\n  pointer-events: none;\\n}\\n.app-admin .btn-lg, .app-admin .btn-group-lg > .btn {\\n  padding: 0.5rem 1rem;\\n  font-size: 1.25rem;\\n  line-height: 1.5;\\n  border-radius: 0.3rem;\\n}\\n.app-admin .btn-sm, .app-admin .btn-group-sm > .btn {\\n  padding: 0.25rem 0.5rem;\\n  font-size: 0.875rem;\\n  line-height: 1.5;\\n  border-radius: 0.2rem;\\n}\\n.app-admin .btn-block {\\n  display: block;\\n  width: 100%;\\n}\\n.app-admin .btn-block + .btn-block {\\n  margin-top: 0.5rem;\\n}\\n.app-admin input[type=submit].btn-block,\\n.app-admin input[type=reset].btn-block,\\n.app-admin input[type=button].btn-block {\\n  width: 100%;\\n}\\n.app-admin .fade {\\n  transition: opacity 0.15s linear;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .fade {\\n    transition: none;\\n}\\n}\\n.app-admin .fade:not(.show) {\\n  opacity: 0;\\n}\\n.app-admin .collapse:not(.show) {\\n  display: none;\\n}\\n.app-admin .collapsing {\\n  position: relative;\\n  height: 0;\\n  overflow: hidden;\\n  transition: height 0.35s ease;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .collapsing {\\n    transition: none;\\n}\\n}\\n.app-admin .dropup,\\n.app-admin .dropright,\\n.app-admin .dropdown,\\n.app-admin .dropleft {\\n  position: relative;\\n}\\n.app-admin .dropdown-toggle {\\n  white-space: nowrap;\\n}\\n.app-admin .dropdown-toggle::after {\\n  display: inline-block;\\n  margin-left: 0.255em;\\n  vertical-align: 0.255em;\\n  content: \\\"\\\";\\n  border-top: 0.3em solid;\\n  border-right: 0.3em solid transparent;\\n  border-bottom: 0;\\n  border-left: 0.3em solid transparent;\\n}\\n.app-admin .dropdown-toggle:empty::after {\\n  margin-left: 0;\\n}\\n.app-admin .dropdown-menu {\\n  position: absolute;\\n  top: 100%;\\n  left: 0;\\n  z-index: 1000;\\n  display: none;\\n  float: left;\\n  min-width: 10rem;\\n  padding: 0.5rem 0;\\n  margin: 0.125rem 0 0;\\n  font-size: 1rem;\\n  color: #212529;\\n  text-align: left;\\n  list-style: none;\\n  background-color: #fff;\\n  background-clip: padding-box;\\n  border: 1px solid rgba(0, 0, 0, 0.15);\\n  border-radius: 0.25rem;\\n}\\n.app-admin .dropdown-menu-left {\\n  right: auto;\\n  left: 0;\\n}\\n.app-admin .dropdown-menu-right {\\n  right: 0;\\n  left: auto;\\n}\\n@media (min-width: 576px) {\\n.app-admin .dropdown-menu-sm-left {\\n    right: auto;\\n    left: 0;\\n}\\n.app-admin .dropdown-menu-sm-right {\\n    right: 0;\\n    left: auto;\\n}\\n}\\n@media (min-width: 768px) {\\n.app-admin .dropdown-menu-md-left {\\n    right: auto;\\n    left: 0;\\n}\\n.app-admin .dropdown-menu-md-right {\\n    right: 0;\\n    left: auto;\\n}\\n}\\n@media (min-width: 992px) {\\n.app-admin .dropdown-menu-lg-left {\\n    right: auto;\\n    left: 0;\\n}\\n.app-admin .dropdown-menu-lg-right {\\n    right: 0;\\n    left: auto;\\n}\\n}\\n@media (min-width: 1200px) {\\n.app-admin .dropdown-menu-xl-left {\\n    right: auto;\\n    left: 0;\\n}\\n.app-admin .dropdown-menu-xl-right {\\n    right: 0;\\n    left: auto;\\n}\\n}\\n.app-admin .dropup .dropdown-menu {\\n  top: auto;\\n  bottom: 100%;\\n  margin-top: 0;\\n  margin-bottom: 0.125rem;\\n}\\n.app-admin .dropup .dropdown-toggle::after {\\n  display: inline-block;\\n  margin-left: 0.255em;\\n  vertical-align: 0.255em;\\n  content: \\\"\\\";\\n  border-top: 0;\\n  border-right: 0.3em solid transparent;\\n  border-bottom: 0.3em solid;\\n  border-left: 0.3em solid transparent;\\n}\\n.app-admin .dropup .dropdown-toggle:empty::after {\\n  margin-left: 0;\\n}\\n.app-admin .dropright .dropdown-menu {\\n  top: 0;\\n  right: auto;\\n  left: 100%;\\n  margin-top: 0;\\n  margin-left: 0.125rem;\\n}\\n.app-admin .dropright .dropdown-toggle::after {\\n  display: inline-block;\\n  margin-left: 0.255em;\\n  vertical-align: 0.255em;\\n  content: \\\"\\\";\\n  border-top: 0.3em solid transparent;\\n  border-right: 0;\\n  border-bottom: 0.3em solid transparent;\\n  border-left: 0.3em solid;\\n}\\n.app-admin .dropright .dropdown-toggle:empty::after {\\n  margin-left: 0;\\n}\\n.app-admin .dropright .dropdown-toggle::after {\\n  vertical-align: 0;\\n}\\n.app-admin .dropleft .dropdown-menu {\\n  top: 0;\\n  right: 100%;\\n  left: auto;\\n  margin-top: 0;\\n  margin-right: 0.125rem;\\n}\\n.app-admin .dropleft .dropdown-toggle::after {\\n  display: inline-block;\\n  margin-left: 0.255em;\\n  vertical-align: 0.255em;\\n  content: \\\"\\\";\\n}\\n.app-admin .dropleft .dropdown-toggle::after {\\n  display: none;\\n}\\n.app-admin .dropleft .dropdown-toggle::before {\\n  display: inline-block;\\n  margin-right: 0.255em;\\n  vertical-align: 0.255em;\\n  content: \\\"\\\";\\n  border-top: 0.3em solid transparent;\\n  border-right: 0.3em solid;\\n  border-bottom: 0.3em solid transparent;\\n}\\n.app-admin .dropleft .dropdown-toggle:empty::after {\\n  margin-left: 0;\\n}\\n.app-admin .dropleft .dropdown-toggle::before {\\n  vertical-align: 0;\\n}\\n.app-admin .dropdown-menu[x-placement^=top], .app-admin .dropdown-menu[x-placement^=right], .app-admin .dropdown-menu[x-placement^=bottom], .app-admin .dropdown-menu[x-placement^=left] {\\n  right: auto;\\n  bottom: auto;\\n}\\n.app-admin .dropdown-divider {\\n  height: 0;\\n  margin: 0.5rem 0;\\n  overflow: hidden;\\n  border-top: 1px solid #e9ecef;\\n}\\n.app-admin .dropdown-item {\\n  display: block;\\n  width: 100%;\\n  padding: 0.25rem 1.5rem;\\n  clear: both;\\n  font-weight: 400;\\n  color: #212529;\\n  text-align: inherit;\\n  white-space: nowrap;\\n  background-color: transparent;\\n  border: 0;\\n}\\n.app-admin .dropdown-item:hover, .app-admin .dropdown-item:focus {\\n  color: #16181b;\\n  text-decoration: none;\\n  background-color: #e9ecef;\\n}\\n.app-admin .dropdown-item.active, .app-admin .dropdown-item:active {\\n  color: #fff;\\n  text-decoration: none;\\n  background-color: #007bff;\\n}\\n.app-admin .dropdown-item.disabled, .app-admin .dropdown-item:disabled {\\n  color: #adb5bd;\\n  pointer-events: none;\\n  background-color: transparent;\\n}\\n.app-admin .dropdown-menu.show {\\n  display: block;\\n}\\n.app-admin .dropdown-header {\\n  display: block;\\n  padding: 0.5rem 1.5rem;\\n  margin-bottom: 0;\\n  font-size: 0.875rem;\\n  color: #6c757d;\\n  white-space: nowrap;\\n}\\n.app-admin .dropdown-item-text {\\n  display: block;\\n  padding: 0.25rem 1.5rem;\\n  color: #212529;\\n}\\n.app-admin .btn-group,\\n.app-admin .btn-group-vertical {\\n  position: relative;\\n  display: inline-flex;\\n  vertical-align: middle;\\n}\\n.app-admin .btn-group > .btn,\\n.app-admin .btn-group-vertical > .btn {\\n  position: relative;\\n  flex: 1 1 auto;\\n}\\n.app-admin .btn-group > .btn:hover,\\n.app-admin .btn-group-vertical > .btn:hover {\\n  z-index: 1;\\n}\\n.app-admin .btn-group > .btn:focus, .app-admin .btn-group > .btn:active, .app-admin .btn-group > .btn.active,\\n.app-admin .btn-group-vertical > .btn:focus,\\n.app-admin .btn-group-vertical > .btn:active,\\n.app-admin .btn-group-vertical > .btn.active {\\n  z-index: 1;\\n}\\n.app-admin .btn-toolbar {\\n  display: flex;\\n  flex-wrap: wrap;\\n  justify-content: flex-start;\\n}\\n.app-admin .btn-toolbar .input-group {\\n  width: auto;\\n}\\n.app-admin .btn-group > .btn:not(:first-child),\\n.app-admin .btn-group > .btn-group:not(:first-child) {\\n  margin-left: -1px;\\n}\\n.app-admin .btn-group > .btn:not(:last-child):not(.dropdown-toggle),\\n.app-admin .btn-group > .btn-group:not(:last-child) > .btn {\\n  border-top-right-radius: 0;\\n  border-bottom-right-radius: 0;\\n}\\n.app-admin .btn-group > .btn:not(:first-child),\\n.app-admin .btn-group > .btn-group:not(:first-child) > .btn {\\n  border-top-left-radius: 0;\\n  border-bottom-left-radius: 0;\\n}\\n.app-admin .dropdown-toggle-split {\\n  padding-right: 0.5625rem;\\n  padding-left: 0.5625rem;\\n}\\n.app-admin .dropdown-toggle-split::after, .dropup .app-admin .dropdown-toggle-split::after, .dropright .app-admin .dropdown-toggle-split::after {\\n  margin-left: 0;\\n}\\n.dropleft .app-admin .dropdown-toggle-split::before {\\n  margin-right: 0;\\n}\\n.app-admin .btn-sm + .dropdown-toggle-split, .app-admin .btn-group-sm > .btn + .dropdown-toggle-split {\\n  padding-right: 0.375rem;\\n  padding-left: 0.375rem;\\n}\\n.app-admin .btn-lg + .dropdown-toggle-split, .app-admin .btn-group-lg > .btn + .dropdown-toggle-split {\\n  padding-right: 0.75rem;\\n  padding-left: 0.75rem;\\n}\\n.app-admin .btn-group-vertical {\\n  flex-direction: column;\\n  align-items: flex-start;\\n  justify-content: center;\\n}\\n.app-admin .btn-group-vertical > .btn,\\n.app-admin .btn-group-vertical > .btn-group {\\n  width: 100%;\\n}\\n.app-admin .btn-group-vertical > .btn:not(:first-child),\\n.app-admin .btn-group-vertical > .btn-group:not(:first-child) {\\n  margin-top: -1px;\\n}\\n.app-admin .btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle),\\n.app-admin .btn-group-vertical > .btn-group:not(:last-child) > .btn {\\n  border-bottom-right-radius: 0;\\n  border-bottom-left-radius: 0;\\n}\\n.app-admin .btn-group-vertical > .btn:not(:first-child),\\n.app-admin .btn-group-vertical > .btn-group:not(:first-child) > .btn {\\n  border-top-left-radius: 0;\\n  border-top-right-radius: 0;\\n}\\n.app-admin .btn-group-toggle > .btn,\\n.app-admin .btn-group-toggle > .btn-group > .btn {\\n  margin-bottom: 0;\\n}\\n.app-admin .btn-group-toggle > .btn input[type=radio],\\n.app-admin .btn-group-toggle > .btn input[type=checkbox],\\n.app-admin .btn-group-toggle > .btn-group > .btn input[type=radio],\\n.app-admin .btn-group-toggle > .btn-group > .btn input[type=checkbox] {\\n  position: absolute;\\n  clip: rect(0, 0, 0, 0);\\n  pointer-events: none;\\n}\\n.app-admin .input-group {\\n  position: relative;\\n  display: flex;\\n  flex-wrap: wrap;\\n  align-items: stretch;\\n  width: 100%;\\n}\\n.app-admin .input-group > .form-control,\\n.app-admin .input-group > .form-control-plaintext,\\n.app-admin .input-group > .custom-select,\\n.app-admin .input-group > .custom-file {\\n  position: relative;\\n  flex: 1 1 auto;\\n  width: 1%;\\n  min-width: 0;\\n  margin-bottom: 0;\\n}\\n.app-admin .input-group > .form-control + .form-control,\\n.app-admin .input-group > .form-control + .custom-select,\\n.app-admin .input-group > .form-control + .custom-file,\\n.app-admin .input-group > .form-control-plaintext + .form-control,\\n.app-admin .input-group > .form-control-plaintext + .custom-select,\\n.app-admin .input-group > .form-control-plaintext + .custom-file,\\n.app-admin .input-group > .custom-select + .form-control,\\n.app-admin .input-group > .custom-select + .custom-select,\\n.app-admin .input-group > .custom-select + .custom-file,\\n.app-admin .input-group > .custom-file + .form-control,\\n.app-admin .input-group > .custom-file + .custom-select,\\n.app-admin .input-group > .custom-file + .custom-file {\\n  margin-left: -1px;\\n}\\n.app-admin .input-group > .form-control:focus,\\n.app-admin .input-group > .custom-select:focus,\\n.app-admin .input-group > .custom-file .custom-file-input:focus ~ .custom-file-label {\\n  z-index: 3;\\n}\\n.app-admin .input-group > .custom-file .custom-file-input:focus {\\n  z-index: 4;\\n}\\n.app-admin .input-group > .form-control:not(:first-child),\\n.app-admin .input-group > .custom-select:not(:first-child) {\\n  border-top-left-radius: 0;\\n  border-bottom-left-radius: 0;\\n}\\n.app-admin .input-group > .custom-file {\\n  display: flex;\\n  align-items: center;\\n}\\n.app-admin .input-group > .custom-file:not(:last-child) .custom-file-label, .app-admin .input-group > .custom-file:not(:first-child) .custom-file-label {\\n  border-top-left-radius: 0;\\n  border-bottom-left-radius: 0;\\n}\\n.app-admin .input-group:not(.has-validation) > .form-control:not(:last-child),\\n.app-admin .input-group:not(.has-validation) > .custom-select:not(:last-child),\\n.app-admin .input-group:not(.has-validation) > .custom-file:not(:last-child) .custom-file-label::after {\\n  border-top-right-radius: 0;\\n  border-bottom-right-radius: 0;\\n}\\n.app-admin .input-group.has-validation > .form-control:nth-last-child(n+3),\\n.app-admin .input-group.has-validation > .custom-select:nth-last-child(n+3),\\n.app-admin .input-group.has-validation > .custom-file:nth-last-child(n+3) .custom-file-label::after {\\n  border-top-right-radius: 0;\\n  border-bottom-right-radius: 0;\\n}\\n.app-admin .input-group-prepend,\\n.app-admin .input-group-append {\\n  display: flex;\\n}\\n.app-admin .input-group-prepend .btn,\\n.app-admin .input-group-append .btn {\\n  position: relative;\\n  z-index: 2;\\n}\\n.app-admin .input-group-prepend .btn:focus,\\n.app-admin .input-group-append .btn:focus {\\n  z-index: 3;\\n}\\n.app-admin .input-group-prepend .btn + .btn,\\n.app-admin .input-group-prepend .btn + .input-group-text,\\n.app-admin .input-group-prepend .input-group-text + .input-group-text,\\n.app-admin .input-group-prepend .input-group-text + .btn,\\n.app-admin .input-group-append .btn + .btn,\\n.app-admin .input-group-append .btn + .input-group-text,\\n.app-admin .input-group-append .input-group-text + .input-group-text,\\n.app-admin .input-group-append .input-group-text + .btn {\\n  margin-left: -1px;\\n}\\n.app-admin .input-group-prepend {\\n  margin-right: -1px;\\n}\\n.app-admin .input-group-append {\\n  margin-left: -1px;\\n}\\n.app-admin .input-group-text {\\n  display: flex;\\n  align-items: center;\\n  padding: 0.375rem 0.75rem;\\n  margin-bottom: 0;\\n  font-size: 1rem;\\n  font-weight: 400;\\n  line-height: 1.5;\\n  color: #495057;\\n  text-align: center;\\n  white-space: nowrap;\\n  background-color: #e9ecef;\\n  border: 1px solid #ced4da;\\n  border-radius: 0.25rem;\\n}\\n.app-admin .input-group-text input[type=radio],\\n.app-admin .input-group-text input[type=checkbox] {\\n  margin-top: 0;\\n}\\n.app-admin .input-group-lg > .form-control:not(textarea),\\n.app-admin .input-group-lg > .custom-select {\\n  height: calc(1.5em + 1rem + 2px);\\n}\\n.app-admin .input-group-lg > .form-control,\\n.app-admin .input-group-lg > .custom-select,\\n.app-admin .input-group-lg > .input-group-prepend > .input-group-text,\\n.app-admin .input-group-lg > .input-group-append > .input-group-text,\\n.app-admin .input-group-lg > .input-group-prepend > .btn,\\n.app-admin .input-group-lg > .input-group-append > .btn {\\n  padding: 0.5rem 1rem;\\n  font-size: 1.25rem;\\n  line-height: 1.5;\\n  border-radius: 0.3rem;\\n}\\n.app-admin .input-group-sm > .form-control:not(textarea),\\n.app-admin .input-group-sm > .custom-select {\\n  height: calc(1.5em + 0.5rem + 2px);\\n}\\n.app-admin .input-group-sm > .form-control,\\n.app-admin .input-group-sm > .custom-select,\\n.app-admin .input-group-sm > .input-group-prepend > .input-group-text,\\n.app-admin .input-group-sm > .input-group-append > .input-group-text,\\n.app-admin .input-group-sm > .input-group-prepend > .btn,\\n.app-admin .input-group-sm > .input-group-append > .btn {\\n  padding: 0.25rem 0.5rem;\\n  font-size: 0.875rem;\\n  line-height: 1.5;\\n  border-radius: 0.2rem;\\n}\\n.app-admin .input-group-lg > .custom-select,\\n.app-admin .input-group-sm > .custom-select {\\n  padding-right: 1.75rem;\\n}\\n.app-admin .input-group > .input-group-prepend > .btn,\\n.app-admin .input-group > .input-group-prepend > .input-group-text,\\n.app-admin .input-group:not(.has-validation) > .input-group-append:not(:last-child) > .btn,\\n.app-admin .input-group:not(.has-validation) > .input-group-append:not(:last-child) > .input-group-text,\\n.app-admin .input-group.has-validation > .input-group-append:nth-last-child(n+3) > .btn,\\n.app-admin .input-group.has-validation > .input-group-append:nth-last-child(n+3) > .input-group-text,\\n.app-admin .input-group > .input-group-append:last-child > .btn:not(:last-child):not(.dropdown-toggle),\\n.app-admin .input-group > .input-group-append:last-child > .input-group-text:not(:last-child) {\\n  border-top-right-radius: 0;\\n  border-bottom-right-radius: 0;\\n}\\n.app-admin .input-group > .input-group-append > .btn,\\n.app-admin .input-group > .input-group-append > .input-group-text,\\n.app-admin .input-group > .input-group-prepend:not(:first-child) > .btn,\\n.app-admin .input-group > .input-group-prepend:not(:first-child) > .input-group-text,\\n.app-admin .input-group > .input-group-prepend:first-child > .btn:not(:first-child),\\n.app-admin .input-group > .input-group-prepend:first-child > .input-group-text:not(:first-child) {\\n  border-top-left-radius: 0;\\n  border-bottom-left-radius: 0;\\n}\\n.app-admin .custom-control {\\n  position: relative;\\n  z-index: 1;\\n  display: block;\\n  min-height: 1.5rem;\\n  padding-left: 1.5rem;\\n  -webkit-print-color-adjust: exact;\\n          color-adjust: exact;\\n}\\n.app-admin .custom-control-inline {\\n  display: inline-flex;\\n  margin-right: 1rem;\\n}\\n.app-admin .custom-control-input {\\n  position: absolute;\\n  left: 0;\\n  z-index: -1;\\n  width: 1rem;\\n  height: 1.25rem;\\n  opacity: 0;\\n}\\n.app-admin .custom-control-input:checked ~ .custom-control-label::before {\\n  color: #fff;\\n  border-color: #007bff;\\n  background-color: #007bff;\\n}\\n.app-admin .custom-control-input:focus ~ .custom-control-label::before {\\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\\n}\\n.app-admin .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {\\n  border-color: #80bdff;\\n}\\n.app-admin .custom-control-input:not(:disabled):active ~ .custom-control-label::before {\\n  color: #fff;\\n  background-color: #b3d7ff;\\n  border-color: #b3d7ff;\\n}\\n.app-admin .custom-control-input[disabled] ~ .custom-control-label, .app-admin .custom-control-input:disabled ~ .custom-control-label {\\n  color: #6c757d;\\n}\\n.app-admin .custom-control-input[disabled] ~ .custom-control-label::before, .app-admin .custom-control-input:disabled ~ .custom-control-label::before {\\n  background-color: #e9ecef;\\n}\\n.app-admin .custom-control-label {\\n  position: relative;\\n  margin-bottom: 0;\\n  vertical-align: top;\\n}\\n.app-admin .custom-control-label::before {\\n  position: absolute;\\n  top: 0.25rem;\\n  left: -1.5rem;\\n  display: block;\\n  width: 1rem;\\n  height: 1rem;\\n  pointer-events: none;\\n  content: \\\"\\\";\\n  background-color: #fff;\\n  border: #adb5bd solid 1px;\\n}\\n.app-admin .custom-control-label::after {\\n  position: absolute;\\n  top: 0.25rem;\\n  left: -1.5rem;\\n  display: block;\\n  width: 1rem;\\n  height: 1rem;\\n  content: \\\"\\\";\\n  background: 50%/50% 50% no-repeat;\\n}\\n.app-admin .custom-checkbox .custom-control-label::before {\\n  border-radius: 0.25rem;\\n}\\n.app-admin .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {\\n  background-image: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/%3e%3c/svg%3e\\\");\\n}\\n.app-admin .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before {\\n  border-color: #007bff;\\n  background-color: #007bff;\\n}\\n.app-admin .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::after {\\n  background-image: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3e%3cpath stroke='%23fff' d='M0 2h4'/%3e%3c/svg%3e\\\");\\n}\\n.app-admin .custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {\\n  background-color: rgba(0, 123, 255, 0.5);\\n}\\n.app-admin .custom-checkbox .custom-control-input:disabled:indeterminate ~ .custom-control-label::before {\\n  background-color: rgba(0, 123, 255, 0.5);\\n}\\n.app-admin .custom-radio .custom-control-label::before {\\n  border-radius: 50%;\\n}\\n.app-admin .custom-radio .custom-control-input:checked ~ .custom-control-label::after {\\n  background-image: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e\\\");\\n}\\n.app-admin .custom-radio .custom-control-input:disabled:checked ~ .custom-control-label::before {\\n  background-color: rgba(0, 123, 255, 0.5);\\n}\\n.app-admin .custom-switch {\\n  padding-left: 2.25rem;\\n}\\n.app-admin .custom-switch .custom-control-label::before {\\n  left: -2.25rem;\\n  width: 1.75rem;\\n  pointer-events: all;\\n  border-radius: 0.5rem;\\n}\\n.app-admin .custom-switch .custom-control-label::after {\\n  top: calc(0.25rem + 2px);\\n  left: calc(-2.25rem + 2px);\\n  width: calc(1rem - 4px);\\n  height: calc(1rem - 4px);\\n  background-color: #adb5bd;\\n  border-radius: 0.5rem;\\n  transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .custom-switch .custom-control-label::after {\\n    transition: none;\\n}\\n}\\n.app-admin .custom-switch .custom-control-input:checked ~ .custom-control-label::after {\\n  background-color: #fff;\\n  transform: translateX(0.75rem);\\n}\\n.app-admin .custom-switch .custom-control-input:disabled:checked ~ .custom-control-label::before {\\n  background-color: rgba(0, 123, 255, 0.5);\\n}\\n.app-admin .custom-select {\\n  display: inline-block;\\n  width: 100%;\\n  height: calc(1.5em + 0.75rem + 2px);\\n  padding: 0.375rem 1.75rem 0.375rem 0.75rem;\\n  font-size: 1rem;\\n  font-weight: 400;\\n  line-height: 1.5;\\n  color: #495057;\\n  vertical-align: middle;\\n  background: #fff url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e\\\") right 0.75rem center/8px 10px no-repeat;\\n  border: 1px solid #ced4da;\\n  border-radius: 0.25rem;\\n  -webkit-appearance: none;\\n     -moz-appearance: none;\\n          appearance: none;\\n}\\n.app-admin .custom-select:focus {\\n  border-color: #80bdff;\\n  outline: 0;\\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\\n}\\n.app-admin .custom-select:focus::-ms-value {\\n  color: #495057;\\n  background-color: #fff;\\n}\\n.app-admin .custom-select[multiple], .app-admin .custom-select[size]:not([size=\\\"1\\\"]) {\\n  height: auto;\\n  padding-right: 0.75rem;\\n  background-image: none;\\n}\\n.app-admin .custom-select:disabled {\\n  color: #6c757d;\\n  background-color: #e9ecef;\\n}\\n.app-admin .custom-select::-ms-expand {\\n  display: none;\\n}\\n.app-admin .custom-select:-moz-focusring {\\n  color: transparent;\\n  text-shadow: 0 0 0 #495057;\\n}\\n.app-admin .custom-select-sm {\\n  height: calc(1.5em + 0.5rem + 2px);\\n  padding-top: 0.25rem;\\n  padding-bottom: 0.25rem;\\n  padding-left: 0.5rem;\\n  font-size: 0.875rem;\\n}\\n.app-admin .custom-select-lg {\\n  height: calc(1.5em + 1rem + 2px);\\n  padding-top: 0.5rem;\\n  padding-bottom: 0.5rem;\\n  padding-left: 1rem;\\n  font-size: 1.25rem;\\n}\\n.app-admin .custom-file {\\n  position: relative;\\n  display: inline-block;\\n  width: 100%;\\n  height: calc(1.5em + 0.75rem + 2px);\\n  margin-bottom: 0;\\n}\\n.app-admin .custom-file-input {\\n  position: relative;\\n  z-index: 2;\\n  width: 100%;\\n  height: calc(1.5em + 0.75rem + 2px);\\n  margin: 0;\\n  overflow: hidden;\\n  opacity: 0;\\n}\\n.app-admin .custom-file-input:focus ~ .custom-file-label {\\n  border-color: #80bdff;\\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\\n}\\n.app-admin .custom-file-input[disabled] ~ .custom-file-label, .app-admin .custom-file-input:disabled ~ .custom-file-label {\\n  background-color: #e9ecef;\\n}\\n.app-admin .custom-file-input:lang(en) ~ .custom-file-label::after {\\n  content: \\\"Browse\\\";\\n}\\n.app-admin .custom-file-input ~ .custom-file-label[data-browse]::after {\\n  content: attr(data-browse);\\n}\\n.app-admin .custom-file-label {\\n  position: absolute;\\n  top: 0;\\n  right: 0;\\n  left: 0;\\n  z-index: 1;\\n  height: calc(1.5em + 0.75rem + 2px);\\n  padding: 0.375rem 0.75rem;\\n  overflow: hidden;\\n  font-weight: 400;\\n  line-height: 1.5;\\n  color: #495057;\\n  background-color: #fff;\\n  border: 1px solid #ced4da;\\n  border-radius: 0.25rem;\\n}\\n.app-admin .custom-file-label::after {\\n  position: absolute;\\n  top: 0;\\n  right: 0;\\n  bottom: 0;\\n  z-index: 3;\\n  display: block;\\n  height: calc(1.5em + 0.75rem);\\n  padding: 0.375rem 0.75rem;\\n  line-height: 1.5;\\n  color: #495057;\\n  content: \\\"Browse\\\";\\n  background-color: #e9ecef;\\n  border-left: inherit;\\n  border-radius: 0 0.25rem 0.25rem 0;\\n}\\n.app-admin .custom-range {\\n  width: 100%;\\n  height: 1.4rem;\\n  padding: 0;\\n  background-color: transparent;\\n  -webkit-appearance: none;\\n     -moz-appearance: none;\\n          appearance: none;\\n}\\n.app-admin .custom-range:focus {\\n  outline: 0;\\n}\\n.app-admin .custom-range:focus::-webkit-slider-thumb {\\n  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\\n}\\n.app-admin .custom-range:focus::-moz-range-thumb {\\n  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\\n}\\n.app-admin .custom-range:focus::-ms-thumb {\\n  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\\n}\\n.app-admin .custom-range::-moz-focus-outer {\\n  border: 0;\\n}\\n.app-admin .custom-range::-webkit-slider-thumb {\\n  width: 1rem;\\n  height: 1rem;\\n  margin-top: -0.25rem;\\n  background-color: #007bff;\\n  border: 0;\\n  border-radius: 1rem;\\n  -webkit-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\\n  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\\n  -webkit-appearance: none;\\n          appearance: none;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .custom-range::-webkit-slider-thumb {\\n    -webkit-transition: none;\\n    transition: none;\\n}\\n}\\n.app-admin .custom-range::-webkit-slider-thumb:active {\\n  background-color: #b3d7ff;\\n}\\n.app-admin .custom-range::-webkit-slider-runnable-track {\\n  width: 100%;\\n  height: 0.5rem;\\n  color: transparent;\\n  cursor: pointer;\\n  background-color: #dee2e6;\\n  border-color: transparent;\\n  border-radius: 1rem;\\n}\\n.app-admin .custom-range::-moz-range-thumb {\\n  width: 1rem;\\n  height: 1rem;\\n  background-color: #007bff;\\n  border: 0;\\n  border-radius: 1rem;\\n  -moz-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\\n  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\\n  -moz-appearance: none;\\n       appearance: none;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .custom-range::-moz-range-thumb {\\n    -moz-transition: none;\\n    transition: none;\\n}\\n}\\n.app-admin .custom-range::-moz-range-thumb:active {\\n  background-color: #b3d7ff;\\n}\\n.app-admin .custom-range::-moz-range-track {\\n  width: 100%;\\n  height: 0.5rem;\\n  color: transparent;\\n  cursor: pointer;\\n  background-color: #dee2e6;\\n  border-color: transparent;\\n  border-radius: 1rem;\\n}\\n.app-admin .custom-range::-ms-thumb {\\n  width: 1rem;\\n  height: 1rem;\\n  margin-top: 0;\\n  margin-right: 0.2rem;\\n  margin-left: 0.2rem;\\n  background-color: #007bff;\\n  border: 0;\\n  border-radius: 1rem;\\n  -ms-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\\n  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\\n  appearance: none;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .custom-range::-ms-thumb {\\n    -ms-transition: none;\\n    transition: none;\\n}\\n}\\n.app-admin .custom-range::-ms-thumb:active {\\n  background-color: #b3d7ff;\\n}\\n.app-admin .custom-range::-ms-track {\\n  width: 100%;\\n  height: 0.5rem;\\n  color: transparent;\\n  cursor: pointer;\\n  background-color: transparent;\\n  border-color: transparent;\\n  border-width: 0.5rem;\\n}\\n.app-admin .custom-range::-ms-fill-lower {\\n  background-color: #dee2e6;\\n  border-radius: 1rem;\\n}\\n.app-admin .custom-range::-ms-fill-upper {\\n  margin-right: 15px;\\n  background-color: #dee2e6;\\n  border-radius: 1rem;\\n}\\n.app-admin .custom-range:disabled::-webkit-slider-thumb {\\n  background-color: #adb5bd;\\n}\\n.app-admin .custom-range:disabled::-webkit-slider-runnable-track {\\n  cursor: default;\\n}\\n.app-admin .custom-range:disabled::-moz-range-thumb {\\n  background-color: #adb5bd;\\n}\\n.app-admin .custom-range:disabled::-moz-range-track {\\n  cursor: default;\\n}\\n.app-admin .custom-range:disabled::-ms-thumb {\\n  background-color: #adb5bd;\\n}\\n.app-admin .custom-control-label::before,\\n.app-admin .custom-file-label,\\n.app-admin .custom-select {\\n  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .custom-control-label::before,\\n.app-admin .custom-file-label,\\n.app-admin .custom-select {\\n    transition: none;\\n}\\n}\\n.app-admin .nav {\\n  display: flex;\\n  flex-wrap: wrap;\\n  padding-left: 0;\\n  margin-bottom: 0;\\n  list-style: none;\\n}\\n.app-admin .nav-link {\\n  display: block;\\n  padding: 0.5rem 1rem;\\n}\\n.app-admin .nav-link:hover, .app-admin .nav-link:focus {\\n  text-decoration: none;\\n}\\n.app-admin .nav-link.disabled {\\n  color: #6c757d;\\n  pointer-events: none;\\n  cursor: default;\\n}\\n.app-admin .nav-tabs {\\n  border-bottom: 1px solid #dee2e6;\\n}\\n.app-admin .nav-tabs .nav-link {\\n  margin-bottom: -1px;\\n  border: 1px solid transparent;\\n  border-top-left-radius: 0.25rem;\\n  border-top-right-radius: 0.25rem;\\n}\\n.app-admin .nav-tabs .nav-link:hover, .app-admin .nav-tabs .nav-link:focus {\\n  border-color: #e9ecef #e9ecef #dee2e6;\\n}\\n.app-admin .nav-tabs .nav-link.disabled {\\n  color: #6c757d;\\n  background-color: transparent;\\n  border-color: transparent;\\n}\\n.app-admin .nav-tabs .nav-link.active,\\n.app-admin .nav-tabs .nav-item.show .nav-link {\\n  color: #495057;\\n  background-color: #fff;\\n  border-color: #dee2e6 #dee2e6 #fff;\\n}\\n.app-admin .nav-tabs .dropdown-menu {\\n  margin-top: -1px;\\n  border-top-left-radius: 0;\\n  border-top-right-radius: 0;\\n}\\n.app-admin .nav-pills .nav-link {\\n  border-radius: 0.25rem;\\n}\\n.app-admin .nav-pills .nav-link.active,\\n.app-admin .nav-pills .show > .nav-link {\\n  color: #fff;\\n  background-color: #007bff;\\n}\\n.app-admin .nav-fill > .nav-link,\\n.app-admin .nav-fill .nav-item {\\n  flex: 1 1 auto;\\n  text-align: center;\\n}\\n.app-admin .nav-justified > .nav-link,\\n.app-admin .nav-justified .nav-item {\\n  flex-basis: 0;\\n  flex-grow: 1;\\n  text-align: center;\\n}\\n.app-admin .tab-content > .tab-pane {\\n  display: none;\\n}\\n.app-admin .tab-content > .active {\\n  display: block;\\n}\\n.app-admin .navbar {\\n  position: relative;\\n  display: flex;\\n  flex-wrap: wrap;\\n  align-items: center;\\n  justify-content: space-between;\\n  padding: 0.5rem 1rem;\\n}\\n.app-admin .navbar .container,\\n.app-admin .navbar .container-fluid,\\n.app-admin .navbar .container-sm,\\n.app-admin .navbar .container-md,\\n.app-admin .navbar .container-lg,\\n.app-admin .navbar .container-xl {\\n  display: flex;\\n  flex-wrap: wrap;\\n  align-items: center;\\n  justify-content: space-between;\\n}\\n.app-admin .navbar-brand {\\n  display: inline-block;\\n  padding-top: 0.3125rem;\\n  padding-bottom: 0.3125rem;\\n  margin-right: 1rem;\\n  font-size: 1.25rem;\\n  line-height: inherit;\\n  white-space: nowrap;\\n}\\n.app-admin .navbar-brand:hover, .app-admin .navbar-brand:focus {\\n  text-decoration: none;\\n}\\n.app-admin .navbar-nav {\\n  display: flex;\\n  flex-direction: column;\\n  padding-left: 0;\\n  margin-bottom: 0;\\n  list-style: none;\\n}\\n.app-admin .navbar-nav .nav-link {\\n  padding-right: 0;\\n  padding-left: 0;\\n}\\n.app-admin .navbar-nav .dropdown-menu {\\n  position: static;\\n  float: none;\\n}\\n.app-admin .navbar-text {\\n  display: inline-block;\\n  padding-top: 0.5rem;\\n  padding-bottom: 0.5rem;\\n}\\n.app-admin .navbar-collapse {\\n  flex-basis: 100%;\\n  flex-grow: 1;\\n  align-items: center;\\n}\\n.app-admin .navbar-toggler {\\n  padding: 0.25rem 0.75rem;\\n  font-size: 1.25rem;\\n  line-height: 1;\\n  background-color: transparent;\\n  border: 1px solid transparent;\\n  border-radius: 0.25rem;\\n}\\n.app-admin .navbar-toggler:hover, .app-admin .navbar-toggler:focus {\\n  text-decoration: none;\\n}\\n.app-admin .navbar-toggler-icon {\\n  display: inline-block;\\n  width: 1.5em;\\n  height: 1.5em;\\n  vertical-align: middle;\\n  content: \\\"\\\";\\n  background: 50%/100% 100% no-repeat;\\n}\\n.app-admin .navbar-nav-scroll {\\n  max-height: 75vh;\\n  overflow-y: auto;\\n}\\n@media (max-width: 575.98px) {\\n.app-admin .navbar-expand-sm > .container,\\n.app-admin .navbar-expand-sm > .container-fluid,\\n.app-admin .navbar-expand-sm > .container-sm,\\n.app-admin .navbar-expand-sm > .container-md,\\n.app-admin .navbar-expand-sm > .container-lg,\\n.app-admin .navbar-expand-sm > .container-xl {\\n    padding-right: 0;\\n    padding-left: 0;\\n}\\n}\\n@media (min-width: 576px) {\\n.app-admin .navbar-expand-sm {\\n    flex-flow: row nowrap;\\n    justify-content: flex-start;\\n}\\n.app-admin .navbar-expand-sm .navbar-nav {\\n    flex-direction: row;\\n}\\n.app-admin .navbar-expand-sm .navbar-nav .dropdown-menu {\\n    position: absolute;\\n}\\n.app-admin .navbar-expand-sm .navbar-nav .nav-link {\\n    padding-right: 0.5rem;\\n    padding-left: 0.5rem;\\n}\\n.app-admin .navbar-expand-sm > .container,\\n.app-admin .navbar-expand-sm > .container-fluid,\\n.app-admin .navbar-expand-sm > .container-sm,\\n.app-admin .navbar-expand-sm > .container-md,\\n.app-admin .navbar-expand-sm > .container-lg,\\n.app-admin .navbar-expand-sm > .container-xl {\\n    flex-wrap: nowrap;\\n}\\n.app-admin .navbar-expand-sm .navbar-nav-scroll {\\n    overflow: visible;\\n}\\n.app-admin .navbar-expand-sm .navbar-collapse {\\n    display: flex !important;\\n    flex-basis: auto;\\n}\\n.app-admin .navbar-expand-sm .navbar-toggler {\\n    display: none;\\n}\\n}\\n@media (max-width: 767.98px) {\\n.app-admin .navbar-expand-md > .container,\\n.app-admin .navbar-expand-md > .container-fluid,\\n.app-admin .navbar-expand-md > .container-sm,\\n.app-admin .navbar-expand-md > .container-md,\\n.app-admin .navbar-expand-md > .container-lg,\\n.app-admin .navbar-expand-md > .container-xl {\\n    padding-right: 0;\\n    padding-left: 0;\\n}\\n}\\n@media (min-width: 768px) {\\n.app-admin .navbar-expand-md {\\n    flex-flow: row nowrap;\\n    justify-content: flex-start;\\n}\\n.app-admin .navbar-expand-md .navbar-nav {\\n    flex-direction: row;\\n}\\n.app-admin .navbar-expand-md .navbar-nav .dropdown-menu {\\n    position: absolute;\\n}\\n.app-admin .navbar-expand-md .navbar-nav .nav-link {\\n    padding-right: 0.5rem;\\n    padding-left: 0.5rem;\\n}\\n.app-admin .navbar-expand-md > .container,\\n.app-admin .navbar-expand-md > .container-fluid,\\n.app-admin .navbar-expand-md > .container-sm,\\n.app-admin .navbar-expand-md > .container-md,\\n.app-admin .navbar-expand-md > .container-lg,\\n.app-admin .navbar-expand-md > .container-xl {\\n    flex-wrap: nowrap;\\n}\\n.app-admin .navbar-expand-md .navbar-nav-scroll {\\n    overflow: visible;\\n}\\n.app-admin .navbar-expand-md .navbar-collapse {\\n    display: flex !important;\\n    flex-basis: auto;\\n}\\n.app-admin .navbar-expand-md .navbar-toggler {\\n    display: none;\\n}\\n}\\n@media (max-width: 991.98px) {\\n.app-admin .navbar-expand-lg > .container,\\n.app-admin .navbar-expand-lg > .container-fluid,\\n.app-admin .navbar-expand-lg > .container-sm,\\n.app-admin .navbar-expand-lg > .container-md,\\n.app-admin .navbar-expand-lg > .container-lg,\\n.app-admin .navbar-expand-lg > .container-xl {\\n    padding-right: 0;\\n    padding-left: 0;\\n}\\n}\\n@media (min-width: 992px) {\\n.app-admin .navbar-expand-lg {\\n    flex-flow: row nowrap;\\n    justify-content: flex-start;\\n}\\n.app-admin .navbar-expand-lg .navbar-nav {\\n    flex-direction: row;\\n}\\n.app-admin .navbar-expand-lg .navbar-nav .dropdown-menu {\\n    position: absolute;\\n}\\n.app-admin .navbar-expand-lg .navbar-nav .nav-link {\\n    padding-right: 0.5rem;\\n    padding-left: 0.5rem;\\n}\\n.app-admin .navbar-expand-lg > .container,\\n.app-admin .navbar-expand-lg > .container-fluid,\\n.app-admin .navbar-expand-lg > .container-sm,\\n.app-admin .navbar-expand-lg > .container-md,\\n.app-admin .navbar-expand-lg > .container-lg,\\n.app-admin .navbar-expand-lg > .container-xl {\\n    flex-wrap: nowrap;\\n}\\n.app-admin .navbar-expand-lg .navbar-nav-scroll {\\n    overflow: visible;\\n}\\n.app-admin .navbar-expand-lg .navbar-collapse {\\n    display: flex !important;\\n    flex-basis: auto;\\n}\\n.app-admin .navbar-expand-lg .navbar-toggler {\\n    display: none;\\n}\\n}\\n@media (max-width: 1199.98px) {\\n.app-admin .navbar-expand-xl > .container,\\n.app-admin .navbar-expand-xl > .container-fluid,\\n.app-admin .navbar-expand-xl > .container-sm,\\n.app-admin .navbar-expand-xl > .container-md,\\n.app-admin .navbar-expand-xl > .container-lg,\\n.app-admin .navbar-expand-xl > .container-xl {\\n    padding-right: 0;\\n    padding-left: 0;\\n}\\n}\\n@media (min-width: 1200px) {\\n.app-admin .navbar-expand-xl {\\n    flex-flow: row nowrap;\\n    justify-content: flex-start;\\n}\\n.app-admin .navbar-expand-xl .navbar-nav {\\n    flex-direction: row;\\n}\\n.app-admin .navbar-expand-xl .navbar-nav .dropdown-menu {\\n    position: absolute;\\n}\\n.app-admin .navbar-expand-xl .navbar-nav .nav-link {\\n    padding-right: 0.5rem;\\n    padding-left: 0.5rem;\\n}\\n.app-admin .navbar-expand-xl > .container,\\n.app-admin .navbar-expand-xl > .container-fluid,\\n.app-admin .navbar-expand-xl > .container-sm,\\n.app-admin .navbar-expand-xl > .container-md,\\n.app-admin .navbar-expand-xl > .container-lg,\\n.app-admin .navbar-expand-xl > .container-xl {\\n    flex-wrap: nowrap;\\n}\\n.app-admin .navbar-expand-xl .navbar-nav-scroll {\\n    overflow: visible;\\n}\\n.app-admin .navbar-expand-xl .navbar-collapse {\\n    display: flex !important;\\n    flex-basis: auto;\\n}\\n.app-admin .navbar-expand-xl .navbar-toggler {\\n    display: none;\\n}\\n}\\n.app-admin .navbar-expand {\\n  flex-flow: row nowrap;\\n  justify-content: flex-start;\\n}\\n.app-admin .navbar-expand > .container,\\n.app-admin .navbar-expand > .container-fluid,\\n.app-admin .navbar-expand > .container-sm,\\n.app-admin .navbar-expand > .container-md,\\n.app-admin .navbar-expand > .container-lg,\\n.app-admin .navbar-expand > .container-xl {\\n  padding-right: 0;\\n  padding-left: 0;\\n}\\n.app-admin .navbar-expand .navbar-nav {\\n  flex-direction: row;\\n}\\n.app-admin .navbar-expand .navbar-nav .dropdown-menu {\\n  position: absolute;\\n}\\n.app-admin .navbar-expand .navbar-nav .nav-link {\\n  padding-right: 0.5rem;\\n  padding-left: 0.5rem;\\n}\\n.app-admin .navbar-expand > .container,\\n.app-admin .navbar-expand > .container-fluid,\\n.app-admin .navbar-expand > .container-sm,\\n.app-admin .navbar-expand > .container-md,\\n.app-admin .navbar-expand > .container-lg,\\n.app-admin .navbar-expand > .container-xl {\\n  flex-wrap: nowrap;\\n}\\n.app-admin .navbar-expand .navbar-nav-scroll {\\n  overflow: visible;\\n}\\n.app-admin .navbar-expand .navbar-collapse {\\n  display: flex !important;\\n  flex-basis: auto;\\n}\\n.app-admin .navbar-expand .navbar-toggler {\\n  display: none;\\n}\\n.app-admin .navbar-light .navbar-brand {\\n  color: rgba(0, 0, 0, 0.9);\\n}\\n.app-admin .navbar-light .navbar-brand:hover, .app-admin .navbar-light .navbar-brand:focus {\\n  color: rgba(0, 0, 0, 0.9);\\n}\\n.app-admin .navbar-light .navbar-nav .nav-link {\\n  color: rgba(0, 0, 0, 0.5);\\n}\\n.app-admin .navbar-light .navbar-nav .nav-link:hover, .app-admin .navbar-light .navbar-nav .nav-link:focus {\\n  color: rgba(0, 0, 0, 0.7);\\n}\\n.app-admin .navbar-light .navbar-nav .nav-link.disabled {\\n  color: rgba(0, 0, 0, 0.3);\\n}\\n.app-admin .navbar-light .navbar-nav .show > .nav-link,\\n.app-admin .navbar-light .navbar-nav .active > .nav-link,\\n.app-admin .navbar-light .navbar-nav .nav-link.show,\\n.app-admin .navbar-light .navbar-nav .nav-link.active {\\n  color: rgba(0, 0, 0, 0.9);\\n}\\n.app-admin .navbar-light .navbar-toggler {\\n  color: rgba(0, 0, 0, 0.5);\\n  border-color: rgba(0, 0, 0, 0.1);\\n}\\n.app-admin .navbar-light .navbar-toggler-icon {\\n  background-image: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e\\\");\\n}\\n.app-admin .navbar-light .navbar-text {\\n  color: rgba(0, 0, 0, 0.5);\\n}\\n.app-admin .navbar-light .navbar-text a {\\n  color: rgba(0, 0, 0, 0.9);\\n}\\n.app-admin .navbar-light .navbar-text a:hover, .app-admin .navbar-light .navbar-text a:focus {\\n  color: rgba(0, 0, 0, 0.9);\\n}\\n.app-admin .navbar-dark .navbar-brand {\\n  color: #fff;\\n}\\n.app-admin .navbar-dark .navbar-brand:hover, .app-admin .navbar-dark .navbar-brand:focus {\\n  color: #fff;\\n}\\n.app-admin .navbar-dark .navbar-nav .nav-link {\\n  color: rgba(255, 255, 255, 0.5);\\n}\\n.app-admin .navbar-dark .navbar-nav .nav-link:hover, .app-admin .navbar-dark .navbar-nav .nav-link:focus {\\n  color: rgba(255, 255, 255, 0.75);\\n}\\n.app-admin .navbar-dark .navbar-nav .nav-link.disabled {\\n  color: rgba(255, 255, 255, 0.25);\\n}\\n.app-admin .navbar-dark .navbar-nav .show > .nav-link,\\n.app-admin .navbar-dark .navbar-nav .active > .nav-link,\\n.app-admin .navbar-dark .navbar-nav .nav-link.show,\\n.app-admin .navbar-dark .navbar-nav .nav-link.active {\\n  color: #fff;\\n}\\n.app-admin .navbar-dark .navbar-toggler {\\n  color: rgba(255, 255, 255, 0.5);\\n  border-color: rgba(255, 255, 255, 0.1);\\n}\\n.app-admin .navbar-dark .navbar-toggler-icon {\\n  background-image: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e\\\");\\n}\\n.app-admin .navbar-dark .navbar-text {\\n  color: rgba(255, 255, 255, 0.5);\\n}\\n.app-admin .navbar-dark .navbar-text a {\\n  color: #fff;\\n}\\n.app-admin .navbar-dark .navbar-text a:hover, .app-admin .navbar-dark .navbar-text a:focus {\\n  color: #fff;\\n}\\n.app-admin .card {\\n  position: relative;\\n  display: flex;\\n  flex-direction: column;\\n  min-width: 0;\\n  word-wrap: break-word;\\n  background-color: #fff;\\n  background-clip: border-box;\\n  border: 1px solid rgba(0, 0, 0, 0.125);\\n  border-radius: 0.25rem;\\n}\\n.app-admin .card > hr {\\n  margin-right: 0;\\n  margin-left: 0;\\n}\\n.app-admin .card > .list-group {\\n  border-top: inherit;\\n  border-bottom: inherit;\\n}\\n.app-admin .card > .list-group:first-child {\\n  border-top-width: 0;\\n  border-top-left-radius: calc(0.25rem - 1px);\\n  border-top-right-radius: calc(0.25rem - 1px);\\n}\\n.app-admin .card > .list-group:last-child {\\n  border-bottom-width: 0;\\n  border-bottom-right-radius: calc(0.25rem - 1px);\\n  border-bottom-left-radius: calc(0.25rem - 1px);\\n}\\n.app-admin .card > .card-header + .list-group,\\n.app-admin .card > .list-group + .card-footer {\\n  border-top: 0;\\n}\\n.app-admin .card-body {\\n  flex: 1 1 auto;\\n  min-height: 1px;\\n  padding: 1.25rem;\\n}\\n.app-admin .card-title {\\n  margin-bottom: 0.75rem;\\n}\\n.app-admin .card-subtitle {\\n  margin-top: -0.375rem;\\n  margin-bottom: 0;\\n}\\n.app-admin .card-text:last-child {\\n  margin-bottom: 0;\\n}\\n.app-admin .card-link:hover {\\n  text-decoration: none;\\n}\\n.app-admin .card-link + .card-link {\\n  margin-left: 1.25rem;\\n}\\n.app-admin .card-header {\\n  padding: 0.75rem 1.25rem;\\n  margin-bottom: 0;\\n  background-color: rgba(0, 0, 0, 0.03);\\n  border-bottom: 1px solid rgba(0, 0, 0, 0.125);\\n}\\n.app-admin .card-header:first-child {\\n  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;\\n}\\n.app-admin .card-footer {\\n  padding: 0.75rem 1.25rem;\\n  background-color: rgba(0, 0, 0, 0.03);\\n  border-top: 1px solid rgba(0, 0, 0, 0.125);\\n}\\n.app-admin .card-footer:last-child {\\n  border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);\\n}\\n.app-admin .card-header-tabs {\\n  margin-right: -0.625rem;\\n  margin-bottom: -0.75rem;\\n  margin-left: -0.625rem;\\n  border-bottom: 0;\\n}\\n.app-admin .card-header-pills {\\n  margin-right: -0.625rem;\\n  margin-left: -0.625rem;\\n}\\n.app-admin .card-img-overlay {\\n  position: absolute;\\n  top: 0;\\n  right: 0;\\n  bottom: 0;\\n  left: 0;\\n  padding: 1.25rem;\\n  border-radius: calc(0.25rem - 1px);\\n}\\n.app-admin .card-img,\\n.app-admin .card-img-top,\\n.app-admin .card-img-bottom {\\n  flex-shrink: 0;\\n  width: 100%;\\n}\\n.app-admin .card-img,\\n.app-admin .card-img-top {\\n  border-top-left-radius: calc(0.25rem - 1px);\\n  border-top-right-radius: calc(0.25rem - 1px);\\n}\\n.app-admin .card-img,\\n.app-admin .card-img-bottom {\\n  border-bottom-right-radius: calc(0.25rem - 1px);\\n  border-bottom-left-radius: calc(0.25rem - 1px);\\n}\\n.app-admin .card-deck .card {\\n  margin-bottom: 15px;\\n}\\n@media (min-width: 576px) {\\n.app-admin .card-deck {\\n    display: flex;\\n    flex-flow: row wrap;\\n    margin-right: -15px;\\n    margin-left: -15px;\\n}\\n.app-admin .card-deck .card {\\n    flex: 1 0 0%;\\n    margin-right: 15px;\\n    margin-bottom: 0;\\n    margin-left: 15px;\\n}\\n}\\n.app-admin .card-group > .card {\\n  margin-bottom: 15px;\\n}\\n@media (min-width: 576px) {\\n.app-admin .card-group {\\n    display: flex;\\n    flex-flow: row wrap;\\n}\\n.app-admin .card-group > .card {\\n    flex: 1 0 0%;\\n    margin-bottom: 0;\\n}\\n.app-admin .card-group > .card + .card {\\n    margin-left: 0;\\n    border-left: 0;\\n}\\n.app-admin .card-group > .card:not(:last-child) {\\n    border-top-right-radius: 0;\\n    border-bottom-right-radius: 0;\\n}\\n.app-admin .card-group > .card:not(:last-child) .card-img-top,\\n.app-admin .card-group > .card:not(:last-child) .card-header {\\n    border-top-right-radius: 0;\\n}\\n.app-admin .card-group > .card:not(:last-child) .card-img-bottom,\\n.app-admin .card-group > .card:not(:last-child) .card-footer {\\n    border-bottom-right-radius: 0;\\n}\\n.app-admin .card-group > .card:not(:first-child) {\\n    border-top-left-radius: 0;\\n    border-bottom-left-radius: 0;\\n}\\n.app-admin .card-group > .card:not(:first-child) .card-img-top,\\n.app-admin .card-group > .card:not(:first-child) .card-header {\\n    border-top-left-radius: 0;\\n}\\n.app-admin .card-group > .card:not(:first-child) .card-img-bottom,\\n.app-admin .card-group > .card:not(:first-child) .card-footer {\\n    border-bottom-left-radius: 0;\\n}\\n}\\n.app-admin .card-columns .card {\\n  margin-bottom: 0.75rem;\\n}\\n@media (min-width: 576px) {\\n.app-admin .card-columns {\\n    -moz-column-count: 3;\\n         column-count: 3;\\n    -moz-column-gap: 1.25rem;\\n         column-gap: 1.25rem;\\n    orphans: 1;\\n    widows: 1;\\n}\\n.app-admin .card-columns .card {\\n    display: inline-block;\\n    width: 100%;\\n}\\n}\\n.app-admin .accordion {\\n  overflow-anchor: none;\\n}\\n.app-admin .accordion > .card {\\n  overflow: hidden;\\n}\\n.app-admin .accordion > .card:not(:last-of-type) {\\n  border-bottom: 0;\\n  border-bottom-right-radius: 0;\\n  border-bottom-left-radius: 0;\\n}\\n.app-admin .accordion > .card:not(:first-of-type) {\\n  border-top-left-radius: 0;\\n  border-top-right-radius: 0;\\n}\\n.app-admin .accordion > .card > .card-header {\\n  border-radius: 0;\\n  margin-bottom: -1px;\\n}\\n.app-admin .breadcrumb {\\n  display: flex;\\n  flex-wrap: wrap;\\n  padding: 0.75rem 1rem;\\n  margin-bottom: 1rem;\\n  list-style: none;\\n  background-color: #e9ecef;\\n  border-radius: 0.25rem;\\n}\\n.app-admin .breadcrumb-item + .breadcrumb-item {\\n  padding-left: 0.5rem;\\n}\\n.app-admin .breadcrumb-item + .breadcrumb-item::before {\\n  float: left;\\n  padding-right: 0.5rem;\\n  color: #6c757d;\\n  content: \\\"/\\\";\\n}\\n.app-admin .breadcrumb-item + .breadcrumb-item:hover::before {\\n  text-decoration: underline;\\n}\\n.app-admin .breadcrumb-item + .breadcrumb-item:hover::before {\\n  text-decoration: none;\\n}\\n.app-admin .breadcrumb-item.active {\\n  color: #6c757d;\\n}\\n.app-admin .pagination {\\n  display: flex;\\n  padding-left: 0;\\n  list-style: none;\\n  border-radius: 0.25rem;\\n}\\n.app-admin .page-link {\\n  position: relative;\\n  display: block;\\n  padding: 0.5rem 0.75rem;\\n  margin-left: -1px;\\n  line-height: 1.25;\\n  color: #007bff;\\n  background-color: #fff;\\n  border: 1px solid #dee2e6;\\n}\\n.app-admin .page-link:hover {\\n  z-index: 2;\\n  color: #0056b3;\\n  text-decoration: none;\\n  background-color: #e9ecef;\\n  border-color: #dee2e6;\\n}\\n.app-admin .page-link:focus {\\n  z-index: 3;\\n  outline: 0;\\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\\n}\\n.app-admin .page-item:first-child .page-link {\\n  margin-left: 0;\\n  border-top-left-radius: 0.25rem;\\n  border-bottom-left-radius: 0.25rem;\\n}\\n.app-admin .page-item:last-child .page-link {\\n  border-top-right-radius: 0.25rem;\\n  border-bottom-right-radius: 0.25rem;\\n}\\n.app-admin .page-item.active .page-link {\\n  z-index: 3;\\n  color: #fff;\\n  background-color: #007bff;\\n  border-color: #007bff;\\n}\\n.app-admin .page-item.disabled .page-link {\\n  color: #6c757d;\\n  pointer-events: none;\\n  cursor: auto;\\n  background-color: #fff;\\n  border-color: #dee2e6;\\n}\\n.app-admin .pagination-lg .page-link {\\n  padding: 0.75rem 1.5rem;\\n  font-size: 1.25rem;\\n  line-height: 1.5;\\n}\\n.app-admin .pagination-lg .page-item:first-child .page-link {\\n  border-top-left-radius: 0.3rem;\\n  border-bottom-left-radius: 0.3rem;\\n}\\n.app-admin .pagination-lg .page-item:last-child .page-link {\\n  border-top-right-radius: 0.3rem;\\n  border-bottom-right-radius: 0.3rem;\\n}\\n.app-admin .pagination-sm .page-link {\\n  padding: 0.25rem 0.5rem;\\n  font-size: 0.875rem;\\n  line-height: 1.5;\\n}\\n.app-admin .pagination-sm .page-item:first-child .page-link {\\n  border-top-left-radius: 0.2rem;\\n  border-bottom-left-radius: 0.2rem;\\n}\\n.app-admin .pagination-sm .page-item:last-child .page-link {\\n  border-top-right-radius: 0.2rem;\\n  border-bottom-right-radius: 0.2rem;\\n}\\n.app-admin .badge {\\n  display: inline-block;\\n  padding: 0.25em 0.4em;\\n  font-size: 75%;\\n  font-weight: 700;\\n  line-height: 1;\\n  text-align: center;\\n  white-space: nowrap;\\n  vertical-align: baseline;\\n  border-radius: 0.25rem;\\n  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .badge {\\n    transition: none;\\n}\\n}\\na.app-admin .badge:hover, a.app-admin .badge:focus {\\n  text-decoration: none;\\n}\\n.app-admin .badge:empty {\\n  display: none;\\n}\\n.app-admin .btn .badge {\\n  position: relative;\\n  top: -1px;\\n}\\n.app-admin .badge-pill {\\n  padding-right: 0.6em;\\n  padding-left: 0.6em;\\n  border-radius: 10rem;\\n}\\n.app-admin .badge-primary {\\n  color: #fff;\\n  background-color: #007bff;\\n}\\na.app-admin .badge-primary:hover, a.app-admin .badge-primary:focus {\\n  color: #fff;\\n  background-color: #0062cc;\\n}\\na.app-admin .badge-primary:focus, a.app-admin .badge-primary.focus {\\n  outline: 0;\\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\\n}\\n.app-admin .badge-secondary {\\n  color: #fff;\\n  background-color: #6c757d;\\n}\\na.app-admin .badge-secondary:hover, a.app-admin .badge-secondary:focus {\\n  color: #fff;\\n  background-color: #545b62;\\n}\\na.app-admin .badge-secondary:focus, a.app-admin .badge-secondary.focus {\\n  outline: 0;\\n  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);\\n}\\n.app-admin .badge-success {\\n  color: #fff;\\n  background-color: #28a745;\\n}\\na.app-admin .badge-success:hover, a.app-admin .badge-success:focus {\\n  color: #fff;\\n  background-color: #1e7e34;\\n}\\na.app-admin .badge-success:focus, a.app-admin .badge-success.focus {\\n  outline: 0;\\n  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);\\n}\\n.app-admin .badge-info {\\n  color: #fff;\\n  background-color: #17a2b8;\\n}\\na.app-admin .badge-info:hover, a.app-admin .badge-info:focus {\\n  color: #fff;\\n  background-color: #117a8b;\\n}\\na.app-admin .badge-info:focus, a.app-admin .badge-info.focus {\\n  outline: 0;\\n  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5);\\n}\\n.app-admin .badge-warning {\\n  color: #212529;\\n  background-color: #ffc107;\\n}\\na.app-admin .badge-warning:hover, a.app-admin .badge-warning:focus {\\n  color: #212529;\\n  background-color: #d39e00;\\n}\\na.app-admin .badge-warning:focus, a.app-admin .badge-warning.focus {\\n  outline: 0;\\n  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5);\\n}\\n.app-admin .badge-danger {\\n  color: #fff;\\n  background-color: #dc3545;\\n}\\na.app-admin .badge-danger:hover, a.app-admin .badge-danger:focus {\\n  color: #fff;\\n  background-color: #bd2130;\\n}\\na.app-admin .badge-danger:focus, a.app-admin .badge-danger.focus {\\n  outline: 0;\\n  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);\\n}\\n.app-admin .badge-light {\\n  color: #212529;\\n  background-color: #f8f9fa;\\n}\\na.app-admin .badge-light:hover, a.app-admin .badge-light:focus {\\n  color: #212529;\\n  background-color: #dae0e5;\\n}\\na.app-admin .badge-light:focus, a.app-admin .badge-light.focus {\\n  outline: 0;\\n  box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);\\n}\\n.app-admin .badge-dark {\\n  color: #fff;\\n  background-color: #343a40;\\n}\\na.app-admin .badge-dark:hover, a.app-admin .badge-dark:focus {\\n  color: #fff;\\n  background-color: #1d2124;\\n}\\na.app-admin .badge-dark:focus, a.app-admin .badge-dark.focus {\\n  outline: 0;\\n  box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);\\n}\\n.app-admin .jumbotron {\\n  padding: 2rem 1rem;\\n  margin-bottom: 2rem;\\n  background-color: #e9ecef;\\n  border-radius: 0.3rem;\\n}\\n@media (min-width: 576px) {\\n.app-admin .jumbotron {\\n    padding: 4rem 2rem;\\n}\\n}\\n.app-admin .jumbotron-fluid {\\n  padding-right: 0;\\n  padding-left: 0;\\n  border-radius: 0;\\n}\\n.app-admin .alert {\\n  position: relative;\\n  padding: 0.75rem 1.25rem;\\n  margin-bottom: 1rem;\\n  border: 1px solid transparent;\\n  border-radius: 0.25rem;\\n}\\n.app-admin .alert-heading {\\n  color: inherit;\\n}\\n.app-admin .alert-link {\\n  font-weight: 700;\\n}\\n.app-admin .alert-dismissible {\\n  padding-right: 4rem;\\n}\\n.app-admin .alert-dismissible .close {\\n  position: absolute;\\n  top: 0;\\n  right: 0;\\n  z-index: 2;\\n  padding: 0.75rem 1.25rem;\\n  color: inherit;\\n}\\n.app-admin .alert-primary {\\n  color: #004085;\\n  background-color: #cce5ff;\\n  border-color: #b8daff;\\n}\\n.app-admin .alert-primary hr {\\n  border-top-color: #9fcdff;\\n}\\n.app-admin .alert-primary .alert-link {\\n  color: #002752;\\n}\\n.app-admin .alert-secondary {\\n  color: #383d41;\\n  background-color: #e2e3e5;\\n  border-color: #d6d8db;\\n}\\n.app-admin .alert-secondary hr {\\n  border-top-color: #c8cbcf;\\n}\\n.app-admin .alert-secondary .alert-link {\\n  color: #202326;\\n}\\n.app-admin .alert-success {\\n  color: #155724;\\n  background-color: #d4edda;\\n  border-color: #c3e6cb;\\n}\\n.app-admin .alert-success hr {\\n  border-top-color: #b1dfbb;\\n}\\n.app-admin .alert-success .alert-link {\\n  color: #0b2e13;\\n}\\n.app-admin .alert-info {\\n  color: #0c5460;\\n  background-color: #d1ecf1;\\n  border-color: #bee5eb;\\n}\\n.app-admin .alert-info hr {\\n  border-top-color: #abdde5;\\n}\\n.app-admin .alert-info .alert-link {\\n  color: #062c33;\\n}\\n.app-admin .alert-warning {\\n  color: #856404;\\n  background-color: #fff3cd;\\n  border-color: #ffeeba;\\n}\\n.app-admin .alert-warning hr {\\n  border-top-color: #ffe8a1;\\n}\\n.app-admin .alert-warning .alert-link {\\n  color: #533f03;\\n}\\n.app-admin .alert-danger {\\n  color: #721c24;\\n  background-color: #f8d7da;\\n  border-color: #f5c6cb;\\n}\\n.app-admin .alert-danger hr {\\n  border-top-color: #f1b0b7;\\n}\\n.app-admin .alert-danger .alert-link {\\n  color: #491217;\\n}\\n.app-admin .alert-light {\\n  color: #818182;\\n  background-color: #fefefe;\\n  border-color: #fdfdfe;\\n}\\n.app-admin .alert-light hr {\\n  border-top-color: #ececf6;\\n}\\n.app-admin .alert-light .alert-link {\\n  color: #686868;\\n}\\n.app-admin .alert-dark {\\n  color: #1b1e21;\\n  background-color: #d6d8d9;\\n  border-color: #c6c8ca;\\n}\\n.app-admin .alert-dark hr {\\n  border-top-color: #b9bbbe;\\n}\\n.app-admin .alert-dark .alert-link {\\n  color: #040505;\\n}\\n@-webkit-keyframes progress-bar-stripes {\\nfrom {\\n    background-position: 1rem 0;\\n}\\nto {\\n    background-position: 0 0;\\n}\\n}\\n@keyframes progress-bar-stripes {\\nfrom {\\n    background-position: 1rem 0;\\n}\\nto {\\n    background-position: 0 0;\\n}\\n}\\n.app-admin .progress {\\n  display: flex;\\n  height: 1rem;\\n  overflow: hidden;\\n  line-height: 0;\\n  font-size: 0.75rem;\\n  background-color: #e9ecef;\\n  border-radius: 0.25rem;\\n}\\n.app-admin .progress-bar {\\n  display: flex;\\n  flex-direction: column;\\n  justify-content: center;\\n  overflow: hidden;\\n  color: #fff;\\n  text-align: center;\\n  white-space: nowrap;\\n  background-color: #007bff;\\n  transition: width 0.6s ease;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .progress-bar {\\n    transition: none;\\n}\\n}\\n.app-admin .progress-bar-striped {\\n  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\\n  background-size: 1rem 1rem;\\n}\\n.app-admin .progress-bar-animated {\\n  -webkit-animation: 1s linear infinite progress-bar-stripes;\\n          animation: 1s linear infinite progress-bar-stripes;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .progress-bar-animated {\\n    -webkit-animation: none;\\n            animation: none;\\n}\\n}\\n.app-admin .media {\\n  display: flex;\\n  align-items: flex-start;\\n}\\n.app-admin .media-body {\\n  flex: 1;\\n}\\n.app-admin .list-group {\\n  display: flex;\\n  flex-direction: column;\\n  padding-left: 0;\\n  margin-bottom: 0;\\n  border-radius: 0.25rem;\\n}\\n.app-admin .list-group-item-action {\\n  width: 100%;\\n  color: #495057;\\n  text-align: inherit;\\n}\\n.app-admin .list-group-item-action:hover, .app-admin .list-group-item-action:focus {\\n  z-index: 1;\\n  color: #495057;\\n  text-decoration: none;\\n  background-color: #f8f9fa;\\n}\\n.app-admin .list-group-item-action:active {\\n  color: #212529;\\n  background-color: #e9ecef;\\n}\\n.app-admin .list-group-item {\\n  position: relative;\\n  display: block;\\n  padding: 0.75rem 1.25rem;\\n  background-color: #fff;\\n  border: 1px solid rgba(0, 0, 0, 0.125);\\n}\\n.app-admin .list-group-item:first-child {\\n  border-top-left-radius: inherit;\\n  border-top-right-radius: inherit;\\n}\\n.app-admin .list-group-item:last-child {\\n  border-bottom-right-radius: inherit;\\n  border-bottom-left-radius: inherit;\\n}\\n.app-admin .list-group-item.disabled, .app-admin .list-group-item:disabled {\\n  color: #6c757d;\\n  pointer-events: none;\\n  background-color: #fff;\\n}\\n.app-admin .list-group-item.active {\\n  z-index: 2;\\n  color: #fff;\\n  background-color: #007bff;\\n  border-color: #007bff;\\n}\\n.app-admin .list-group-item + .app-admin .list-group-item {\\n  border-top-width: 0;\\n}\\n.app-admin .list-group-item + .app-admin .list-group-item.active {\\n  margin-top: -1px;\\n  border-top-width: 1px;\\n}\\n.app-admin .list-group-horizontal {\\n  flex-direction: row;\\n}\\n.app-admin .list-group-horizontal > .list-group-item:first-child {\\n  border-bottom-left-radius: 0.25rem;\\n  border-top-right-radius: 0;\\n}\\n.app-admin .list-group-horizontal > .list-group-item:last-child {\\n  border-top-right-radius: 0.25rem;\\n  border-bottom-left-radius: 0;\\n}\\n.app-admin .list-group-horizontal > .list-group-item.active {\\n  margin-top: 0;\\n}\\n.app-admin .list-group-horizontal > .list-group-item + .list-group-item {\\n  border-top-width: 1px;\\n  border-left-width: 0;\\n}\\n.app-admin .list-group-horizontal > .list-group-item + .list-group-item.active {\\n  margin-left: -1px;\\n  border-left-width: 1px;\\n}\\n@media (min-width: 576px) {\\n.app-admin .list-group-horizontal-sm {\\n    flex-direction: row;\\n}\\n.app-admin .list-group-horizontal-sm > .list-group-item:first-child {\\n    border-bottom-left-radius: 0.25rem;\\n    border-top-right-radius: 0;\\n}\\n.app-admin .list-group-horizontal-sm > .list-group-item:last-child {\\n    border-top-right-radius: 0.25rem;\\n    border-bottom-left-radius: 0;\\n}\\n.app-admin .list-group-horizontal-sm > .list-group-item.active {\\n    margin-top: 0;\\n}\\n.app-admin .list-group-horizontal-sm > .list-group-item + .list-group-item {\\n    border-top-width: 1px;\\n    border-left-width: 0;\\n}\\n.app-admin .list-group-horizontal-sm > .list-group-item + .list-group-item.active {\\n    margin-left: -1px;\\n    border-left-width: 1px;\\n}\\n}\\n@media (min-width: 768px) {\\n.app-admin .list-group-horizontal-md {\\n    flex-direction: row;\\n}\\n.app-admin .list-group-horizontal-md > .list-group-item:first-child {\\n    border-bottom-left-radius: 0.25rem;\\n    border-top-right-radius: 0;\\n}\\n.app-admin .list-group-horizontal-md > .list-group-item:last-child {\\n    border-top-right-radius: 0.25rem;\\n    border-bottom-left-radius: 0;\\n}\\n.app-admin .list-group-horizontal-md > .list-group-item.active {\\n    margin-top: 0;\\n}\\n.app-admin .list-group-horizontal-md > .list-group-item + .list-group-item {\\n    border-top-width: 1px;\\n    border-left-width: 0;\\n}\\n.app-admin .list-group-horizontal-md > .list-group-item + .list-group-item.active {\\n    margin-left: -1px;\\n    border-left-width: 1px;\\n}\\n}\\n@media (min-width: 992px) {\\n.app-admin .list-group-horizontal-lg {\\n    flex-direction: row;\\n}\\n.app-admin .list-group-horizontal-lg > .list-group-item:first-child {\\n    border-bottom-left-radius: 0.25rem;\\n    border-top-right-radius: 0;\\n}\\n.app-admin .list-group-horizontal-lg > .list-group-item:last-child {\\n    border-top-right-radius: 0.25rem;\\n    border-bottom-left-radius: 0;\\n}\\n.app-admin .list-group-horizontal-lg > .list-group-item.active {\\n    margin-top: 0;\\n}\\n.app-admin .list-group-horizontal-lg > .list-group-item + .list-group-item {\\n    border-top-width: 1px;\\n    border-left-width: 0;\\n}\\n.app-admin .list-group-horizontal-lg > .list-group-item + .list-group-item.active {\\n    margin-left: -1px;\\n    border-left-width: 1px;\\n}\\n}\\n@media (min-width: 1200px) {\\n.app-admin .list-group-horizontal-xl {\\n    flex-direction: row;\\n}\\n.app-admin .list-group-horizontal-xl > .list-group-item:first-child {\\n    border-bottom-left-radius: 0.25rem;\\n    border-top-right-radius: 0;\\n}\\n.app-admin .list-group-horizontal-xl > .list-group-item:last-child {\\n    border-top-right-radius: 0.25rem;\\n    border-bottom-left-radius: 0;\\n}\\n.app-admin .list-group-horizontal-xl > .list-group-item.active {\\n    margin-top: 0;\\n}\\n.app-admin .list-group-horizontal-xl > .list-group-item + .list-group-item {\\n    border-top-width: 1px;\\n    border-left-width: 0;\\n}\\n.app-admin .list-group-horizontal-xl > .list-group-item + .list-group-item.active {\\n    margin-left: -1px;\\n    border-left-width: 1px;\\n}\\n}\\n.app-admin .list-group-flush {\\n  border-radius: 0;\\n}\\n.app-admin .list-group-flush > .list-group-item {\\n  border-width: 0 0 1px;\\n}\\n.app-admin .list-group-flush > .list-group-item:last-child {\\n  border-bottom-width: 0;\\n}\\n.app-admin .list-group-item-primary {\\n  color: #004085;\\n  background-color: #b8daff;\\n}\\n.app-admin .list-group-item-primary.list-group-item-action:hover, .app-admin .list-group-item-primary.list-group-item-action:focus {\\n  color: #004085;\\n  background-color: #9fcdff;\\n}\\n.app-admin .list-group-item-primary.list-group-item-action.active {\\n  color: #fff;\\n  background-color: #004085;\\n  border-color: #004085;\\n}\\n.app-admin .list-group-item-secondary {\\n  color: #383d41;\\n  background-color: #d6d8db;\\n}\\n.app-admin .list-group-item-secondary.list-group-item-action:hover, .app-admin .list-group-item-secondary.list-group-item-action:focus {\\n  color: #383d41;\\n  background-color: #c8cbcf;\\n}\\n.app-admin .list-group-item-secondary.list-group-item-action.active {\\n  color: #fff;\\n  background-color: #383d41;\\n  border-color: #383d41;\\n}\\n.app-admin .list-group-item-success {\\n  color: #155724;\\n  background-color: #c3e6cb;\\n}\\n.app-admin .list-group-item-success.list-group-item-action:hover, .app-admin .list-group-item-success.list-group-item-action:focus {\\n  color: #155724;\\n  background-color: #b1dfbb;\\n}\\n.app-admin .list-group-item-success.list-group-item-action.active {\\n  color: #fff;\\n  background-color: #155724;\\n  border-color: #155724;\\n}\\n.app-admin .list-group-item-info {\\n  color: #0c5460;\\n  background-color: #bee5eb;\\n}\\n.app-admin .list-group-item-info.list-group-item-action:hover, .app-admin .list-group-item-info.list-group-item-action:focus {\\n  color: #0c5460;\\n  background-color: #abdde5;\\n}\\n.app-admin .list-group-item-info.list-group-item-action.active {\\n  color: #fff;\\n  background-color: #0c5460;\\n  border-color: #0c5460;\\n}\\n.app-admin .list-group-item-warning {\\n  color: #856404;\\n  background-color: #ffeeba;\\n}\\n.app-admin .list-group-item-warning.list-group-item-action:hover, .app-admin .list-group-item-warning.list-group-item-action:focus {\\n  color: #856404;\\n  background-color: #ffe8a1;\\n}\\n.app-admin .list-group-item-warning.list-group-item-action.active {\\n  color: #fff;\\n  background-color: #856404;\\n  border-color: #856404;\\n}\\n.app-admin .list-group-item-danger {\\n  color: #721c24;\\n  background-color: #f5c6cb;\\n}\\n.app-admin .list-group-item-danger.list-group-item-action:hover, .app-admin .list-group-item-danger.list-group-item-action:focus {\\n  color: #721c24;\\n  background-color: #f1b0b7;\\n}\\n.app-admin .list-group-item-danger.list-group-item-action.active {\\n  color: #fff;\\n  background-color: #721c24;\\n  border-color: #721c24;\\n}\\n.app-admin .list-group-item-light {\\n  color: #818182;\\n  background-color: #fdfdfe;\\n}\\n.app-admin .list-group-item-light.list-group-item-action:hover, .app-admin .list-group-item-light.list-group-item-action:focus {\\n  color: #818182;\\n  background-color: #ececf6;\\n}\\n.app-admin .list-group-item-light.list-group-item-action.active {\\n  color: #fff;\\n  background-color: #818182;\\n  border-color: #818182;\\n}\\n.app-admin .list-group-item-dark {\\n  color: #1b1e21;\\n  background-color: #c6c8ca;\\n}\\n.app-admin .list-group-item-dark.list-group-item-action:hover, .app-admin .list-group-item-dark.list-group-item-action:focus {\\n  color: #1b1e21;\\n  background-color: #b9bbbe;\\n}\\n.app-admin .list-group-item-dark.list-group-item-action.active {\\n  color: #fff;\\n  background-color: #1b1e21;\\n  border-color: #1b1e21;\\n}\\n.app-admin .close {\\n  float: right;\\n  font-size: 1.5rem;\\n  font-weight: 700;\\n  line-height: 1;\\n  color: #000;\\n  text-shadow: 0 1px 0 #fff;\\n  opacity: 0.5;\\n}\\n.app-admin .close:hover {\\n  color: #000;\\n  text-decoration: none;\\n}\\n.app-admin .close:not(:disabled):not(.disabled):hover, .app-admin .close:not(:disabled):not(.disabled):focus {\\n  opacity: 0.75;\\n}\\n.app-admin button.close {\\n  padding: 0;\\n  background-color: transparent;\\n  border: 0;\\n}\\n.app-admin a.close.disabled {\\n  pointer-events: none;\\n}\\n.app-admin .toast {\\n  flex-basis: 350px;\\n  max-width: 350px;\\n  font-size: 0.875rem;\\n  background-color: rgba(255, 255, 255, 0.85);\\n  background-clip: padding-box;\\n  border: 1px solid rgba(0, 0, 0, 0.1);\\n  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);\\n  opacity: 0;\\n  border-radius: 0.25rem;\\n}\\n.app-admin .toast:not(:last-child) {\\n  margin-bottom: 0.75rem;\\n}\\n.app-admin .toast.showing {\\n  opacity: 1;\\n}\\n.app-admin .toast.show {\\n  display: block;\\n  opacity: 1;\\n}\\n.app-admin .toast.hide {\\n  display: none;\\n}\\n.app-admin .toast-header {\\n  display: flex;\\n  align-items: center;\\n  padding: 0.25rem 0.75rem;\\n  color: #6c757d;\\n  background-color: rgba(255, 255, 255, 0.85);\\n  background-clip: padding-box;\\n  border-bottom: 1px solid rgba(0, 0, 0, 0.05);\\n  border-top-left-radius: calc(0.25rem - 1px);\\n  border-top-right-radius: calc(0.25rem - 1px);\\n}\\n.app-admin .toast-body {\\n  padding: 0.75rem;\\n}\\n.app-admin .modal-open {\\n  overflow: hidden;\\n}\\n.app-admin .modal-open .modal {\\n  overflow-x: hidden;\\n  overflow-y: auto;\\n}\\n.app-admin .modal {\\n  position: fixed;\\n  top: 0;\\n  left: 0;\\n  z-index: 1050;\\n  display: none;\\n  width: 100%;\\n  height: 100%;\\n  overflow: hidden;\\n  outline: 0;\\n}\\n.app-admin .modal-dialog {\\n  position: relative;\\n  width: auto;\\n  margin: 0.5rem;\\n  pointer-events: none;\\n}\\n.modal.fade .app-admin .modal-dialog {\\n  transition: transform 0.3s ease-out;\\n  transform: translate(0, -50px);\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.modal.fade .app-admin .modal-dialog {\\n    transition: none;\\n}\\n}\\n.modal.show .app-admin .modal-dialog {\\n  transform: none;\\n}\\n.modal.modal-static .app-admin .modal-dialog {\\n  transform: scale(1.02);\\n}\\n.app-admin .modal-dialog-scrollable {\\n  display: flex;\\n  max-height: calc(100% - 1rem);\\n}\\n.app-admin .modal-dialog-scrollable .modal-content {\\n  max-height: calc(100vh - 1rem);\\n  overflow: hidden;\\n}\\n.app-admin .modal-dialog-scrollable .modal-header,\\n.app-admin .modal-dialog-scrollable .modal-footer {\\n  flex-shrink: 0;\\n}\\n.app-admin .modal-dialog-scrollable .modal-body {\\n  overflow-y: auto;\\n}\\n.app-admin .modal-dialog-centered {\\n  display: flex;\\n  align-items: center;\\n  min-height: calc(100% - 1rem);\\n}\\n.app-admin .modal-dialog-centered::before {\\n  display: block;\\n  height: calc(100vh - 1rem);\\n  height: -webkit-min-content;\\n  height: -moz-min-content;\\n  height: min-content;\\n  content: \\\"\\\";\\n}\\n.app-admin .modal-dialog-centered.modal-dialog-scrollable {\\n  flex-direction: column;\\n  justify-content: center;\\n  height: 100%;\\n}\\n.app-admin .modal-dialog-centered.modal-dialog-scrollable .modal-content {\\n  max-height: none;\\n}\\n.app-admin .modal-dialog-centered.modal-dialog-scrollable::before {\\n  content: none;\\n}\\n.app-admin .modal-content {\\n  position: relative;\\n  display: flex;\\n  flex-direction: column;\\n  width: 100%;\\n  pointer-events: auto;\\n  background-color: #fff;\\n  background-clip: padding-box;\\n  border: 1px solid rgba(0, 0, 0, 0.2);\\n  border-radius: 0.3rem;\\n  outline: 0;\\n}\\n.app-admin .modal-backdrop {\\n  position: fixed;\\n  top: 0;\\n  left: 0;\\n  z-index: 1040;\\n  width: 100vw;\\n  height: 100vh;\\n  background-color: #000;\\n}\\n.app-admin .modal-backdrop.fade {\\n  opacity: 0;\\n}\\n.app-admin .modal-backdrop.show {\\n  opacity: 0.5;\\n}\\n.app-admin .modal-header {\\n  display: flex;\\n  align-items: flex-start;\\n  justify-content: space-between;\\n  padding: 1rem 1rem;\\n  border-bottom: 1px solid #dee2e6;\\n  border-top-left-radius: calc(0.3rem - 1px);\\n  border-top-right-radius: calc(0.3rem - 1px);\\n}\\n.app-admin .modal-header .close {\\n  padding: 1rem 1rem;\\n  margin: -1rem -1rem -1rem auto;\\n}\\n.app-admin .modal-title {\\n  margin-bottom: 0;\\n  line-height: 1.5;\\n}\\n.app-admin .modal-body {\\n  position: relative;\\n  flex: 1 1 auto;\\n  padding: 1rem;\\n}\\n.app-admin .modal-footer {\\n  display: flex;\\n  flex-wrap: wrap;\\n  align-items: center;\\n  justify-content: flex-end;\\n  padding: 0.75rem;\\n  border-top: 1px solid #dee2e6;\\n  border-bottom-right-radius: calc(0.3rem - 1px);\\n  border-bottom-left-radius: calc(0.3rem - 1px);\\n}\\n.app-admin .modal-footer > * {\\n  margin: 0.25rem;\\n}\\n.app-admin .modal-scrollbar-measure {\\n  position: absolute;\\n  top: -9999px;\\n  width: 50px;\\n  height: 50px;\\n  overflow: scroll;\\n}\\n@media (min-width: 576px) {\\n.app-admin .modal-dialog {\\n    max-width: 500px;\\n    margin: 1.75rem auto;\\n}\\n.app-admin .modal-dialog-scrollable {\\n    max-height: calc(100% - 3.5rem);\\n}\\n.app-admin .modal-dialog-scrollable .modal-content {\\n    max-height: calc(100vh - 3.5rem);\\n}\\n.app-admin .modal-dialog-centered {\\n    min-height: calc(100% - 3.5rem);\\n}\\n.app-admin .modal-dialog-centered::before {\\n    height: calc(100vh - 3.5rem);\\n    height: -webkit-min-content;\\n    height: -moz-min-content;\\n    height: min-content;\\n}\\n.app-admin .modal-sm {\\n    max-width: 300px;\\n}\\n}\\n@media (min-width: 992px) {\\n.app-admin .modal-lg,\\n.app-admin .modal-xl {\\n    max-width: 800px;\\n}\\n}\\n@media (min-width: 1200px) {\\n.app-admin .modal-xl {\\n    max-width: 1140px;\\n}\\n}\\n.app-admin .tooltip {\\n  position: absolute;\\n  z-index: 1070;\\n  display: block;\\n  margin: 0;\\n  font-family: -apple-system, BlinkMacSystemFont, \\\"Segoe UI\\\", Roboto, \\\"Helvetica Neue\\\", Arial, \\\"Noto Sans\\\", \\\"Liberation Sans\\\", sans-serif, \\\"Apple Color Emoji\\\", \\\"Segoe UI Emoji\\\", \\\"Segoe UI Symbol\\\", \\\"Noto Color Emoji\\\";\\n  font-style: normal;\\n  font-weight: 400;\\n  line-height: 1.5;\\n  text-align: left;\\n  text-align: start;\\n  text-decoration: none;\\n  text-shadow: none;\\n  text-transform: none;\\n  letter-spacing: normal;\\n  word-break: normal;\\n  word-spacing: normal;\\n  white-space: normal;\\n  line-break: auto;\\n  font-size: 0.875rem;\\n  word-wrap: break-word;\\n  opacity: 0;\\n}\\n.app-admin .tooltip.show {\\n  opacity: 0.9;\\n}\\n.app-admin .tooltip .arrow {\\n  position: absolute;\\n  display: block;\\n  width: 0.8rem;\\n  height: 0.4rem;\\n}\\n.app-admin .tooltip .arrow::before {\\n  position: absolute;\\n  content: \\\"\\\";\\n  border-color: transparent;\\n  border-style: solid;\\n}\\n.app-admin .bs-tooltip-top, .app-admin .tooltip.b-tooltip-dark.bs-tooltip-auto[x-placement^=top], .app-admin .tooltip.b-tooltip-light.bs-tooltip-auto[x-placement^=top], .app-admin .tooltip.b-tooltip-danger.bs-tooltip-auto[x-placement^=top], .app-admin .tooltip.b-tooltip-warning.bs-tooltip-auto[x-placement^=top], .app-admin .tooltip.b-tooltip-info.bs-tooltip-auto[x-placement^=top], .app-admin .tooltip.b-tooltip-success.bs-tooltip-auto[x-placement^=top], .app-admin .tooltip.b-tooltip-secondary.bs-tooltip-auto[x-placement^=top], .app-admin .tooltip.b-tooltip-primary.bs-tooltip-auto[x-placement^=top], .app-admin .bs-tooltip-auto[x-placement^=top] {\\n  padding: 0.4rem 0;\\n}\\n.app-admin .bs-tooltip-top .arrow, .app-admin .tooltip.b-tooltip-dark.bs-tooltip-auto[x-placement^=top] .arrow, .app-admin .tooltip.b-tooltip-light.bs-tooltip-auto[x-placement^=top] .arrow, .app-admin .tooltip.b-tooltip-danger.bs-tooltip-auto[x-placement^=top] .arrow, .app-admin .tooltip.b-tooltip-warning.bs-tooltip-auto[x-placement^=top] .arrow, .app-admin .tooltip.b-tooltip-info.bs-tooltip-auto[x-placement^=top] .arrow, .app-admin .tooltip.b-tooltip-success.bs-tooltip-auto[x-placement^=top] .arrow, .app-admin .tooltip.b-tooltip-secondary.bs-tooltip-auto[x-placement^=top] .arrow, .app-admin .tooltip.b-tooltip-primary.bs-tooltip-auto[x-placement^=top] .arrow, .app-admin .bs-tooltip-auto[x-placement^=top] .arrow {\\n  bottom: 0;\\n}\\n.app-admin .bs-tooltip-top .arrow::before, .app-admin .tooltip.b-tooltip-dark.bs-tooltip-auto[x-placement^=top] .arrow::before, .app-admin .tooltip.b-tooltip-light.bs-tooltip-auto[x-placement^=top] .arrow::before, .app-admin .tooltip.b-tooltip-danger.bs-tooltip-auto[x-placement^=top] .arrow::before, .app-admin .tooltip.b-tooltip-warning.bs-tooltip-auto[x-placement^=top] .arrow::before, .app-admin .tooltip.b-tooltip-info.bs-tooltip-auto[x-placement^=top] .arrow::before, .app-admin .tooltip.b-tooltip-success.bs-tooltip-auto[x-placement^=top] .arrow::before, .app-admin .tooltip.b-tooltip-secondary.bs-tooltip-auto[x-placement^=top] .arrow::before, .app-admin .tooltip.b-tooltip-primary.bs-tooltip-auto[x-placement^=top] .arrow::before, .app-admin .bs-tooltip-auto[x-placement^=top] .arrow::before {\\n  top: 0;\\n  border-width: 0.4rem 0.4rem 0;\\n  border-top-color: #000;\\n}\\n.app-admin .bs-tooltip-right, .app-admin .tooltip.b-tooltip-dark.bs-tooltip-auto[x-placement^=right], .app-admin .tooltip.b-tooltip-light.bs-tooltip-auto[x-placement^=right], .app-admin .tooltip.b-tooltip-danger.bs-tooltip-auto[x-placement^=right], .app-admin .tooltip.b-tooltip-warning.bs-tooltip-auto[x-placement^=right], .app-admin .tooltip.b-tooltip-info.bs-tooltip-auto[x-placement^=right], .app-admin .tooltip.b-tooltip-success.bs-tooltip-auto[x-placement^=right], .app-admin .tooltip.b-tooltip-secondary.bs-tooltip-auto[x-placement^=right], .app-admin .tooltip.b-tooltip-primary.bs-tooltip-auto[x-placement^=right], .app-admin .bs-tooltip-auto[x-placement^=right] {\\n  padding: 0 0.4rem;\\n}\\n.app-admin .bs-tooltip-right .arrow, .app-admin .tooltip.b-tooltip-dark.bs-tooltip-auto[x-placement^=right] .arrow, .app-admin .tooltip.b-tooltip-light.bs-tooltip-auto[x-placement^=right] .arrow, .app-admin .tooltip.b-tooltip-danger.bs-tooltip-auto[x-placement^=right] .arrow, .app-admin .tooltip.b-tooltip-warning.bs-tooltip-auto[x-placement^=right] .arrow, .app-admin .tooltip.b-tooltip-info.bs-tooltip-auto[x-placement^=right] .arrow, .app-admin .tooltip.b-tooltip-success.bs-tooltip-auto[x-placement^=right] .arrow, .app-admin .tooltip.b-tooltip-secondary.bs-tooltip-auto[x-placement^=right] .arrow, .app-admin .tooltip.b-tooltip-primary.bs-tooltip-auto[x-placement^=right] .arrow, .app-admin .bs-tooltip-auto[x-placement^=right] .arrow {\\n  left: 0;\\n  width: 0.4rem;\\n  height: 0.8rem;\\n}\\n.app-admin .bs-tooltip-right .arrow::before, .app-admin .tooltip.b-tooltip-dark.bs-tooltip-auto[x-placement^=right] .arrow::before, .app-admin .tooltip.b-tooltip-light.bs-tooltip-auto[x-placement^=right] .arrow::before, .app-admin .tooltip.b-tooltip-danger.bs-tooltip-auto[x-placement^=right] .arrow::before, .app-admin .tooltip.b-tooltip-warning.bs-tooltip-auto[x-placement^=right] .arrow::before, .app-admin .tooltip.b-tooltip-info.bs-tooltip-auto[x-placement^=right] .arrow::before, .app-admin .tooltip.b-tooltip-success.bs-tooltip-auto[x-placement^=right] .arrow::before, .app-admin .tooltip.b-tooltip-secondary.bs-tooltip-auto[x-placement^=right] .arrow::before, .app-admin .tooltip.b-tooltip-primary.bs-tooltip-auto[x-placement^=right] .arrow::before, .app-admin .bs-tooltip-auto[x-placement^=right] .arrow::before {\\n  right: 0;\\n  border-width: 0.4rem 0.4rem 0.4rem 0;\\n  border-right-color: #000;\\n}\\n.app-admin .bs-tooltip-bottom, .app-admin .tooltip.b-tooltip-dark.bs-tooltip-auto[x-placement^=bottom], .app-admin .tooltip.b-tooltip-light.bs-tooltip-auto[x-placement^=bottom], .app-admin .tooltip.b-tooltip-danger.bs-tooltip-auto[x-placement^=bottom], .app-admin .tooltip.b-tooltip-warning.bs-tooltip-auto[x-placement^=bottom], .app-admin .tooltip.b-tooltip-info.bs-tooltip-auto[x-placement^=bottom], .app-admin .tooltip.b-tooltip-success.bs-tooltip-auto[x-placement^=bottom], .app-admin .tooltip.b-tooltip-secondary.bs-tooltip-auto[x-placement^=bottom], .app-admin .tooltip.b-tooltip-primary.bs-tooltip-auto[x-placement^=bottom], .app-admin .bs-tooltip-auto[x-placement^=bottom] {\\n  padding: 0.4rem 0;\\n}\\n.app-admin .bs-tooltip-bottom .arrow, .app-admin .tooltip.b-tooltip-dark.bs-tooltip-auto[x-placement^=bottom] .arrow, .app-admin .tooltip.b-tooltip-light.bs-tooltip-auto[x-placement^=bottom] .arrow, .app-admin .tooltip.b-tooltip-danger.bs-tooltip-auto[x-placement^=bottom] .arrow, .app-admin .tooltip.b-tooltip-warning.bs-tooltip-auto[x-placement^=bottom] .arrow, .app-admin .tooltip.b-tooltip-info.bs-tooltip-auto[x-placement^=bottom] .arrow, .app-admin .tooltip.b-tooltip-success.bs-tooltip-auto[x-placement^=bottom] .arrow, .app-admin .tooltip.b-tooltip-secondary.bs-tooltip-auto[x-placement^=bottom] .arrow, .app-admin .tooltip.b-tooltip-primary.bs-tooltip-auto[x-placement^=bottom] .arrow, .app-admin .bs-tooltip-auto[x-placement^=bottom] .arrow {\\n  top: 0;\\n}\\n.app-admin .bs-tooltip-bottom .arrow::before, .app-admin .tooltip.b-tooltip-dark.bs-tooltip-auto[x-placement^=bottom] .arrow::before, .app-admin .tooltip.b-tooltip-light.bs-tooltip-auto[x-placement^=bottom] .arrow::before, .app-admin .tooltip.b-tooltip-danger.bs-tooltip-auto[x-placement^=bottom] .arrow::before, .app-admin .tooltip.b-tooltip-warning.bs-tooltip-auto[x-placement^=bottom] .arrow::before, .app-admin .tooltip.b-tooltip-info.bs-tooltip-auto[x-placement^=bottom] .arrow::before, .app-admin .tooltip.b-tooltip-success.bs-tooltip-auto[x-placement^=bottom] .arrow::before, .app-admin .tooltip.b-tooltip-secondary.bs-tooltip-auto[x-placement^=bottom] .arrow::before, .app-admin .tooltip.b-tooltip-primary.bs-tooltip-auto[x-placement^=bottom] .arrow::before, .app-admin .bs-tooltip-auto[x-placement^=bottom] .arrow::before {\\n  bottom: 0;\\n  border-width: 0 0.4rem 0.4rem;\\n  border-bottom-color: #000;\\n}\\n.app-admin .bs-tooltip-left, .app-admin .tooltip.b-tooltip-dark.bs-tooltip-auto[x-placement^=left], .app-admin .tooltip.b-tooltip-light.bs-tooltip-auto[x-placement^=left], .app-admin .tooltip.b-tooltip-danger.bs-tooltip-auto[x-placement^=left], .app-admin .tooltip.b-tooltip-warning.bs-tooltip-auto[x-placement^=left], .app-admin .tooltip.b-tooltip-info.bs-tooltip-auto[x-placement^=left], .app-admin .tooltip.b-tooltip-success.bs-tooltip-auto[x-placement^=left], .app-admin .tooltip.b-tooltip-secondary.bs-tooltip-auto[x-placement^=left], .app-admin .tooltip.b-tooltip-primary.bs-tooltip-auto[x-placement^=left], .app-admin .bs-tooltip-auto[x-placement^=left] {\\n  padding: 0 0.4rem;\\n}\\n.app-admin .bs-tooltip-left .arrow, .app-admin .tooltip.b-tooltip-dark.bs-tooltip-auto[x-placement^=left] .arrow, .app-admin .tooltip.b-tooltip-light.bs-tooltip-auto[x-placement^=left] .arrow, .app-admin .tooltip.b-tooltip-danger.bs-tooltip-auto[x-placement^=left] .arrow, .app-admin .tooltip.b-tooltip-warning.bs-tooltip-auto[x-placement^=left] .arrow, .app-admin .tooltip.b-tooltip-info.bs-tooltip-auto[x-placement^=left] .arrow, .app-admin .tooltip.b-tooltip-success.bs-tooltip-auto[x-placement^=left] .arrow, .app-admin .tooltip.b-tooltip-secondary.bs-tooltip-auto[x-placement^=left] .arrow, .app-admin .tooltip.b-tooltip-primary.bs-tooltip-auto[x-placement^=left] .arrow, .app-admin .bs-tooltip-auto[x-placement^=left] .arrow {\\n  right: 0;\\n  width: 0.4rem;\\n  height: 0.8rem;\\n}\\n.app-admin .bs-tooltip-left .arrow::before, .app-admin .tooltip.b-tooltip-dark.bs-tooltip-auto[x-placement^=left] .arrow::before, .app-admin .tooltip.b-tooltip-light.bs-tooltip-auto[x-placement^=left] .arrow::before, .app-admin .tooltip.b-tooltip-danger.bs-tooltip-auto[x-placement^=left] .arrow::before, .app-admin .tooltip.b-tooltip-warning.bs-tooltip-auto[x-placement^=left] .arrow::before, .app-admin .tooltip.b-tooltip-info.bs-tooltip-auto[x-placement^=left] .arrow::before, .app-admin .tooltip.b-tooltip-success.bs-tooltip-auto[x-placement^=left] .arrow::before, .app-admin .tooltip.b-tooltip-secondary.bs-tooltip-auto[x-placement^=left] .arrow::before, .app-admin .tooltip.b-tooltip-primary.bs-tooltip-auto[x-placement^=left] .arrow::before, .app-admin .bs-tooltip-auto[x-placement^=left] .arrow::before {\\n  left: 0;\\n  border-width: 0.4rem 0 0.4rem 0.4rem;\\n  border-left-color: #000;\\n}\\n.app-admin .tooltip-inner {\\n  max-width: 200px;\\n  padding: 0.25rem 0.5rem;\\n  color: #fff;\\n  text-align: center;\\n  background-color: #000;\\n  border-radius: 0.25rem;\\n}\\n.app-admin .popover {\\n  position: absolute;\\n  top: 0;\\n  left: 0;\\n  z-index: 1060;\\n  display: block;\\n  max-width: 276px;\\n  font-family: -apple-system, BlinkMacSystemFont, \\\"Segoe UI\\\", Roboto, \\\"Helvetica Neue\\\", Arial, \\\"Noto Sans\\\", \\\"Liberation Sans\\\", sans-serif, \\\"Apple Color Emoji\\\", \\\"Segoe UI Emoji\\\", \\\"Segoe UI Symbol\\\", \\\"Noto Color Emoji\\\";\\n  font-style: normal;\\n  font-weight: 400;\\n  line-height: 1.5;\\n  text-align: left;\\n  text-align: start;\\n  text-decoration: none;\\n  text-shadow: none;\\n  text-transform: none;\\n  letter-spacing: normal;\\n  word-break: normal;\\n  word-spacing: normal;\\n  white-space: normal;\\n  line-break: auto;\\n  font-size: 0.875rem;\\n  word-wrap: break-word;\\n  background-color: #fff;\\n  background-clip: padding-box;\\n  border: 1px solid rgba(0, 0, 0, 0.2);\\n  border-radius: 0.3rem;\\n}\\n.app-admin .popover .arrow {\\n  position: absolute;\\n  display: block;\\n  width: 1rem;\\n  height: 0.5rem;\\n  margin: 0 0.3rem;\\n}\\n.app-admin .popover .arrow::before, .app-admin .popover .arrow::after {\\n  position: absolute;\\n  display: block;\\n  content: \\\"\\\";\\n  border-color: transparent;\\n  border-style: solid;\\n}\\n.app-admin .bs-popover-top, .app-admin .b-popover-dark.bs-popover-auto[x-placement^=top], .app-admin .b-popover-light.bs-popover-auto[x-placement^=top], .app-admin .b-popover-danger.bs-popover-auto[x-placement^=top], .app-admin .b-popover-warning.bs-popover-auto[x-placement^=top], .app-admin .b-popover-info.bs-popover-auto[x-placement^=top], .app-admin .b-popover-success.bs-popover-auto[x-placement^=top], .app-admin .b-popover-secondary.bs-popover-auto[x-placement^=top], .app-admin .b-popover-primary.bs-popover-auto[x-placement^=top], .app-admin .bs-popover-auto[x-placement^=top] {\\n  margin-bottom: 0.5rem;\\n}\\n.app-admin .bs-popover-top > .arrow, .app-admin .bs-popover-auto[x-placement^=top] > .arrow {\\n  bottom: calc(-0.5rem - 1px);\\n}\\n.app-admin .bs-popover-top > .arrow::before, .app-admin .bs-popover-auto[x-placement^=top] > .arrow::before {\\n  bottom: 0;\\n  border-width: 0.5rem 0.5rem 0;\\n  border-top-color: rgba(0, 0, 0, 0.25);\\n}\\n.app-admin .bs-popover-top > .arrow::after, .app-admin .bs-popover-auto[x-placement^=top] > .arrow::after {\\n  bottom: 1px;\\n  border-width: 0.5rem 0.5rem 0;\\n  border-top-color: #fff;\\n}\\n.app-admin .bs-popover-right, .app-admin .b-popover-dark.bs-popover-auto[x-placement^=right], .app-admin .b-popover-light.bs-popover-auto[x-placement^=right], .app-admin .b-popover-danger.bs-popover-auto[x-placement^=right], .app-admin .b-popover-warning.bs-popover-auto[x-placement^=right], .app-admin .b-popover-info.bs-popover-auto[x-placement^=right], .app-admin .b-popover-success.bs-popover-auto[x-placement^=right], .app-admin .b-popover-secondary.bs-popover-auto[x-placement^=right], .app-admin .b-popover-primary.bs-popover-auto[x-placement^=right], .app-admin .bs-popover-auto[x-placement^=right] {\\n  margin-left: 0.5rem;\\n}\\n.app-admin .bs-popover-right > .arrow, .app-admin .bs-popover-auto[x-placement^=right] > .arrow {\\n  left: calc(-0.5rem - 1px);\\n  width: 0.5rem;\\n  height: 1rem;\\n  margin: 0.3rem 0;\\n}\\n.app-admin .bs-popover-right > .arrow::before, .app-admin .bs-popover-auto[x-placement^=right] > .arrow::before {\\n  left: 0;\\n  border-width: 0.5rem 0.5rem 0.5rem 0;\\n  border-right-color: rgba(0, 0, 0, 0.25);\\n}\\n.app-admin .bs-popover-right > .arrow::after, .app-admin .bs-popover-auto[x-placement^=right] > .arrow::after {\\n  left: 1px;\\n  border-width: 0.5rem 0.5rem 0.5rem 0;\\n  border-right-color: #fff;\\n}\\n.app-admin .bs-popover-bottom, .app-admin .b-popover-dark.bs-popover-auto[x-placement^=bottom], .app-admin .b-popover-light.bs-popover-auto[x-placement^=bottom], .app-admin .b-popover-danger.bs-popover-auto[x-placement^=bottom], .app-admin .b-popover-warning.bs-popover-auto[x-placement^=bottom], .app-admin .b-popover-info.bs-popover-auto[x-placement^=bottom], .app-admin .b-popover-success.bs-popover-auto[x-placement^=bottom], .app-admin .b-popover-secondary.bs-popover-auto[x-placement^=bottom], .app-admin .b-popover-primary.bs-popover-auto[x-placement^=bottom], .app-admin .bs-popover-auto[x-placement^=bottom] {\\n  margin-top: 0.5rem;\\n}\\n.app-admin .bs-popover-bottom > .arrow, .app-admin .bs-popover-auto[x-placement^=bottom] > .arrow {\\n  top: calc(-0.5rem - 1px);\\n}\\n.app-admin .bs-popover-bottom > .arrow::before, .app-admin .bs-popover-auto[x-placement^=bottom] > .arrow::before {\\n  top: 0;\\n  border-width: 0 0.5rem 0.5rem 0.5rem;\\n  border-bottom-color: rgba(0, 0, 0, 0.25);\\n}\\n.app-admin .bs-popover-bottom > .arrow::after, .app-admin .bs-popover-auto[x-placement^=bottom] > .arrow::after {\\n  top: 1px;\\n  border-width: 0 0.5rem 0.5rem 0.5rem;\\n  border-bottom-color: #fff;\\n}\\n.app-admin .bs-popover-bottom .popover-header::before, .app-admin .bs-popover-auto[x-placement^=bottom] .popover-header::before {\\n  position: absolute;\\n  top: 0;\\n  left: 50%;\\n  display: block;\\n  width: 1rem;\\n  margin-left: -0.5rem;\\n  content: \\\"\\\";\\n  border-bottom: 1px solid #f7f7f7;\\n}\\n.app-admin .bs-popover-left, .app-admin .b-popover-dark.bs-popover-auto[x-placement^=left], .app-admin .b-popover-light.bs-popover-auto[x-placement^=left], .app-admin .b-popover-danger.bs-popover-auto[x-placement^=left], .app-admin .b-popover-warning.bs-popover-auto[x-placement^=left], .app-admin .b-popover-info.bs-popover-auto[x-placement^=left], .app-admin .b-popover-success.bs-popover-auto[x-placement^=left], .app-admin .b-popover-secondary.bs-popover-auto[x-placement^=left], .app-admin .b-popover-primary.bs-popover-auto[x-placement^=left], .app-admin .bs-popover-auto[x-placement^=left] {\\n  margin-right: 0.5rem;\\n}\\n.app-admin .bs-popover-left > .arrow, .app-admin .bs-popover-auto[x-placement^=left] > .arrow {\\n  right: calc(-0.5rem - 1px);\\n  width: 0.5rem;\\n  height: 1rem;\\n  margin: 0.3rem 0;\\n}\\n.app-admin .bs-popover-left > .arrow::before, .app-admin .bs-popover-auto[x-placement^=left] > .arrow::before {\\n  right: 0;\\n  border-width: 0.5rem 0 0.5rem 0.5rem;\\n  border-left-color: rgba(0, 0, 0, 0.25);\\n}\\n.app-admin .bs-popover-left > .arrow::after, .app-admin .bs-popover-auto[x-placement^=left] > .arrow::after {\\n  right: 1px;\\n  border-width: 0.5rem 0 0.5rem 0.5rem;\\n  border-left-color: #fff;\\n}\\n.app-admin .popover-header {\\n  padding: 0.5rem 0.75rem;\\n  margin-bottom: 0;\\n  font-size: 1rem;\\n  background-color: #f7f7f7;\\n  border-bottom: 1px solid #ebebeb;\\n  border-top-left-radius: calc(0.3rem - 1px);\\n  border-top-right-radius: calc(0.3rem - 1px);\\n}\\n.app-admin .popover-header:empty {\\n  display: none;\\n}\\n.app-admin .popover-body {\\n  padding: 0.5rem 0.75rem;\\n  color: #212529;\\n}\\n.app-admin .carousel {\\n  position: relative;\\n}\\n.app-admin .carousel.pointer-event {\\n  touch-action: pan-y;\\n}\\n.app-admin .carousel-inner {\\n  position: relative;\\n  width: 100%;\\n  overflow: hidden;\\n}\\n.app-admin .carousel-inner::after {\\n  display: block;\\n  clear: both;\\n  content: \\\"\\\";\\n}\\n.app-admin .carousel-item {\\n  position: relative;\\n  display: none;\\n  float: left;\\n  width: 100%;\\n  margin-right: -100%;\\n  -webkit-backface-visibility: hidden;\\n          backface-visibility: hidden;\\n  transition: transform 0.6s ease-in-out;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .carousel-item {\\n    transition: none;\\n}\\n}\\n.app-admin .carousel-item.active,\\n.app-admin .carousel-item-next,\\n.app-admin .carousel-item-prev {\\n  display: block;\\n}\\n.app-admin .carousel-item-next:not(.carousel-item-left),\\n.app-admin .active.carousel-item-right {\\n  transform: translateX(100%);\\n}\\n.app-admin .carousel-item-prev:not(.carousel-item-right),\\n.app-admin .active.carousel-item-left {\\n  transform: translateX(-100%);\\n}\\n.app-admin .carousel-fade .carousel-item {\\n  opacity: 0;\\n  transition-property: opacity;\\n  transform: none;\\n}\\n.app-admin .carousel-fade .carousel-item.active,\\n.app-admin .carousel-fade .carousel-item-next.carousel-item-left,\\n.app-admin .carousel-fade .carousel-item-prev.carousel-item-right {\\n  z-index: 1;\\n  opacity: 1;\\n}\\n.app-admin .carousel-fade .active.carousel-item-left,\\n.app-admin .carousel-fade .active.carousel-item-right {\\n  z-index: 0;\\n  opacity: 0;\\n  transition: opacity 0s 0.6s;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .carousel-fade .active.carousel-item-left,\\n.app-admin .carousel-fade .active.carousel-item-right {\\n    transition: none;\\n}\\n}\\n.app-admin .carousel-control-prev,\\n.app-admin .carousel-control-next {\\n  position: absolute;\\n  top: 0;\\n  bottom: 0;\\n  z-index: 1;\\n  display: flex;\\n  align-items: center;\\n  justify-content: center;\\n  width: 15%;\\n  color: #fff;\\n  text-align: center;\\n  opacity: 0.5;\\n  transition: opacity 0.15s ease;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .carousel-control-prev,\\n.app-admin .carousel-control-next {\\n    transition: none;\\n}\\n}\\n.app-admin .carousel-control-prev:hover, .app-admin .carousel-control-prev:focus,\\n.app-admin .carousel-control-next:hover,\\n.app-admin .carousel-control-next:focus {\\n  color: #fff;\\n  text-decoration: none;\\n  outline: 0;\\n  opacity: 0.9;\\n}\\n.app-admin .carousel-control-prev {\\n  left: 0;\\n}\\n.app-admin .carousel-control-next {\\n  right: 0;\\n}\\n.app-admin .carousel-control-prev-icon,\\n.app-admin .carousel-control-next-icon {\\n  display: inline-block;\\n  width: 20px;\\n  height: 20px;\\n  background: 50%/100% 100% no-repeat;\\n}\\n.app-admin .carousel-control-prev-icon {\\n  background-image: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5L4.25 4l2.5-2.5L5.25 0z'/%3e%3c/svg%3e\\\");\\n}\\n.app-admin .carousel-control-next-icon {\\n  background-image: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z'/%3e%3c/svg%3e\\\");\\n}\\n.app-admin .carousel-indicators {\\n  position: absolute;\\n  right: 0;\\n  bottom: 0;\\n  left: 0;\\n  z-index: 15;\\n  display: flex;\\n  justify-content: center;\\n  padding-left: 0;\\n  margin-right: 15%;\\n  margin-left: 15%;\\n  list-style: none;\\n}\\n.app-admin .carousel-indicators li {\\n  box-sizing: content-box;\\n  flex: 0 1 auto;\\n  width: 30px;\\n  height: 3px;\\n  margin-right: 3px;\\n  margin-left: 3px;\\n  text-indent: -999px;\\n  cursor: pointer;\\n  background-color: #fff;\\n  background-clip: padding-box;\\n  border-top: 10px solid transparent;\\n  border-bottom: 10px solid transparent;\\n  opacity: 0.5;\\n  transition: opacity 0.6s ease;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .carousel-indicators li {\\n    transition: none;\\n}\\n}\\n.app-admin .carousel-indicators .active {\\n  opacity: 1;\\n}\\n.app-admin .carousel-caption {\\n  position: absolute;\\n  right: 15%;\\n  bottom: 20px;\\n  left: 15%;\\n  z-index: 10;\\n  padding-top: 20px;\\n  padding-bottom: 20px;\\n  color: #fff;\\n  text-align: center;\\n}\\n@-webkit-keyframes spinner-border {\\nto {\\n    transform: rotate(360deg);\\n}\\n}\\n@keyframes spinner-border {\\nto {\\n    transform: rotate(360deg);\\n}\\n}\\n.app-admin .spinner-border {\\n  display: inline-block;\\n  width: 2rem;\\n  height: 2rem;\\n  vertical-align: text-bottom;\\n  border: 0.25em solid currentColor;\\n  border-right-color: transparent;\\n  border-radius: 50%;\\n  -webkit-animation: 0.75s linear infinite spinner-border;\\n          animation: 0.75s linear infinite spinner-border;\\n}\\n.app-admin .spinner-border-sm {\\n  width: 1rem;\\n  height: 1rem;\\n  border-width: 0.2em;\\n}\\n@-webkit-keyframes spinner-grow {\\n0% {\\n    transform: scale(0);\\n}\\n50% {\\n    opacity: 1;\\n    transform: none;\\n}\\n}\\n@keyframes spinner-grow {\\n0% {\\n    transform: scale(0);\\n}\\n50% {\\n    opacity: 1;\\n    transform: none;\\n}\\n}\\n.app-admin .spinner-grow {\\n  display: inline-block;\\n  width: 2rem;\\n  height: 2rem;\\n  vertical-align: text-bottom;\\n  background-color: currentColor;\\n  border-radius: 50%;\\n  opacity: 0;\\n  -webkit-animation: 0.75s linear infinite spinner-grow;\\n          animation: 0.75s linear infinite spinner-grow;\\n}\\n.app-admin .spinner-grow-sm {\\n  width: 1rem;\\n  height: 1rem;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .spinner-border,\\n.app-admin .spinner-grow {\\n    -webkit-animation-duration: 1.5s;\\n            animation-duration: 1.5s;\\n}\\n}\\n.app-admin .align-baseline {\\n  vertical-align: baseline !important;\\n}\\n.app-admin .align-top {\\n  vertical-align: top !important;\\n}\\n.app-admin .align-middle {\\n  vertical-align: middle !important;\\n}\\n.app-admin .align-bottom {\\n  vertical-align: bottom !important;\\n}\\n.app-admin .align-text-bottom {\\n  vertical-align: text-bottom !important;\\n}\\n.app-admin .align-text-top {\\n  vertical-align: text-top !important;\\n}\\n.app-admin .bg-primary {\\n  background-color: #007bff !important;\\n}\\n.app-admin a.bg-primary:hover, .app-admin a.bg-primary:focus,\\n.app-admin button.bg-primary:hover,\\n.app-admin button.bg-primary:focus {\\n  background-color: #0062cc !important;\\n}\\n.app-admin .bg-secondary {\\n  background-color: #6c757d !important;\\n}\\n.app-admin a.bg-secondary:hover, .app-admin a.bg-secondary:focus,\\n.app-admin button.bg-secondary:hover,\\n.app-admin button.bg-secondary:focus {\\n  background-color: #545b62 !important;\\n}\\n.app-admin .bg-success {\\n  background-color: #28a745 !important;\\n}\\n.app-admin a.bg-success:hover, .app-admin a.bg-success:focus,\\n.app-admin button.bg-success:hover,\\n.app-admin button.bg-success:focus {\\n  background-color: #1e7e34 !important;\\n}\\n.app-admin .bg-info {\\n  background-color: #17a2b8 !important;\\n}\\n.app-admin a.bg-info:hover, .app-admin a.bg-info:focus,\\n.app-admin button.bg-info:hover,\\n.app-admin button.bg-info:focus {\\n  background-color: #117a8b !important;\\n}\\n.app-admin .bg-warning {\\n  background-color: #ffc107 !important;\\n}\\n.app-admin a.bg-warning:hover, .app-admin a.bg-warning:focus,\\n.app-admin button.bg-warning:hover,\\n.app-admin button.bg-warning:focus {\\n  background-color: #d39e00 !important;\\n}\\n.app-admin .bg-danger {\\n  background-color: #dc3545 !important;\\n}\\n.app-admin a.bg-danger:hover, .app-admin a.bg-danger:focus,\\n.app-admin button.bg-danger:hover,\\n.app-admin button.bg-danger:focus {\\n  background-color: #bd2130 !important;\\n}\\n.app-admin .bg-light {\\n  background-color: #f8f9fa !important;\\n}\\n.app-admin a.bg-light:hover, .app-admin a.bg-light:focus,\\n.app-admin button.bg-light:hover,\\n.app-admin button.bg-light:focus {\\n  background-color: #dae0e5 !important;\\n}\\n.app-admin .bg-dark {\\n  background-color: #343a40 !important;\\n}\\n.app-admin a.bg-dark:hover, .app-admin a.bg-dark:focus,\\n.app-admin button.bg-dark:hover,\\n.app-admin button.bg-dark:focus {\\n  background-color: #1d2124 !important;\\n}\\n.app-admin .bg-white {\\n  background-color: #fff !important;\\n}\\n.app-admin .bg-transparent {\\n  background-color: transparent !important;\\n}\\n.app-admin .border {\\n  border: 1px solid #dee2e6 !important;\\n}\\n.app-admin .border-top {\\n  border-top: 1px solid #dee2e6 !important;\\n}\\n.app-admin .border-right {\\n  border-right: 1px solid #dee2e6 !important;\\n}\\n.app-admin .border-bottom {\\n  border-bottom: 1px solid #dee2e6 !important;\\n}\\n.app-admin .border-left {\\n  border-left: 1px solid #dee2e6 !important;\\n}\\n.app-admin .border-0 {\\n  border: 0 !important;\\n}\\n.app-admin .border-top-0 {\\n  border-top: 0 !important;\\n}\\n.app-admin .border-right-0 {\\n  border-right: 0 !important;\\n}\\n.app-admin .border-bottom-0 {\\n  border-bottom: 0 !important;\\n}\\n.app-admin .border-left-0 {\\n  border-left: 0 !important;\\n}\\n.app-admin .border-primary {\\n  border-color: #007bff !important;\\n}\\n.app-admin .border-secondary {\\n  border-color: #6c757d !important;\\n}\\n.app-admin .border-success {\\n  border-color: #28a745 !important;\\n}\\n.app-admin .border-info {\\n  border-color: #17a2b8 !important;\\n}\\n.app-admin .border-warning {\\n  border-color: #ffc107 !important;\\n}\\n.app-admin .border-danger {\\n  border-color: #dc3545 !important;\\n}\\n.app-admin .border-light {\\n  border-color: #f8f9fa !important;\\n}\\n.app-admin .border-dark {\\n  border-color: #343a40 !important;\\n}\\n.app-admin .border-white {\\n  border-color: #fff !important;\\n}\\n.app-admin .rounded-sm {\\n  border-radius: 0.2rem !important;\\n}\\n.app-admin .rounded {\\n  border-radius: 0.25rem !important;\\n}\\n.app-admin .rounded-top {\\n  border-top-left-radius: 0.25rem !important;\\n  border-top-right-radius: 0.25rem !important;\\n}\\n.app-admin .rounded-right {\\n  border-top-right-radius: 0.25rem !important;\\n  border-bottom-right-radius: 0.25rem !important;\\n}\\n.app-admin .rounded-bottom {\\n  border-bottom-right-radius: 0.25rem !important;\\n  border-bottom-left-radius: 0.25rem !important;\\n}\\n.app-admin .rounded-left {\\n  border-top-left-radius: 0.25rem !important;\\n  border-bottom-left-radius: 0.25rem !important;\\n}\\n.app-admin .rounded-lg {\\n  border-radius: 0.3rem !important;\\n}\\n.app-admin .rounded-circle {\\n  border-radius: 50% !important;\\n}\\n.app-admin .rounded-pill {\\n  border-radius: 50rem !important;\\n}\\n.app-admin .rounded-0 {\\n  border-radius: 0 !important;\\n}\\n.app-admin .clearfix::after {\\n  display: block;\\n  clear: both;\\n  content: \\\"\\\";\\n}\\n.app-admin .d-none {\\n  display: none !important;\\n}\\n.app-admin .d-inline {\\n  display: inline !important;\\n}\\n.app-admin .d-inline-block {\\n  display: inline-block !important;\\n}\\n.app-admin .d-block {\\n  display: block !important;\\n}\\n.app-admin .d-table {\\n  display: table !important;\\n}\\n.app-admin .d-table-row {\\n  display: table-row !important;\\n}\\n.app-admin .d-table-cell {\\n  display: table-cell !important;\\n}\\n.app-admin .d-flex {\\n  display: flex !important;\\n}\\n.app-admin .d-inline-flex {\\n  display: inline-flex !important;\\n}\\n@media (min-width: 576px) {\\n.app-admin .d-sm-none {\\n    display: none !important;\\n}\\n.app-admin .d-sm-inline {\\n    display: inline !important;\\n}\\n.app-admin .d-sm-inline-block {\\n    display: inline-block !important;\\n}\\n.app-admin .d-sm-block {\\n    display: block !important;\\n}\\n.app-admin .d-sm-table {\\n    display: table !important;\\n}\\n.app-admin .d-sm-table-row {\\n    display: table-row !important;\\n}\\n.app-admin .d-sm-table-cell {\\n    display: table-cell !important;\\n}\\n.app-admin .d-sm-flex {\\n    display: flex !important;\\n}\\n.app-admin .d-sm-inline-flex {\\n    display: inline-flex !important;\\n}\\n}\\n@media (min-width: 768px) {\\n.app-admin .d-md-none {\\n    display: none !important;\\n}\\n.app-admin .d-md-inline {\\n    display: inline !important;\\n}\\n.app-admin .d-md-inline-block {\\n    display: inline-block !important;\\n}\\n.app-admin .d-md-block {\\n    display: block !important;\\n}\\n.app-admin .d-md-table {\\n    display: table !important;\\n}\\n.app-admin .d-md-table-row {\\n    display: table-row !important;\\n}\\n.app-admin .d-md-table-cell {\\n    display: table-cell !important;\\n}\\n.app-admin .d-md-flex {\\n    display: flex !important;\\n}\\n.app-admin .d-md-inline-flex {\\n    display: inline-flex !important;\\n}\\n}\\n@media (min-width: 992px) {\\n.app-admin .d-lg-none {\\n    display: none !important;\\n}\\n.app-admin .d-lg-inline {\\n    display: inline !important;\\n}\\n.app-admin .d-lg-inline-block {\\n    display: inline-block !important;\\n}\\n.app-admin .d-lg-block {\\n    display: block !important;\\n}\\n.app-admin .d-lg-table {\\n    display: table !important;\\n}\\n.app-admin .d-lg-table-row {\\n    display: table-row !important;\\n}\\n.app-admin .d-lg-table-cell {\\n    display: table-cell !important;\\n}\\n.app-admin .d-lg-flex {\\n    display: flex !important;\\n}\\n.app-admin .d-lg-inline-flex {\\n    display: inline-flex !important;\\n}\\n}\\n@media (min-width: 1200px) {\\n.app-admin .d-xl-none {\\n    display: none !important;\\n}\\n.app-admin .d-xl-inline {\\n    display: inline !important;\\n}\\n.app-admin .d-xl-inline-block {\\n    display: inline-block !important;\\n}\\n.app-admin .d-xl-block {\\n    display: block !important;\\n}\\n.app-admin .d-xl-table {\\n    display: table !important;\\n}\\n.app-admin .d-xl-table-row {\\n    display: table-row !important;\\n}\\n.app-admin .d-xl-table-cell {\\n    display: table-cell !important;\\n}\\n.app-admin .d-xl-flex {\\n    display: flex !important;\\n}\\n.app-admin .d-xl-inline-flex {\\n    display: inline-flex !important;\\n}\\n}\\n@media print {\\n.app-admin .d-print-none {\\n    display: none !important;\\n}\\n.app-admin .d-print-inline {\\n    display: inline !important;\\n}\\n.app-admin .d-print-inline-block {\\n    display: inline-block !important;\\n}\\n.app-admin .d-print-block {\\n    display: block !important;\\n}\\n.app-admin .d-print-table {\\n    display: table !important;\\n}\\n.app-admin .d-print-table-row {\\n    display: table-row !important;\\n}\\n.app-admin .d-print-table-cell {\\n    display: table-cell !important;\\n}\\n.app-admin .d-print-flex {\\n    display: flex !important;\\n}\\n.app-admin .d-print-inline-flex {\\n    display: inline-flex !important;\\n}\\n}\\n.app-admin .embed-responsive {\\n  position: relative;\\n  display: block;\\n  width: 100%;\\n  padding: 0;\\n  overflow: hidden;\\n}\\n.app-admin .embed-responsive::before {\\n  display: block;\\n  content: \\\"\\\";\\n}\\n.app-admin .embed-responsive .embed-responsive-item,\\n.app-admin .embed-responsive iframe,\\n.app-admin .embed-responsive embed,\\n.app-admin .embed-responsive object,\\n.app-admin .embed-responsive video {\\n  position: absolute;\\n  top: 0;\\n  bottom: 0;\\n  left: 0;\\n  width: 100%;\\n  height: 100%;\\n  border: 0;\\n}\\n.app-admin .embed-responsive-21by9::before {\\n  padding-top: 42.8571428571%;\\n}\\n.app-admin .embed-responsive-16by9::before {\\n  padding-top: 56.25%;\\n}\\n.app-admin .embed-responsive-4by3::before {\\n  padding-top: 75%;\\n}\\n.app-admin .embed-responsive-1by1::before {\\n  padding-top: 100%;\\n}\\n.app-admin .flex-row {\\n  flex-direction: row !important;\\n}\\n.app-admin .flex-column {\\n  flex-direction: column !important;\\n}\\n.app-admin .flex-row-reverse {\\n  flex-direction: row-reverse !important;\\n}\\n.app-admin .flex-column-reverse {\\n  flex-direction: column-reverse !important;\\n}\\n.app-admin .flex-wrap {\\n  flex-wrap: wrap !important;\\n}\\n.app-admin .flex-nowrap {\\n  flex-wrap: nowrap !important;\\n}\\n.app-admin .flex-wrap-reverse {\\n  flex-wrap: wrap-reverse !important;\\n}\\n.app-admin .flex-fill {\\n  flex: 1 1 auto !important;\\n}\\n.app-admin .flex-grow-0 {\\n  flex-grow: 0 !important;\\n}\\n.app-admin .flex-grow-1 {\\n  flex-grow: 1 !important;\\n}\\n.app-admin .flex-shrink-0 {\\n  flex-shrink: 0 !important;\\n}\\n.app-admin .flex-shrink-1 {\\n  flex-shrink: 1 !important;\\n}\\n.app-admin .justify-content-start {\\n  justify-content: flex-start !important;\\n}\\n.app-admin .justify-content-end {\\n  justify-content: flex-end !important;\\n}\\n.app-admin .justify-content-center {\\n  justify-content: center !important;\\n}\\n.app-admin .justify-content-between {\\n  justify-content: space-between !important;\\n}\\n.app-admin .justify-content-around {\\n  justify-content: space-around !important;\\n}\\n.app-admin .align-items-start {\\n  align-items: flex-start !important;\\n}\\n.app-admin .align-items-end {\\n  align-items: flex-end !important;\\n}\\n.app-admin .align-items-center {\\n  align-items: center !important;\\n}\\n.app-admin .align-items-baseline {\\n  align-items: baseline !important;\\n}\\n.app-admin .align-items-stretch {\\n  align-items: stretch !important;\\n}\\n.app-admin .align-content-start {\\n  align-content: flex-start !important;\\n}\\n.app-admin .align-content-end {\\n  align-content: flex-end !important;\\n}\\n.app-admin .align-content-center {\\n  align-content: center !important;\\n}\\n.app-admin .align-content-between {\\n  align-content: space-between !important;\\n}\\n.app-admin .align-content-around {\\n  align-content: space-around !important;\\n}\\n.app-admin .align-content-stretch {\\n  align-content: stretch !important;\\n}\\n.app-admin .align-self-auto {\\n  align-self: auto !important;\\n}\\n.app-admin .align-self-start {\\n  align-self: flex-start !important;\\n}\\n.app-admin .align-self-end {\\n  align-self: flex-end !important;\\n}\\n.app-admin .align-self-center {\\n  align-self: center !important;\\n}\\n.app-admin .align-self-baseline {\\n  align-self: baseline !important;\\n}\\n.app-admin .align-self-stretch {\\n  align-self: stretch !important;\\n}\\n@media (min-width: 576px) {\\n.app-admin .flex-sm-row {\\n    flex-direction: row !important;\\n}\\n.app-admin .flex-sm-column {\\n    flex-direction: column !important;\\n}\\n.app-admin .flex-sm-row-reverse {\\n    flex-direction: row-reverse !important;\\n}\\n.app-admin .flex-sm-column-reverse {\\n    flex-direction: column-reverse !important;\\n}\\n.app-admin .flex-sm-wrap {\\n    flex-wrap: wrap !important;\\n}\\n.app-admin .flex-sm-nowrap {\\n    flex-wrap: nowrap !important;\\n}\\n.app-admin .flex-sm-wrap-reverse {\\n    flex-wrap: wrap-reverse !important;\\n}\\n.app-admin .flex-sm-fill {\\n    flex: 1 1 auto !important;\\n}\\n.app-admin .flex-sm-grow-0 {\\n    flex-grow: 0 !important;\\n}\\n.app-admin .flex-sm-grow-1 {\\n    flex-grow: 1 !important;\\n}\\n.app-admin .flex-sm-shrink-0 {\\n    flex-shrink: 0 !important;\\n}\\n.app-admin .flex-sm-shrink-1 {\\n    flex-shrink: 1 !important;\\n}\\n.app-admin .justify-content-sm-start {\\n    justify-content: flex-start !important;\\n}\\n.app-admin .justify-content-sm-end {\\n    justify-content: flex-end !important;\\n}\\n.app-admin .justify-content-sm-center {\\n    justify-content: center !important;\\n}\\n.app-admin .justify-content-sm-between {\\n    justify-content: space-between !important;\\n}\\n.app-admin .justify-content-sm-around {\\n    justify-content: space-around !important;\\n}\\n.app-admin .align-items-sm-start {\\n    align-items: flex-start !important;\\n}\\n.app-admin .align-items-sm-end {\\n    align-items: flex-end !important;\\n}\\n.app-admin .align-items-sm-center {\\n    align-items: center !important;\\n}\\n.app-admin .align-items-sm-baseline {\\n    align-items: baseline !important;\\n}\\n.app-admin .align-items-sm-stretch {\\n    align-items: stretch !important;\\n}\\n.app-admin .align-content-sm-start {\\n    align-content: flex-start !important;\\n}\\n.app-admin .align-content-sm-end {\\n    align-content: flex-end !important;\\n}\\n.app-admin .align-content-sm-center {\\n    align-content: center !important;\\n}\\n.app-admin .align-content-sm-between {\\n    align-content: space-between !important;\\n}\\n.app-admin .align-content-sm-around {\\n    align-content: space-around !important;\\n}\\n.app-admin .align-content-sm-stretch {\\n    align-content: stretch !important;\\n}\\n.app-admin .align-self-sm-auto {\\n    align-self: auto !important;\\n}\\n.app-admin .align-self-sm-start {\\n    align-self: flex-start !important;\\n}\\n.app-admin .align-self-sm-end {\\n    align-self: flex-end !important;\\n}\\n.app-admin .align-self-sm-center {\\n    align-self: center !important;\\n}\\n.app-admin .align-self-sm-baseline {\\n    align-self: baseline !important;\\n}\\n.app-admin .align-self-sm-stretch {\\n    align-self: stretch !important;\\n}\\n}\\n@media (min-width: 768px) {\\n.app-admin .flex-md-row {\\n    flex-direction: row !important;\\n}\\n.app-admin .flex-md-column {\\n    flex-direction: column !important;\\n}\\n.app-admin .flex-md-row-reverse {\\n    flex-direction: row-reverse !important;\\n}\\n.app-admin .flex-md-column-reverse {\\n    flex-direction: column-reverse !important;\\n}\\n.app-admin .flex-md-wrap {\\n    flex-wrap: wrap !important;\\n}\\n.app-admin .flex-md-nowrap {\\n    flex-wrap: nowrap !important;\\n}\\n.app-admin .flex-md-wrap-reverse {\\n    flex-wrap: wrap-reverse !important;\\n}\\n.app-admin .flex-md-fill {\\n    flex: 1 1 auto !important;\\n}\\n.app-admin .flex-md-grow-0 {\\n    flex-grow: 0 !important;\\n}\\n.app-admin .flex-md-grow-1 {\\n    flex-grow: 1 !important;\\n}\\n.app-admin .flex-md-shrink-0 {\\n    flex-shrink: 0 !important;\\n}\\n.app-admin .flex-md-shrink-1 {\\n    flex-shrink: 1 !important;\\n}\\n.app-admin .justify-content-md-start {\\n    justify-content: flex-start !important;\\n}\\n.app-admin .justify-content-md-end {\\n    justify-content: flex-end !important;\\n}\\n.app-admin .justify-content-md-center {\\n    justify-content: center !important;\\n}\\n.app-admin .justify-content-md-between {\\n    justify-content: space-between !important;\\n}\\n.app-admin .justify-content-md-around {\\n    justify-content: space-around !important;\\n}\\n.app-admin .align-items-md-start {\\n    align-items: flex-start !important;\\n}\\n.app-admin .align-items-md-end {\\n    align-items: flex-end !important;\\n}\\n.app-admin .align-items-md-center {\\n    align-items: center !important;\\n}\\n.app-admin .align-items-md-baseline {\\n    align-items: baseline !important;\\n}\\n.app-admin .align-items-md-stretch {\\n    align-items: stretch !important;\\n}\\n.app-admin .align-content-md-start {\\n    align-content: flex-start !important;\\n}\\n.app-admin .align-content-md-end {\\n    align-content: flex-end !important;\\n}\\n.app-admin .align-content-md-center {\\n    align-content: center !important;\\n}\\n.app-admin .align-content-md-between {\\n    align-content: space-between !important;\\n}\\n.app-admin .align-content-md-around {\\n    align-content: space-around !important;\\n}\\n.app-admin .align-content-md-stretch {\\n    align-content: stretch !important;\\n}\\n.app-admin .align-self-md-auto {\\n    align-self: auto !important;\\n}\\n.app-admin .align-self-md-start {\\n    align-self: flex-start !important;\\n}\\n.app-admin .align-self-md-end {\\n    align-self: flex-end !important;\\n}\\n.app-admin .align-self-md-center {\\n    align-self: center !important;\\n}\\n.app-admin .align-self-md-baseline {\\n    align-self: baseline !important;\\n}\\n.app-admin .align-self-md-stretch {\\n    align-self: stretch !important;\\n}\\n}\\n@media (min-width: 992px) {\\n.app-admin .flex-lg-row {\\n    flex-direction: row !important;\\n}\\n.app-admin .flex-lg-column {\\n    flex-direction: column !important;\\n}\\n.app-admin .flex-lg-row-reverse {\\n    flex-direction: row-reverse !important;\\n}\\n.app-admin .flex-lg-column-reverse {\\n    flex-direction: column-reverse !important;\\n}\\n.app-admin .flex-lg-wrap {\\n    flex-wrap: wrap !important;\\n}\\n.app-admin .flex-lg-nowrap {\\n    flex-wrap: nowrap !important;\\n}\\n.app-admin .flex-lg-wrap-reverse {\\n    flex-wrap: wrap-reverse !important;\\n}\\n.app-admin .flex-lg-fill {\\n    flex: 1 1 auto !important;\\n}\\n.app-admin .flex-lg-grow-0 {\\n    flex-grow: 0 !important;\\n}\\n.app-admin .flex-lg-grow-1 {\\n    flex-grow: 1 !important;\\n}\\n.app-admin .flex-lg-shrink-0 {\\n    flex-shrink: 0 !important;\\n}\\n.app-admin .flex-lg-shrink-1 {\\n    flex-shrink: 1 !important;\\n}\\n.app-admin .justify-content-lg-start {\\n    justify-content: flex-start !important;\\n}\\n.app-admin .justify-content-lg-end {\\n    justify-content: flex-end !important;\\n}\\n.app-admin .justify-content-lg-center {\\n    justify-content: center !important;\\n}\\n.app-admin .justify-content-lg-between {\\n    justify-content: space-between !important;\\n}\\n.app-admin .justify-content-lg-around {\\n    justify-content: space-around !important;\\n}\\n.app-admin .align-items-lg-start {\\n    align-items: flex-start !important;\\n}\\n.app-admin .align-items-lg-end {\\n    align-items: flex-end !important;\\n}\\n.app-admin .align-items-lg-center {\\n    align-items: center !important;\\n}\\n.app-admin .align-items-lg-baseline {\\n    align-items: baseline !important;\\n}\\n.app-admin .align-items-lg-stretch {\\n    align-items: stretch !important;\\n}\\n.app-admin .align-content-lg-start {\\n    align-content: flex-start !important;\\n}\\n.app-admin .align-content-lg-end {\\n    align-content: flex-end !important;\\n}\\n.app-admin .align-content-lg-center {\\n    align-content: center !important;\\n}\\n.app-admin .align-content-lg-between {\\n    align-content: space-between !important;\\n}\\n.app-admin .align-content-lg-around {\\n    align-content: space-around !important;\\n}\\n.app-admin .align-content-lg-stretch {\\n    align-content: stretch !important;\\n}\\n.app-admin .align-self-lg-auto {\\n    align-self: auto !important;\\n}\\n.app-admin .align-self-lg-start {\\n    align-self: flex-start !important;\\n}\\n.app-admin .align-self-lg-end {\\n    align-self: flex-end !important;\\n}\\n.app-admin .align-self-lg-center {\\n    align-self: center !important;\\n}\\n.app-admin .align-self-lg-baseline {\\n    align-self: baseline !important;\\n}\\n.app-admin .align-self-lg-stretch {\\n    align-self: stretch !important;\\n}\\n}\\n@media (min-width: 1200px) {\\n.app-admin .flex-xl-row {\\n    flex-direction: row !important;\\n}\\n.app-admin .flex-xl-column {\\n    flex-direction: column !important;\\n}\\n.app-admin .flex-xl-row-reverse {\\n    flex-direction: row-reverse !important;\\n}\\n.app-admin .flex-xl-column-reverse {\\n    flex-direction: column-reverse !important;\\n}\\n.app-admin .flex-xl-wrap {\\n    flex-wrap: wrap !important;\\n}\\n.app-admin .flex-xl-nowrap {\\n    flex-wrap: nowrap !important;\\n}\\n.app-admin .flex-xl-wrap-reverse {\\n    flex-wrap: wrap-reverse !important;\\n}\\n.app-admin .flex-xl-fill {\\n    flex: 1 1 auto !important;\\n}\\n.app-admin .flex-xl-grow-0 {\\n    flex-grow: 0 !important;\\n}\\n.app-admin .flex-xl-grow-1 {\\n    flex-grow: 1 !important;\\n}\\n.app-admin .flex-xl-shrink-0 {\\n    flex-shrink: 0 !important;\\n}\\n.app-admin .flex-xl-shrink-1 {\\n    flex-shrink: 1 !important;\\n}\\n.app-admin .justify-content-xl-start {\\n    justify-content: flex-start !important;\\n}\\n.app-admin .justify-content-xl-end {\\n    justify-content: flex-end !important;\\n}\\n.app-admin .justify-content-xl-center {\\n    justify-content: center !important;\\n}\\n.app-admin .justify-content-xl-between {\\n    justify-content: space-between !important;\\n}\\n.app-admin .justify-content-xl-around {\\n    justify-content: space-around !important;\\n}\\n.app-admin .align-items-xl-start {\\n    align-items: flex-start !important;\\n}\\n.app-admin .align-items-xl-end {\\n    align-items: flex-end !important;\\n}\\n.app-admin .align-items-xl-center {\\n    align-items: center !important;\\n}\\n.app-admin .align-items-xl-baseline {\\n    align-items: baseline !important;\\n}\\n.app-admin .align-items-xl-stretch {\\n    align-items: stretch !important;\\n}\\n.app-admin .align-content-xl-start {\\n    align-content: flex-start !important;\\n}\\n.app-admin .align-content-xl-end {\\n    align-content: flex-end !important;\\n}\\n.app-admin .align-content-xl-center {\\n    align-content: center !important;\\n}\\n.app-admin .align-content-xl-between {\\n    align-content: space-between !important;\\n}\\n.app-admin .align-content-xl-around {\\n    align-content: space-around !important;\\n}\\n.app-admin .align-content-xl-stretch {\\n    align-content: stretch !important;\\n}\\n.app-admin .align-self-xl-auto {\\n    align-self: auto !important;\\n}\\n.app-admin .align-self-xl-start {\\n    align-self: flex-start !important;\\n}\\n.app-admin .align-self-xl-end {\\n    align-self: flex-end !important;\\n}\\n.app-admin .align-self-xl-center {\\n    align-self: center !important;\\n}\\n.app-admin .align-self-xl-baseline {\\n    align-self: baseline !important;\\n}\\n.app-admin .align-self-xl-stretch {\\n    align-self: stretch !important;\\n}\\n}\\n.app-admin .float-left {\\n  float: left !important;\\n}\\n.app-admin .float-right {\\n  float: right !important;\\n}\\n.app-admin .float-none {\\n  float: none !important;\\n}\\n@media (min-width: 576px) {\\n.app-admin .float-sm-left {\\n    float: left !important;\\n}\\n.app-admin .float-sm-right {\\n    float: right !important;\\n}\\n.app-admin .float-sm-none {\\n    float: none !important;\\n}\\n}\\n@media (min-width: 768px) {\\n.app-admin .float-md-left {\\n    float: left !important;\\n}\\n.app-admin .float-md-right {\\n    float: right !important;\\n}\\n.app-admin .float-md-none {\\n    float: none !important;\\n}\\n}\\n@media (min-width: 992px) {\\n.app-admin .float-lg-left {\\n    float: left !important;\\n}\\n.app-admin .float-lg-right {\\n    float: right !important;\\n}\\n.app-admin .float-lg-none {\\n    float: none !important;\\n}\\n}\\n@media (min-width: 1200px) {\\n.app-admin .float-xl-left {\\n    float: left !important;\\n}\\n.app-admin .float-xl-right {\\n    float: right !important;\\n}\\n.app-admin .float-xl-none {\\n    float: none !important;\\n}\\n}\\n.app-admin .user-select-all {\\n  -webkit-user-select: all !important;\\n     -moz-user-select: all !important;\\n      -ms-user-select: all !important;\\n          user-select: all !important;\\n}\\n.app-admin .user-select-auto {\\n  -webkit-user-select: auto !important;\\n     -moz-user-select: auto !important;\\n      -ms-user-select: auto !important;\\n          user-select: auto !important;\\n}\\n.app-admin .user-select-none {\\n  -webkit-user-select: none !important;\\n     -moz-user-select: none !important;\\n      -ms-user-select: none !important;\\n          user-select: none !important;\\n}\\n.app-admin .overflow-auto {\\n  overflow: auto !important;\\n}\\n.app-admin .overflow-hidden {\\n  overflow: hidden !important;\\n}\\n.app-admin .position-static {\\n  position: static !important;\\n}\\n.app-admin .position-relative {\\n  position: relative !important;\\n}\\n.app-admin .position-absolute {\\n  position: absolute !important;\\n}\\n.app-admin .position-fixed {\\n  position: fixed !important;\\n}\\n.app-admin .position-sticky {\\n  position: -webkit-sticky !important;\\n  position: sticky !important;\\n}\\n.app-admin .fixed-top {\\n  position: fixed;\\n  top: 0;\\n  right: 0;\\n  left: 0;\\n  z-index: 1030;\\n}\\n.app-admin .fixed-bottom {\\n  position: fixed;\\n  right: 0;\\n  bottom: 0;\\n  left: 0;\\n  z-index: 1030;\\n}\\n@supports ((position: -webkit-sticky) or (position: sticky)) {\\n.app-admin .sticky-top {\\n    position: -webkit-sticky;\\n    position: sticky;\\n    top: 0;\\n    z-index: 1020;\\n}\\n}\\n.app-admin .sr-only {\\n  position: absolute;\\n  width: 1px;\\n  height: 1px;\\n  padding: 0;\\n  margin: -1px;\\n  overflow: hidden;\\n  clip: rect(0, 0, 0, 0);\\n  white-space: nowrap;\\n  border: 0;\\n}\\n.app-admin .sr-only-focusable:active, .app-admin .sr-only-focusable:focus {\\n  position: static;\\n  width: auto;\\n  height: auto;\\n  overflow: visible;\\n  clip: auto;\\n  white-space: normal;\\n}\\n.app-admin .shadow-sm {\\n  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;\\n}\\n.app-admin .shadow {\\n  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;\\n}\\n.app-admin .shadow-lg {\\n  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;\\n}\\n.app-admin .shadow-none {\\n  box-shadow: none !important;\\n}\\n.app-admin .w-25 {\\n  width: 25% !important;\\n}\\n.app-admin .w-50 {\\n  width: 50% !important;\\n}\\n.app-admin .w-75 {\\n  width: 75% !important;\\n}\\n.app-admin .w-100 {\\n  width: 100% !important;\\n}\\n.app-admin .w-auto {\\n  width: auto !important;\\n}\\n.app-admin .h-25 {\\n  height: 25% !important;\\n}\\n.app-admin .h-50 {\\n  height: 50% !important;\\n}\\n.app-admin .h-75 {\\n  height: 75% !important;\\n}\\n.app-admin .h-100 {\\n  height: 100% !important;\\n}\\n.app-admin .h-auto {\\n  height: auto !important;\\n}\\n.app-admin .mw-100 {\\n  max-width: 100% !important;\\n}\\n.app-admin .mh-100 {\\n  max-height: 100% !important;\\n}\\n.app-admin .min-vw-100 {\\n  min-width: 100vw !important;\\n}\\n.app-admin .min-vh-100 {\\n  min-height: 100vh !important;\\n}\\n.app-admin .vw-100 {\\n  width: 100vw !important;\\n}\\n.app-admin .vh-100 {\\n  height: 100vh !important;\\n}\\n.app-admin .m-0 {\\n  margin: 0 !important;\\n}\\n.app-admin .mt-0,\\n.app-admin .my-0 {\\n  margin-top: 0 !important;\\n}\\n.app-admin .mr-0,\\n.app-admin .mx-0 {\\n  margin-right: 0 !important;\\n}\\n.app-admin .mb-0,\\n.app-admin .my-0 {\\n  margin-bottom: 0 !important;\\n}\\n.app-admin .ml-0,\\n.app-admin .mx-0 {\\n  margin-left: 0 !important;\\n}\\n.app-admin .m-1 {\\n  margin: 0.25rem !important;\\n}\\n.app-admin .mt-1,\\n.app-admin .my-1 {\\n  margin-top: 0.25rem !important;\\n}\\n.app-admin .mr-1,\\n.app-admin .mx-1 {\\n  margin-right: 0.25rem !important;\\n}\\n.app-admin .mb-1,\\n.app-admin .my-1 {\\n  margin-bottom: 0.25rem !important;\\n}\\n.app-admin .ml-1,\\n.app-admin .mx-1 {\\n  margin-left: 0.25rem !important;\\n}\\n.app-admin .m-2 {\\n  margin: 0.5rem !important;\\n}\\n.app-admin .mt-2,\\n.app-admin .my-2 {\\n  margin-top: 0.5rem !important;\\n}\\n.app-admin .mr-2,\\n.app-admin .mx-2 {\\n  margin-right: 0.5rem !important;\\n}\\n.app-admin .mb-2,\\n.app-admin .my-2 {\\n  margin-bottom: 0.5rem !important;\\n}\\n.app-admin .ml-2,\\n.app-admin .mx-2 {\\n  margin-left: 0.5rem !important;\\n}\\n.app-admin .m-3 {\\n  margin: 1rem !important;\\n}\\n.app-admin .mt-3,\\n.app-admin .my-3 {\\n  margin-top: 1rem !important;\\n}\\n.app-admin .mr-3,\\n.app-admin .mx-3 {\\n  margin-right: 1rem !important;\\n}\\n.app-admin .mb-3,\\n.app-admin .my-3 {\\n  margin-bottom: 1rem !important;\\n}\\n.app-admin .ml-3,\\n.app-admin .mx-3 {\\n  margin-left: 1rem !important;\\n}\\n.app-admin .m-4 {\\n  margin: 1.5rem !important;\\n}\\n.app-admin .mt-4,\\n.app-admin .my-4 {\\n  margin-top: 1.5rem !important;\\n}\\n.app-admin .mr-4,\\n.app-admin .mx-4 {\\n  margin-right: 1.5rem !important;\\n}\\n.app-admin .mb-4,\\n.app-admin .my-4 {\\n  margin-bottom: 1.5rem !important;\\n}\\n.app-admin .ml-4,\\n.app-admin .mx-4 {\\n  margin-left: 1.5rem !important;\\n}\\n.app-admin .m-5 {\\n  margin: 3rem !important;\\n}\\n.app-admin .mt-5,\\n.app-admin .my-5 {\\n  margin-top: 3rem !important;\\n}\\n.app-admin .mr-5,\\n.app-admin .mx-5 {\\n  margin-right: 3rem !important;\\n}\\n.app-admin .mb-5,\\n.app-admin .my-5 {\\n  margin-bottom: 3rem !important;\\n}\\n.app-admin .ml-5,\\n.app-admin .mx-5 {\\n  margin-left: 3rem !important;\\n}\\n.app-admin .p-0 {\\n  padding: 0 !important;\\n}\\n.app-admin .pt-0,\\n.app-admin .py-0 {\\n  padding-top: 0 !important;\\n}\\n.app-admin .pr-0,\\n.app-admin .px-0 {\\n  padding-right: 0 !important;\\n}\\n.app-admin .pb-0,\\n.app-admin .py-0 {\\n  padding-bottom: 0 !important;\\n}\\n.app-admin .pl-0,\\n.app-admin .px-0 {\\n  padding-left: 0 !important;\\n}\\n.app-admin .p-1 {\\n  padding: 0.25rem !important;\\n}\\n.app-admin .pt-1,\\n.app-admin .py-1 {\\n  padding-top: 0.25rem !important;\\n}\\n.app-admin .pr-1,\\n.app-admin .px-1 {\\n  padding-right: 0.25rem !important;\\n}\\n.app-admin .pb-1,\\n.app-admin .py-1 {\\n  padding-bottom: 0.25rem !important;\\n}\\n.app-admin .pl-1,\\n.app-admin .px-1 {\\n  padding-left: 0.25rem !important;\\n}\\n.app-admin .p-2 {\\n  padding: 0.5rem !important;\\n}\\n.app-admin .pt-2,\\n.app-admin .py-2 {\\n  padding-top: 0.5rem !important;\\n}\\n.app-admin .pr-2,\\n.app-admin .px-2 {\\n  padding-right: 0.5rem !important;\\n}\\n.app-admin .pb-2,\\n.app-admin .py-2 {\\n  padding-bottom: 0.5rem !important;\\n}\\n.app-admin .pl-2,\\n.app-admin .px-2 {\\n  padding-left: 0.5rem !important;\\n}\\n.app-admin .p-3 {\\n  padding: 1rem !important;\\n}\\n.app-admin .pt-3,\\n.app-admin .py-3 {\\n  padding-top: 1rem !important;\\n}\\n.app-admin .pr-3,\\n.app-admin .px-3 {\\n  padding-right: 1rem !important;\\n}\\n.app-admin .pb-3,\\n.app-admin .py-3 {\\n  padding-bottom: 1rem !important;\\n}\\n.app-admin .pl-3,\\n.app-admin .px-3 {\\n  padding-left: 1rem !important;\\n}\\n.app-admin .p-4 {\\n  padding: 1.5rem !important;\\n}\\n.app-admin .pt-4,\\n.app-admin .py-4 {\\n  padding-top: 1.5rem !important;\\n}\\n.app-admin .pr-4,\\n.app-admin .px-4 {\\n  padding-right: 1.5rem !important;\\n}\\n.app-admin .pb-4,\\n.app-admin .py-4 {\\n  padding-bottom: 1.5rem !important;\\n}\\n.app-admin .pl-4,\\n.app-admin .px-4 {\\n  padding-left: 1.5rem !important;\\n}\\n.app-admin .p-5 {\\n  padding: 3rem !important;\\n}\\n.app-admin .pt-5,\\n.app-admin .py-5 {\\n  padding-top: 3rem !important;\\n}\\n.app-admin .pr-5,\\n.app-admin .px-5 {\\n  padding-right: 3rem !important;\\n}\\n.app-admin .pb-5,\\n.app-admin .py-5 {\\n  padding-bottom: 3rem !important;\\n}\\n.app-admin .pl-5,\\n.app-admin .px-5 {\\n  padding-left: 3rem !important;\\n}\\n.app-admin .m-n1 {\\n  margin: -0.25rem !important;\\n}\\n.app-admin .mt-n1,\\n.app-admin .my-n1 {\\n  margin-top: -0.25rem !important;\\n}\\n.app-admin .mr-n1,\\n.app-admin .mx-n1 {\\n  margin-right: -0.25rem !important;\\n}\\n.app-admin .mb-n1,\\n.app-admin .my-n1 {\\n  margin-bottom: -0.25rem !important;\\n}\\n.app-admin .ml-n1,\\n.app-admin .mx-n1 {\\n  margin-left: -0.25rem !important;\\n}\\n.app-admin .m-n2 {\\n  margin: -0.5rem !important;\\n}\\n.app-admin .mt-n2,\\n.app-admin .my-n2 {\\n  margin-top: -0.5rem !important;\\n}\\n.app-admin .mr-n2,\\n.app-admin .mx-n2 {\\n  margin-right: -0.5rem !important;\\n}\\n.app-admin .mb-n2,\\n.app-admin .my-n2 {\\n  margin-bottom: -0.5rem !important;\\n}\\n.app-admin .ml-n2,\\n.app-admin .mx-n2 {\\n  margin-left: -0.5rem !important;\\n}\\n.app-admin .m-n3 {\\n  margin: -1rem !important;\\n}\\n.app-admin .mt-n3,\\n.app-admin .my-n3 {\\n  margin-top: -1rem !important;\\n}\\n.app-admin .mr-n3,\\n.app-admin .mx-n3 {\\n  margin-right: -1rem !important;\\n}\\n.app-admin .mb-n3,\\n.app-admin .my-n3 {\\n  margin-bottom: -1rem !important;\\n}\\n.app-admin .ml-n3,\\n.app-admin .mx-n3 {\\n  margin-left: -1rem !important;\\n}\\n.app-admin .m-n4 {\\n  margin: -1.5rem !important;\\n}\\n.app-admin .mt-n4,\\n.app-admin .my-n4 {\\n  margin-top: -1.5rem !important;\\n}\\n.app-admin .mr-n4,\\n.app-admin .mx-n4 {\\n  margin-right: -1.5rem !important;\\n}\\n.app-admin .mb-n4,\\n.app-admin .my-n4 {\\n  margin-bottom: -1.5rem !important;\\n}\\n.app-admin .ml-n4,\\n.app-admin .mx-n4 {\\n  margin-left: -1.5rem !important;\\n}\\n.app-admin .m-n5 {\\n  margin: -3rem !important;\\n}\\n.app-admin .mt-n5,\\n.app-admin .my-n5 {\\n  margin-top: -3rem !important;\\n}\\n.app-admin .mr-n5,\\n.app-admin .mx-n5 {\\n  margin-right: -3rem !important;\\n}\\n.app-admin .mb-n5,\\n.app-admin .my-n5 {\\n  margin-bottom: -3rem !important;\\n}\\n.app-admin .ml-n5,\\n.app-admin .mx-n5 {\\n  margin-left: -3rem !important;\\n}\\n.app-admin .m-auto {\\n  margin: auto !important;\\n}\\n.app-admin .mt-auto,\\n.app-admin .my-auto {\\n  margin-top: auto !important;\\n}\\n.app-admin .mr-auto,\\n.app-admin .mx-auto {\\n  margin-right: auto !important;\\n}\\n.app-admin .mb-auto,\\n.app-admin .my-auto {\\n  margin-bottom: auto !important;\\n}\\n.app-admin .ml-auto,\\n.app-admin .mx-auto {\\n  margin-left: auto !important;\\n}\\n@media (min-width: 576px) {\\n.app-admin .m-sm-0 {\\n    margin: 0 !important;\\n}\\n.app-admin .mt-sm-0,\\n.app-admin .my-sm-0 {\\n    margin-top: 0 !important;\\n}\\n.app-admin .mr-sm-0,\\n.app-admin .mx-sm-0 {\\n    margin-right: 0 !important;\\n}\\n.app-admin .mb-sm-0,\\n.app-admin .my-sm-0 {\\n    margin-bottom: 0 !important;\\n}\\n.app-admin .ml-sm-0,\\n.app-admin .mx-sm-0 {\\n    margin-left: 0 !important;\\n}\\n.app-admin .m-sm-1 {\\n    margin: 0.25rem !important;\\n}\\n.app-admin .mt-sm-1,\\n.app-admin .my-sm-1 {\\n    margin-top: 0.25rem !important;\\n}\\n.app-admin .mr-sm-1,\\n.app-admin .mx-sm-1 {\\n    margin-right: 0.25rem !important;\\n}\\n.app-admin .mb-sm-1,\\n.app-admin .my-sm-1 {\\n    margin-bottom: 0.25rem !important;\\n}\\n.app-admin .ml-sm-1,\\n.app-admin .mx-sm-1 {\\n    margin-left: 0.25rem !important;\\n}\\n.app-admin .m-sm-2 {\\n    margin: 0.5rem !important;\\n}\\n.app-admin .mt-sm-2,\\n.app-admin .my-sm-2 {\\n    margin-top: 0.5rem !important;\\n}\\n.app-admin .mr-sm-2,\\n.app-admin .mx-sm-2 {\\n    margin-right: 0.5rem !important;\\n}\\n.app-admin .mb-sm-2,\\n.app-admin .my-sm-2 {\\n    margin-bottom: 0.5rem !important;\\n}\\n.app-admin .ml-sm-2,\\n.app-admin .mx-sm-2 {\\n    margin-left: 0.5rem !important;\\n}\\n.app-admin .m-sm-3 {\\n    margin: 1rem !important;\\n}\\n.app-admin .mt-sm-3,\\n.app-admin .my-sm-3 {\\n    margin-top: 1rem !important;\\n}\\n.app-admin .mr-sm-3,\\n.app-admin .mx-sm-3 {\\n    margin-right: 1rem !important;\\n}\\n.app-admin .mb-sm-3,\\n.app-admin .my-sm-3 {\\n    margin-bottom: 1rem !important;\\n}\\n.app-admin .ml-sm-3,\\n.app-admin .mx-sm-3 {\\n    margin-left: 1rem !important;\\n}\\n.app-admin .m-sm-4 {\\n    margin: 1.5rem !important;\\n}\\n.app-admin .mt-sm-4,\\n.app-admin .my-sm-4 {\\n    margin-top: 1.5rem !important;\\n}\\n.app-admin .mr-sm-4,\\n.app-admin .mx-sm-4 {\\n    margin-right: 1.5rem !important;\\n}\\n.app-admin .mb-sm-4,\\n.app-admin .my-sm-4 {\\n    margin-bottom: 1.5rem !important;\\n}\\n.app-admin .ml-sm-4,\\n.app-admin .mx-sm-4 {\\n    margin-left: 1.5rem !important;\\n}\\n.app-admin .m-sm-5 {\\n    margin: 3rem !important;\\n}\\n.app-admin .mt-sm-5,\\n.app-admin .my-sm-5 {\\n    margin-top: 3rem !important;\\n}\\n.app-admin .mr-sm-5,\\n.app-admin .mx-sm-5 {\\n    margin-right: 3rem !important;\\n}\\n.app-admin .mb-sm-5,\\n.app-admin .my-sm-5 {\\n    margin-bottom: 3rem !important;\\n}\\n.app-admin .ml-sm-5,\\n.app-admin .mx-sm-5 {\\n    margin-left: 3rem !important;\\n}\\n.app-admin .p-sm-0 {\\n    padding: 0 !important;\\n}\\n.app-admin .pt-sm-0,\\n.app-admin .py-sm-0 {\\n    padding-top: 0 !important;\\n}\\n.app-admin .pr-sm-0,\\n.app-admin .px-sm-0 {\\n    padding-right: 0 !important;\\n}\\n.app-admin .pb-sm-0,\\n.app-admin .py-sm-0 {\\n    padding-bottom: 0 !important;\\n}\\n.app-admin .pl-sm-0,\\n.app-admin .px-sm-0 {\\n    padding-left: 0 !important;\\n}\\n.app-admin .p-sm-1 {\\n    padding: 0.25rem !important;\\n}\\n.app-admin .pt-sm-1,\\n.app-admin .py-sm-1 {\\n    padding-top: 0.25rem !important;\\n}\\n.app-admin .pr-sm-1,\\n.app-admin .px-sm-1 {\\n    padding-right: 0.25rem !important;\\n}\\n.app-admin .pb-sm-1,\\n.app-admin .py-sm-1 {\\n    padding-bottom: 0.25rem !important;\\n}\\n.app-admin .pl-sm-1,\\n.app-admin .px-sm-1 {\\n    padding-left: 0.25rem !important;\\n}\\n.app-admin .p-sm-2 {\\n    padding: 0.5rem !important;\\n}\\n.app-admin .pt-sm-2,\\n.app-admin .py-sm-2 {\\n    padding-top: 0.5rem !important;\\n}\\n.app-admin .pr-sm-2,\\n.app-admin .px-sm-2 {\\n    padding-right: 0.5rem !important;\\n}\\n.app-admin .pb-sm-2,\\n.app-admin .py-sm-2 {\\n    padding-bottom: 0.5rem !important;\\n}\\n.app-admin .pl-sm-2,\\n.app-admin .px-sm-2 {\\n    padding-left: 0.5rem !important;\\n}\\n.app-admin .p-sm-3 {\\n    padding: 1rem !important;\\n}\\n.app-admin .pt-sm-3,\\n.app-admin .py-sm-3 {\\n    padding-top: 1rem !important;\\n}\\n.app-admin .pr-sm-3,\\n.app-admin .px-sm-3 {\\n    padding-right: 1rem !important;\\n}\\n.app-admin .pb-sm-3,\\n.app-admin .py-sm-3 {\\n    padding-bottom: 1rem !important;\\n}\\n.app-admin .pl-sm-3,\\n.app-admin .px-sm-3 {\\n    padding-left: 1rem !important;\\n}\\n.app-admin .p-sm-4 {\\n    padding: 1.5rem !important;\\n}\\n.app-admin .pt-sm-4,\\n.app-admin .py-sm-4 {\\n    padding-top: 1.5rem !important;\\n}\\n.app-admin .pr-sm-4,\\n.app-admin .px-sm-4 {\\n    padding-right: 1.5rem !important;\\n}\\n.app-admin .pb-sm-4,\\n.app-admin .py-sm-4 {\\n    padding-bottom: 1.5rem !important;\\n}\\n.app-admin .pl-sm-4,\\n.app-admin .px-sm-4 {\\n    padding-left: 1.5rem !important;\\n}\\n.app-admin .p-sm-5 {\\n    padding: 3rem !important;\\n}\\n.app-admin .pt-sm-5,\\n.app-admin .py-sm-5 {\\n    padding-top: 3rem !important;\\n}\\n.app-admin .pr-sm-5,\\n.app-admin .px-sm-5 {\\n    padding-right: 3rem !important;\\n}\\n.app-admin .pb-sm-5,\\n.app-admin .py-sm-5 {\\n    padding-bottom: 3rem !important;\\n}\\n.app-admin .pl-sm-5,\\n.app-admin .px-sm-5 {\\n    padding-left: 3rem !important;\\n}\\n.app-admin .m-sm-n1 {\\n    margin: -0.25rem !important;\\n}\\n.app-admin .mt-sm-n1,\\n.app-admin .my-sm-n1 {\\n    margin-top: -0.25rem !important;\\n}\\n.app-admin .mr-sm-n1,\\n.app-admin .mx-sm-n1 {\\n    margin-right: -0.25rem !important;\\n}\\n.app-admin .mb-sm-n1,\\n.app-admin .my-sm-n1 {\\n    margin-bottom: -0.25rem !important;\\n}\\n.app-admin .ml-sm-n1,\\n.app-admin .mx-sm-n1 {\\n    margin-left: -0.25rem !important;\\n}\\n.app-admin .m-sm-n2 {\\n    margin: -0.5rem !important;\\n}\\n.app-admin .mt-sm-n2,\\n.app-admin .my-sm-n2 {\\n    margin-top: -0.5rem !important;\\n}\\n.app-admin .mr-sm-n2,\\n.app-admin .mx-sm-n2 {\\n    margin-right: -0.5rem !important;\\n}\\n.app-admin .mb-sm-n2,\\n.app-admin .my-sm-n2 {\\n    margin-bottom: -0.5rem !important;\\n}\\n.app-admin .ml-sm-n2,\\n.app-admin .mx-sm-n2 {\\n    margin-left: -0.5rem !important;\\n}\\n.app-admin .m-sm-n3 {\\n    margin: -1rem !important;\\n}\\n.app-admin .mt-sm-n3,\\n.app-admin .my-sm-n3 {\\n    margin-top: -1rem !important;\\n}\\n.app-admin .mr-sm-n3,\\n.app-admin .mx-sm-n3 {\\n    margin-right: -1rem !important;\\n}\\n.app-admin .mb-sm-n3,\\n.app-admin .my-sm-n3 {\\n    margin-bottom: -1rem !important;\\n}\\n.app-admin .ml-sm-n3,\\n.app-admin .mx-sm-n3 {\\n    margin-left: -1rem !important;\\n}\\n.app-admin .m-sm-n4 {\\n    margin: -1.5rem !important;\\n}\\n.app-admin .mt-sm-n4,\\n.app-admin .my-sm-n4 {\\n    margin-top: -1.5rem !important;\\n}\\n.app-admin .mr-sm-n4,\\n.app-admin .mx-sm-n4 {\\n    margin-right: -1.5rem !important;\\n}\\n.app-admin .mb-sm-n4,\\n.app-admin .my-sm-n4 {\\n    margin-bottom: -1.5rem !important;\\n}\\n.app-admin .ml-sm-n4,\\n.app-admin .mx-sm-n4 {\\n    margin-left: -1.5rem !important;\\n}\\n.app-admin .m-sm-n5 {\\n    margin: -3rem !important;\\n}\\n.app-admin .mt-sm-n5,\\n.app-admin .my-sm-n5 {\\n    margin-top: -3rem !important;\\n}\\n.app-admin .mr-sm-n5,\\n.app-admin .mx-sm-n5 {\\n    margin-right: -3rem !important;\\n}\\n.app-admin .mb-sm-n5,\\n.app-admin .my-sm-n5 {\\n    margin-bottom: -3rem !important;\\n}\\n.app-admin .ml-sm-n5,\\n.app-admin .mx-sm-n5 {\\n    margin-left: -3rem !important;\\n}\\n.app-admin .m-sm-auto {\\n    margin: auto !important;\\n}\\n.app-admin .mt-sm-auto,\\n.app-admin .my-sm-auto {\\n    margin-top: auto !important;\\n}\\n.app-admin .mr-sm-auto,\\n.app-admin .mx-sm-auto {\\n    margin-right: auto !important;\\n}\\n.app-admin .mb-sm-auto,\\n.app-admin .my-sm-auto {\\n    margin-bottom: auto !important;\\n}\\n.app-admin .ml-sm-auto,\\n.app-admin .mx-sm-auto {\\n    margin-left: auto !important;\\n}\\n}\\n@media (min-width: 768px) {\\n.app-admin .m-md-0 {\\n    margin: 0 !important;\\n}\\n.app-admin .mt-md-0,\\n.app-admin .my-md-0 {\\n    margin-top: 0 !important;\\n}\\n.app-admin .mr-md-0,\\n.app-admin .mx-md-0 {\\n    margin-right: 0 !important;\\n}\\n.app-admin .mb-md-0,\\n.app-admin .my-md-0 {\\n    margin-bottom: 0 !important;\\n}\\n.app-admin .ml-md-0,\\n.app-admin .mx-md-0 {\\n    margin-left: 0 !important;\\n}\\n.app-admin .m-md-1 {\\n    margin: 0.25rem !important;\\n}\\n.app-admin .mt-md-1,\\n.app-admin .my-md-1 {\\n    margin-top: 0.25rem !important;\\n}\\n.app-admin .mr-md-1,\\n.app-admin .mx-md-1 {\\n    margin-right: 0.25rem !important;\\n}\\n.app-admin .mb-md-1,\\n.app-admin .my-md-1 {\\n    margin-bottom: 0.25rem !important;\\n}\\n.app-admin .ml-md-1,\\n.app-admin .mx-md-1 {\\n    margin-left: 0.25rem !important;\\n}\\n.app-admin .m-md-2 {\\n    margin: 0.5rem !important;\\n}\\n.app-admin .mt-md-2,\\n.app-admin .my-md-2 {\\n    margin-top: 0.5rem !important;\\n}\\n.app-admin .mr-md-2,\\n.app-admin .mx-md-2 {\\n    margin-right: 0.5rem !important;\\n}\\n.app-admin .mb-md-2,\\n.app-admin .my-md-2 {\\n    margin-bottom: 0.5rem !important;\\n}\\n.app-admin .ml-md-2,\\n.app-admin .mx-md-2 {\\n    margin-left: 0.5rem !important;\\n}\\n.app-admin .m-md-3 {\\n    margin: 1rem !important;\\n}\\n.app-admin .mt-md-3,\\n.app-admin .my-md-3 {\\n    margin-top: 1rem !important;\\n}\\n.app-admin .mr-md-3,\\n.app-admin .mx-md-3 {\\n    margin-right: 1rem !important;\\n}\\n.app-admin .mb-md-3,\\n.app-admin .my-md-3 {\\n    margin-bottom: 1rem !important;\\n}\\n.app-admin .ml-md-3,\\n.app-admin .mx-md-3 {\\n    margin-left: 1rem !important;\\n}\\n.app-admin .m-md-4 {\\n    margin: 1.5rem !important;\\n}\\n.app-admin .mt-md-4,\\n.app-admin .my-md-4 {\\n    margin-top: 1.5rem !important;\\n}\\n.app-admin .mr-md-4,\\n.app-admin .mx-md-4 {\\n    margin-right: 1.5rem !important;\\n}\\n.app-admin .mb-md-4,\\n.app-admin .my-md-4 {\\n    margin-bottom: 1.5rem !important;\\n}\\n.app-admin .ml-md-4,\\n.app-admin .mx-md-4 {\\n    margin-left: 1.5rem !important;\\n}\\n.app-admin .m-md-5 {\\n    margin: 3rem !important;\\n}\\n.app-admin .mt-md-5,\\n.app-admin .my-md-5 {\\n    margin-top: 3rem !important;\\n}\\n.app-admin .mr-md-5,\\n.app-admin .mx-md-5 {\\n    margin-right: 3rem !important;\\n}\\n.app-admin .mb-md-5,\\n.app-admin .my-md-5 {\\n    margin-bottom: 3rem !important;\\n}\\n.app-admin .ml-md-5,\\n.app-admin .mx-md-5 {\\n    margin-left: 3rem !important;\\n}\\n.app-admin .p-md-0 {\\n    padding: 0 !important;\\n}\\n.app-admin .pt-md-0,\\n.app-admin .py-md-0 {\\n    padding-top: 0 !important;\\n}\\n.app-admin .pr-md-0,\\n.app-admin .px-md-0 {\\n    padding-right: 0 !important;\\n}\\n.app-admin .pb-md-0,\\n.app-admin .py-md-0 {\\n    padding-bottom: 0 !important;\\n}\\n.app-admin .pl-md-0,\\n.app-admin .px-md-0 {\\n    padding-left: 0 !important;\\n}\\n.app-admin .p-md-1 {\\n    padding: 0.25rem !important;\\n}\\n.app-admin .pt-md-1,\\n.app-admin .py-md-1 {\\n    padding-top: 0.25rem !important;\\n}\\n.app-admin .pr-md-1,\\n.app-admin .px-md-1 {\\n    padding-right: 0.25rem !important;\\n}\\n.app-admin .pb-md-1,\\n.app-admin .py-md-1 {\\n    padding-bottom: 0.25rem !important;\\n}\\n.app-admin .pl-md-1,\\n.app-admin .px-md-1 {\\n    padding-left: 0.25rem !important;\\n}\\n.app-admin .p-md-2 {\\n    padding: 0.5rem !important;\\n}\\n.app-admin .pt-md-2,\\n.app-admin .py-md-2 {\\n    padding-top: 0.5rem !important;\\n}\\n.app-admin .pr-md-2,\\n.app-admin .px-md-2 {\\n    padding-right: 0.5rem !important;\\n}\\n.app-admin .pb-md-2,\\n.app-admin .py-md-2 {\\n    padding-bottom: 0.5rem !important;\\n}\\n.app-admin .pl-md-2,\\n.app-admin .px-md-2 {\\n    padding-left: 0.5rem !important;\\n}\\n.app-admin .p-md-3 {\\n    padding: 1rem !important;\\n}\\n.app-admin .pt-md-3,\\n.app-admin .py-md-3 {\\n    padding-top: 1rem !important;\\n}\\n.app-admin .pr-md-3,\\n.app-admin .px-md-3 {\\n    padding-right: 1rem !important;\\n}\\n.app-admin .pb-md-3,\\n.app-admin .py-md-3 {\\n    padding-bottom: 1rem !important;\\n}\\n.app-admin .pl-md-3,\\n.app-admin .px-md-3 {\\n    padding-left: 1rem !important;\\n}\\n.app-admin .p-md-4 {\\n    padding: 1.5rem !important;\\n}\\n.app-admin .pt-md-4,\\n.app-admin .py-md-4 {\\n    padding-top: 1.5rem !important;\\n}\\n.app-admin .pr-md-4,\\n.app-admin .px-md-4 {\\n    padding-right: 1.5rem !important;\\n}\\n.app-admin .pb-md-4,\\n.app-admin .py-md-4 {\\n    padding-bottom: 1.5rem !important;\\n}\\n.app-admin .pl-md-4,\\n.app-admin .px-md-4 {\\n    padding-left: 1.5rem !important;\\n}\\n.app-admin .p-md-5 {\\n    padding: 3rem !important;\\n}\\n.app-admin .pt-md-5,\\n.app-admin .py-md-5 {\\n    padding-top: 3rem !important;\\n}\\n.app-admin .pr-md-5,\\n.app-admin .px-md-5 {\\n    padding-right: 3rem !important;\\n}\\n.app-admin .pb-md-5,\\n.app-admin .py-md-5 {\\n    padding-bottom: 3rem !important;\\n}\\n.app-admin .pl-md-5,\\n.app-admin .px-md-5 {\\n    padding-left: 3rem !important;\\n}\\n.app-admin .m-md-n1 {\\n    margin: -0.25rem !important;\\n}\\n.app-admin .mt-md-n1,\\n.app-admin .my-md-n1 {\\n    margin-top: -0.25rem !important;\\n}\\n.app-admin .mr-md-n1,\\n.app-admin .mx-md-n1 {\\n    margin-right: -0.25rem !important;\\n}\\n.app-admin .mb-md-n1,\\n.app-admin .my-md-n1 {\\n    margin-bottom: -0.25rem !important;\\n}\\n.app-admin .ml-md-n1,\\n.app-admin .mx-md-n1 {\\n    margin-left: -0.25rem !important;\\n}\\n.app-admin .m-md-n2 {\\n    margin: -0.5rem !important;\\n}\\n.app-admin .mt-md-n2,\\n.app-admin .my-md-n2 {\\n    margin-top: -0.5rem !important;\\n}\\n.app-admin .mr-md-n2,\\n.app-admin .mx-md-n2 {\\n    margin-right: -0.5rem !important;\\n}\\n.app-admin .mb-md-n2,\\n.app-admin .my-md-n2 {\\n    margin-bottom: -0.5rem !important;\\n}\\n.app-admin .ml-md-n2,\\n.app-admin .mx-md-n2 {\\n    margin-left: -0.5rem !important;\\n}\\n.app-admin .m-md-n3 {\\n    margin: -1rem !important;\\n}\\n.app-admin .mt-md-n3,\\n.app-admin .my-md-n3 {\\n    margin-top: -1rem !important;\\n}\\n.app-admin .mr-md-n3,\\n.app-admin .mx-md-n3 {\\n    margin-right: -1rem !important;\\n}\\n.app-admin .mb-md-n3,\\n.app-admin .my-md-n3 {\\n    margin-bottom: -1rem !important;\\n}\\n.app-admin .ml-md-n3,\\n.app-admin .mx-md-n3 {\\n    margin-left: -1rem !important;\\n}\\n.app-admin .m-md-n4 {\\n    margin: -1.5rem !important;\\n}\\n.app-admin .mt-md-n4,\\n.app-admin .my-md-n4 {\\n    margin-top: -1.5rem !important;\\n}\\n.app-admin .mr-md-n4,\\n.app-admin .mx-md-n4 {\\n    margin-right: -1.5rem !important;\\n}\\n.app-admin .mb-md-n4,\\n.app-admin .my-md-n4 {\\n    margin-bottom: -1.5rem !important;\\n}\\n.app-admin .ml-md-n4,\\n.app-admin .mx-md-n4 {\\n    margin-left: -1.5rem !important;\\n}\\n.app-admin .m-md-n5 {\\n    margin: -3rem !important;\\n}\\n.app-admin .mt-md-n5,\\n.app-admin .my-md-n5 {\\n    margin-top: -3rem !important;\\n}\\n.app-admin .mr-md-n5,\\n.app-admin .mx-md-n5 {\\n    margin-right: -3rem !important;\\n}\\n.app-admin .mb-md-n5,\\n.app-admin .my-md-n5 {\\n    margin-bottom: -3rem !important;\\n}\\n.app-admin .ml-md-n5,\\n.app-admin .mx-md-n5 {\\n    margin-left: -3rem !important;\\n}\\n.app-admin .m-md-auto {\\n    margin: auto !important;\\n}\\n.app-admin .mt-md-auto,\\n.app-admin .my-md-auto {\\n    margin-top: auto !important;\\n}\\n.app-admin .mr-md-auto,\\n.app-admin .mx-md-auto {\\n    margin-right: auto !important;\\n}\\n.app-admin .mb-md-auto,\\n.app-admin .my-md-auto {\\n    margin-bottom: auto !important;\\n}\\n.app-admin .ml-md-auto,\\n.app-admin .mx-md-auto {\\n    margin-left: auto !important;\\n}\\n}\\n@media (min-width: 992px) {\\n.app-admin .m-lg-0 {\\n    margin: 0 !important;\\n}\\n.app-admin .mt-lg-0,\\n.app-admin .my-lg-0 {\\n    margin-top: 0 !important;\\n}\\n.app-admin .mr-lg-0,\\n.app-admin .mx-lg-0 {\\n    margin-right: 0 !important;\\n}\\n.app-admin .mb-lg-0,\\n.app-admin .my-lg-0 {\\n    margin-bottom: 0 !important;\\n}\\n.app-admin .ml-lg-0,\\n.app-admin .mx-lg-0 {\\n    margin-left: 0 !important;\\n}\\n.app-admin .m-lg-1 {\\n    margin: 0.25rem !important;\\n}\\n.app-admin .mt-lg-1,\\n.app-admin .my-lg-1 {\\n    margin-top: 0.25rem !important;\\n}\\n.app-admin .mr-lg-1,\\n.app-admin .mx-lg-1 {\\n    margin-right: 0.25rem !important;\\n}\\n.app-admin .mb-lg-1,\\n.app-admin .my-lg-1 {\\n    margin-bottom: 0.25rem !important;\\n}\\n.app-admin .ml-lg-1,\\n.app-admin .mx-lg-1 {\\n    margin-left: 0.25rem !important;\\n}\\n.app-admin .m-lg-2 {\\n    margin: 0.5rem !important;\\n}\\n.app-admin .mt-lg-2,\\n.app-admin .my-lg-2 {\\n    margin-top: 0.5rem !important;\\n}\\n.app-admin .mr-lg-2,\\n.app-admin .mx-lg-2 {\\n    margin-right: 0.5rem !important;\\n}\\n.app-admin .mb-lg-2,\\n.app-admin .my-lg-2 {\\n    margin-bottom: 0.5rem !important;\\n}\\n.app-admin .ml-lg-2,\\n.app-admin .mx-lg-2 {\\n    margin-left: 0.5rem !important;\\n}\\n.app-admin .m-lg-3 {\\n    margin: 1rem !important;\\n}\\n.app-admin .mt-lg-3,\\n.app-admin .my-lg-3 {\\n    margin-top: 1rem !important;\\n}\\n.app-admin .mr-lg-3,\\n.app-admin .mx-lg-3 {\\n    margin-right: 1rem !important;\\n}\\n.app-admin .mb-lg-3,\\n.app-admin .my-lg-3 {\\n    margin-bottom: 1rem !important;\\n}\\n.app-admin .ml-lg-3,\\n.app-admin .mx-lg-3 {\\n    margin-left: 1rem !important;\\n}\\n.app-admin .m-lg-4 {\\n    margin: 1.5rem !important;\\n}\\n.app-admin .mt-lg-4,\\n.app-admin .my-lg-4 {\\n    margin-top: 1.5rem !important;\\n}\\n.app-admin .mr-lg-4,\\n.app-admin .mx-lg-4 {\\n    margin-right: 1.5rem !important;\\n}\\n.app-admin .mb-lg-4,\\n.app-admin .my-lg-4 {\\n    margin-bottom: 1.5rem !important;\\n}\\n.app-admin .ml-lg-4,\\n.app-admin .mx-lg-4 {\\n    margin-left: 1.5rem !important;\\n}\\n.app-admin .m-lg-5 {\\n    margin: 3rem !important;\\n}\\n.app-admin .mt-lg-5,\\n.app-admin .my-lg-5 {\\n    margin-top: 3rem !important;\\n}\\n.app-admin .mr-lg-5,\\n.app-admin .mx-lg-5 {\\n    margin-right: 3rem !important;\\n}\\n.app-admin .mb-lg-5,\\n.app-admin .my-lg-5 {\\n    margin-bottom: 3rem !important;\\n}\\n.app-admin .ml-lg-5,\\n.app-admin .mx-lg-5 {\\n    margin-left: 3rem !important;\\n}\\n.app-admin .p-lg-0 {\\n    padding: 0 !important;\\n}\\n.app-admin .pt-lg-0,\\n.app-admin .py-lg-0 {\\n    padding-top: 0 !important;\\n}\\n.app-admin .pr-lg-0,\\n.app-admin .px-lg-0 {\\n    padding-right: 0 !important;\\n}\\n.app-admin .pb-lg-0,\\n.app-admin .py-lg-0 {\\n    padding-bottom: 0 !important;\\n}\\n.app-admin .pl-lg-0,\\n.app-admin .px-lg-0 {\\n    padding-left: 0 !important;\\n}\\n.app-admin .p-lg-1 {\\n    padding: 0.25rem !important;\\n}\\n.app-admin .pt-lg-1,\\n.app-admin .py-lg-1 {\\n    padding-top: 0.25rem !important;\\n}\\n.app-admin .pr-lg-1,\\n.app-admin .px-lg-1 {\\n    padding-right: 0.25rem !important;\\n}\\n.app-admin .pb-lg-1,\\n.app-admin .py-lg-1 {\\n    padding-bottom: 0.25rem !important;\\n}\\n.app-admin .pl-lg-1,\\n.app-admin .px-lg-1 {\\n    padding-left: 0.25rem !important;\\n}\\n.app-admin .p-lg-2 {\\n    padding: 0.5rem !important;\\n}\\n.app-admin .pt-lg-2,\\n.app-admin .py-lg-2 {\\n    padding-top: 0.5rem !important;\\n}\\n.app-admin .pr-lg-2,\\n.app-admin .px-lg-2 {\\n    padding-right: 0.5rem !important;\\n}\\n.app-admin .pb-lg-2,\\n.app-admin .py-lg-2 {\\n    padding-bottom: 0.5rem !important;\\n}\\n.app-admin .pl-lg-2,\\n.app-admin .px-lg-2 {\\n    padding-left: 0.5rem !important;\\n}\\n.app-admin .p-lg-3 {\\n    padding: 1rem !important;\\n}\\n.app-admin .pt-lg-3,\\n.app-admin .py-lg-3 {\\n    padding-top: 1rem !important;\\n}\\n.app-admin .pr-lg-3,\\n.app-admin .px-lg-3 {\\n    padding-right: 1rem !important;\\n}\\n.app-admin .pb-lg-3,\\n.app-admin .py-lg-3 {\\n    padding-bottom: 1rem !important;\\n}\\n.app-admin .pl-lg-3,\\n.app-admin .px-lg-3 {\\n    padding-left: 1rem !important;\\n}\\n.app-admin .p-lg-4 {\\n    padding: 1.5rem !important;\\n}\\n.app-admin .pt-lg-4,\\n.app-admin .py-lg-4 {\\n    padding-top: 1.5rem !important;\\n}\\n.app-admin .pr-lg-4,\\n.app-admin .px-lg-4 {\\n    padding-right: 1.5rem !important;\\n}\\n.app-admin .pb-lg-4,\\n.app-admin .py-lg-4 {\\n    padding-bottom: 1.5rem !important;\\n}\\n.app-admin .pl-lg-4,\\n.app-admin .px-lg-4 {\\n    padding-left: 1.5rem !important;\\n}\\n.app-admin .p-lg-5 {\\n    padding: 3rem !important;\\n}\\n.app-admin .pt-lg-5,\\n.app-admin .py-lg-5 {\\n    padding-top: 3rem !important;\\n}\\n.app-admin .pr-lg-5,\\n.app-admin .px-lg-5 {\\n    padding-right: 3rem !important;\\n}\\n.app-admin .pb-lg-5,\\n.app-admin .py-lg-5 {\\n    padding-bottom: 3rem !important;\\n}\\n.app-admin .pl-lg-5,\\n.app-admin .px-lg-5 {\\n    padding-left: 3rem !important;\\n}\\n.app-admin .m-lg-n1 {\\n    margin: -0.25rem !important;\\n}\\n.app-admin .mt-lg-n1,\\n.app-admin .my-lg-n1 {\\n    margin-top: -0.25rem !important;\\n}\\n.app-admin .mr-lg-n1,\\n.app-admin .mx-lg-n1 {\\n    margin-right: -0.25rem !important;\\n}\\n.app-admin .mb-lg-n1,\\n.app-admin .my-lg-n1 {\\n    margin-bottom: -0.25rem !important;\\n}\\n.app-admin .ml-lg-n1,\\n.app-admin .mx-lg-n1 {\\n    margin-left: -0.25rem !important;\\n}\\n.app-admin .m-lg-n2 {\\n    margin: -0.5rem !important;\\n}\\n.app-admin .mt-lg-n2,\\n.app-admin .my-lg-n2 {\\n    margin-top: -0.5rem !important;\\n}\\n.app-admin .mr-lg-n2,\\n.app-admin .mx-lg-n2 {\\n    margin-right: -0.5rem !important;\\n}\\n.app-admin .mb-lg-n2,\\n.app-admin .my-lg-n2 {\\n    margin-bottom: -0.5rem !important;\\n}\\n.app-admin .ml-lg-n2,\\n.app-admin .mx-lg-n2 {\\n    margin-left: -0.5rem !important;\\n}\\n.app-admin .m-lg-n3 {\\n    margin: -1rem !important;\\n}\\n.app-admin .mt-lg-n3,\\n.app-admin .my-lg-n3 {\\n    margin-top: -1rem !important;\\n}\\n.app-admin .mr-lg-n3,\\n.app-admin .mx-lg-n3 {\\n    margin-right: -1rem !important;\\n}\\n.app-admin .mb-lg-n3,\\n.app-admin .my-lg-n3 {\\n    margin-bottom: -1rem !important;\\n}\\n.app-admin .ml-lg-n3,\\n.app-admin .mx-lg-n3 {\\n    margin-left: -1rem !important;\\n}\\n.app-admin .m-lg-n4 {\\n    margin: -1.5rem !important;\\n}\\n.app-admin .mt-lg-n4,\\n.app-admin .my-lg-n4 {\\n    margin-top: -1.5rem !important;\\n}\\n.app-admin .mr-lg-n4,\\n.app-admin .mx-lg-n4 {\\n    margin-right: -1.5rem !important;\\n}\\n.app-admin .mb-lg-n4,\\n.app-admin .my-lg-n4 {\\n    margin-bottom: -1.5rem !important;\\n}\\n.app-admin .ml-lg-n4,\\n.app-admin .mx-lg-n4 {\\n    margin-left: -1.5rem !important;\\n}\\n.app-admin .m-lg-n5 {\\n    margin: -3rem !important;\\n}\\n.app-admin .mt-lg-n5,\\n.app-admin .my-lg-n5 {\\n    margin-top: -3rem !important;\\n}\\n.app-admin .mr-lg-n5,\\n.app-admin .mx-lg-n5 {\\n    margin-right: -3rem !important;\\n}\\n.app-admin .mb-lg-n5,\\n.app-admin .my-lg-n5 {\\n    margin-bottom: -3rem !important;\\n}\\n.app-admin .ml-lg-n5,\\n.app-admin .mx-lg-n5 {\\n    margin-left: -3rem !important;\\n}\\n.app-admin .m-lg-auto {\\n    margin: auto !important;\\n}\\n.app-admin .mt-lg-auto,\\n.app-admin .my-lg-auto {\\n    margin-top: auto !important;\\n}\\n.app-admin .mr-lg-auto,\\n.app-admin .mx-lg-auto {\\n    margin-right: auto !important;\\n}\\n.app-admin .mb-lg-auto,\\n.app-admin .my-lg-auto {\\n    margin-bottom: auto !important;\\n}\\n.app-admin .ml-lg-auto,\\n.app-admin .mx-lg-auto {\\n    margin-left: auto !important;\\n}\\n}\\n@media (min-width: 1200px) {\\n.app-admin .m-xl-0 {\\n    margin: 0 !important;\\n}\\n.app-admin .mt-xl-0,\\n.app-admin .my-xl-0 {\\n    margin-top: 0 !important;\\n}\\n.app-admin .mr-xl-0,\\n.app-admin .mx-xl-0 {\\n    margin-right: 0 !important;\\n}\\n.app-admin .mb-xl-0,\\n.app-admin .my-xl-0 {\\n    margin-bottom: 0 !important;\\n}\\n.app-admin .ml-xl-0,\\n.app-admin .mx-xl-0 {\\n    margin-left: 0 !important;\\n}\\n.app-admin .m-xl-1 {\\n    margin: 0.25rem !important;\\n}\\n.app-admin .mt-xl-1,\\n.app-admin .my-xl-1 {\\n    margin-top: 0.25rem !important;\\n}\\n.app-admin .mr-xl-1,\\n.app-admin .mx-xl-1 {\\n    margin-right: 0.25rem !important;\\n}\\n.app-admin .mb-xl-1,\\n.app-admin .my-xl-1 {\\n    margin-bottom: 0.25rem !important;\\n}\\n.app-admin .ml-xl-1,\\n.app-admin .mx-xl-1 {\\n    margin-left: 0.25rem !important;\\n}\\n.app-admin .m-xl-2 {\\n    margin: 0.5rem !important;\\n}\\n.app-admin .mt-xl-2,\\n.app-admin .my-xl-2 {\\n    margin-top: 0.5rem !important;\\n}\\n.app-admin .mr-xl-2,\\n.app-admin .mx-xl-2 {\\n    margin-right: 0.5rem !important;\\n}\\n.app-admin .mb-xl-2,\\n.app-admin .my-xl-2 {\\n    margin-bottom: 0.5rem !important;\\n}\\n.app-admin .ml-xl-2,\\n.app-admin .mx-xl-2 {\\n    margin-left: 0.5rem !important;\\n}\\n.app-admin .m-xl-3 {\\n    margin: 1rem !important;\\n}\\n.app-admin .mt-xl-3,\\n.app-admin .my-xl-3 {\\n    margin-top: 1rem !important;\\n}\\n.app-admin .mr-xl-3,\\n.app-admin .mx-xl-3 {\\n    margin-right: 1rem !important;\\n}\\n.app-admin .mb-xl-3,\\n.app-admin .my-xl-3 {\\n    margin-bottom: 1rem !important;\\n}\\n.app-admin .ml-xl-3,\\n.app-admin .mx-xl-3 {\\n    margin-left: 1rem !important;\\n}\\n.app-admin .m-xl-4 {\\n    margin: 1.5rem !important;\\n}\\n.app-admin .mt-xl-4,\\n.app-admin .my-xl-4 {\\n    margin-top: 1.5rem !important;\\n}\\n.app-admin .mr-xl-4,\\n.app-admin .mx-xl-4 {\\n    margin-right: 1.5rem !important;\\n}\\n.app-admin .mb-xl-4,\\n.app-admin .my-xl-4 {\\n    margin-bottom: 1.5rem !important;\\n}\\n.app-admin .ml-xl-4,\\n.app-admin .mx-xl-4 {\\n    margin-left: 1.5rem !important;\\n}\\n.app-admin .m-xl-5 {\\n    margin: 3rem !important;\\n}\\n.app-admin .mt-xl-5,\\n.app-admin .my-xl-5 {\\n    margin-top: 3rem !important;\\n}\\n.app-admin .mr-xl-5,\\n.app-admin .mx-xl-5 {\\n    margin-right: 3rem !important;\\n}\\n.app-admin .mb-xl-5,\\n.app-admin .my-xl-5 {\\n    margin-bottom: 3rem !important;\\n}\\n.app-admin .ml-xl-5,\\n.app-admin .mx-xl-5 {\\n    margin-left: 3rem !important;\\n}\\n.app-admin .p-xl-0 {\\n    padding: 0 !important;\\n}\\n.app-admin .pt-xl-0,\\n.app-admin .py-xl-0 {\\n    padding-top: 0 !important;\\n}\\n.app-admin .pr-xl-0,\\n.app-admin .px-xl-0 {\\n    padding-right: 0 !important;\\n}\\n.app-admin .pb-xl-0,\\n.app-admin .py-xl-0 {\\n    padding-bottom: 0 !important;\\n}\\n.app-admin .pl-xl-0,\\n.app-admin .px-xl-0 {\\n    padding-left: 0 !important;\\n}\\n.app-admin .p-xl-1 {\\n    padding: 0.25rem !important;\\n}\\n.app-admin .pt-xl-1,\\n.app-admin .py-xl-1 {\\n    padding-top: 0.25rem !important;\\n}\\n.app-admin .pr-xl-1,\\n.app-admin .px-xl-1 {\\n    padding-right: 0.25rem !important;\\n}\\n.app-admin .pb-xl-1,\\n.app-admin .py-xl-1 {\\n    padding-bottom: 0.25rem !important;\\n}\\n.app-admin .pl-xl-1,\\n.app-admin .px-xl-1 {\\n    padding-left: 0.25rem !important;\\n}\\n.app-admin .p-xl-2 {\\n    padding: 0.5rem !important;\\n}\\n.app-admin .pt-xl-2,\\n.app-admin .py-xl-2 {\\n    padding-top: 0.5rem !important;\\n}\\n.app-admin .pr-xl-2,\\n.app-admin .px-xl-2 {\\n    padding-right: 0.5rem !important;\\n}\\n.app-admin .pb-xl-2,\\n.app-admin .py-xl-2 {\\n    padding-bottom: 0.5rem !important;\\n}\\n.app-admin .pl-xl-2,\\n.app-admin .px-xl-2 {\\n    padding-left: 0.5rem !important;\\n}\\n.app-admin .p-xl-3 {\\n    padding: 1rem !important;\\n}\\n.app-admin .pt-xl-3,\\n.app-admin .py-xl-3 {\\n    padding-top: 1rem !important;\\n}\\n.app-admin .pr-xl-3,\\n.app-admin .px-xl-3 {\\n    padding-right: 1rem !important;\\n}\\n.app-admin .pb-xl-3,\\n.app-admin .py-xl-3 {\\n    padding-bottom: 1rem !important;\\n}\\n.app-admin .pl-xl-3,\\n.app-admin .px-xl-3 {\\n    padding-left: 1rem !important;\\n}\\n.app-admin .p-xl-4 {\\n    padding: 1.5rem !important;\\n}\\n.app-admin .pt-xl-4,\\n.app-admin .py-xl-4 {\\n    padding-top: 1.5rem !important;\\n}\\n.app-admin .pr-xl-4,\\n.app-admin .px-xl-4 {\\n    padding-right: 1.5rem !important;\\n}\\n.app-admin .pb-xl-4,\\n.app-admin .py-xl-4 {\\n    padding-bottom: 1.5rem !important;\\n}\\n.app-admin .pl-xl-4,\\n.app-admin .px-xl-4 {\\n    padding-left: 1.5rem !important;\\n}\\n.app-admin .p-xl-5 {\\n    padding: 3rem !important;\\n}\\n.app-admin .pt-xl-5,\\n.app-admin .py-xl-5 {\\n    padding-top: 3rem !important;\\n}\\n.app-admin .pr-xl-5,\\n.app-admin .px-xl-5 {\\n    padding-right: 3rem !important;\\n}\\n.app-admin .pb-xl-5,\\n.app-admin .py-xl-5 {\\n    padding-bottom: 3rem !important;\\n}\\n.app-admin .pl-xl-5,\\n.app-admin .px-xl-5 {\\n    padding-left: 3rem !important;\\n}\\n.app-admin .m-xl-n1 {\\n    margin: -0.25rem !important;\\n}\\n.app-admin .mt-xl-n1,\\n.app-admin .my-xl-n1 {\\n    margin-top: -0.25rem !important;\\n}\\n.app-admin .mr-xl-n1,\\n.app-admin .mx-xl-n1 {\\n    margin-right: -0.25rem !important;\\n}\\n.app-admin .mb-xl-n1,\\n.app-admin .my-xl-n1 {\\n    margin-bottom: -0.25rem !important;\\n}\\n.app-admin .ml-xl-n1,\\n.app-admin .mx-xl-n1 {\\n    margin-left: -0.25rem !important;\\n}\\n.app-admin .m-xl-n2 {\\n    margin: -0.5rem !important;\\n}\\n.app-admin .mt-xl-n2,\\n.app-admin .my-xl-n2 {\\n    margin-top: -0.5rem !important;\\n}\\n.app-admin .mr-xl-n2,\\n.app-admin .mx-xl-n2 {\\n    margin-right: -0.5rem !important;\\n}\\n.app-admin .mb-xl-n2,\\n.app-admin .my-xl-n2 {\\n    margin-bottom: -0.5rem !important;\\n}\\n.app-admin .ml-xl-n2,\\n.app-admin .mx-xl-n2 {\\n    margin-left: -0.5rem !important;\\n}\\n.app-admin .m-xl-n3 {\\n    margin: -1rem !important;\\n}\\n.app-admin .mt-xl-n3,\\n.app-admin .my-xl-n3 {\\n    margin-top: -1rem !important;\\n}\\n.app-admin .mr-xl-n3,\\n.app-admin .mx-xl-n3 {\\n    margin-right: -1rem !important;\\n}\\n.app-admin .mb-xl-n3,\\n.app-admin .my-xl-n3 {\\n    margin-bottom: -1rem !important;\\n}\\n.app-admin .ml-xl-n3,\\n.app-admin .mx-xl-n3 {\\n    margin-left: -1rem !important;\\n}\\n.app-admin .m-xl-n4 {\\n    margin: -1.5rem !important;\\n}\\n.app-admin .mt-xl-n4,\\n.app-admin .my-xl-n4 {\\n    margin-top: -1.5rem !important;\\n}\\n.app-admin .mr-xl-n4,\\n.app-admin .mx-xl-n4 {\\n    margin-right: -1.5rem !important;\\n}\\n.app-admin .mb-xl-n4,\\n.app-admin .my-xl-n4 {\\n    margin-bottom: -1.5rem !important;\\n}\\n.app-admin .ml-xl-n4,\\n.app-admin .mx-xl-n4 {\\n    margin-left: -1.5rem !important;\\n}\\n.app-admin .m-xl-n5 {\\n    margin: -3rem !important;\\n}\\n.app-admin .mt-xl-n5,\\n.app-admin .my-xl-n5 {\\n    margin-top: -3rem !important;\\n}\\n.app-admin .mr-xl-n5,\\n.app-admin .mx-xl-n5 {\\n    margin-right: -3rem !important;\\n}\\n.app-admin .mb-xl-n5,\\n.app-admin .my-xl-n5 {\\n    margin-bottom: -3rem !important;\\n}\\n.app-admin .ml-xl-n5,\\n.app-admin .mx-xl-n5 {\\n    margin-left: -3rem !important;\\n}\\n.app-admin .m-xl-auto {\\n    margin: auto !important;\\n}\\n.app-admin .mt-xl-auto,\\n.app-admin .my-xl-auto {\\n    margin-top: auto !important;\\n}\\n.app-admin .mr-xl-auto,\\n.app-admin .mx-xl-auto {\\n    margin-right: auto !important;\\n}\\n.app-admin .mb-xl-auto,\\n.app-admin .my-xl-auto {\\n    margin-bottom: auto !important;\\n}\\n.app-admin .ml-xl-auto,\\n.app-admin .mx-xl-auto {\\n    margin-left: auto !important;\\n}\\n}\\n.app-admin .stretched-link::after {\\n  position: absolute;\\n  top: 0;\\n  right: 0;\\n  bottom: 0;\\n  left: 0;\\n  z-index: 1;\\n  pointer-events: auto;\\n  content: \\\"\\\";\\n  background-color: rgba(0, 0, 0, 0);\\n}\\n.app-admin .text-monospace {\\n  font-family: SFMono-Regular, Menlo, Monaco, Consolas, \\\"Liberation Mono\\\", \\\"Courier New\\\", monospace !important;\\n}\\n.app-admin .text-justify {\\n  text-align: justify !important;\\n}\\n.app-admin .text-wrap {\\n  white-space: normal !important;\\n}\\n.app-admin .text-nowrap {\\n  white-space: nowrap !important;\\n}\\n.app-admin .text-truncate {\\n  overflow: hidden;\\n  text-overflow: ellipsis;\\n  white-space: nowrap;\\n}\\n.app-admin .text-left {\\n  text-align: left !important;\\n}\\n.app-admin .text-right {\\n  text-align: right !important;\\n}\\n.app-admin .text-center {\\n  text-align: center !important;\\n}\\n@media (min-width: 576px) {\\n.app-admin .text-sm-left {\\n    text-align: left !important;\\n}\\n.app-admin .text-sm-right {\\n    text-align: right !important;\\n}\\n.app-admin .text-sm-center {\\n    text-align: center !important;\\n}\\n}\\n@media (min-width: 768px) {\\n.app-admin .text-md-left {\\n    text-align: left !important;\\n}\\n.app-admin .text-md-right {\\n    text-align: right !important;\\n}\\n.app-admin .text-md-center {\\n    text-align: center !important;\\n}\\n}\\n@media (min-width: 992px) {\\n.app-admin .text-lg-left {\\n    text-align: left !important;\\n}\\n.app-admin .text-lg-right {\\n    text-align: right !important;\\n}\\n.app-admin .text-lg-center {\\n    text-align: center !important;\\n}\\n}\\n@media (min-width: 1200px) {\\n.app-admin .text-xl-left {\\n    text-align: left !important;\\n}\\n.app-admin .text-xl-right {\\n    text-align: right !important;\\n}\\n.app-admin .text-xl-center {\\n    text-align: center !important;\\n}\\n}\\n.app-admin .text-lowercase {\\n  text-transform: lowercase !important;\\n}\\n.app-admin .text-uppercase {\\n  text-transform: uppercase !important;\\n}\\n.app-admin .text-capitalize {\\n  text-transform: capitalize !important;\\n}\\n.app-admin .font-weight-light {\\n  font-weight: 300 !important;\\n}\\n.app-admin .font-weight-lighter {\\n  font-weight: lighter !important;\\n}\\n.app-admin .font-weight-normal {\\n  font-weight: 400 !important;\\n}\\n.app-admin .font-weight-bold {\\n  font-weight: 700 !important;\\n}\\n.app-admin .font-weight-bolder {\\n  font-weight: bolder !important;\\n}\\n.app-admin .font-italic {\\n  font-style: italic !important;\\n}\\n.app-admin .text-white {\\n  color: #fff !important;\\n}\\n.app-admin .text-primary {\\n  color: #007bff !important;\\n}\\n.app-admin a.text-primary:hover, .app-admin a.text-primary:focus {\\n  color: #0056b3 !important;\\n}\\n.app-admin .text-secondary {\\n  color: #6c757d !important;\\n}\\n.app-admin a.text-secondary:hover, .app-admin a.text-secondary:focus {\\n  color: #494f54 !important;\\n}\\n.app-admin .text-success {\\n  color: #28a745 !important;\\n}\\n.app-admin a.text-success:hover, .app-admin a.text-success:focus {\\n  color: #19692c !important;\\n}\\n.app-admin .text-info {\\n  color: #17a2b8 !important;\\n}\\n.app-admin a.text-info:hover, .app-admin a.text-info:focus {\\n  color: #0f6674 !important;\\n}\\n.app-admin .text-warning {\\n  color: #ffc107 !important;\\n}\\n.app-admin a.text-warning:hover, .app-admin a.text-warning:focus {\\n  color: #ba8b00 !important;\\n}\\n.app-admin .text-danger {\\n  color: #dc3545 !important;\\n}\\n.app-admin a.text-danger:hover, .app-admin a.text-danger:focus {\\n  color: #a71d2a !important;\\n}\\n.app-admin .text-light {\\n  color: #f8f9fa !important;\\n}\\n.app-admin a.text-light:hover, .app-admin a.text-light:focus {\\n  color: #cbd3da !important;\\n}\\n.app-admin .text-dark {\\n  color: #343a40 !important;\\n}\\n.app-admin a.text-dark:hover, .app-admin a.text-dark:focus {\\n  color: #121416 !important;\\n}\\n.app-admin .text-body {\\n  color: #212529 !important;\\n}\\n.app-admin .text-muted {\\n  color: #6c757d !important;\\n}\\n.app-admin .text-black-50 {\\n  color: rgba(0, 0, 0, 0.5) !important;\\n}\\n.app-admin .text-white-50 {\\n  color: rgba(255, 255, 255, 0.5) !important;\\n}\\n.app-admin .text-hide {\\n  font: 0/0 a;\\n  color: transparent;\\n  text-shadow: none;\\n  background-color: transparent;\\n  border: 0;\\n}\\n.app-admin .text-decoration-none {\\n  text-decoration: none !important;\\n}\\n.app-admin .text-break {\\n  word-break: break-word !important;\\n  word-wrap: break-word !important;\\n}\\n.app-admin .text-reset {\\n  color: inherit !important;\\n}\\n.app-admin .visible {\\n  visibility: visible !important;\\n}\\n.app-admin .invisible {\\n  visibility: hidden !important;\\n}\\n@media print {\\n.app-admin *,\\n.app-admin *::before,\\n.app-admin *::after {\\n    text-shadow: none !important;\\n    box-shadow: none !important;\\n}\\n.app-admin a:not(.btn) {\\n    text-decoration: underline;\\n}\\n.app-admin abbr[title]::after {\\n    content: \\\" (\\\" attr(title) \\\")\\\";\\n}\\n.app-admin pre {\\n    white-space: pre-wrap !important;\\n}\\n.app-admin pre,\\n.app-admin blockquote {\\n    border: 1px solid #adb5bd;\\n    page-break-inside: avoid;\\n}\\n.app-admin thead {\\n    display: table-header-group;\\n}\\n.app-admin tr,\\n.app-admin img {\\n    page-break-inside: avoid;\\n}\\n.app-admin p,\\n.app-admin h2,\\n.app-admin h3 {\\n    orphans: 3;\\n    widows: 3;\\n}\\n.app-admin h2,\\n.app-admin h3 {\\n    page-break-after: avoid;\\n}\\n@page {\\n.app-admin {\\n      size: a3;\\n}\\n}\\n.app-admin body {\\n    min-width: 992px !important;\\n}\\n.app-admin .container {\\n    min-width: 992px !important;\\n}\\n.app-admin .navbar {\\n    display: none;\\n}\\n.app-admin .badge {\\n    border: 1px solid #000;\\n}\\n.app-admin .table {\\n    border-collapse: collapse !important;\\n}\\n.app-admin .table td,\\n.app-admin .table th {\\n    background-color: #fff !important;\\n}\\n.app-admin .table-bordered th,\\n.app-admin .table-bordered td {\\n    border: 1px solid #dee2e6 !important;\\n}\\n.app-admin .table-dark {\\n    color: inherit;\\n}\\n.app-admin .table-dark th,\\n.app-admin .table-dark td,\\n.app-admin .table-dark thead th,\\n.app-admin .table-dark tbody + tbody {\\n    border-color: #dee2e6;\\n}\\n.app-admin .table .thead-dark th {\\n    color: inherit;\\n    border-color: #dee2e6;\\n}\\n}\\n.app-admin .bv-no-focus-ring:focus {\\n  outline: none;\\n}\\n@media (max-width: 575.98px) {\\n.app-admin .bv-d-xs-down-none {\\n    display: none !important;\\n}\\n}\\n@media (max-width: 767.98px) {\\n.app-admin .bv-d-sm-down-none {\\n    display: none !important;\\n}\\n}\\n@media (max-width: 991.98px) {\\n.app-admin .bv-d-md-down-none {\\n    display: none !important;\\n}\\n}\\n@media (max-width: 1199.98px) {\\n.app-admin .bv-d-lg-down-none {\\n    display: none !important;\\n}\\n}\\n.app-admin .bv-d-xl-down-none {\\n  display: none !important;\\n}\\n.app-admin .form-control.focus {\\n  color: #495057;\\n  background-color: #fff;\\n  border-color: #80bdff;\\n  outline: 0;\\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\\n}\\n.app-admin .form-control.focus.is-valid {\\n  border-color: #28a745;\\n  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);\\n}\\n.app-admin .form-control.focus.is-invalid {\\n  border-color: #dc3545;\\n  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);\\n}\\n.app-admin .b-avatar {\\n  display: inline-flex;\\n  align-items: center;\\n  justify-content: center;\\n  vertical-align: middle;\\n  flex-shrink: 0;\\n  width: 2.5rem;\\n  height: 2.5rem;\\n  font-size: inherit;\\n  font-weight: 400;\\n  line-height: 1;\\n  max-width: 100%;\\n  max-height: auto;\\n  text-align: center;\\n  overflow: visible;\\n  position: relative;\\n  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\\n}\\n.app-admin .b-avatar:focus {\\n  outline: 0;\\n}\\n.app-admin .b-avatar.btn, .app-admin .b-avatar[href] {\\n  padding: 0;\\n  border: 0;\\n}\\n.app-admin .b-avatar.btn .b-avatar-img img, .app-admin .b-avatar[href] .b-avatar-img img {\\n  transition: transform 0.15s ease-in-out;\\n}\\n.app-admin .b-avatar.btn:not(:disabled):not(.disabled), .app-admin .b-avatar[href]:not(:disabled):not(.disabled) {\\n  cursor: pointer;\\n}\\n.app-admin .b-avatar.btn:not(:disabled):not(.disabled):hover .b-avatar-img img, .app-admin .b-avatar[href]:not(:disabled):not(.disabled):hover .b-avatar-img img {\\n  transform: scale(1.15);\\n}\\n.app-admin .b-avatar.disabled, .app-admin .b-avatar:disabled, .app-admin .b-avatar[disabled] {\\n  opacity: 0.65;\\n  pointer-events: none;\\n}\\n.app-admin .b-avatar .b-avatar-custom,\\n.app-admin .b-avatar .b-avatar-text,\\n.app-admin .b-avatar .b-avatar-img {\\n  border-radius: inherit;\\n  width: 100%;\\n  height: 100%;\\n  overflow: hidden;\\n  display: flex;\\n  justify-content: center;\\n  align-items: center;\\n  -webkit-mask-image: radial-gradient(white, black);\\n          mask-image: radial-gradient(white, black);\\n}\\n.app-admin .b-avatar .b-avatar-text {\\n  text-transform: uppercase;\\n  white-space: nowrap;\\n}\\n.app-admin .b-avatar[href] {\\n  text-decoration: none;\\n}\\n.app-admin .b-avatar > .b-icon {\\n  width: 60%;\\n  height: auto;\\n  max-width: 100%;\\n}\\n.app-admin .b-avatar .b-avatar-img img {\\n  width: 100%;\\n  height: 100%;\\n  max-height: auto;\\n  border-radius: inherit;\\n  -o-object-fit: cover;\\n     object-fit: cover;\\n}\\n.app-admin .b-avatar .b-avatar-badge {\\n  position: absolute;\\n  min-height: 1.5em;\\n  min-width: 1.5em;\\n  padding: 0.25em;\\n  line-height: 1;\\n  border-radius: 10em;\\n  font-size: 70%;\\n  font-weight: 700;\\n  z-index: 1;\\n}\\n.app-admin .b-avatar-sm {\\n  width: 1.5rem;\\n  height: 1.5rem;\\n}\\n.app-admin .b-avatar-sm .b-avatar-text {\\n  font-size: calc(0.6rem);\\n}\\n.app-admin .b-avatar-sm .b-avatar-badge {\\n  font-size: calc(0.42rem);\\n}\\n.app-admin .b-avatar-lg {\\n  width: 3.5rem;\\n  height: 3.5rem;\\n}\\n.app-admin .b-avatar-lg .b-avatar-text {\\n  font-size: calc(1.4rem);\\n}\\n.app-admin .b-avatar-lg .b-avatar-badge {\\n  font-size: calc(0.98rem);\\n}\\n.app-admin .b-avatar-group .b-avatar-group-inner {\\n  display: flex;\\n  flex-wrap: wrap;\\n}\\n.app-admin .b-avatar-group .b-avatar {\\n  border: 1px solid #dee2e6;\\n}\\n.app-admin .b-avatar-group a.b-avatar:hover:not(.disabled):not(disabled),\\n.app-admin .b-avatar-group .btn.b-avatar:hover:not(.disabled):not(disabled) {\\n  z-index: 1;\\n}\\n.app-admin .b-calendar {\\n  display: inline-flex;\\n}\\n.app-admin .b-calendar .b-calendar-inner {\\n  min-width: 250px;\\n}\\n.app-admin .b-calendar .b-calendar-header,\\n.app-admin .b-calendar .b-calendar-nav {\\n  margin-bottom: 0.25rem;\\n}\\n.app-admin .b-calendar .b-calendar-nav .btn {\\n  padding: 0.25rem;\\n}\\n.app-admin .b-calendar output {\\n  padding: 0.25rem;\\n  font-size: 80%;\\n}\\n.app-admin .b-calendar output.readonly {\\n  background-color: #e9ecef;\\n  opacity: 1;\\n}\\n.app-admin .b-calendar .b-calendar-footer {\\n  margin-top: 0.5rem;\\n}\\n.app-admin .b-calendar .b-calendar-grid {\\n  padding: 0;\\n  margin: 0;\\n  overflow: hidden;\\n}\\n.app-admin .b-calendar .b-calendar-grid .row {\\n  flex-wrap: nowrap;\\n}\\n.app-admin .b-calendar .b-calendar-grid-caption {\\n  padding: 0.25rem;\\n}\\n.app-admin .b-calendar .b-calendar-grid-body .col[data-date] .btn {\\n  width: 32px;\\n  height: 32px;\\n  font-size: 14px;\\n  line-height: 1;\\n  margin: 3px auto;\\n  padding: 9px 0;\\n}\\n.app-admin .b-calendar .btn:disabled, .app-admin .b-calendar .btn.disabled, .app-admin .b-calendar .btn[aria-disabled=true] {\\n  cursor: default;\\n  pointer-events: none;\\n}\\n.app-admin .card-img-left {\\n  border-top-left-radius: calc(0.25rem - 1px);\\n  border-bottom-left-radius: calc(0.25rem - 1px);\\n}\\n.app-admin .card-img-right {\\n  border-top-right-radius: calc(0.25rem - 1px);\\n  border-bottom-right-radius: calc(0.25rem - 1px);\\n}\\n.app-admin .dropdown:not(.dropleft) .dropdown-toggle.dropdown-toggle-no-caret::after {\\n  display: none !important;\\n}\\n.app-admin .dropdown.dropleft .dropdown-toggle.dropdown-toggle-no-caret::before {\\n  display: none !important;\\n}\\n.app-admin .dropdown .dropdown-menu:focus {\\n  outline: none;\\n}\\n.app-admin .b-dropdown-form {\\n  display: inline-block;\\n  padding: 0.25rem 1.5rem;\\n  width: 100%;\\n  clear: both;\\n  font-weight: 400;\\n}\\n.app-admin .b-dropdown-form:focus {\\n  outline: 1px dotted !important;\\n  outline: 5px auto -webkit-focus-ring-color !important;\\n}\\n.app-admin .b-dropdown-form.disabled, .app-admin .b-dropdown-form:disabled {\\n  outline: 0 !important;\\n  color: #adb5bd;\\n  pointer-events: none;\\n}\\n.app-admin .b-dropdown-text {\\n  display: inline-block;\\n  padding: 0.25rem 1.5rem;\\n  margin-bottom: 0;\\n  width: 100%;\\n  clear: both;\\n  font-weight: lighter;\\n}\\n.app-admin .custom-checkbox.b-custom-control-lg,\\n.app-admin .input-group-lg .custom-checkbox {\\n  font-size: 1.25rem;\\n  line-height: 1.5;\\n  padding-left: 1.875rem;\\n}\\n.app-admin .custom-checkbox.b-custom-control-lg .custom-control-label::before,\\n.app-admin .input-group-lg .custom-checkbox .custom-control-label::before {\\n  top: 0.3125rem;\\n  left: -1.875rem;\\n  width: 1.25rem;\\n  height: 1.25rem;\\n  border-radius: 0.3rem;\\n}\\n.app-admin .custom-checkbox.b-custom-control-lg .custom-control-label::after,\\n.app-admin .input-group-lg .custom-checkbox .custom-control-label::after {\\n  top: 0.3125rem;\\n  left: -1.875rem;\\n  width: 1.25rem;\\n  height: 1.25rem;\\n  background-size: 50% 50%;\\n}\\n.app-admin .custom-checkbox.b-custom-control-sm,\\n.app-admin .input-group-sm .custom-checkbox {\\n  font-size: 0.875rem;\\n  line-height: 1.5;\\n  padding-left: 1.3125rem;\\n}\\n.app-admin .custom-checkbox.b-custom-control-sm .custom-control-label::before,\\n.app-admin .input-group-sm .custom-checkbox .custom-control-label::before {\\n  top: 0.21875rem;\\n  left: -1.3125rem;\\n  width: 0.875rem;\\n  height: 0.875rem;\\n  border-radius: 0.2rem;\\n}\\n.app-admin .custom-checkbox.b-custom-control-sm .custom-control-label::after,\\n.app-admin .input-group-sm .custom-checkbox .custom-control-label::after {\\n  top: 0.21875rem;\\n  left: -1.3125rem;\\n  width: 0.875rem;\\n  height: 0.875rem;\\n  background-size: 50% 50%;\\n}\\n.app-admin .custom-switch.b-custom-control-lg,\\n.app-admin .input-group-lg .custom-switch {\\n  padding-left: 2.8125rem;\\n}\\n.app-admin .custom-switch.b-custom-control-lg .custom-control-label,\\n.app-admin .input-group-lg .custom-switch .custom-control-label {\\n  font-size: 1.25rem;\\n  line-height: 1.5;\\n}\\n.app-admin .custom-switch.b-custom-control-lg .custom-control-label::before,\\n.app-admin .input-group-lg .custom-switch .custom-control-label::before {\\n  top: 0.3125rem;\\n  height: 1.25rem;\\n  left: -2.8125rem;\\n  width: 2.1875rem;\\n  border-radius: 0.625rem;\\n}\\n.app-admin .custom-switch.b-custom-control-lg .custom-control-label::after,\\n.app-admin .input-group-lg .custom-switch .custom-control-label::after {\\n  top: calc( 0.3125rem + 2px );\\n  left: calc( -2.8125rem + 2px );\\n  width: calc( 1.25rem - 4px );\\n  height: calc( 1.25rem - 4px );\\n  border-radius: 0.625rem;\\n  background-size: 50% 50%;\\n}\\n.app-admin .custom-switch.b-custom-control-lg .custom-control-input:checked ~ .custom-control-label::after,\\n.app-admin .input-group-lg .custom-switch .custom-control-input:checked ~ .custom-control-label::after {\\n  transform: translateX(0.9375rem);\\n}\\n.app-admin .custom-switch.b-custom-control-sm,\\n.app-admin .input-group-sm .custom-switch {\\n  padding-left: 1.96875rem;\\n}\\n.app-admin .custom-switch.b-custom-control-sm .custom-control-label,\\n.app-admin .input-group-sm .custom-switch .custom-control-label {\\n  font-size: 0.875rem;\\n  line-height: 1.5;\\n}\\n.app-admin .custom-switch.b-custom-control-sm .custom-control-label::before,\\n.app-admin .input-group-sm .custom-switch .custom-control-label::before {\\n  top: 0.21875rem;\\n  left: -1.96875rem;\\n  width: 1.53125rem;\\n  height: 0.875rem;\\n  border-radius: 0.4375rem;\\n}\\n.app-admin .custom-switch.b-custom-control-sm .custom-control-label::after,\\n.app-admin .input-group-sm .custom-switch .custom-control-label::after {\\n  top: calc( 0.21875rem + 2px );\\n  left: calc( -1.96875rem + 2px );\\n  width: calc( 0.875rem - 4px );\\n  height: calc( 0.875rem - 4px );\\n  border-radius: 0.4375rem;\\n  background-size: 50% 50%;\\n}\\n.app-admin .custom-switch.b-custom-control-sm .custom-control-input:checked ~ .custom-control-label::after,\\n.app-admin .input-group-sm .custom-switch .custom-control-input:checked ~ .custom-control-label::after {\\n  transform: translateX(0.65625rem);\\n}\\n.app-admin .input-group > .input-group-prepend > .btn-group > .btn,\\n.app-admin .input-group > .input-group-append:not(:last-child) > .btn-group > .btn,\\n.app-admin .input-group > .input-group-append:last-child > .btn-group:not(:last-child):not(.dropdown-toggle) > .btn {\\n  border-top-right-radius: 0;\\n  border-bottom-right-radius: 0;\\n}\\n.app-admin .input-group > .input-group-append > .btn-group > .btn,\\n.app-admin .input-group > .input-group-prepend:not(:first-child) > .btn-group > .btn,\\n.app-admin .input-group > .input-group-prepend:first-child > .btn-group:not(:first-child) > .btn {\\n  border-top-left-radius: 0;\\n  border-bottom-left-radius: 0;\\n}\\n.app-admin .b-form-btn-label-control.form-control {\\n  display: flex;\\n  align-items: stretch;\\n  height: auto;\\n  padding: 0;\\n  background-image: none;\\n}\\n.input-group .app-admin .b-form-btn-label-control.form-control {\\n  padding: 0;\\n}\\n[dir=rtl] .app-admin .b-form-btn-label-control.form-control, .app-admin .b-form-btn-label-control.form-control[dir=rtl] {\\n  flex-direction: row-reverse;\\n}\\n[dir=rtl] .app-admin .b-form-btn-label-control.form-control > label, .app-admin .b-form-btn-label-control.form-control[dir=rtl] > label {\\n  text-align: right;\\n}\\n.app-admin .b-form-btn-label-control.form-control > .btn {\\n  line-height: 1;\\n  font-size: inherit;\\n  box-shadow: none !important;\\n  border: 0;\\n}\\n.app-admin .b-form-btn-label-control.form-control > .btn:disabled {\\n  pointer-events: none;\\n}\\n.app-admin .b-form-btn-label-control.form-control.is-valid > .btn {\\n  color: #28a745;\\n}\\n.app-admin .b-form-btn-label-control.form-control.is-invalid > .btn {\\n  color: #dc3545;\\n}\\n.app-admin .b-form-btn-label-control.form-control > .dropdown-menu {\\n  padding: 0.5rem;\\n}\\n.app-admin .b-form-btn-label-control.form-control > .form-control {\\n  height: auto;\\n  min-height: calc(calc(1.5em + 0.75rem + 2px) - 2px);\\n  padding-left: 0.25rem;\\n  margin: 0;\\n  border: 0;\\n  outline: 0;\\n  background: transparent;\\n  word-break: break-word;\\n  font-size: inherit;\\n  white-space: normal;\\n  cursor: pointer;\\n}\\n.app-admin .b-form-btn-label-control.form-control > .form-control.form-control-sm {\\n  min-height: calc(calc(1.5em + 0.5rem + 2px) - 2px);\\n}\\n.app-admin .b-form-btn-label-control.form-control > .form-control.form-control-lg {\\n  min-height: calc(calc(1.5em + 1rem + 2px) - 2px);\\n}\\n.input-group.input-group-sm .app-admin .b-form-btn-label-control.form-control > .form-control {\\n  min-height: calc(calc(1.5em + 0.5rem + 2px) - 2px);\\n  padding-top: 0.25rem;\\n  padding-bottom: 0.25rem;\\n}\\n.input-group.input-group-lg .app-admin .b-form-btn-label-control.form-control > .form-control {\\n  min-height: calc(calc(1.5em + 1rem + 2px) - 2px);\\n  padding-top: 0.5rem;\\n  padding-bottom: 0.5rem;\\n}\\n.app-admin .b-form-btn-label-control.form-control[aria-disabled=true], .app-admin .b-form-btn-label-control.form-control[aria-readonly=true] {\\n  background-color: #e9ecef;\\n  opacity: 1;\\n}\\n.app-admin .b-form-btn-label-control.form-control[aria-disabled=true] {\\n  pointer-events: none;\\n}\\n.app-admin .b-form-btn-label-control.form-control[aria-disabled=true] > label {\\n  cursor: default;\\n}\\n.app-admin .b-form-btn-label-control.btn-group > .dropdown-menu {\\n  padding: 0.5rem;\\n}\\n.app-admin .custom-file-label {\\n  white-space: nowrap;\\n  overflow-x: hidden;\\n}\\n.app-admin .b-custom-control-lg.custom-file,\\n.app-admin .b-custom-control-lg .custom-file-input,\\n.app-admin .b-custom-control-lg .custom-file-label,\\n.app-admin .input-group-lg.custom-file,\\n.app-admin .input-group-lg .custom-file-input,\\n.app-admin .input-group-lg .custom-file-label {\\n  font-size: 1.25rem;\\n  height: calc(1.5em + 1rem + 2px);\\n}\\n.app-admin .b-custom-control-lg .custom-file-label,\\n.app-admin .b-custom-control-lg .custom-file-label:after,\\n.app-admin .input-group-lg .custom-file-label,\\n.app-admin .input-group-lg .custom-file-label:after {\\n  padding: 0.5rem 1rem;\\n  line-height: 1.5;\\n}\\n.app-admin .b-custom-control-lg .custom-file-label,\\n.app-admin .input-group-lg .custom-file-label {\\n  border-radius: 0.3rem;\\n}\\n.app-admin .b-custom-control-lg .custom-file-label::after,\\n.app-admin .input-group-lg .custom-file-label::after {\\n  font-size: inherit;\\n  height: calc( 1.5em + 1rem );\\n  border-radius: 0 0.3rem 0.3rem 0;\\n}\\n.app-admin .b-custom-control-sm.custom-file,\\n.app-admin .b-custom-control-sm .custom-file-input,\\n.app-admin .b-custom-control-sm .custom-file-label,\\n.app-admin .input-group-sm.custom-file,\\n.app-admin .input-group-sm .custom-file-input,\\n.app-admin .input-group-sm .custom-file-label {\\n  font-size: 0.875rem;\\n  height: calc(1.5em + 0.5rem + 2px);\\n}\\n.app-admin .b-custom-control-sm .custom-file-label,\\n.app-admin .b-custom-control-sm .custom-file-label:after,\\n.app-admin .input-group-sm .custom-file-label,\\n.app-admin .input-group-sm .custom-file-label:after {\\n  padding: 0.25rem 0.5rem;\\n  line-height: 1.5;\\n}\\n.app-admin .b-custom-control-sm .custom-file-label,\\n.app-admin .input-group-sm .custom-file-label {\\n  border-radius: 0.2rem;\\n}\\n.app-admin .b-custom-control-sm .custom-file-label::after,\\n.app-admin .input-group-sm .custom-file-label::after {\\n  font-size: inherit;\\n  height: calc( 1.5em + 0.5rem );\\n  border-radius: 0 0.2rem 0.2rem 0;\\n}\\n.was-validated .app-admin .form-control:invalid, .was-validated .app-admin .form-control:valid, .app-admin .form-control.is-invalid, .app-admin .form-control.is-valid {\\n  background-position: right calc(0.375em + 0.1875rem) center;\\n}\\n.app-admin input[type=color].form-control {\\n  height: calc(1.5em + 0.75rem + 2px);\\n  padding: 0.125rem 0.25rem;\\n}\\n.app-admin input[type=color].form-control.form-control-sm,\\n.app-admin .input-group-sm input[type=color].form-control {\\n  height: calc(1.5em + 0.5rem + 2px);\\n  padding: 0.125rem 0.25rem;\\n}\\n.app-admin input[type=color].form-control.form-control-lg,\\n.app-admin .input-group-lg input[type=color].form-control {\\n  height: calc(1.5em + 1rem + 2px);\\n  padding: 0.125rem 0.25rem;\\n}\\n.app-admin input[type=color].form-control:disabled {\\n  background-color: #adb5bd;\\n  opacity: 0.65;\\n}\\n.app-admin .input-group > .custom-range {\\n  position: relative;\\n  flex: 1 1 auto;\\n  width: 1%;\\n  margin-bottom: 0;\\n}\\n.app-admin .input-group > .custom-range + .form-control,\\n.app-admin .input-group > .custom-range + .form-control-plaintext,\\n.app-admin .input-group > .custom-range + .custom-select,\\n.app-admin .input-group > .custom-range + .custom-range,\\n.app-admin .input-group > .custom-range + .custom-file {\\n  margin-left: -1px;\\n}\\n.app-admin .input-group > .form-control + .custom-range,\\n.app-admin .input-group > .form-control-plaintext + .custom-range,\\n.app-admin .input-group > .custom-select + .custom-range,\\n.app-admin .input-group > .custom-range + .custom-range,\\n.app-admin .input-group > .custom-file + .custom-range {\\n  margin-left: -1px;\\n}\\n.app-admin .input-group > .custom-range:focus {\\n  z-index: 3;\\n}\\n.app-admin .input-group > .custom-range:not(:last-child) {\\n  border-top-right-radius: 0;\\n  border-bottom-right-radius: 0;\\n}\\n.app-admin .input-group > .custom-range:not(:first-child) {\\n  border-top-left-radius: 0;\\n  border-bottom-left-radius: 0;\\n}\\n.app-admin .input-group > .custom-range {\\n  height: calc(1.5em + 0.75rem + 2px);\\n  padding: 0 0.75rem;\\n  background-color: #fff;\\n  background-clip: padding-box;\\n  border: 1px solid #ced4da;\\n  height: calc(1.5em + 0.75rem + 2px);\\n  border-radius: 0.25rem;\\n  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .input-group > .custom-range {\\n    transition: none;\\n}\\n}\\n.app-admin .input-group > .custom-range:focus {\\n  color: #495057;\\n  background-color: #fff;\\n  border-color: #80bdff;\\n  outline: 0;\\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\\n}\\n.app-admin .input-group > .custom-range:disabled, .app-admin .input-group > .custom-range[readonly] {\\n  background-color: #e9ecef;\\n}\\n.app-admin .input-group-lg > .custom-range {\\n  height: calc(1.5em + 1rem + 2px);\\n  padding: 0 1rem;\\n  border-radius: 0.3rem;\\n}\\n.app-admin .input-group-sm > .custom-range {\\n  height: calc(1.5em + 0.5rem + 2px);\\n  padding: 0 0.5rem;\\n  border-radius: 0.2rem;\\n}\\n.was-validated .app-admin .input-group .custom-range:valid, .app-admin .input-group .custom-range.is-valid {\\n  border-color: #28a745;\\n}\\n.was-validated .app-admin .input-group .custom-range:valid:focus, .app-admin .input-group .custom-range.is-valid:focus {\\n  border-color: #28a745;\\n  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);\\n}\\n.was-validated .app-admin .custom-range:valid:focus::-webkit-slider-thumb, .app-admin .custom-range.is-valid:focus::-webkit-slider-thumb {\\n  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem #9be7ac;\\n}\\n.was-validated .app-admin .custom-range:valid:focus::-moz-range-thumb, .app-admin .custom-range.is-valid:focus::-moz-range-thumb {\\n  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem #9be7ac;\\n}\\n.was-validated .app-admin .custom-range:valid:focus::-ms-thumb, .app-admin .custom-range.is-valid:focus::-ms-thumb {\\n  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem #9be7ac;\\n}\\n.was-validated .app-admin .custom-range:valid::-webkit-slider-thumb, .app-admin .custom-range.is-valid::-webkit-slider-thumb {\\n  background-color: #28a745;\\n  background-image: none;\\n}\\n.was-validated .app-admin .custom-range:valid::-webkit-slider-thumb:active, .app-admin .custom-range.is-valid::-webkit-slider-thumb:active {\\n  background-color: #9be7ac;\\n  background-image: none;\\n}\\n.was-validated .app-admin .custom-range:valid::-webkit-slider-runnable-track, .app-admin .custom-range.is-valid::-webkit-slider-runnable-track {\\n  background-color: rgba(40, 167, 69, 0.35);\\n}\\n.was-validated .app-admin .custom-range:valid::-moz-range-thumb, .app-admin .custom-range.is-valid::-moz-range-thumb {\\n  background-color: #28a745;\\n  background-image: none;\\n}\\n.was-validated .app-admin .custom-range:valid::-moz-range-thumb:active, .app-admin .custom-range.is-valid::-moz-range-thumb:active {\\n  background-color: #9be7ac;\\n  background-image: none;\\n}\\n.was-validated .app-admin .custom-range:valid::-moz-range-track, .app-admin .custom-range.is-valid::-moz-range-track {\\n  background: rgba(40, 167, 69, 0.35);\\n}\\n.was-validated .app-admin .custom-range:valid ~ .valid-feedback,\\n.was-validated .app-admin .custom-range:valid ~ .valid-tooltip, .app-admin .custom-range.is-valid ~ .valid-feedback,\\n.app-admin .custom-range.is-valid ~ .valid-tooltip {\\n  display: block;\\n}\\n.was-validated .app-admin .custom-range:valid::-ms-thumb, .app-admin .custom-range.is-valid::-ms-thumb {\\n  background-color: #28a745;\\n  background-image: none;\\n}\\n.was-validated .app-admin .custom-range:valid::-ms-thumb:active, .app-admin .custom-range.is-valid::-ms-thumb:active {\\n  background-color: #9be7ac;\\n  background-image: none;\\n}\\n.was-validated .app-admin .custom-range:valid::-ms-track-lower, .app-admin .custom-range.is-valid::-ms-track-lower {\\n  background: rgba(40, 167, 69, 0.35);\\n}\\n.was-validated .app-admin .custom-range:valid::-ms-track-upper, .app-admin .custom-range.is-valid::-ms-track-upper {\\n  background: rgba(40, 167, 69, 0.35);\\n}\\n.was-validated .app-admin .input-group .custom-range:invalid, .app-admin .input-group .custom-range.is-invalid {\\n  border-color: #dc3545;\\n}\\n.was-validated .app-admin .input-group .custom-range:invalid:focus, .app-admin .input-group .custom-range.is-invalid:focus {\\n  border-color: #dc3545;\\n  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);\\n}\\n.was-validated .app-admin .custom-range:invalid:focus::-webkit-slider-thumb, .app-admin .custom-range.is-invalid:focus::-webkit-slider-thumb {\\n  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem #f6cdd1;\\n}\\n.was-validated .app-admin .custom-range:invalid:focus::-moz-range-thumb, .app-admin .custom-range.is-invalid:focus::-moz-range-thumb {\\n  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem #f6cdd1;\\n}\\n.was-validated .app-admin .custom-range:invalid:focus::-ms-thumb, .app-admin .custom-range.is-invalid:focus::-ms-thumb {\\n  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem #f6cdd1;\\n}\\n.was-validated .app-admin .custom-range:invalid::-webkit-slider-thumb, .app-admin .custom-range.is-invalid::-webkit-slider-thumb {\\n  background-color: #dc3545;\\n  background-image: none;\\n}\\n.was-validated .app-admin .custom-range:invalid::-webkit-slider-thumb:active, .app-admin .custom-range.is-invalid::-webkit-slider-thumb:active {\\n  background-color: #f6cdd1;\\n  background-image: none;\\n}\\n.was-validated .app-admin .custom-range:invalid::-webkit-slider-runnable-track, .app-admin .custom-range.is-invalid::-webkit-slider-runnable-track {\\n  background-color: rgba(220, 53, 69, 0.35);\\n}\\n.was-validated .app-admin .custom-range:invalid::-moz-range-thumb, .app-admin .custom-range.is-invalid::-moz-range-thumb {\\n  background-color: #dc3545;\\n  background-image: none;\\n}\\n.was-validated .app-admin .custom-range:invalid::-moz-range-thumb:active, .app-admin .custom-range.is-invalid::-moz-range-thumb:active {\\n  background-color: #f6cdd1;\\n  background-image: none;\\n}\\n.was-validated .app-admin .custom-range:invalid::-moz-range-track, .app-admin .custom-range.is-invalid::-moz-range-track {\\n  background: rgba(220, 53, 69, 0.35);\\n}\\n.was-validated .app-admin .custom-range:invalid ~ .invalid-feedback,\\n.was-validated .app-admin .custom-range:invalid ~ .invalid-tooltip, .app-admin .custom-range.is-invalid ~ .invalid-feedback,\\n.app-admin .custom-range.is-invalid ~ .invalid-tooltip {\\n  display: block;\\n}\\n.was-validated .app-admin .custom-range:invalid::-ms-thumb, .app-admin .custom-range.is-invalid::-ms-thumb {\\n  background-color: #dc3545;\\n  background-image: none;\\n}\\n.was-validated .app-admin .custom-range:invalid::-ms-thumb:active, .app-admin .custom-range.is-invalid::-ms-thumb:active {\\n  background-color: #f6cdd1;\\n  background-image: none;\\n}\\n.was-validated .app-admin .custom-range:invalid::-ms-track-lower, .app-admin .custom-range.is-invalid::-ms-track-lower {\\n  background: rgba(220, 53, 69, 0.35);\\n}\\n.was-validated .app-admin .custom-range:invalid::-ms-track-upper, .app-admin .custom-range.is-invalid::-ms-track-upper {\\n  background: rgba(220, 53, 69, 0.35);\\n}\\n.app-admin .custom-radio.b-custom-control-lg,\\n.app-admin .input-group-lg .custom-radio {\\n  font-size: 1.25rem;\\n  line-height: 1.5;\\n  padding-left: 1.875rem;\\n}\\n.app-admin .custom-radio.b-custom-control-lg .custom-control-label::before,\\n.app-admin .input-group-lg .custom-radio .custom-control-label::before {\\n  top: 0.3125rem;\\n  left: -1.875rem;\\n  width: 1.25rem;\\n  height: 1.25rem;\\n  border-radius: 50%;\\n}\\n.app-admin .custom-radio.b-custom-control-lg .custom-control-label::after,\\n.app-admin .input-group-lg .custom-radio .custom-control-label::after {\\n  top: 0.3125rem;\\n  left: -1.875rem;\\n  width: 1.25rem;\\n  height: 1.25rem;\\n  background: no-repeat 50%/50% 50%;\\n}\\n.app-admin .custom-radio.b-custom-control-sm,\\n.app-admin .input-group-sm .custom-radio {\\n  font-size: 0.875rem;\\n  line-height: 1.5;\\n  padding-left: 1.3125rem;\\n}\\n.app-admin .custom-radio.b-custom-control-sm .custom-control-label::before,\\n.app-admin .input-group-sm .custom-radio .custom-control-label::before {\\n  top: 0.21875rem;\\n  left: -1.3125rem;\\n  width: 0.875rem;\\n  height: 0.875rem;\\n  border-radius: 50%;\\n}\\n.app-admin .custom-radio.b-custom-control-sm .custom-control-label::after,\\n.app-admin .input-group-sm .custom-radio .custom-control-label::after {\\n  top: 0.21875rem;\\n  left: -1.3125rem;\\n  width: 0.875rem;\\n  height: 0.875rem;\\n  background: no-repeat 50%/50% 50%;\\n}\\n.app-admin .b-rating {\\n  text-align: center;\\n}\\n.app-admin .b-rating.d-inline-flex {\\n  width: auto;\\n}\\n.app-admin .b-rating .b-rating-star,\\n.app-admin .b-rating .b-rating-value {\\n  padding: 0 0.25em;\\n}\\n.app-admin .b-rating .b-rating-value {\\n  min-width: 2.5em;\\n}\\n.app-admin .b-rating .b-rating-star {\\n  display: inline-flex;\\n  justify-content: center;\\n  outline: 0;\\n}\\n.app-admin .b-rating .b-rating-star .b-rating-icon {\\n  display: inline-flex;\\n  transition: all 0.15s ease-in-out;\\n}\\n.app-admin .b-rating.disabled, .app-admin .b-rating:disabled {\\n  background-color: #e9ecef;\\n  color: #6c757d;\\n}\\n.app-admin .b-rating:not(.disabled):not(.readonly) .b-rating-star {\\n  cursor: pointer;\\n}\\n.app-admin .b-rating:not(.disabled):not(.readonly):focus:not(:hover) .b-rating-star.focused .b-rating-icon,\\n.app-admin .b-rating:not(.disabled):not(.readonly) .b-rating-star:hover .b-rating-icon {\\n  transform: scale(1.5);\\n}\\n.app-admin .b-rating[dir=rtl] .b-rating-star-half {\\n  transform: scale(-1, 1);\\n}\\n.app-admin .b-form-spinbutton {\\n  text-align: center;\\n  overflow: hidden;\\n  background-image: none;\\n  padding: 0;\\n}\\n[dir=rtl] .app-admin .b-form-spinbutton:not(.flex-column), .app-admin .b-form-spinbutton[dir=rtl]:not(.flex-column) {\\n  flex-direction: row-reverse;\\n}\\n.app-admin .b-form-spinbutton output {\\n  font-size: inherit;\\n  outline: 0;\\n  border: 0;\\n  background-color: transparent;\\n  width: auto;\\n  margin: 0;\\n  padding: 0 0.25rem;\\n}\\n.app-admin .b-form-spinbutton output > div,\\n.app-admin .b-form-spinbutton output > bdi {\\n  display: block;\\n  min-width: 2.25em;\\n  height: 1.5em;\\n}\\n.app-admin .b-form-spinbutton.flex-column {\\n  height: auto;\\n  width: auto;\\n}\\n.app-admin .b-form-spinbutton.flex-column output {\\n  margin: 0 0.25rem;\\n  padding: 0.25rem 0;\\n}\\n.app-admin .b-form-spinbutton:not(.d-inline-flex):not(.flex-column) {\\n  output-width: 100%;\\n}\\n.app-admin .b-form-spinbutton.d-inline-flex:not(.flex-column) {\\n  width: auto;\\n}\\n.app-admin .b-form-spinbutton .btn {\\n  line-height: 1;\\n  box-shadow: none !important;\\n}\\n.app-admin .b-form-spinbutton .btn:disabled {\\n  pointer-events: none;\\n}\\n.app-admin .b-form-spinbutton .btn:hover:not(:disabled) > div > .b-icon {\\n  transform: scale(1.25);\\n}\\n.app-admin .b-form-spinbutton.disabled, .app-admin .b-form-spinbutton.readonly {\\n  background-color: #e9ecef;\\n}\\n.app-admin .b-form-spinbutton.disabled {\\n  pointer-events: none;\\n}\\n.app-admin .b-form-tags .b-form-tags-list {\\n  margin-top: -0.25rem;\\n}\\n.app-admin .b-form-tags .b-form-tags-list .b-from-tags-field,\\n.app-admin .b-form-tags .b-form-tags-list .b-form-tag {\\n  margin-top: 0.25rem;\\n}\\n.app-admin .b-form-tags.focus {\\n  color: #495057;\\n  background-color: #fff;\\n  border-color: #80bdff;\\n  outline: 0;\\n  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\\n}\\n.app-admin .b-form-tags.focus.is-valid {\\n  border-color: #28a745;\\n  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);\\n}\\n.app-admin .b-form-tags.focus.is-invalid {\\n  border-color: #dc3545;\\n  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);\\n}\\n.app-admin .b-form-tags.disabled {\\n  background-color: #e9ecef;\\n}\\n.app-admin .b-form-tag {\\n  font-size: 75%;\\n  font-weight: normal;\\n  line-height: 1.5;\\n  margin-right: 0.25rem;\\n}\\n.app-admin .b-form-tag.disabled {\\n  opacity: 0.75;\\n}\\n.app-admin .b-form-tag > button.b-form-tag-remove {\\n  color: inherit;\\n  font-size: 125%;\\n  line-height: 1;\\n  float: none;\\n  margin-left: 0.25rem;\\n}\\n.app-admin .form-control-sm .b-form-tag {\\n  line-height: 1.5;\\n}\\n.app-admin .form-control-lg .b-form-tag {\\n  line-height: 1.5;\\n}\\n.app-admin .media-aside {\\n  display: flex;\\n  margin-right: 1rem;\\n}\\n.app-admin .media-aside-right {\\n  margin-right: 0;\\n  margin-left: 1rem;\\n}\\n.app-admin .modal-backdrop {\\n  opacity: 0.5;\\n}\\n.app-admin .b-pagination-pills .page-item .page-link {\\n  border-radius: 50rem !important;\\n  margin-left: 0.25rem;\\n  line-height: 1;\\n}\\n.app-admin .b-pagination-pills .page-item:first-child .page-link {\\n  margin-left: 0;\\n}\\n.app-admin .popover.b-popover {\\n  display: block;\\n  opacity: 1;\\n  outline: 0;\\n}\\n.app-admin .popover.b-popover.fade:not(.show) {\\n  opacity: 0;\\n}\\n.app-admin .popover.b-popover.show {\\n  opacity: 1;\\n}\\n.app-admin .b-popover-primary.popover {\\n  background-color: #cce5ff;\\n  border-color: #b8daff;\\n}\\n.app-admin .b-popover-primary.bs-popover-top > .arrow::before, .app-admin .b-popover-primary.bs-popover-auto[x-placement^=top] > .arrow::before {\\n  border-top-color: #b8daff;\\n}\\n.app-admin .b-popover-primary.bs-popover-top > .arrow::after, .app-admin .b-popover-primary.bs-popover-auto[x-placement^=top] > .arrow::after {\\n  border-top-color: #cce5ff;\\n}\\n.app-admin .b-popover-primary.bs-popover-right > .arrow::before, .app-admin .b-popover-primary.bs-popover-auto[x-placement^=right] > .arrow::before {\\n  border-right-color: #b8daff;\\n}\\n.app-admin .b-popover-primary.bs-popover-right > .arrow::after, .app-admin .b-popover-primary.bs-popover-auto[x-placement^=right] > .arrow::after {\\n  border-right-color: #cce5ff;\\n}\\n.app-admin .b-popover-primary.bs-popover-bottom > .arrow::before, .app-admin .b-popover-primary.bs-popover-auto[x-placement^=bottom] > .arrow::before {\\n  border-bottom-color: #b8daff;\\n}\\n.app-admin .b-popover-primary.bs-popover-bottom > .arrow::after, .app-admin .b-popover-primary.bs-popover-auto[x-placement^=bottom] > .arrow::after {\\n  border-bottom-color: #bdddff;\\n}\\n.app-admin .b-popover-primary.bs-popover-bottom .popover-header::before, .app-admin .b-popover-primary.bs-popover-auto[x-placement^=bottom] .popover-header::before {\\n  border-bottom-color: #bdddff;\\n}\\n.app-admin .b-popover-primary.bs-popover-left > .arrow::before, .app-admin .b-popover-primary.bs-popover-auto[x-placement^=left] > .arrow::before {\\n  border-left-color: #b8daff;\\n}\\n.app-admin .b-popover-primary.bs-popover-left > .arrow::after, .app-admin .b-popover-primary.bs-popover-auto[x-placement^=left] > .arrow::after {\\n  border-left-color: #cce5ff;\\n}\\n.app-admin .b-popover-primary .popover-header {\\n  color: #212529;\\n  background-color: #bdddff;\\n  border-bottom-color: #a3d0ff;\\n}\\n.app-admin .b-popover-primary .popover-body {\\n  color: #004085;\\n}\\n.app-admin .b-popover-secondary.popover {\\n  background-color: #e2e3e5;\\n  border-color: #d6d8db;\\n}\\n.app-admin .b-popover-secondary.bs-popover-top > .arrow::before, .app-admin .b-popover-secondary.bs-popover-auto[x-placement^=top] > .arrow::before {\\n  border-top-color: #d6d8db;\\n}\\n.app-admin .b-popover-secondary.bs-popover-top > .arrow::after, .app-admin .b-popover-secondary.bs-popover-auto[x-placement^=top] > .arrow::after {\\n  border-top-color: #e2e3e5;\\n}\\n.app-admin .b-popover-secondary.bs-popover-right > .arrow::before, .app-admin .b-popover-secondary.bs-popover-auto[x-placement^=right] > .arrow::before {\\n  border-right-color: #d6d8db;\\n}\\n.app-admin .b-popover-secondary.bs-popover-right > .arrow::after, .app-admin .b-popover-secondary.bs-popover-auto[x-placement^=right] > .arrow::after {\\n  border-right-color: #e2e3e5;\\n}\\n.app-admin .b-popover-secondary.bs-popover-bottom > .arrow::before, .app-admin .b-popover-secondary.bs-popover-auto[x-placement^=bottom] > .arrow::before {\\n  border-bottom-color: #d6d8db;\\n}\\n.app-admin .b-popover-secondary.bs-popover-bottom > .arrow::after, .app-admin .b-popover-secondary.bs-popover-auto[x-placement^=bottom] > .arrow::after {\\n  border-bottom-color: #dadbde;\\n}\\n.app-admin .b-popover-secondary.bs-popover-bottom .popover-header::before, .app-admin .b-popover-secondary.bs-popover-auto[x-placement^=bottom] .popover-header::before {\\n  border-bottom-color: #dadbde;\\n}\\n.app-admin .b-popover-secondary.bs-popover-left > .arrow::before, .app-admin .b-popover-secondary.bs-popover-auto[x-placement^=left] > .arrow::before {\\n  border-left-color: #d6d8db;\\n}\\n.app-admin .b-popover-secondary.bs-popover-left > .arrow::after, .app-admin .b-popover-secondary.bs-popover-auto[x-placement^=left] > .arrow::after {\\n  border-left-color: #e2e3e5;\\n}\\n.app-admin .b-popover-secondary .popover-header {\\n  color: #212529;\\n  background-color: #dadbde;\\n  border-bottom-color: #ccced2;\\n}\\n.app-admin .b-popover-secondary .popover-body {\\n  color: #383d41;\\n}\\n.app-admin .b-popover-success.popover {\\n  background-color: #d4edda;\\n  border-color: #c3e6cb;\\n}\\n.app-admin .b-popover-success.bs-popover-top > .arrow::before, .app-admin .b-popover-success.bs-popover-auto[x-placement^=top] > .arrow::before {\\n  border-top-color: #c3e6cb;\\n}\\n.app-admin .b-popover-success.bs-popover-top > .arrow::after, .app-admin .b-popover-success.bs-popover-auto[x-placement^=top] > .arrow::after {\\n  border-top-color: #d4edda;\\n}\\n.app-admin .b-popover-success.bs-popover-right > .arrow::before, .app-admin .b-popover-success.bs-popover-auto[x-placement^=right] > .arrow::before {\\n  border-right-color: #c3e6cb;\\n}\\n.app-admin .b-popover-success.bs-popover-right > .arrow::after, .app-admin .b-popover-success.bs-popover-auto[x-placement^=right] > .arrow::after {\\n  border-right-color: #d4edda;\\n}\\n.app-admin .b-popover-success.bs-popover-bottom > .arrow::before, .app-admin .b-popover-success.bs-popover-auto[x-placement^=bottom] > .arrow::before {\\n  border-bottom-color: #c3e6cb;\\n}\\n.app-admin .b-popover-success.bs-popover-bottom > .arrow::after, .app-admin .b-popover-success.bs-popover-auto[x-placement^=bottom] > .arrow::after {\\n  border-bottom-color: #c9e8d1;\\n}\\n.app-admin .b-popover-success.bs-popover-bottom .popover-header::before, .app-admin .b-popover-success.bs-popover-auto[x-placement^=bottom] .popover-header::before {\\n  border-bottom-color: #c9e8d1;\\n}\\n.app-admin .b-popover-success.bs-popover-left > .arrow::before, .app-admin .b-popover-success.bs-popover-auto[x-placement^=left] > .arrow::before {\\n  border-left-color: #c3e6cb;\\n}\\n.app-admin .b-popover-success.bs-popover-left > .arrow::after, .app-admin .b-popover-success.bs-popover-auto[x-placement^=left] > .arrow::after {\\n  border-left-color: #d4edda;\\n}\\n.app-admin .b-popover-success .popover-header {\\n  color: #212529;\\n  background-color: #c9e8d1;\\n  border-bottom-color: #b7e1c1;\\n}\\n.app-admin .b-popover-success .popover-body {\\n  color: #155724;\\n}\\n.app-admin .b-popover-info.popover {\\n  background-color: #d1ecf1;\\n  border-color: #bee5eb;\\n}\\n.app-admin .b-popover-info.bs-popover-top > .arrow::before, .app-admin .b-popover-info.bs-popover-auto[x-placement^=top] > .arrow::before {\\n  border-top-color: #bee5eb;\\n}\\n.app-admin .b-popover-info.bs-popover-top > .arrow::after, .app-admin .b-popover-info.bs-popover-auto[x-placement^=top] > .arrow::after {\\n  border-top-color: #d1ecf1;\\n}\\n.app-admin .b-popover-info.bs-popover-right > .arrow::before, .app-admin .b-popover-info.bs-popover-auto[x-placement^=right] > .arrow::before {\\n  border-right-color: #bee5eb;\\n}\\n.app-admin .b-popover-info.bs-popover-right > .arrow::after, .app-admin .b-popover-info.bs-popover-auto[x-placement^=right] > .arrow::after {\\n  border-right-color: #d1ecf1;\\n}\\n.app-admin .b-popover-info.bs-popover-bottom > .arrow::before, .app-admin .b-popover-info.bs-popover-auto[x-placement^=bottom] > .arrow::before {\\n  border-bottom-color: #bee5eb;\\n}\\n.app-admin .b-popover-info.bs-popover-bottom > .arrow::after, .app-admin .b-popover-info.bs-popover-auto[x-placement^=bottom] > .arrow::after {\\n  border-bottom-color: #c5e7ed;\\n}\\n.app-admin .b-popover-info.bs-popover-bottom .popover-header::before, .app-admin .b-popover-info.bs-popover-auto[x-placement^=bottom] .popover-header::before {\\n  border-bottom-color: #c5e7ed;\\n}\\n.app-admin .b-popover-info.bs-popover-left > .arrow::before, .app-admin .b-popover-info.bs-popover-auto[x-placement^=left] > .arrow::before {\\n  border-left-color: #bee5eb;\\n}\\n.app-admin .b-popover-info.bs-popover-left > .arrow::after, .app-admin .b-popover-info.bs-popover-auto[x-placement^=left] > .arrow::after {\\n  border-left-color: #d1ecf1;\\n}\\n.app-admin .b-popover-info .popover-header {\\n  color: #212529;\\n  background-color: #c5e7ed;\\n  border-bottom-color: #b2dfe7;\\n}\\n.app-admin .b-popover-info .popover-body {\\n  color: #0c5460;\\n}\\n.app-admin .b-popover-warning.popover {\\n  background-color: #fff3cd;\\n  border-color: #ffeeba;\\n}\\n.app-admin .b-popover-warning.bs-popover-top > .arrow::before, .app-admin .b-popover-warning.bs-popover-auto[x-placement^=top] > .arrow::before {\\n  border-top-color: #ffeeba;\\n}\\n.app-admin .b-popover-warning.bs-popover-top > .arrow::after, .app-admin .b-popover-warning.bs-popover-auto[x-placement^=top] > .arrow::after {\\n  border-top-color: #fff3cd;\\n}\\n.app-admin .b-popover-warning.bs-popover-right > .arrow::before, .app-admin .b-popover-warning.bs-popover-auto[x-placement^=right] > .arrow::before {\\n  border-right-color: #ffeeba;\\n}\\n.app-admin .b-popover-warning.bs-popover-right > .arrow::after, .app-admin .b-popover-warning.bs-popover-auto[x-placement^=right] > .arrow::after {\\n  border-right-color: #fff3cd;\\n}\\n.app-admin .b-popover-warning.bs-popover-bottom > .arrow::before, .app-admin .b-popover-warning.bs-popover-auto[x-placement^=bottom] > .arrow::before {\\n  border-bottom-color: #ffeeba;\\n}\\n.app-admin .b-popover-warning.bs-popover-bottom > .arrow::after, .app-admin .b-popover-warning.bs-popover-auto[x-placement^=bottom] > .arrow::after {\\n  border-bottom-color: #ffefbe;\\n}\\n.app-admin .b-popover-warning.bs-popover-bottom .popover-header::before, .app-admin .b-popover-warning.bs-popover-auto[x-placement^=bottom] .popover-header::before {\\n  border-bottom-color: #ffefbe;\\n}\\n.app-admin .b-popover-warning.bs-popover-left > .arrow::before, .app-admin .b-popover-warning.bs-popover-auto[x-placement^=left] > .arrow::before {\\n  border-left-color: #ffeeba;\\n}\\n.app-admin .b-popover-warning.bs-popover-left > .arrow::after, .app-admin .b-popover-warning.bs-popover-auto[x-placement^=left] > .arrow::after {\\n  border-left-color: #fff3cd;\\n}\\n.app-admin .b-popover-warning .popover-header {\\n  color: #212529;\\n  background-color: #ffefbe;\\n  border-bottom-color: #ffe9a4;\\n}\\n.app-admin .b-popover-warning .popover-body {\\n  color: #856404;\\n}\\n.app-admin .b-popover-danger.popover {\\n  background-color: #f8d7da;\\n  border-color: #f5c6cb;\\n}\\n.app-admin .b-popover-danger.bs-popover-top > .arrow::before, .app-admin .b-popover-danger.bs-popover-auto[x-placement^=top] > .arrow::before {\\n  border-top-color: #f5c6cb;\\n}\\n.app-admin .b-popover-danger.bs-popover-top > .arrow::after, .app-admin .b-popover-danger.bs-popover-auto[x-placement^=top] > .arrow::after {\\n  border-top-color: #f8d7da;\\n}\\n.app-admin .b-popover-danger.bs-popover-right > .arrow::before, .app-admin .b-popover-danger.bs-popover-auto[x-placement^=right] > .arrow::before {\\n  border-right-color: #f5c6cb;\\n}\\n.app-admin .b-popover-danger.bs-popover-right > .arrow::after, .app-admin .b-popover-danger.bs-popover-auto[x-placement^=right] > .arrow::after {\\n  border-right-color: #f8d7da;\\n}\\n.app-admin .b-popover-danger.bs-popover-bottom > .arrow::before, .app-admin .b-popover-danger.bs-popover-auto[x-placement^=bottom] > .arrow::before {\\n  border-bottom-color: #f5c6cb;\\n}\\n.app-admin .b-popover-danger.bs-popover-bottom > .arrow::after, .app-admin .b-popover-danger.bs-popover-auto[x-placement^=bottom] > .arrow::after {\\n  border-bottom-color: #f6cace;\\n}\\n.app-admin .b-popover-danger.bs-popover-bottom .popover-header::before, .app-admin .b-popover-danger.bs-popover-auto[x-placement^=bottom] .popover-header::before {\\n  border-bottom-color: #f6cace;\\n}\\n.app-admin .b-popover-danger.bs-popover-left > .arrow::before, .app-admin .b-popover-danger.bs-popover-auto[x-placement^=left] > .arrow::before {\\n  border-left-color: #f5c6cb;\\n}\\n.app-admin .b-popover-danger.bs-popover-left > .arrow::after, .app-admin .b-popover-danger.bs-popover-auto[x-placement^=left] > .arrow::after {\\n  border-left-color: #f8d7da;\\n}\\n.app-admin .b-popover-danger .popover-header {\\n  color: #212529;\\n  background-color: #f6cace;\\n  border-bottom-color: #f2b4ba;\\n}\\n.app-admin .b-popover-danger .popover-body {\\n  color: #721c24;\\n}\\n.app-admin .b-popover-light.popover {\\n  background-color: #fefefe;\\n  border-color: #fdfdfe;\\n}\\n.app-admin .b-popover-light.bs-popover-top > .arrow::before, .app-admin .b-popover-light.bs-popover-auto[x-placement^=top] > .arrow::before {\\n  border-top-color: #fdfdfe;\\n}\\n.app-admin .b-popover-light.bs-popover-top > .arrow::after, .app-admin .b-popover-light.bs-popover-auto[x-placement^=top] > .arrow::after {\\n  border-top-color: #fefefe;\\n}\\n.app-admin .b-popover-light.bs-popover-right > .arrow::before, .app-admin .b-popover-light.bs-popover-auto[x-placement^=right] > .arrow::before {\\n  border-right-color: #fdfdfe;\\n}\\n.app-admin .b-popover-light.bs-popover-right > .arrow::after, .app-admin .b-popover-light.bs-popover-auto[x-placement^=right] > .arrow::after {\\n  border-right-color: #fefefe;\\n}\\n.app-admin .b-popover-light.bs-popover-bottom > .arrow::before, .app-admin .b-popover-light.bs-popover-auto[x-placement^=bottom] > .arrow::before {\\n  border-bottom-color: #fdfdfe;\\n}\\n.app-admin .b-popover-light.bs-popover-bottom > .arrow::after, .app-admin .b-popover-light.bs-popover-auto[x-placement^=bottom] > .arrow::after {\\n  border-bottom-color: #f6f6f6;\\n}\\n.app-admin .b-popover-light.bs-popover-bottom .popover-header::before, .app-admin .b-popover-light.bs-popover-auto[x-placement^=bottom] .popover-header::before {\\n  border-bottom-color: #f6f6f6;\\n}\\n.app-admin .b-popover-light.bs-popover-left > .arrow::before, .app-admin .b-popover-light.bs-popover-auto[x-placement^=left] > .arrow::before {\\n  border-left-color: #fdfdfe;\\n}\\n.app-admin .b-popover-light.bs-popover-left > .arrow::after, .app-admin .b-popover-light.bs-popover-auto[x-placement^=left] > .arrow::after {\\n  border-left-color: #fefefe;\\n}\\n.app-admin .b-popover-light .popover-header {\\n  color: #212529;\\n  background-color: #f6f6f6;\\n  border-bottom-color: #eaeaea;\\n}\\n.app-admin .b-popover-light .popover-body {\\n  color: #818182;\\n}\\n.app-admin .b-popover-dark.popover {\\n  background-color: #d6d8d9;\\n  border-color: #c6c8ca;\\n}\\n.app-admin .b-popover-dark.bs-popover-top > .arrow::before, .app-admin .b-popover-dark.bs-popover-auto[x-placement^=top] > .arrow::before {\\n  border-top-color: #c6c8ca;\\n}\\n.app-admin .b-popover-dark.bs-popover-top > .arrow::after, .app-admin .b-popover-dark.bs-popover-auto[x-placement^=top] > .arrow::after {\\n  border-top-color: #d6d8d9;\\n}\\n.app-admin .b-popover-dark.bs-popover-right > .arrow::before, .app-admin .b-popover-dark.bs-popover-auto[x-placement^=right] > .arrow::before {\\n  border-right-color: #c6c8ca;\\n}\\n.app-admin .b-popover-dark.bs-popover-right > .arrow::after, .app-admin .b-popover-dark.bs-popover-auto[x-placement^=right] > .arrow::after {\\n  border-right-color: #d6d8d9;\\n}\\n.app-admin .b-popover-dark.bs-popover-bottom > .arrow::before, .app-admin .b-popover-dark.bs-popover-auto[x-placement^=bottom] > .arrow::before {\\n  border-bottom-color: #c6c8ca;\\n}\\n.app-admin .b-popover-dark.bs-popover-bottom > .arrow::after, .app-admin .b-popover-dark.bs-popover-auto[x-placement^=bottom] > .arrow::after {\\n  border-bottom-color: #ced0d2;\\n}\\n.app-admin .b-popover-dark.bs-popover-bottom .popover-header::before, .app-admin .b-popover-dark.bs-popover-auto[x-placement^=bottom] .popover-header::before {\\n  border-bottom-color: #ced0d2;\\n}\\n.app-admin .b-popover-dark.bs-popover-left > .arrow::before, .app-admin .b-popover-dark.bs-popover-auto[x-placement^=left] > .arrow::before {\\n  border-left-color: #c6c8ca;\\n}\\n.app-admin .b-popover-dark.bs-popover-left > .arrow::after, .app-admin .b-popover-dark.bs-popover-auto[x-placement^=left] > .arrow::after {\\n  border-left-color: #d6d8d9;\\n}\\n.app-admin .b-popover-dark .popover-header {\\n  color: #212529;\\n  background-color: #ced0d2;\\n  border-bottom-color: #c1c4c5;\\n}\\n.app-admin .b-popover-dark .popover-body {\\n  color: #1b1e21;\\n}\\n.app-admin .b-sidebar-outer {\\n  position: fixed;\\n  top: 0;\\n  left: 0;\\n  right: 0;\\n  height: 0;\\n  overflow: visible;\\n  z-index: calc(1030 + 5);\\n}\\n.app-admin .b-sidebar-backdrop {\\n  position: fixed;\\n  top: 0;\\n  left: 0;\\n  z-index: -1;\\n  width: 100vw;\\n  height: 100vh;\\n  opacity: 0.6;\\n}\\n.app-admin .b-sidebar {\\n  display: flex;\\n  flex-direction: column;\\n  position: fixed;\\n  top: 0;\\n  width: 320px;\\n  max-width: 100%;\\n  height: 100vh;\\n  max-height: 100%;\\n  margin: 0;\\n  outline: 0;\\n  transform: translateX(0);\\n}\\n.app-admin .b-sidebar.slide {\\n  transition: transform 0.3s ease-in-out;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .b-sidebar.slide {\\n    transition: none;\\n}\\n}\\n.app-admin .b-sidebar:not(.b-sidebar-right) {\\n  left: 0;\\n  right: auto;\\n}\\n.app-admin .b-sidebar:not(.b-sidebar-right).slide:not(.show) {\\n  transform: translateX(-100%);\\n}\\n.app-admin .b-sidebar:not(.b-sidebar-right) > .b-sidebar-header .close {\\n  margin-left: auto;\\n}\\n.app-admin .b-sidebar.b-sidebar-right {\\n  left: auto;\\n  right: 0;\\n}\\n.app-admin .b-sidebar.b-sidebar-right.slide:not(.show) {\\n  transform: translateX(100%);\\n}\\n.app-admin .b-sidebar.b-sidebar-right > .b-sidebar-header .close {\\n  margin-right: auto;\\n}\\n.app-admin .b-sidebar > .b-sidebar-header {\\n  font-size: 1.5rem;\\n  padding: 0.5rem 1rem;\\n  display: flex;\\n  flex-direction: row;\\n  flex-grow: 0;\\n  align-items: center;\\n}\\n[dir=rtl] .app-admin .b-sidebar > .b-sidebar-header {\\n  flex-direction: row-reverse;\\n}\\n.app-admin .b-sidebar > .b-sidebar-header .close {\\n  float: none;\\n  font-size: 1.5rem;\\n}\\n.app-admin .b-sidebar > .b-sidebar-body {\\n  flex-grow: 1;\\n  height: 100%;\\n  overflow-y: auto;\\n}\\n.app-admin .b-sidebar > .b-sidebar-footer {\\n  flex-grow: 0;\\n}\\n.app-admin .b-skeleton-wrapper {\\n  cursor: wait;\\n}\\n.app-admin .b-skeleton {\\n  position: relative;\\n  overflow: hidden;\\n  background-color: rgba(0, 0, 0, 0.12);\\n  cursor: wait;\\n  -webkit-mask-image: radial-gradient(white, black);\\n          mask-image: radial-gradient(white, black);\\n}\\n.app-admin .b-skeleton::before {\\n  content: \\\" \\\";\\n}\\n.app-admin .b-skeleton-text {\\n  height: 1rem;\\n  margin-bottom: 0.25rem;\\n  border-radius: 0.25rem;\\n}\\n.app-admin .b-skeleton-button {\\n  width: 75px;\\n  padding: 0.375rem 0.75rem;\\n  font-size: 1rem;\\n  line-height: 1.5;\\n  border-radius: 0.25rem;\\n}\\n.app-admin .b-skeleton-avatar {\\n  width: 2.5em;\\n  height: 2.5em;\\n  border-radius: 50%;\\n}\\n.app-admin .b-skeleton-input {\\n  height: calc(1.5em + 0.75rem + 2px);\\n  padding: 0.375rem 0.75rem;\\n  line-height: 1.5;\\n  border: #ced4da solid 1px;\\n  border-radius: 0.25rem;\\n}\\n.app-admin .b-skeleton-icon-wrapper svg {\\n  color: rgba(0, 0, 0, 0.12);\\n}\\n.app-admin .b-skeleton-img {\\n  height: 100%;\\n  width: 100%;\\n}\\n.app-admin .b-skeleton-animate-wave::after {\\n  content: \\\"\\\";\\n  position: absolute;\\n  top: 0;\\n  right: 0;\\n  bottom: 0;\\n  left: 0;\\n  z-index: 0;\\n  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);\\n  -webkit-animation: b-skeleton-animate-wave 1.75s linear infinite;\\n          animation: b-skeleton-animate-wave 1.75s linear infinite;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .b-skeleton-animate-wave::after {\\n    background: none;\\n    -webkit-animation: none;\\n            animation: none;\\n}\\n}\\n@-webkit-keyframes b-skeleton-animate-wave {\\nfrom {\\n    transform: translateX(-100%);\\n}\\nto {\\n    transform: translateX(100%);\\n}\\n}\\n@keyframes b-skeleton-animate-wave {\\nfrom {\\n    transform: translateX(-100%);\\n}\\nto {\\n    transform: translateX(100%);\\n}\\n}\\n.app-admin .b-skeleton-animate-fade {\\n  -webkit-animation: b-skeleton-animate-fade 0.875s ease-in-out alternate infinite;\\n          animation: b-skeleton-animate-fade 0.875s ease-in-out alternate infinite;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .b-skeleton-animate-fade {\\n    -webkit-animation: none;\\n            animation: none;\\n}\\n}\\n@-webkit-keyframes b-skeleton-animate-fade {\\n0% {\\n    opacity: 1;\\n}\\n100% {\\n    opacity: 0.4;\\n}\\n}\\n@keyframes b-skeleton-animate-fade {\\n0% {\\n    opacity: 1;\\n}\\n100% {\\n    opacity: 0.4;\\n}\\n}\\n.app-admin .b-skeleton-animate-throb {\\n  -webkit-animation: b-skeleton-animate-throb 0.875s ease-in alternate infinite;\\n          animation: b-skeleton-animate-throb 0.875s ease-in alternate infinite;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .b-skeleton-animate-throb {\\n    -webkit-animation: none;\\n            animation: none;\\n}\\n}\\n@-webkit-keyframes b-skeleton-animate-throb {\\n0% {\\n    transform: scale(1);\\n}\\n100% {\\n    transform: scale(0.975);\\n}\\n}\\n@keyframes b-skeleton-animate-throb {\\n0% {\\n    transform: scale(1);\\n}\\n100% {\\n    transform: scale(0.975);\\n}\\n}\\n.app-admin .table.b-table.b-table-fixed {\\n  table-layout: fixed;\\n}\\n.app-admin .table.b-table.b-table-no-border-collapse {\\n  border-collapse: separate;\\n  border-spacing: 0;\\n}\\n.app-admin .table.b-table[aria-busy=true] {\\n  opacity: 0.55;\\n}\\n.app-admin .table.b-table > tbody > tr.b-table-details > td {\\n  border-top: none !important;\\n}\\n.app-admin .table.b-table > caption {\\n  caption-side: bottom;\\n}\\n.app-admin .table.b-table.b-table-caption-top > caption {\\n  caption-side: top !important;\\n}\\n.app-admin .table.b-table > tbody > .table-active,\\n.app-admin .table.b-table > tbody > .table-active > th,\\n.app-admin .table.b-table > tbody > .table-active > td {\\n  background-color: rgba(0, 0, 0, 0.075);\\n}\\n.app-admin .table.b-table.table-hover > tbody > tr.table-active:hover td,\\n.app-admin .table.b-table.table-hover > tbody > tr.table-active:hover th {\\n  color: #212529;\\n  background-image: linear-gradient(rgba(0, 0, 0, 0.075), rgba(0, 0, 0, 0.075));\\n  background-repeat: no-repeat;\\n}\\n.app-admin .table.b-table > tbody > .bg-active,\\n.app-admin .table.b-table > tbody > .bg-active > th,\\n.app-admin .table.b-table > tbody > .bg-active > td {\\n  background-color: rgba(255, 255, 255, 0.075) !important;\\n}\\n.app-admin .table.b-table.table-hover.table-dark > tbody > tr.bg-active:hover td,\\n.app-admin .table.b-table.table-hover.table-dark > tbody > tr.bg-active:hover th {\\n  color: #fff;\\n  background-image: linear-gradient(rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.075));\\n  background-repeat: no-repeat;\\n}\\n.app-admin .b-table-sticky-header,\\n.app-admin .table-responsive,\\n.app-admin [class*=table-responsive-] {\\n  margin-bottom: 1rem;\\n}\\n.app-admin .b-table-sticky-header > .table,\\n.app-admin .table-responsive > .table,\\n.app-admin [class*=table-responsive-] > .table {\\n  margin-bottom: 0;\\n}\\n.app-admin .b-table-sticky-header {\\n  overflow-y: auto;\\n  max-height: 300px;\\n}\\n@media print {\\n.app-admin .b-table-sticky-header {\\n    overflow-y: visible !important;\\n    max-height: none !important;\\n}\\n}\\n@supports ((position: -webkit-sticky) or (position: sticky)) {\\n.app-admin .b-table-sticky-header > .table.b-table > thead > tr > th {\\n    position: -webkit-sticky;\\n    position: sticky;\\n    top: 0;\\n    z-index: 2;\\n}\\n.app-admin .b-table-sticky-header > .table.b-table > thead > tr > .b-table-sticky-column,\\n.app-admin .b-table-sticky-header > .table.b-table > tbody > tr > .b-table-sticky-column,\\n.app-admin .b-table-sticky-header > .table.b-table > tfoot > tr > .b-table-sticky-column,\\n.app-admin .table-responsive > .table.b-table > thead > tr > .b-table-sticky-column,\\n.app-admin .table-responsive > .table.b-table > tbody > tr > .b-table-sticky-column,\\n.app-admin .table-responsive > .table.b-table > tfoot > tr > .b-table-sticky-column,\\n.app-admin [class*=table-responsive-] > .table.b-table > thead > tr > .b-table-sticky-column,\\n.app-admin [class*=table-responsive-] > .table.b-table > tbody > tr > .b-table-sticky-column,\\n.app-admin [class*=table-responsive-] > .table.b-table > tfoot > tr > .b-table-sticky-column {\\n    position: -webkit-sticky;\\n    position: sticky;\\n    left: 0;\\n}\\n.app-admin .b-table-sticky-header > .table.b-table > thead > tr > .b-table-sticky-column,\\n.app-admin .table-responsive > .table.b-table > thead > tr > .b-table-sticky-column,\\n.app-admin [class*=table-responsive-] > .table.b-table > thead > tr > .b-table-sticky-column {\\n    z-index: 5;\\n}\\n.app-admin .b-table-sticky-header > .table.b-table > tbody > tr > .b-table-sticky-column,\\n.app-admin .b-table-sticky-header > .table.b-table > tfoot > tr > .b-table-sticky-column,\\n.app-admin .table-responsive > .table.b-table > tbody > tr > .b-table-sticky-column,\\n.app-admin .table-responsive > .table.b-table > tfoot > tr > .b-table-sticky-column,\\n.app-admin [class*=table-responsive-] > .table.b-table > tbody > tr > .b-table-sticky-column,\\n.app-admin [class*=table-responsive-] > .table.b-table > tfoot > tr > .b-table-sticky-column {\\n    z-index: 2;\\n}\\n.app-admin .table.b-table > thead > tr > .table-b-table-default,\\n.app-admin .table.b-table > tbody > tr > .table-b-table-default,\\n.app-admin .table.b-table > tfoot > tr > .table-b-table-default {\\n    color: #212529;\\n    background-color: #fff;\\n}\\n.app-admin .table.b-table.table-dark > thead > tr > .bg-b-table-default,\\n.app-admin .table.b-table.table-dark > tbody > tr > .bg-b-table-default,\\n.app-admin .table.b-table.table-dark > tfoot > tr > .bg-b-table-default {\\n    color: #fff;\\n    background-color: #343a40;\\n}\\n.app-admin .table.b-table.table-striped > tbody > tr:nth-of-type(odd) > .table-b-table-default {\\n    background-image: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05));\\n    background-repeat: no-repeat;\\n}\\n.app-admin .table.b-table.table-striped.table-dark > tbody > tr:nth-of-type(odd) > .bg-b-table-default {\\n    background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));\\n    background-repeat: no-repeat;\\n}\\n.app-admin .table.b-table.table-hover > tbody > tr:hover > .table-b-table-default {\\n    color: #212529;\\n    background-image: linear-gradient(rgba(0, 0, 0, 0.075), rgba(0, 0, 0, 0.075));\\n    background-repeat: no-repeat;\\n}\\n.app-admin .table.b-table.table-hover.table-dark > tbody > tr:hover > .bg-b-table-default {\\n    color: #fff;\\n    background-image: linear-gradient(rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.075));\\n    background-repeat: no-repeat;\\n}\\n}\\n.app-admin .table.b-table > thead > tr > [aria-sort],\\n.app-admin .table.b-table > tfoot > tr > [aria-sort] {\\n  cursor: pointer;\\n  background-image: none;\\n  background-repeat: no-repeat;\\n  background-size: 0.65em 1em;\\n}\\n.app-admin .table.b-table > thead > tr > [aria-sort]:not(.b-table-sort-icon-left),\\n.app-admin .table.b-table > tfoot > tr > [aria-sort]:not(.b-table-sort-icon-left) {\\n  background-position: right calc(0.75rem / 2) center;\\n  padding-right: calc(0.75rem + 0.65em);\\n}\\n.app-admin .table.b-table > thead > tr > [aria-sort].b-table-sort-icon-left,\\n.app-admin .table.b-table > tfoot > tr > [aria-sort].b-table-sort-icon-left {\\n  background-position: left calc(0.75rem / 2) center;\\n  padding-left: calc(0.75rem + 0.65em);\\n}\\n.app-admin .table.b-table > thead > tr > [aria-sort=none],\\n.app-admin .table.b-table > tfoot > tr > [aria-sort=none] {\\n  background-image: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101' preserveAspectRatio='none'%3e%3cpath fill='black' opacity='.3' d='M51 1l25 23 24 22H1l25-22zM51 101l25-23 24-22H1l25 22z'/%3e%3c/svg%3e\\\");\\n}\\n.app-admin .table.b-table > thead > tr > [aria-sort=ascending],\\n.app-admin .table.b-table > tfoot > tr > [aria-sort=ascending] {\\n  background-image: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101' preserveAspectRatio='none'%3e%3cpath fill='black' d='M51 1l25 23 24 22H1l25-22z'/%3e%3cpath fill='black' opacity='.3' d='M51 101l25-23 24-22H1l25 22z'/%3e%3c/svg%3e\\\");\\n}\\n.app-admin .table.b-table > thead > tr > [aria-sort=descending],\\n.app-admin .table.b-table > tfoot > tr > [aria-sort=descending] {\\n  background-image: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101' preserveAspectRatio='none'%3e%3cpath fill='black' opacity='.3' d='M51 1l25 23 24 22H1l25-22z'/%3e%3cpath fill='black' d='M51 101l25-23 24-22H1l25 22z'/%3e%3c/svg%3e\\\");\\n}\\n.app-admin .table.b-table.table-dark > thead > tr > [aria-sort=none], .app-admin .table.b-table.table-dark > tfoot > tr > [aria-sort=none],\\n.app-admin .table.b-table > .thead-dark > tr > [aria-sort=none] {\\n  background-image: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101' preserveAspectRatio='none'%3e%3cpath fill='white' opacity='.3' d='M51 1l25 23 24 22H1l25-22zM51 101l25-23 24-22H1l25 22z'/%3e%3c/svg%3e\\\");\\n}\\n.app-admin .table.b-table.table-dark > thead > tr > [aria-sort=ascending], .app-admin .table.b-table.table-dark > tfoot > tr > [aria-sort=ascending],\\n.app-admin .table.b-table > .thead-dark > tr > [aria-sort=ascending] {\\n  background-image: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101' preserveAspectRatio='none'%3e%3cpath fill='white' d='M51 1l25 23 24 22H1l25-22z'/%3e%3cpath fill='white' opacity='.3' d='M51 101l25-23 24-22H1l25 22z'/%3e%3c/svg%3e\\\");\\n}\\n.app-admin .table.b-table.table-dark > thead > tr > [aria-sort=descending], .app-admin .table.b-table.table-dark > tfoot > tr > [aria-sort=descending],\\n.app-admin .table.b-table > .thead-dark > tr > [aria-sort=descending] {\\n  background-image: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101' preserveAspectRatio='none'%3e%3cpath fill='white' opacity='.3' d='M51 1l25 23 24 22H1l25-22z'/%3e%3cpath fill='white' d='M51 101l25-23 24-22H1l25 22z'/%3e%3c/svg%3e\\\");\\n}\\n.app-admin .table.b-table > thead > tr > .table-dark[aria-sort=none],\\n.app-admin .table.b-table > tfoot > tr > .table-dark[aria-sort=none] {\\n  background-image: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101' preserveAspectRatio='none'%3e%3cpath fill='white' opacity='.3' d='M51 1l25 23 24 22H1l25-22zM51 101l25-23 24-22H1l25 22z'/%3e%3c/svg%3e\\\");\\n}\\n.app-admin .table.b-table > thead > tr > .table-dark[aria-sort=ascending],\\n.app-admin .table.b-table > tfoot > tr > .table-dark[aria-sort=ascending] {\\n  background-image: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101' preserveAspectRatio='none'%3e%3cpath fill='white' d='M51 1l25 23 24 22H1l25-22z'/%3e%3cpath fill='white' opacity='.3' d='M51 101l25-23 24-22H1l25 22z'/%3e%3c/svg%3e\\\");\\n}\\n.app-admin .table.b-table > thead > tr > .table-dark[aria-sort=descending],\\n.app-admin .table.b-table > tfoot > tr > .table-dark[aria-sort=descending] {\\n  background-image: url(\\\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101' preserveAspectRatio='none'%3e%3cpath fill='white' opacity='.3' d='M51 1l25 23 24 22H1l25-22z'/%3e%3cpath fill='white' d='M51 101l25-23 24-22H1l25 22z'/%3e%3c/svg%3e\\\");\\n}\\n.app-admin .table.b-table.table-sm > thead > tr > [aria-sort]:not(.b-table-sort-icon-left),\\n.app-admin .table.b-table.table-sm > tfoot > tr > [aria-sort]:not(.b-table-sort-icon-left) {\\n  background-position: right calc(0.3rem / 2) center;\\n  padding-right: calc(0.3rem + 0.65em);\\n}\\n.app-admin .table.b-table.table-sm > thead > tr > [aria-sort].b-table-sort-icon-left,\\n.app-admin .table.b-table.table-sm > tfoot > tr > [aria-sort].b-table-sort-icon-left {\\n  background-position: left calc(0.3rem / 2) center;\\n  padding-left: calc(0.3rem + 0.65em);\\n}\\n.app-admin .table.b-table.b-table-selectable:not(.b-table-selectable-no-click) > tbody > tr {\\n  cursor: pointer;\\n}\\n.app-admin .table.b-table.b-table-selectable:not(.b-table-selectable-no-click).b-table-selecting.b-table-select-range > tbody > tr {\\n  -webkit-user-select: none;\\n     -moz-user-select: none;\\n      -ms-user-select: none;\\n          user-select: none;\\n}\\n@media (max-width: 575.98px) {\\n.app-admin .table.b-table.b-table-stacked-sm {\\n    display: block;\\n    width: 100%;\\n}\\n.app-admin .table.b-table.b-table-stacked-sm > caption,\\n.app-admin .table.b-table.b-table-stacked-sm > tbody,\\n.app-admin .table.b-table.b-table-stacked-sm > tbody > tr,\\n.app-admin .table.b-table.b-table-stacked-sm > tbody > tr > td,\\n.app-admin .table.b-table.b-table-stacked-sm > tbody > tr > th {\\n    display: block;\\n}\\n.app-admin .table.b-table.b-table-stacked-sm > thead,\\n.app-admin .table.b-table.b-table-stacked-sm > tfoot {\\n    display: none;\\n}\\n.app-admin .table.b-table.b-table-stacked-sm > thead > tr.b-table-top-row,\\n.app-admin .table.b-table.b-table-stacked-sm > thead > tr.b-table-bottom-row,\\n.app-admin .table.b-table.b-table-stacked-sm > tfoot > tr.b-table-top-row,\\n.app-admin .table.b-table.b-table-stacked-sm > tfoot > tr.b-table-bottom-row {\\n    display: none;\\n}\\n.app-admin .table.b-table.b-table-stacked-sm > caption {\\n    caption-side: top !important;\\n}\\n.app-admin .table.b-table.b-table-stacked-sm > tbody > tr > [data-label]::before {\\n    content: attr(data-label);\\n    width: 40%;\\n    float: left;\\n    text-align: right;\\n    overflow-wrap: break-word;\\n    font-weight: bold;\\n    font-style: normal;\\n    padding: 0 calc(1rem / 2) 0 0;\\n    margin: 0;\\n}\\n.app-admin .table.b-table.b-table-stacked-sm > tbody > tr > [data-label]::after {\\n    display: block;\\n    clear: both;\\n    content: \\\"\\\";\\n}\\n.app-admin .table.b-table.b-table-stacked-sm > tbody > tr > [data-label] > div {\\n    display: inline-block;\\n    width: calc(100% - 40%);\\n    padding: 0 0 0 calc(1rem / 2);\\n    margin: 0;\\n}\\n.app-admin .table.b-table.b-table-stacked-sm > tbody > tr.top-row, .app-admin .table.b-table.b-table-stacked-sm > tbody > tr.bottom-row {\\n    display: none;\\n}\\n.app-admin .table.b-table.b-table-stacked-sm > tbody > tr > :first-child {\\n    border-top-width: 3px;\\n}\\n.app-admin .table.b-table.b-table-stacked-sm > tbody > tr > [rowspan] + td,\\n.app-admin .table.b-table.b-table-stacked-sm > tbody > tr > [rowspan] + th {\\n    border-top-width: 3px;\\n}\\n}\\n@media (max-width: 767.98px) {\\n.app-admin .table.b-table.b-table-stacked-md {\\n    display: block;\\n    width: 100%;\\n}\\n.app-admin .table.b-table.b-table-stacked-md > caption,\\n.app-admin .table.b-table.b-table-stacked-md > tbody,\\n.app-admin .table.b-table.b-table-stacked-md > tbody > tr,\\n.app-admin .table.b-table.b-table-stacked-md > tbody > tr > td,\\n.app-admin .table.b-table.b-table-stacked-md > tbody > tr > th {\\n    display: block;\\n}\\n.app-admin .table.b-table.b-table-stacked-md > thead,\\n.app-admin .table.b-table.b-table-stacked-md > tfoot {\\n    display: none;\\n}\\n.app-admin .table.b-table.b-table-stacked-md > thead > tr.b-table-top-row,\\n.app-admin .table.b-table.b-table-stacked-md > thead > tr.b-table-bottom-row,\\n.app-admin .table.b-table.b-table-stacked-md > tfoot > tr.b-table-top-row,\\n.app-admin .table.b-table.b-table-stacked-md > tfoot > tr.b-table-bottom-row {\\n    display: none;\\n}\\n.app-admin .table.b-table.b-table-stacked-md > caption {\\n    caption-side: top !important;\\n}\\n.app-admin .table.b-table.b-table-stacked-md > tbody > tr > [data-label]::before {\\n    content: attr(data-label);\\n    width: 40%;\\n    float: left;\\n    text-align: right;\\n    overflow-wrap: break-word;\\n    font-weight: bold;\\n    font-style: normal;\\n    padding: 0 calc(1rem / 2) 0 0;\\n    margin: 0;\\n}\\n.app-admin .table.b-table.b-table-stacked-md > tbody > tr > [data-label]::after {\\n    display: block;\\n    clear: both;\\n    content: \\\"\\\";\\n}\\n.app-admin .table.b-table.b-table-stacked-md > tbody > tr > [data-label] > div {\\n    display: inline-block;\\n    width: calc(100% - 40%);\\n    padding: 0 0 0 calc(1rem / 2);\\n    margin: 0;\\n}\\n.app-admin .table.b-table.b-table-stacked-md > tbody > tr.top-row, .app-admin .table.b-table.b-table-stacked-md > tbody > tr.bottom-row {\\n    display: none;\\n}\\n.app-admin .table.b-table.b-table-stacked-md > tbody > tr > :first-child {\\n    border-top-width: 3px;\\n}\\n.app-admin .table.b-table.b-table-stacked-md > tbody > tr > [rowspan] + td,\\n.app-admin .table.b-table.b-table-stacked-md > tbody > tr > [rowspan] + th {\\n    border-top-width: 3px;\\n}\\n}\\n@media (max-width: 991.98px) {\\n.app-admin .table.b-table.b-table-stacked-lg {\\n    display: block;\\n    width: 100%;\\n}\\n.app-admin .table.b-table.b-table-stacked-lg > caption,\\n.app-admin .table.b-table.b-table-stacked-lg > tbody,\\n.app-admin .table.b-table.b-table-stacked-lg > tbody > tr,\\n.app-admin .table.b-table.b-table-stacked-lg > tbody > tr > td,\\n.app-admin .table.b-table.b-table-stacked-lg > tbody > tr > th {\\n    display: block;\\n}\\n.app-admin .table.b-table.b-table-stacked-lg > thead,\\n.app-admin .table.b-table.b-table-stacked-lg > tfoot {\\n    display: none;\\n}\\n.app-admin .table.b-table.b-table-stacked-lg > thead > tr.b-table-top-row,\\n.app-admin .table.b-table.b-table-stacked-lg > thead > tr.b-table-bottom-row,\\n.app-admin .table.b-table.b-table-stacked-lg > tfoot > tr.b-table-top-row,\\n.app-admin .table.b-table.b-table-stacked-lg > tfoot > tr.b-table-bottom-row {\\n    display: none;\\n}\\n.app-admin .table.b-table.b-table-stacked-lg > caption {\\n    caption-side: top !important;\\n}\\n.app-admin .table.b-table.b-table-stacked-lg > tbody > tr > [data-label]::before {\\n    content: attr(data-label);\\n    width: 40%;\\n    float: left;\\n    text-align: right;\\n    overflow-wrap: break-word;\\n    font-weight: bold;\\n    font-style: normal;\\n    padding: 0 calc(1rem / 2) 0 0;\\n    margin: 0;\\n}\\n.app-admin .table.b-table.b-table-stacked-lg > tbody > tr > [data-label]::after {\\n    display: block;\\n    clear: both;\\n    content: \\\"\\\";\\n}\\n.app-admin .table.b-table.b-table-stacked-lg > tbody > tr > [data-label] > div {\\n    display: inline-block;\\n    width: calc(100% - 40%);\\n    padding: 0 0 0 calc(1rem / 2);\\n    margin: 0;\\n}\\n.app-admin .table.b-table.b-table-stacked-lg > tbody > tr.top-row, .app-admin .table.b-table.b-table-stacked-lg > tbody > tr.bottom-row {\\n    display: none;\\n}\\n.app-admin .table.b-table.b-table-stacked-lg > tbody > tr > :first-child {\\n    border-top-width: 3px;\\n}\\n.app-admin .table.b-table.b-table-stacked-lg > tbody > tr > [rowspan] + td,\\n.app-admin .table.b-table.b-table-stacked-lg > tbody > tr > [rowspan] + th {\\n    border-top-width: 3px;\\n}\\n}\\n@media (max-width: 1199.98px) {\\n.app-admin .table.b-table.b-table-stacked-xl {\\n    display: block;\\n    width: 100%;\\n}\\n.app-admin .table.b-table.b-table-stacked-xl > caption,\\n.app-admin .table.b-table.b-table-stacked-xl > tbody,\\n.app-admin .table.b-table.b-table-stacked-xl > tbody > tr,\\n.app-admin .table.b-table.b-table-stacked-xl > tbody > tr > td,\\n.app-admin .table.b-table.b-table-stacked-xl > tbody > tr > th {\\n    display: block;\\n}\\n.app-admin .table.b-table.b-table-stacked-xl > thead,\\n.app-admin .table.b-table.b-table-stacked-xl > tfoot {\\n    display: none;\\n}\\n.app-admin .table.b-table.b-table-stacked-xl > thead > tr.b-table-top-row,\\n.app-admin .table.b-table.b-table-stacked-xl > thead > tr.b-table-bottom-row,\\n.app-admin .table.b-table.b-table-stacked-xl > tfoot > tr.b-table-top-row,\\n.app-admin .table.b-table.b-table-stacked-xl > tfoot > tr.b-table-bottom-row {\\n    display: none;\\n}\\n.app-admin .table.b-table.b-table-stacked-xl > caption {\\n    caption-side: top !important;\\n}\\n.app-admin .table.b-table.b-table-stacked-xl > tbody > tr > [data-label]::before {\\n    content: attr(data-label);\\n    width: 40%;\\n    float: left;\\n    text-align: right;\\n    overflow-wrap: break-word;\\n    font-weight: bold;\\n    font-style: normal;\\n    padding: 0 calc(1rem / 2) 0 0;\\n    margin: 0;\\n}\\n.app-admin .table.b-table.b-table-stacked-xl > tbody > tr > [data-label]::after {\\n    display: block;\\n    clear: both;\\n    content: \\\"\\\";\\n}\\n.app-admin .table.b-table.b-table-stacked-xl > tbody > tr > [data-label] > div {\\n    display: inline-block;\\n    width: calc(100% - 40%);\\n    padding: 0 0 0 calc(1rem / 2);\\n    margin: 0;\\n}\\n.app-admin .table.b-table.b-table-stacked-xl > tbody > tr.top-row, .app-admin .table.b-table.b-table-stacked-xl > tbody > tr.bottom-row {\\n    display: none;\\n}\\n.app-admin .table.b-table.b-table-stacked-xl > tbody > tr > :first-child {\\n    border-top-width: 3px;\\n}\\n.app-admin .table.b-table.b-table-stacked-xl > tbody > tr > [rowspan] + td,\\n.app-admin .table.b-table.b-table-stacked-xl > tbody > tr > [rowspan] + th {\\n    border-top-width: 3px;\\n}\\n}\\n.app-admin .table.b-table.b-table-stacked {\\n  display: block;\\n  width: 100%;\\n}\\n.app-admin .table.b-table.b-table-stacked > caption,\\n.app-admin .table.b-table.b-table-stacked > tbody,\\n.app-admin .table.b-table.b-table-stacked > tbody > tr,\\n.app-admin .table.b-table.b-table-stacked > tbody > tr > td,\\n.app-admin .table.b-table.b-table-stacked > tbody > tr > th {\\n  display: block;\\n}\\n.app-admin .table.b-table.b-table-stacked > thead,\\n.app-admin .table.b-table.b-table-stacked > tfoot {\\n  display: none;\\n}\\n.app-admin .table.b-table.b-table-stacked > thead > tr.b-table-top-row,\\n.app-admin .table.b-table.b-table-stacked > thead > tr.b-table-bottom-row,\\n.app-admin .table.b-table.b-table-stacked > tfoot > tr.b-table-top-row,\\n.app-admin .table.b-table.b-table-stacked > tfoot > tr.b-table-bottom-row {\\n  display: none;\\n}\\n.app-admin .table.b-table.b-table-stacked > caption {\\n  caption-side: top !important;\\n}\\n.app-admin .table.b-table.b-table-stacked > tbody > tr > [data-label]::before {\\n  content: attr(data-label);\\n  width: 40%;\\n  float: left;\\n  text-align: right;\\n  overflow-wrap: break-word;\\n  font-weight: bold;\\n  font-style: normal;\\n  padding: 0 calc(1rem / 2) 0 0;\\n  margin: 0;\\n}\\n.app-admin .table.b-table.b-table-stacked > tbody > tr > [data-label]::after {\\n  display: block;\\n  clear: both;\\n  content: \\\"\\\";\\n}\\n.app-admin .table.b-table.b-table-stacked > tbody > tr > [data-label] > div {\\n  display: inline-block;\\n  width: calc(100% - 40%);\\n  padding: 0 0 0 calc(1rem / 2);\\n  margin: 0;\\n}\\n.app-admin .table.b-table.b-table-stacked > tbody > tr.top-row, .app-admin .table.b-table.b-table-stacked > tbody > tr.bottom-row {\\n  display: none;\\n}\\n.app-admin .table.b-table.b-table-stacked > tbody > tr > :first-child {\\n  border-top-width: 3px;\\n}\\n.app-admin .table.b-table.b-table-stacked > tbody > tr > [rowspan] + td,\\n.app-admin .table.b-table.b-table-stacked > tbody > tr > [rowspan] + th {\\n  border-top-width: 3px;\\n}\\n.app-admin .b-time {\\n  min-width: 150px;\\n}\\n.app-admin .b-time[aria-disabled=true] output, .app-admin .b-time[aria-readonly=true] output,\\n.app-admin .b-time output.disabled {\\n  background-color: #e9ecef;\\n  opacity: 1;\\n}\\n.app-admin .b-time[aria-disabled=true] output {\\n  pointer-events: none;\\n}\\n[dir=rtl] .app-admin .b-time > .d-flex:not(.flex-column) {\\n  flex-direction: row-reverse;\\n}\\n.app-admin .b-time .b-time-header {\\n  margin-bottom: 0.5rem;\\n}\\n.app-admin .b-time .b-time-header output {\\n  padding: 0.25rem;\\n  font-size: 80%;\\n}\\n.app-admin .b-time .b-time-footer {\\n  margin-top: 0.5rem;\\n}\\n.app-admin .b-time .b-time-ampm {\\n  margin-left: 0.5rem;\\n}\\n.app-admin .b-toast {\\n  display: block;\\n  position: relative;\\n  max-width: 350px;\\n  -webkit-backface-visibility: hidden;\\n          backface-visibility: hidden;\\n  background-clip: padding-box;\\n  z-index: 1;\\n  border-radius: 0.25rem;\\n}\\n.app-admin .b-toast .toast {\\n  background-color: rgba(255, 255, 255, 0.85);\\n}\\n.app-admin .b-toast:not(:last-child) {\\n  margin-bottom: 0.75rem;\\n}\\n.app-admin .b-toast.b-toast-solid .toast {\\n  background-color: white;\\n}\\n.app-admin .b-toast .toast {\\n  opacity: 1;\\n}\\n.app-admin .b-toast .toast.fade:not(.show) {\\n  opacity: 0;\\n}\\n.app-admin .b-toast .toast .toast-body {\\n  display: block;\\n}\\n.app-admin .b-toast-primary .toast {\\n  background-color: rgba(230, 242, 255, 0.85);\\n  border-color: rgba(184, 218, 255, 0.85);\\n  color: #004085;\\n}\\n.app-admin .b-toast-primary .toast .toast-header {\\n  color: #004085;\\n  background-color: rgba(204, 229, 255, 0.85);\\n  border-bottom-color: rgba(184, 218, 255, 0.85);\\n}\\n.app-admin .b-toast-primary.b-toast-solid .toast {\\n  background-color: #e6f2ff;\\n}\\n.app-admin .b-toast-secondary .toast {\\n  background-color: rgba(239, 240, 241, 0.85);\\n  border-color: rgba(214, 216, 219, 0.85);\\n  color: #383d41;\\n}\\n.app-admin .b-toast-secondary .toast .toast-header {\\n  color: #383d41;\\n  background-color: rgba(226, 227, 229, 0.85);\\n  border-bottom-color: rgba(214, 216, 219, 0.85);\\n}\\n.app-admin .b-toast-secondary.b-toast-solid .toast {\\n  background-color: #eff0f1;\\n}\\n.app-admin .b-toast-success .toast {\\n  background-color: rgba(230, 245, 233, 0.85);\\n  border-color: rgba(195, 230, 203, 0.85);\\n  color: #155724;\\n}\\n.app-admin .b-toast-success .toast .toast-header {\\n  color: #155724;\\n  background-color: rgba(212, 237, 218, 0.85);\\n  border-bottom-color: rgba(195, 230, 203, 0.85);\\n}\\n.app-admin .b-toast-success.b-toast-solid .toast {\\n  background-color: #e6f5e9;\\n}\\n.app-admin .b-toast-info .toast {\\n  background-color: rgba(229, 244, 247, 0.85);\\n  border-color: rgba(190, 229, 235, 0.85);\\n  color: #0c5460;\\n}\\n.app-admin .b-toast-info .toast .toast-header {\\n  color: #0c5460;\\n  background-color: rgba(209, 236, 241, 0.85);\\n  border-bottom-color: rgba(190, 229, 235, 0.85);\\n}\\n.app-admin .b-toast-info.b-toast-solid .toast {\\n  background-color: #e5f4f7;\\n}\\n.app-admin .b-toast-warning .toast {\\n  background-color: rgba(255, 249, 231, 0.85);\\n  border-color: rgba(255, 238, 186, 0.85);\\n  color: #856404;\\n}\\n.app-admin .b-toast-warning .toast .toast-header {\\n  color: #856404;\\n  background-color: rgba(255, 243, 205, 0.85);\\n  border-bottom-color: rgba(255, 238, 186, 0.85);\\n}\\n.app-admin .b-toast-warning.b-toast-solid .toast {\\n  background-color: #fff9e7;\\n}\\n.app-admin .b-toast-danger .toast {\\n  background-color: rgba(252, 237, 238, 0.85);\\n  border-color: rgba(245, 198, 203, 0.85);\\n  color: #721c24;\\n}\\n.app-admin .b-toast-danger .toast .toast-header {\\n  color: #721c24;\\n  background-color: rgba(248, 215, 218, 0.85);\\n  border-bottom-color: rgba(245, 198, 203, 0.85);\\n}\\n.app-admin .b-toast-danger.b-toast-solid .toast {\\n  background-color: #fcedee;\\n}\\n.app-admin .b-toast-light .toast {\\n  background-color: rgba(255, 255, 255, 0.85);\\n  border-color: rgba(253, 253, 254, 0.85);\\n  color: #818182;\\n}\\n.app-admin .b-toast-light .toast .toast-header {\\n  color: #818182;\\n  background-color: rgba(254, 254, 254, 0.85);\\n  border-bottom-color: rgba(253, 253, 254, 0.85);\\n}\\n.app-admin .b-toast-light.b-toast-solid .toast {\\n  background-color: white;\\n}\\n.app-admin .b-toast-dark .toast {\\n  background-color: rgba(227, 229, 229, 0.85);\\n  border-color: rgba(198, 200, 202, 0.85);\\n  color: #1b1e21;\\n}\\n.app-admin .b-toast-dark .toast .toast-header {\\n  color: #1b1e21;\\n  background-color: rgba(214, 216, 217, 0.85);\\n  border-bottom-color: rgba(198, 200, 202, 0.85);\\n}\\n.app-admin .b-toast-dark.b-toast-solid .toast {\\n  background-color: #e3e5e5;\\n}\\n.app-admin .b-toaster {\\n  z-index: 1100;\\n}\\n.app-admin .b-toaster .b-toaster-slot {\\n  position: relative;\\n  display: block;\\n}\\n.app-admin .b-toaster .b-toaster-slot:empty {\\n  display: none !important;\\n}\\n.app-admin .b-toaster.b-toaster-top-right, .app-admin .b-toaster.b-toaster-top-left, .app-admin .b-toaster.b-toaster-top-center, .app-admin .b-toaster.b-toaster-top-full, .app-admin .b-toaster.b-toaster-bottom-right, .app-admin .b-toaster.b-toaster-bottom-left, .app-admin .b-toaster.b-toaster-bottom-center, .app-admin .b-toaster.b-toaster-bottom-full {\\n  position: fixed;\\n  left: 0.5rem;\\n  right: 0.5rem;\\n  margin: 0;\\n  padding: 0;\\n  height: 0;\\n  overflow: visible;\\n}\\n.app-admin .b-toaster.b-toaster-top-right .b-toaster-slot, .app-admin .b-toaster.b-toaster-top-left .b-toaster-slot, .app-admin .b-toaster.b-toaster-top-center .b-toaster-slot, .app-admin .b-toaster.b-toaster-top-full .b-toaster-slot, .app-admin .b-toaster.b-toaster-bottom-right .b-toaster-slot, .app-admin .b-toaster.b-toaster-bottom-left .b-toaster-slot, .app-admin .b-toaster.b-toaster-bottom-center .b-toaster-slot, .app-admin .b-toaster.b-toaster-bottom-full .b-toaster-slot {\\n  position: absolute;\\n  max-width: 350px;\\n  width: 100%;\\n  /* IE 11 fix */\\n  left: 0;\\n  right: 0;\\n  padding: 0;\\n  margin: 0;\\n}\\n.app-admin .b-toaster.b-toaster-top-full .b-toaster-slot, .app-admin .b-toaster.b-toaster-bottom-full .b-toaster-slot {\\n  width: 100%;\\n  max-width: 100%;\\n}\\n.app-admin .b-toaster.b-toaster-top-full .b-toaster-slot .b-toast,\\n.app-admin .b-toaster.b-toaster-top-full .b-toaster-slot .toast, .app-admin .b-toaster.b-toaster-bottom-full .b-toaster-slot .b-toast,\\n.app-admin .b-toaster.b-toaster-bottom-full .b-toaster-slot .toast {\\n  width: 100%;\\n  max-width: 100%;\\n}\\n.app-admin .b-toaster.b-toaster-top-right, .app-admin .b-toaster.b-toaster-top-left, .app-admin .b-toaster.b-toaster-top-center, .app-admin .b-toaster.b-toaster-top-full {\\n  top: 0;\\n}\\n.app-admin .b-toaster.b-toaster-top-right .b-toaster-slot, .app-admin .b-toaster.b-toaster-top-left .b-toaster-slot, .app-admin .b-toaster.b-toaster-top-center .b-toaster-slot, .app-admin .b-toaster.b-toaster-top-full .b-toaster-slot {\\n  top: 0.5rem;\\n}\\n.app-admin .b-toaster.b-toaster-bottom-right, .app-admin .b-toaster.b-toaster-bottom-left, .app-admin .b-toaster.b-toaster-bottom-center, .app-admin .b-toaster.b-toaster-bottom-full {\\n  bottom: 0;\\n}\\n.app-admin .b-toaster.b-toaster-bottom-right .b-toaster-slot, .app-admin .b-toaster.b-toaster-bottom-left .b-toaster-slot, .app-admin .b-toaster.b-toaster-bottom-center .b-toaster-slot, .app-admin .b-toaster.b-toaster-bottom-full .b-toaster-slot {\\n  bottom: 0.5rem;\\n}\\n.app-admin .b-toaster.b-toaster-top-right .b-toaster-slot, .app-admin .b-toaster.b-toaster-bottom-right .b-toaster-slot, .app-admin .b-toaster.b-toaster-top-center .b-toaster-slot, .app-admin .b-toaster.b-toaster-bottom-center .b-toaster-slot {\\n  margin-left: auto;\\n}\\n.app-admin .b-toaster.b-toaster-top-left .b-toaster-slot, .app-admin .b-toaster.b-toaster-bottom-left .b-toaster-slot, .app-admin .b-toaster.b-toaster-top-center .b-toaster-slot, .app-admin .b-toaster.b-toaster-bottom-center .b-toaster-slot {\\n  margin-right: auto;\\n}\\n.app-admin .b-toaster.b-toaster-top-right .b-toast.b-toaster-enter-active, .app-admin .b-toaster.b-toaster-top-right .b-toast.b-toaster-leave-active, .app-admin .b-toaster.b-toaster-top-right .b-toast.b-toaster-move, .app-admin .b-toaster.b-toaster-top-left .b-toast.b-toaster-enter-active, .app-admin .b-toaster.b-toaster-top-left .b-toast.b-toaster-leave-active, .app-admin .b-toaster.b-toaster-top-left .b-toast.b-toaster-move, .app-admin .b-toaster.b-toaster-bottom-right .b-toast.b-toaster-enter-active, .app-admin .b-toaster.b-toaster-bottom-right .b-toast.b-toaster-leave-active, .app-admin .b-toaster.b-toaster-bottom-right .b-toast.b-toaster-move, .app-admin .b-toaster.b-toaster-bottom-left .b-toast.b-toaster-enter-active, .app-admin .b-toaster.b-toaster-bottom-left .b-toast.b-toaster-leave-active, .app-admin .b-toaster.b-toaster-bottom-left .b-toast.b-toaster-move {\\n  transition: transform 0.175s;\\n}\\n.app-admin .b-toaster.b-toaster-top-right .b-toast.b-toaster-enter-to .toast.fade, .app-admin .b-toaster.b-toaster-top-right .b-toast.b-toaster-enter-active .toast.fade, .app-admin .b-toaster.b-toaster-top-left .b-toast.b-toaster-enter-to .toast.fade, .app-admin .b-toaster.b-toaster-top-left .b-toast.b-toaster-enter-active .toast.fade, .app-admin .b-toaster.b-toaster-bottom-right .b-toast.b-toaster-enter-to .toast.fade, .app-admin .b-toaster.b-toaster-bottom-right .b-toast.b-toaster-enter-active .toast.fade, .app-admin .b-toaster.b-toaster-bottom-left .b-toast.b-toaster-enter-to .toast.fade, .app-admin .b-toaster.b-toaster-bottom-left .b-toast.b-toaster-enter-active .toast.fade {\\n  transition-delay: 0.175s;\\n}\\n.app-admin .b-toaster.b-toaster-top-right .b-toast.b-toaster-leave-active, .app-admin .b-toaster.b-toaster-top-left .b-toast.b-toaster-leave-active, .app-admin .b-toaster.b-toaster-bottom-right .b-toast.b-toaster-leave-active, .app-admin .b-toaster.b-toaster-bottom-left .b-toast.b-toaster-leave-active {\\n  position: absolute;\\n  transition-delay: 0.175s;\\n}\\n.app-admin .b-toaster.b-toaster-top-right .b-toast.b-toaster-leave-active .toast.fade, .app-admin .b-toaster.b-toaster-top-left .b-toast.b-toaster-leave-active .toast.fade, .app-admin .b-toaster.b-toaster-bottom-right .b-toast.b-toaster-leave-active .toast.fade, .app-admin .b-toaster.b-toaster-bottom-left .b-toast.b-toaster-leave-active .toast.fade {\\n  transition-delay: 0s;\\n}\\n.app-admin .tooltip.b-tooltip {\\n  display: block;\\n  opacity: 0.9;\\n  outline: 0;\\n}\\n.app-admin .tooltip.b-tooltip.fade:not(.show) {\\n  opacity: 0;\\n}\\n.app-admin .tooltip.b-tooltip.show {\\n  opacity: 0.9;\\n}\\n.app-admin .tooltip.b-tooltip.noninteractive {\\n  pointer-events: none;\\n}\\n.app-admin .tooltip.b-tooltip .arrow {\\n  margin: 0 0.25rem;\\n}\\n.app-admin .tooltip.b-tooltip.bs-tooltip-right .arrow, .app-admin .tooltip.b-tooltip.bs-tooltip-auto[x-placement^=right] .arrow, .app-admin .tooltip.b-tooltip.bs-tooltip-left .arrow, .app-admin .tooltip.b-tooltip.bs-tooltip-auto[x-placement^=left] .arrow {\\n  margin: 0.25rem 0;\\n}\\n.app-admin .tooltip.b-tooltip-primary.bs-tooltip-top .arrow::before, .app-admin .tooltip.b-tooltip-primary.bs-tooltip-auto[x-placement^=top] .arrow::before {\\n  border-top-color: #007bff;\\n}\\n.app-admin .tooltip.b-tooltip-primary.bs-tooltip-right .arrow::before, .app-admin .tooltip.b-tooltip-primary.bs-tooltip-auto[x-placement^=right] .arrow::before {\\n  border-right-color: #007bff;\\n}\\n.app-admin .tooltip.b-tooltip-primary.bs-tooltip-bottom .arrow::before, .app-admin .tooltip.b-tooltip-primary.bs-tooltip-auto[x-placement^=bottom] .arrow::before {\\n  border-bottom-color: #007bff;\\n}\\n.app-admin .tooltip.b-tooltip-primary.bs-tooltip-left .arrow::before, .app-admin .tooltip.b-tooltip-primary.bs-tooltip-auto[x-placement^=left] .arrow::before {\\n  border-left-color: #007bff;\\n}\\n.app-admin .tooltip.b-tooltip-primary .tooltip-inner {\\n  color: #fff;\\n  background-color: #007bff;\\n}\\n.app-admin .tooltip.b-tooltip-secondary.bs-tooltip-top .arrow::before, .app-admin .tooltip.b-tooltip-secondary.bs-tooltip-auto[x-placement^=top] .arrow::before {\\n  border-top-color: #6c757d;\\n}\\n.app-admin .tooltip.b-tooltip-secondary.bs-tooltip-right .arrow::before, .app-admin .tooltip.b-tooltip-secondary.bs-tooltip-auto[x-placement^=right] .arrow::before {\\n  border-right-color: #6c757d;\\n}\\n.app-admin .tooltip.b-tooltip-secondary.bs-tooltip-bottom .arrow::before, .app-admin .tooltip.b-tooltip-secondary.bs-tooltip-auto[x-placement^=bottom] .arrow::before {\\n  border-bottom-color: #6c757d;\\n}\\n.app-admin .tooltip.b-tooltip-secondary.bs-tooltip-left .arrow::before, .app-admin .tooltip.b-tooltip-secondary.bs-tooltip-auto[x-placement^=left] .arrow::before {\\n  border-left-color: #6c757d;\\n}\\n.app-admin .tooltip.b-tooltip-secondary .tooltip-inner {\\n  color: #fff;\\n  background-color: #6c757d;\\n}\\n.app-admin .tooltip.b-tooltip-success.bs-tooltip-top .arrow::before, .app-admin .tooltip.b-tooltip-success.bs-tooltip-auto[x-placement^=top] .arrow::before {\\n  border-top-color: #28a745;\\n}\\n.app-admin .tooltip.b-tooltip-success.bs-tooltip-right .arrow::before, .app-admin .tooltip.b-tooltip-success.bs-tooltip-auto[x-placement^=right] .arrow::before {\\n  border-right-color: #28a745;\\n}\\n.app-admin .tooltip.b-tooltip-success.bs-tooltip-bottom .arrow::before, .app-admin .tooltip.b-tooltip-success.bs-tooltip-auto[x-placement^=bottom] .arrow::before {\\n  border-bottom-color: #28a745;\\n}\\n.app-admin .tooltip.b-tooltip-success.bs-tooltip-left .arrow::before, .app-admin .tooltip.b-tooltip-success.bs-tooltip-auto[x-placement^=left] .arrow::before {\\n  border-left-color: #28a745;\\n}\\n.app-admin .tooltip.b-tooltip-success .tooltip-inner {\\n  color: #fff;\\n  background-color: #28a745;\\n}\\n.app-admin .tooltip.b-tooltip-info.bs-tooltip-top .arrow::before, .app-admin .tooltip.b-tooltip-info.bs-tooltip-auto[x-placement^=top] .arrow::before {\\n  border-top-color: #17a2b8;\\n}\\n.app-admin .tooltip.b-tooltip-info.bs-tooltip-right .arrow::before, .app-admin .tooltip.b-tooltip-info.bs-tooltip-auto[x-placement^=right] .arrow::before {\\n  border-right-color: #17a2b8;\\n}\\n.app-admin .tooltip.b-tooltip-info.bs-tooltip-bottom .arrow::before, .app-admin .tooltip.b-tooltip-info.bs-tooltip-auto[x-placement^=bottom] .arrow::before {\\n  border-bottom-color: #17a2b8;\\n}\\n.app-admin .tooltip.b-tooltip-info.bs-tooltip-left .arrow::before, .app-admin .tooltip.b-tooltip-info.bs-tooltip-auto[x-placement^=left] .arrow::before {\\n  border-left-color: #17a2b8;\\n}\\n.app-admin .tooltip.b-tooltip-info .tooltip-inner {\\n  color: #fff;\\n  background-color: #17a2b8;\\n}\\n.app-admin .tooltip.b-tooltip-warning.bs-tooltip-top .arrow::before, .app-admin .tooltip.b-tooltip-warning.bs-tooltip-auto[x-placement^=top] .arrow::before {\\n  border-top-color: #ffc107;\\n}\\n.app-admin .tooltip.b-tooltip-warning.bs-tooltip-right .arrow::before, .app-admin .tooltip.b-tooltip-warning.bs-tooltip-auto[x-placement^=right] .arrow::before {\\n  border-right-color: #ffc107;\\n}\\n.app-admin .tooltip.b-tooltip-warning.bs-tooltip-bottom .arrow::before, .app-admin .tooltip.b-tooltip-warning.bs-tooltip-auto[x-placement^=bottom] .arrow::before {\\n  border-bottom-color: #ffc107;\\n}\\n.app-admin .tooltip.b-tooltip-warning.bs-tooltip-left .arrow::before, .app-admin .tooltip.b-tooltip-warning.bs-tooltip-auto[x-placement^=left] .arrow::before {\\n  border-left-color: #ffc107;\\n}\\n.app-admin .tooltip.b-tooltip-warning .tooltip-inner {\\n  color: #212529;\\n  background-color: #ffc107;\\n}\\n.app-admin .tooltip.b-tooltip-danger.bs-tooltip-top .arrow::before, .app-admin .tooltip.b-tooltip-danger.bs-tooltip-auto[x-placement^=top] .arrow::before {\\n  border-top-color: #dc3545;\\n}\\n.app-admin .tooltip.b-tooltip-danger.bs-tooltip-right .arrow::before, .app-admin .tooltip.b-tooltip-danger.bs-tooltip-auto[x-placement^=right] .arrow::before {\\n  border-right-color: #dc3545;\\n}\\n.app-admin .tooltip.b-tooltip-danger.bs-tooltip-bottom .arrow::before, .app-admin .tooltip.b-tooltip-danger.bs-tooltip-auto[x-placement^=bottom] .arrow::before {\\n  border-bottom-color: #dc3545;\\n}\\n.app-admin .tooltip.b-tooltip-danger.bs-tooltip-left .arrow::before, .app-admin .tooltip.b-tooltip-danger.bs-tooltip-auto[x-placement^=left] .arrow::before {\\n  border-left-color: #dc3545;\\n}\\n.app-admin .tooltip.b-tooltip-danger .tooltip-inner {\\n  color: #fff;\\n  background-color: #dc3545;\\n}\\n.app-admin .tooltip.b-tooltip-light.bs-tooltip-top .arrow::before, .app-admin .tooltip.b-tooltip-light.bs-tooltip-auto[x-placement^=top] .arrow::before {\\n  border-top-color: #f8f9fa;\\n}\\n.app-admin .tooltip.b-tooltip-light.bs-tooltip-right .arrow::before, .app-admin .tooltip.b-tooltip-light.bs-tooltip-auto[x-placement^=right] .arrow::before {\\n  border-right-color: #f8f9fa;\\n}\\n.app-admin .tooltip.b-tooltip-light.bs-tooltip-bottom .arrow::before, .app-admin .tooltip.b-tooltip-light.bs-tooltip-auto[x-placement^=bottom] .arrow::before {\\n  border-bottom-color: #f8f9fa;\\n}\\n.app-admin .tooltip.b-tooltip-light.bs-tooltip-left .arrow::before, .app-admin .tooltip.b-tooltip-light.bs-tooltip-auto[x-placement^=left] .arrow::before {\\n  border-left-color: #f8f9fa;\\n}\\n.app-admin .tooltip.b-tooltip-light .tooltip-inner {\\n  color: #212529;\\n  background-color: #f8f9fa;\\n}\\n.app-admin .tooltip.b-tooltip-dark.bs-tooltip-top .arrow::before, .app-admin .tooltip.b-tooltip-dark.bs-tooltip-auto[x-placement^=top] .arrow::before {\\n  border-top-color: #343a40;\\n}\\n.app-admin .tooltip.b-tooltip-dark.bs-tooltip-right .arrow::before, .app-admin .tooltip.b-tooltip-dark.bs-tooltip-auto[x-placement^=right] .arrow::before {\\n  border-right-color: #343a40;\\n}\\n.app-admin .tooltip.b-tooltip-dark.bs-tooltip-bottom .arrow::before, .app-admin .tooltip.b-tooltip-dark.bs-tooltip-auto[x-placement^=bottom] .arrow::before {\\n  border-bottom-color: #343a40;\\n}\\n.app-admin .tooltip.b-tooltip-dark.bs-tooltip-left .arrow::before, .app-admin .tooltip.b-tooltip-dark.bs-tooltip-auto[x-placement^=left] .arrow::before {\\n  border-left-color: #343a40;\\n}\\n.app-admin .tooltip.b-tooltip-dark .tooltip-inner {\\n  color: #fff;\\n  background-color: #343a40;\\n}\\n.app-admin .b-icon.bi {\\n  display: inline-block;\\n  overflow: visible;\\n  vertical-align: -0.15em;\\n}\\n.app-admin .b-icon.b-icon-animation-cylon, .app-admin .b-icon.b-iconstack .b-icon-animation-cylon > g {\\n  transform-origin: center;\\n  -webkit-animation: 0.75s infinite ease-in-out alternate b-icon-animation-cylon;\\n          animation: 0.75s infinite ease-in-out alternate b-icon-animation-cylon;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .b-icon.b-icon-animation-cylon, .app-admin .b-icon.b-iconstack .b-icon-animation-cylon > g {\\n    -webkit-animation: none;\\n            animation: none;\\n}\\n}\\n.app-admin .b-icon.b-icon-animation-cylon-vertical, .app-admin .b-icon.b-iconstack .b-icon-animation-cylon-vertical > g {\\n  transform-origin: center;\\n  -webkit-animation: 0.75s infinite ease-in-out alternate b-icon-animation-cylon-vertical;\\n          animation: 0.75s infinite ease-in-out alternate b-icon-animation-cylon-vertical;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .b-icon.b-icon-animation-cylon-vertical, .app-admin .b-icon.b-iconstack .b-icon-animation-cylon-vertical > g {\\n    -webkit-animation: none;\\n            animation: none;\\n}\\n}\\n.app-admin .b-icon.b-icon-animation-fade, .app-admin .b-icon.b-iconstack .b-icon-animation-fade > g {\\n  transform-origin: center;\\n  -webkit-animation: 0.75s infinite ease-in-out alternate b-icon-animation-fade;\\n          animation: 0.75s infinite ease-in-out alternate b-icon-animation-fade;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .b-icon.b-icon-animation-fade, .app-admin .b-icon.b-iconstack .b-icon-animation-fade > g {\\n    -webkit-animation: none;\\n            animation: none;\\n}\\n}\\n.app-admin .b-icon.b-icon-animation-spin, .app-admin .b-icon.b-iconstack .b-icon-animation-spin > g {\\n  transform-origin: center;\\n  -webkit-animation: 2s infinite linear normal b-icon-animation-spin;\\n          animation: 2s infinite linear normal b-icon-animation-spin;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .b-icon.b-icon-animation-spin, .app-admin .b-icon.b-iconstack .b-icon-animation-spin > g {\\n    -webkit-animation: none;\\n            animation: none;\\n}\\n}\\n.app-admin .b-icon.b-icon-animation-spin-reverse, .app-admin .b-icon.b-iconstack .b-icon-animation-spin-reverse > g {\\n  transform-origin: center;\\n  animation: 2s infinite linear reverse b-icon-animation-spin;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .b-icon.b-icon-animation-spin-reverse, .app-admin .b-icon.b-iconstack .b-icon-animation-spin-reverse > g {\\n    -webkit-animation: none;\\n            animation: none;\\n}\\n}\\n.app-admin .b-icon.b-icon-animation-spin-pulse, .app-admin .b-icon.b-iconstack .b-icon-animation-spin-pulse > g {\\n  transform-origin: center;\\n  -webkit-animation: 1s infinite steps(8) normal b-icon-animation-spin;\\n          animation: 1s infinite steps(8) normal b-icon-animation-spin;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .b-icon.b-icon-animation-spin-pulse, .app-admin .b-icon.b-iconstack .b-icon-animation-spin-pulse > g {\\n    -webkit-animation: none;\\n            animation: none;\\n}\\n}\\n.app-admin .b-icon.b-icon-animation-spin-reverse-pulse, .app-admin .b-icon.b-iconstack .b-icon-animation-spin-reverse-pulse > g {\\n  transform-origin: center;\\n  animation: 1s infinite steps(8) reverse b-icon-animation-spin;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .b-icon.b-icon-animation-spin-reverse-pulse, .app-admin .b-icon.b-iconstack .b-icon-animation-spin-reverse-pulse > g {\\n    -webkit-animation: none;\\n            animation: none;\\n}\\n}\\n.app-admin .b-icon.b-icon-animation-throb, .app-admin .b-icon.b-iconstack .b-icon-animation-throb > g {\\n  transform-origin: center;\\n  -webkit-animation: 0.75s infinite ease-in-out alternate b-icon-animation-throb;\\n          animation: 0.75s infinite ease-in-out alternate b-icon-animation-throb;\\n}\\n@media (prefers-reduced-motion: reduce) {\\n.app-admin .b-icon.b-icon-animation-throb, .app-admin .b-icon.b-iconstack .b-icon-animation-throb > g {\\n    -webkit-animation: none;\\n            animation: none;\\n}\\n}\\n@-webkit-keyframes b-icon-animation-cylon {\\n0% {\\n    transform: translateX(-25%);\\n}\\n100% {\\n    transform: translateX(25%);\\n}\\n}\\n@keyframes b-icon-animation-cylon {\\n0% {\\n    transform: translateX(-25%);\\n}\\n100% {\\n    transform: translateX(25%);\\n}\\n}\\n@-webkit-keyframes b-icon-animation-cylon-vertical {\\n0% {\\n    transform: translateY(25%);\\n}\\n100% {\\n    transform: translateY(-25%);\\n}\\n}\\n@keyframes b-icon-animation-cylon-vertical {\\n0% {\\n    transform: translateY(25%);\\n}\\n100% {\\n    transform: translateY(-25%);\\n}\\n}\\n@-webkit-keyframes b-icon-animation-fade {\\n0% {\\n    opacity: 0.1;\\n}\\n100% {\\n    opacity: 1;\\n}\\n}\\n@keyframes b-icon-animation-fade {\\n0% {\\n    opacity: 0.1;\\n}\\n100% {\\n    opacity: 1;\\n}\\n}\\n@-webkit-keyframes b-icon-animation-spin {\\n0% {\\n    transform: rotate(0deg);\\n}\\n100% {\\n    transform: rotate(359deg);\\n}\\n}\\n@keyframes b-icon-animation-spin {\\n0% {\\n    transform: rotate(0deg);\\n}\\n100% {\\n    transform: rotate(359deg);\\n}\\n}\\n@-webkit-keyframes b-icon-animation-throb {\\n0% {\\n    opacity: 0.5;\\n    transform: scale(0.5);\\n}\\n100% {\\n    opacity: 1;\\n    transform: scale(1);\\n}\\n}\\n@keyframes b-icon-animation-throb {\\n0% {\\n    opacity: 0.5;\\n    transform: scale(0.5);\\n}\\n100% {\\n    opacity: 1;\\n    transform: scale(1);\\n}\\n}\\n.app-admin .btn .b-icon.bi,\\n.app-admin .nav-link .b-icon.bi,\\n.app-admin .dropdown-toggle .b-icon.bi,\\n.app-admin .dropdown-item .b-icon.bi,\\n.app-admin .input-group-text .b-icon.bi {\\n  font-size: 125%;\\n  vertical-align: text-bottom;\\n}\\n.app-admin .ctn-action-button.static {\\n  position: absolute;\\n  top: 0.5em;\\n  right: 0.5em;\\n}\", \"\"]);\n// Exports\nmodule.exports = exports;\n\n\n//# sourceURL=webpack://AppAllCreneaux/./src/AppAdmin/Admin.vue?./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-oneOf-1-2!./node_modules/sass-loader/dist/cjs.js??ref--8-oneOf-1-3!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options");
+var toObject = __webpack_require__("7b0b");
+
+var floor = Math.floor;
+var replace = ''.replace;
+var SUBSTITUTION_SYMBOLS = /\$([$&'`]|\d\d?|<[^>]*>)/g;
+var SUBSTITUTION_SYMBOLS_NO_NAMED = /\$([$&'`]|\d\d?)/g;
+
+// https://tc39.es/ecma262/#sec-getsubstitution
+module.exports = function (matched, str, position, captures, namedCaptures, replacement) {
+  var tailPos = position + matched.length;
+  var m = captures.length;
+  var symbols = SUBSTITUTION_SYMBOLS_NO_NAMED;
+  if (namedCaptures !== undefined) {
+    namedCaptures = toObject(namedCaptures);
+    symbols = SUBSTITUTION_SYMBOLS;
+  }
+  return replace.call(replacement, symbols, function (match, ch) {
+    var capture;
+    switch (ch.charAt(0)) {
+      case '$': return '$';
+      case '&': return matched;
+      case '`': return str.slice(0, position);
+      case "'": return str.slice(tailPos);
+      case '<':
+        capture = namedCaptures[ch.slice(1, -1)];
+        break;
+      default: // \d\d?
+        var n = +ch;
+        if (n === 0) return match;
+        if (n > m) {
+          var f = floor(n / 10);
+          if (f === 0) return match;
+          if (f <= m) return captures[f - 1] === undefined ? ch.charAt(1) : captures[f - 1] + ch.charAt(1);
+          return match;
+        }
+        capture = captures[n - 1];
+    }
+    return capture === undefined ? '' : capture;
+  });
+};
+
 
 /***/ }),
 
-/***/ "./node_modules/vue-style-loader/index.js?!./node_modules/css-loader/dist/cjs.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./src/AppAdmin/Admin.vue?vue&type=style&index=0&lang=scss&":
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-style-loader??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-oneOf-1-2!./node_modules/sass-loader/dist/cjs.js??ref--8-oneOf-1-3!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/AppAdmin/Admin.vue?vue&type=style&index=0&lang=scss& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
+/***/ "1148":
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("// style-loader: Adds some css to the DOM by adding a <style> tag\n\n// load the styles\nvar content = __webpack_require__(/*! !../../node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/src??ref--8-oneOf-1-2!../../node_modules/sass-loader/dist/cjs.js??ref--8-oneOf-1-3!../../node_modules/cache-loader/dist/cjs.js??ref--0-0!../../node_modules/vue-loader/lib??vue-loader-options!./Admin.vue?vue&type=style&index=0&lang=scss& */ \"./node_modules/css-loader/dist/cjs.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./src/AppAdmin/Admin.vue?vue&type=style&index=0&lang=scss&\");\nif(typeof content === 'string') content = [[module.i, content, '']];\nif(content.locals) module.exports = content.locals;\n// add the styles to the DOM\nvar add = __webpack_require__(/*! ../../node_modules/vue-style-loader/lib/addStylesClient.js */ \"./node_modules/vue-style-loader/lib/addStylesClient.js\").default\nvar update = add(\"1f411984\", content, false, {\"sourceMap\":false,\"shadowMode\":false});\n// Hot Module Replacement\nif(false) {}\n\n//# sourceURL=webpack://AppAllCreneaux/./src/AppAdmin/Admin.vue?./node_modules/vue-style-loader??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-oneOf-1-2!./node_modules/sass-loader/dist/cjs.js??ref--8-oneOf-1-3!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options");
+"use strict";
+
+var toInteger = __webpack_require__("a691");
+var requireObjectCoercible = __webpack_require__("1d80");
+
+// `String.prototype.repeat` method implementation
+// https://tc39.es/ecma262/#sec-string.prototype.repeat
+module.exports = ''.repeat || function repeat(count) {
+  var str = String(requireObjectCoercible(this));
+  var result = '';
+  var n = toInteger(count);
+  if (n < 0 || n == Infinity) throw RangeError('Wrong number of repetitions');
+  for (;n > 0; (n >>>= 1) && (str += str)) if (n & 1) result += str;
+  return result;
+};
+
 
 /***/ }),
 
-/***/ "./src/AppAdmin/Admin.vue":
-/*!********************************!*\
-  !*** ./src/AppAdmin/Admin.vue ***!
-  \********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "3bbe":
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Admin_vue_vue_type_template_id_65aeacc7_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Admin.vue?vue&type=template&id=65aeacc7&lang=html& */ \"./src/AppAdmin/Admin.vue?vue&type=template&id=65aeacc7&lang=html&\");\n/* harmony import */ var _Admin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Admin.vue?vue&type=script&lang=js& */ \"./src/AppAdmin/Admin.vue?vue&type=script&lang=js&\");\n/* empty/unused harmony star reexport *//* harmony import */ var _Admin_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Admin.vue?vue&type=style&index=0&lang=scss& */ \"./src/AppAdmin/Admin.vue?vue&type=style&index=0&lang=scss&\");\n/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ \"./node_modules/vue-loader/lib/runtime/componentNormalizer.js\");\n\n\n\n\n\n\n/* normalize component */\n\nvar component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__[\"default\"])(\n  _Admin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[\"default\"],\n  _Admin_vue_vue_type_template_id_65aeacc7_lang_html___WEBPACK_IMPORTED_MODULE_0__[\"render\"],\n  _Admin_vue_vue_type_template_id_65aeacc7_lang_html___WEBPACK_IMPORTED_MODULE_0__[\"staticRenderFns\"],\n  false,\n  null,\n  null,\n  null\n  \n)\n\n/* hot reload */\nif (false) { var api; }\ncomponent.options.__file = \"src/AppAdmin/Admin.vue\"\n/* harmony default export */ __webpack_exports__[\"default\"] = (component.exports);\n\n//# sourceURL=webpack://AppAllCreneaux/./src/AppAdmin/Admin.vue?");
+var isObject = __webpack_require__("861d");
 
-/***/ }),
+module.exports = function (it) {
+  if (!isObject(it) && it !== null) {
+    throw TypeError("Can't set " + String(it) + ' as a prototype');
+  } return it;
+};
 
-/***/ "./src/AppAdmin/Admin.vue?vue&type=script&lang=js&":
-/*!*********************************************************!*\
-  !*** ./src/AppAdmin/Admin.vue?vue&type=script&lang=js& ***!
-  \*********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _node_modules_cache_loader_dist_cjs_js_ref_12_0_node_modules_babel_loader_lib_index_js_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/cache-loader/dist/cjs.js??ref--12-0!../../node_modules/babel-loader/lib!../../node_modules/cache-loader/dist/cjs.js??ref--0-0!../../node_modules/vue-loader/lib??vue-loader-options!./Admin.vue?vue&type=script&lang=js& */ \"./node_modules/cache-loader/dist/cjs.js?!./node_modules/babel-loader/lib/index.js!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./src/AppAdmin/Admin.vue?vue&type=script&lang=js&\");\n/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__[\"default\"] = (_node_modules_cache_loader_dist_cjs_js_ref_12_0_node_modules_babel_loader_lib_index_js_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[\"default\"]); \n\n//# sourceURL=webpack://AppAllCreneaux/./src/AppAdmin/Admin.vue?");
 
 /***/ }),
 
-/***/ "./src/AppAdmin/Admin.vue?vue&type=style&index=0&lang=scss&":
-/*!******************************************************************!*\
-  !*** ./src/AppAdmin/Admin.vue?vue&type=style&index=0&lang=scss& ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "408a":
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-style-loader??ref--8-oneOf-1-0!../../node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/src??ref--8-oneOf-1-2!../../node_modules/sass-loader/dist/cjs.js??ref--8-oneOf-1-3!../../node_modules/cache-loader/dist/cjs.js??ref--0-0!../../node_modules/vue-loader/lib??vue-loader-options!./Admin.vue?vue&type=style&index=0&lang=scss& */ \"./node_modules/vue-style-loader/index.js?!./node_modules/css-loader/dist/cjs.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./src/AppAdmin/Admin.vue?vue&type=style&index=0&lang=scss&\");\n/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);\n/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if([\"default\"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));\n\n\n//# sourceURL=webpack://AppAllCreneaux/./src/AppAdmin/Admin.vue?");
+var classof = __webpack_require__("c6b6");
 
-/***/ }),
+// `thisNumberValue` abstract operation
+// https://tc39.es/ecma262/#sec-thisnumbervalue
+module.exports = function (value) {
+  if (typeof value != 'number' && classof(value) != 'Number') {
+    throw TypeError('Incorrect invocation');
+  }
+  return +value;
+};
 
-/***/ "./src/AppAdmin/Admin.vue?vue&type=template&id=65aeacc7&lang=html&":
-/*!*************************************************************************!*\
-  !*** ./src/AppAdmin/Admin.vue?vue&type=template&id=65aeacc7&lang=html& ***!
-  \*************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _node_modules_cache_loader_dist_cjs_js_cacheDirectory_node_modules_cache_vue_loader_cacheIdentifier_5d8e9870_vue_loader_template_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_template_id_65aeacc7_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/cache-loader/dist/cjs.js?{\"cacheDirectory\":\"node_modules/.cache/vue-loader\",\"cacheIdentifier\":\"5d8e9870-vue-loader-template\"}!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/cache-loader/dist/cjs.js??ref--0-0!../../node_modules/vue-loader/lib??vue-loader-options!./Admin.vue?vue&type=template&id=65aeacc7&lang=html& */ \"./node_modules/cache-loader/dist/cjs.js?{\\\"cacheDirectory\\\":\\\"node_modules/.cache/vue-loader\\\",\\\"cacheIdentifier\\\":\\\"5d8e9870-vue-loader-template\\\"}!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/cache-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./src/AppAdmin/Admin.vue?vue&type=template&id=65aeacc7&lang=html&\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return _node_modules_cache_loader_dist_cjs_js_cacheDirectory_node_modules_cache_vue_loader_cacheIdentifier_5d8e9870_vue_loader_template_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_template_id_65aeacc7_lang_html___WEBPACK_IMPORTED_MODULE_0__[\"render\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"staticRenderFns\", function() { return _node_modules_cache_loader_dist_cjs_js_cacheDirectory_node_modules_cache_vue_loader_cacheIdentifier_5d8e9870_vue_loader_template_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_template_id_65aeacc7_lang_html___WEBPACK_IMPORTED_MODULE_0__[\"staticRenderFns\"]; });\n\n\n\n//# sourceURL=webpack://AppAllCreneaux/./src/AppAdmin/Admin.vue?");
 
 /***/ }),
 
-/***/ "./src/AppAdmin/Utilities.js":
-/*!***********************************!*\
-  !*** ./src/AppAdmin/Utilities.js ***!
-  \***********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "466d":
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ \"./node_modules/core-js/modules/es.array.for-each.js\");\n/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ \"./node_modules/core-js/modules/web.dom-collections.for-each.js\");\n/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_1__);\n\n\nvar Utilities = {\n  JourInfos: function JourInfos() {\n    return [{\n      text: \"Lundi\",\n      value: 1,\n      debut: \"7:30\",\n      fin: \"21:30\",\n      indice: 1\n    }, {\n      text: \"Mardi\",\n      value: 1,\n      debut: \"7:30\",\n      fin: \"21:30\",\n      indice: 2\n    }, {\n      text: \"Mercredi\",\n      value: 1,\n      debut: \"7:30\",\n      fin: \"21:30\",\n      indice: 3\n    }, {\n      text: \"Jeudi\",\n      value: 1,\n      debut: \"7:30\",\n      fin: \"21:30\",\n      indice: 4\n    }, {\n      text: \"Vendredi\",\n      value: 1,\n      debut: \"7:30\",\n      fin: \"21:30\",\n      indice: 5\n    }, {\n      text: \"Samedi\",\n      value: 1,\n      debut: \"7:30\",\n      fin: \"21:30\",\n      indice: 6\n    }, {\n      text: \"Dimanche\",\n      value: 0,\n      debut: \"7:30\",\n      fin: \"21:30\",\n      indice: 0\n    }];\n  },\n  DefaultCreneauConfigs: function DefaultCreneauConfigs() {\n    return {\n      days: [],\n      nombre_semaine: 5,\n      nombre_res_creneau: 2,\n      title: \"Finaliser la commande\",\n      deccalage_creneau_depart: 0\n    };\n  },\n  DefaultCreneauTypes: function DefaultCreneauTypes() {\n    return {\n      typelivraison: this.getDefaultTypeLivraion()\n    };\n  },\n  filter: function filter() {\n    return {\n      titre: \"Indisponibilité, congé\",\n      h_debut: \"\",\n      h_fin: \"\",\n      jour_type: \"\",\n      show_select_date_indice_all: null,\n      select_jour_indice: \"\",\n      jourmode: \"manuel\",\n      jours_select: [],\n      date_desactivee: [],\n      //{ date: \"\" }\n      periode_desactivee: [] //{ debut: \"\", fin: \"\" }\n\n    };\n  },\n  GetUniqueDays: function GetUniqueDays() {\n    var result = [];\n    this.jours_selects.forEach(function (item) {\n      if (item.value !== \"all\") {\n        result.push(item);\n      }\n    });\n    return result;\n  },\n  getDefaultDelaiOverride: function getDefaultDelaiOverride() {\n    return {\n      day: \"\",\n      delai: 4\n    };\n  },\n  getDefaultTypeLivraion: function getDefaultTypeLivraion() {\n    return [{\n      titre: \"Gratuit\",\n      body: \"<div class=\\\"d-flex justify-content-between\\\"> <span>Cr\\xE9neau horaire de {{ creneau }} min </span> <span>D\\xE9lai de traitement de {{ delai }} Jours </span> </div>\",\n      montant_libele: \"Frais de livraison : {{montant}}\",\n      montant: \"Gratuit\",\n      type: \"free\",\n      creneau: 120,\n      // la durée d'un creneaux.\n      delai_next_creneau: 30,\n      // la durée entre les creneaux.\n      delai: 3,\n      // delai de traitement entre la collecte et la livraion.\n      //permet de surcharger le delai de traitement en fonction des jours de la semaine.\n\n      /*\n      example:\n      delais_jour: [\n        {\n          day: 4,\n          delai: 4\n        },\n        {\n          day: 5,\n          delai: 4\n        }\n      ],\n      /**/\n      delais_jour: [],\n      id: 32583132807228,\n      active: true //delai_override est ajoute de maniere dynamique à object, il permet de partager la valeur dynamique du delai.\n      // il a pour avantages d'etre court donc plus performant qu'un $emit.\n\n    }, {\n      titre: \"Plus\",\n      body: \"<div class=\\\"d-flex justify-content-between\\\"> <span>Cr\\xE9neau horaire de {{ creneau }} min </span> <span>D\\xE9lai de traitement de {{ delai }} jours </span> </div>\",\n      montant_libele: \"Frais de livraison : {{montant}}€\",\n      montant: \"9.99\",\n      type: \"plus\",\n      creneau: 60,\n      delai_next_creneau: 30,\n      // la durée entre les creneaux.\n      delai: 2,\n      delais_jour: [],\n      id: 32583132839996,\n      active: false\n    }, {\n      titre: \"Express\",\n      body: \"<div class=\\\"d-flex justify-content-between\\\"> <span>Cr\\xE9neau horaire de {{ creneau }} min </span> <span>D\\xE9lai de traitement de {{ delai }} jours </span> </div>\",\n      montant_libele: \"Frais de livraison : {{montant}}€\",\n      montant: \"19.99\",\n      type: \"express\",\n      creneau: 30,\n      delai_next_creneau: 30,\n      // la durée entre les creneaux.\n      delai: 1,\n      delais_jour: [],\n      id: 32583132872764,\n      active: false\n    }];\n  }\n};\n/* harmony default export */ __webpack_exports__[\"default\"] = (Utilities); // Les ids de produits.\n// 32583132807228\n// 32583132839996\n// 32583132872764\n\n//# sourceURL=webpack://AppAllCreneaux/./src/AppAdmin/Utilities.js?");
+
+var fixRegExpWellKnownSymbolLogic = __webpack_require__("d784");
+var anObject = __webpack_require__("825a");
+var toLength = __webpack_require__("50c4");
+var requireObjectCoercible = __webpack_require__("1d80");
+var advanceStringIndex = __webpack_require__("8aa5");
+var regExpExec = __webpack_require__("14c3");
+
+// @@match logic
+fixRegExpWellKnownSymbolLogic('match', 1, function (MATCH, nativeMatch, maybeCallNative) {
+  return [
+    // `String.prototype.match` method
+    // https://tc39.es/ecma262/#sec-string.prototype.match
+    function match(regexp) {
+      var O = requireObjectCoercible(this);
+      var matcher = regexp == undefined ? undefined : regexp[MATCH];
+      return matcher !== undefined ? matcher.call(regexp, O) : new RegExp(regexp)[MATCH](String(O));
+    },
+    // `RegExp.prototype[@@match]` method
+    // https://tc39.es/ecma262/#sec-regexp.prototype-@@match
+    function (regexp) {
+      var res = maybeCallNative(nativeMatch, regexp, this);
+      if (res.done) return res.value;
+
+      var rx = anObject(regexp);
+      var S = String(this);
+
+      if (!rx.global) return regExpExec(rx, S);
+
+      var fullUnicode = rx.unicode;
+      rx.lastIndex = 0;
+      var A = [];
+      var n = 0;
+      var result;
+      while ((result = regExpExec(rx, S)) !== null) {
+        var matchStr = String(result[0]);
+        A[n] = matchStr;
+        if (matchStr === '') rx.lastIndex = advanceStringIndex(S, toLength(rx.lastIndex), fullUnicode);
+        n++;
+      }
+      return n === 0 ? null : A;
+    }
+  ];
+});
+
 
 /***/ }),
 
-/***/ "./src/AppAdmin/configs/config.js":
-/*!****************************************!*\
-  !*** ./src/AppAdmin/configs/config.js ***!
-  \****************************************/
-/*! exports provided: default */
+/***/ "498a":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var $trim = __webpack_require__("58a8").trim;
+var forcedStringTrimMethod = __webpack_require__("c8d2");
+
+// `String.prototype.trim` method
+// https://tc39.es/ecma262/#sec-string.prototype.trim
+$({ target: 'String', proto: true, forced: forcedStringTrimMethod('trim') }, {
+  trim: function trim() {
+    return $trim(this);
+  }
+});
+
+
+/***/ }),
+
+/***/ "5319":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var fixRegExpWellKnownSymbolLogic = __webpack_require__("d784");
+var anObject = __webpack_require__("825a");
+var toLength = __webpack_require__("50c4");
+var toInteger = __webpack_require__("a691");
+var requireObjectCoercible = __webpack_require__("1d80");
+var advanceStringIndex = __webpack_require__("8aa5");
+var getSubstitution = __webpack_require__("0cb2");
+var regExpExec = __webpack_require__("14c3");
+
+var max = Math.max;
+var min = Math.min;
+
+var maybeToString = function (it) {
+  return it === undefined ? it : String(it);
+};
+
+// @@replace logic
+fixRegExpWellKnownSymbolLogic('replace', 2, function (REPLACE, nativeReplace, maybeCallNative, reason) {
+  var REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE = reason.REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE;
+  var REPLACE_KEEPS_$0 = reason.REPLACE_KEEPS_$0;
+  var UNSAFE_SUBSTITUTE = REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE ? '$' : '$0';
+
+  return [
+    // `String.prototype.replace` method
+    // https://tc39.es/ecma262/#sec-string.prototype.replace
+    function replace(searchValue, replaceValue) {
+      var O = requireObjectCoercible(this);
+      var replacer = searchValue == undefined ? undefined : searchValue[REPLACE];
+      return replacer !== undefined
+        ? replacer.call(searchValue, O, replaceValue)
+        : nativeReplace.call(String(O), searchValue, replaceValue);
+    },
+    // `RegExp.prototype[@@replace]` method
+    // https://tc39.es/ecma262/#sec-regexp.prototype-@@replace
+    function (regexp, replaceValue) {
+      if (
+        (!REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE && REPLACE_KEEPS_$0) ||
+        (typeof replaceValue === 'string' && replaceValue.indexOf(UNSAFE_SUBSTITUTE) === -1)
+      ) {
+        var res = maybeCallNative(nativeReplace, regexp, this, replaceValue);
+        if (res.done) return res.value;
+      }
+
+      var rx = anObject(regexp);
+      var S = String(this);
+
+      var functionalReplace = typeof replaceValue === 'function';
+      if (!functionalReplace) replaceValue = String(replaceValue);
+
+      var global = rx.global;
+      if (global) {
+        var fullUnicode = rx.unicode;
+        rx.lastIndex = 0;
+      }
+      var results = [];
+      while (true) {
+        var result = regExpExec(rx, S);
+        if (result === null) break;
+
+        results.push(result);
+        if (!global) break;
+
+        var matchStr = String(result[0]);
+        if (matchStr === '') rx.lastIndex = advanceStringIndex(S, toLength(rx.lastIndex), fullUnicode);
+      }
+
+      var accumulatedResult = '';
+      var nextSourcePosition = 0;
+      for (var i = 0; i < results.length; i++) {
+        result = results[i];
+
+        var matched = String(result[0]);
+        var position = max(min(toInteger(result.index), S.length), 0);
+        var captures = [];
+        // NOTE: This is equivalent to
+        //   captures = result.slice(1).map(maybeToString)
+        // but for some reason `nativeSlice.call(result, 1, result.length)` (called in
+        // the slice polyfill when slicing native arrays) "doesn't work" in safari 9 and
+        // causes a crash (https://pastebin.com/N21QzeQA) when trying to debug it.
+        for (var j = 1; j < result.length; j++) captures.push(maybeToString(result[j]));
+        var namedCaptures = result.groups;
+        if (functionalReplace) {
+          var replacerArgs = [matched].concat(captures, position, S);
+          if (namedCaptures !== undefined) replacerArgs.push(namedCaptures);
+          var replacement = String(replaceValue.apply(undefined, replacerArgs));
+        } else {
+          replacement = getSubstitution(matched, S, position, captures, namedCaptures, replaceValue);
+        }
+        if (position >= nextSourcePosition) {
+          accumulatedResult += S.slice(nextSourcePosition, position) + replacement;
+          nextSourcePosition = position + matched.length;
+        }
+      }
+      return accumulatedResult + S.slice(nextSourcePosition);
+    }
+  ];
+});
+
+
+/***/ }),
+
+/***/ "5899":
+/***/ (function(module, exports) {
+
+// a string of all valid unicode whitespaces
+// eslint-disable-next-line max-len
+module.exports = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF';
+
+
+/***/ }),
+
+/***/ "58a8":
+/***/ (function(module, exports, __webpack_require__) {
+
+var requireObjectCoercible = __webpack_require__("1d80");
+var whitespaces = __webpack_require__("5899");
+
+var whitespace = '[' + whitespaces + ']';
+var ltrim = RegExp('^' + whitespace + whitespace + '*');
+var rtrim = RegExp(whitespace + whitespace + '*$');
+
+// `String.prototype.{ trim, trimStart, trimEnd, trimLeft, trimRight }` methods implementation
+var createMethod = function (TYPE) {
+  return function ($this) {
+    var string = String(requireObjectCoercible($this));
+    if (TYPE & 1) string = string.replace(ltrim, '');
+    if (TYPE & 2) string = string.replace(rtrim, '');
+    return string;
+  };
+};
+
+module.exports = {
+  // `String.prototype.{ trimLeft, trimStart }` methods
+  // https://tc39.es/ecma262/#sec-string.prototype.trimstart
+  start: createMethod(1),
+  // `String.prototype.{ trimRight, trimEnd }` methods
+  // https://tc39.es/ecma262/#sec-string.prototype.trimend
+  end: createMethod(2),
+  // `String.prototype.trim` method
+  // https://tc39.es/ecma262/#sec-string.prototype.trim
+  trim: createMethod(3)
+};
+
+
+/***/ }),
+
+/***/ "7156":
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__("861d");
+var setPrototypeOf = __webpack_require__("d2bb");
+
+// makes subclassing work correct for wrapped built-ins
+module.exports = function ($this, dummy, Wrapper) {
+  var NewTarget, NewTargetPrototype;
+  if (
+    // it can work only with native `setPrototypeOf`
+    setPrototypeOf &&
+    // we haven't completely correct pre-ES6 way for getting `new.target`, so use this
+    typeof (NewTarget = dummy.constructor) == 'function' &&
+    NewTarget !== Wrapper &&
+    isObject(NewTargetPrototype = NewTarget.prototype) &&
+    NewTargetPrototype !== Wrapper.prototype
+  ) setPrototypeOf($this, NewTargetPrototype);
+  return $this;
+};
+
+
+/***/ }),
+
+/***/ "7dd0":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var createIteratorConstructor = __webpack_require__("9ed3");
+var getPrototypeOf = __webpack_require__("e163");
+var setPrototypeOf = __webpack_require__("d2bb");
+var setToStringTag = __webpack_require__("d44e");
+var createNonEnumerableProperty = __webpack_require__("9112");
+var redefine = __webpack_require__("6eeb");
+var wellKnownSymbol = __webpack_require__("b622");
+var IS_PURE = __webpack_require__("c430");
+var Iterators = __webpack_require__("3f8c");
+var IteratorsCore = __webpack_require__("ae93");
+
+var IteratorPrototype = IteratorsCore.IteratorPrototype;
+var BUGGY_SAFARI_ITERATORS = IteratorsCore.BUGGY_SAFARI_ITERATORS;
+var ITERATOR = wellKnownSymbol('iterator');
+var KEYS = 'keys';
+var VALUES = 'values';
+var ENTRIES = 'entries';
+
+var returnThis = function () { return this; };
+
+module.exports = function (Iterable, NAME, IteratorConstructor, next, DEFAULT, IS_SET, FORCED) {
+  createIteratorConstructor(IteratorConstructor, NAME, next);
+
+  var getIterationMethod = function (KIND) {
+    if (KIND === DEFAULT && defaultIterator) return defaultIterator;
+    if (!BUGGY_SAFARI_ITERATORS && KIND in IterablePrototype) return IterablePrototype[KIND];
+    switch (KIND) {
+      case KEYS: return function keys() { return new IteratorConstructor(this, KIND); };
+      case VALUES: return function values() { return new IteratorConstructor(this, KIND); };
+      case ENTRIES: return function entries() { return new IteratorConstructor(this, KIND); };
+    } return function () { return new IteratorConstructor(this); };
+  };
+
+  var TO_STRING_TAG = NAME + ' Iterator';
+  var INCORRECT_VALUES_NAME = false;
+  var IterablePrototype = Iterable.prototype;
+  var nativeIterator = IterablePrototype[ITERATOR]
+    || IterablePrototype['@@iterator']
+    || DEFAULT && IterablePrototype[DEFAULT];
+  var defaultIterator = !BUGGY_SAFARI_ITERATORS && nativeIterator || getIterationMethod(DEFAULT);
+  var anyNativeIterator = NAME == 'Array' ? IterablePrototype.entries || nativeIterator : nativeIterator;
+  var CurrentIteratorPrototype, methods, KEY;
+
+  // fix native
+  if (anyNativeIterator) {
+    CurrentIteratorPrototype = getPrototypeOf(anyNativeIterator.call(new Iterable()));
+    if (IteratorPrototype !== Object.prototype && CurrentIteratorPrototype.next) {
+      if (!IS_PURE && getPrototypeOf(CurrentIteratorPrototype) !== IteratorPrototype) {
+        if (setPrototypeOf) {
+          setPrototypeOf(CurrentIteratorPrototype, IteratorPrototype);
+        } else if (typeof CurrentIteratorPrototype[ITERATOR] != 'function') {
+          createNonEnumerableProperty(CurrentIteratorPrototype, ITERATOR, returnThis);
+        }
+      }
+      // Set @@toStringTag to native iterators
+      setToStringTag(CurrentIteratorPrototype, TO_STRING_TAG, true, true);
+      if (IS_PURE) Iterators[TO_STRING_TAG] = returnThis;
+    }
+  }
+
+  // fix Array#{values, @@iterator}.name in V8 / FF
+  if (DEFAULT == VALUES && nativeIterator && nativeIterator.name !== VALUES) {
+    INCORRECT_VALUES_NAME = true;
+    defaultIterator = function values() { return nativeIterator.call(this); };
+  }
+
+  // define iterator
+  if ((!IS_PURE || FORCED) && IterablePrototype[ITERATOR] !== defaultIterator) {
+    createNonEnumerableProperty(IterablePrototype, ITERATOR, defaultIterator);
+  }
+  Iterators[NAME] = defaultIterator;
+
+  // export additional methods
+  if (DEFAULT) {
+    methods = {
+      values: getIterationMethod(VALUES),
+      keys: IS_SET ? defaultIterator : getIterationMethod(KEYS),
+      entries: getIterationMethod(ENTRIES)
+    };
+    if (FORCED) for (KEY in methods) {
+      if (BUGGY_SAFARI_ITERATORS || INCORRECT_VALUES_NAME || !(KEY in IterablePrototype)) {
+        redefine(IterablePrototype, KEY, methods[KEY]);
+      }
+    } else $({ target: NAME, proto: true, forced: BUGGY_SAFARI_ITERATORS || INCORRECT_VALUES_NAME }, methods);
+  }
+
+  return methods;
+};
+
+
+/***/ }),
+
+/***/ "8e5f":
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(t,e){ true?module.exports=e():undefined}(this,function(){return function(t){function e(i){if(n[i])return n[i].exports;var r=n[i]={i:i,l:!1,exports:{}};return t[i].call(r.exports,r,r.exports,e),r.l=!0,r.exports}var n={};return e.m=t,e.c=n,e.i=function(t){return t},e.d=function(t,n,i){e.o(t,n)||Object.defineProperty(t,n,{configurable:!1,enumerable:!0,get:i})},e.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(n,"a",n),n},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="/",e(e.s=60)}([function(t,e){var n=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=n)},function(t,e,n){var i=n(49)("wks"),r=n(30),o=n(0).Symbol,s="function"==typeof o;(t.exports=function(t){return i[t]||(i[t]=s&&o[t]||(s?o:r)("Symbol."+t))}).store=i},function(t,e,n){var i=n(5);t.exports=function(t){if(!i(t))throw TypeError(t+" is not an object!");return t}},function(t,e,n){var i=n(0),r=n(10),o=n(8),s=n(6),u=n(11),a=function(t,e,n){var l,c,f,p,h=t&a.F,d=t&a.G,v=t&a.S,g=t&a.P,y=t&a.B,m=d?i:v?i[e]||(i[e]={}):(i[e]||{}).prototype,b=d?r:r[e]||(r[e]={}),_=b.prototype||(b.prototype={});d&&(n=e);for(l in n)c=!h&&m&&void 0!==m[l],f=(c?m:n)[l],p=y&&c?u(f,i):g&&"function"==typeof f?u(Function.call,f):f,m&&s(m,l,f,t&a.U),b[l]!=f&&o(b,l,p),g&&_[l]!=f&&(_[l]=f)};i.core=r,a.F=1,a.G=2,a.S=4,a.P=8,a.B=16,a.W=32,a.U=64,a.R=128,t.exports=a},function(t,e,n){t.exports=!n(7)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,e){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,e,n){var i=n(0),r=n(8),o=n(12),s=n(30)("src"),u=Function.toString,a=(""+u).split("toString");n(10).inspectSource=function(t){return u.call(t)},(t.exports=function(t,e,n,u){var l="function"==typeof n;l&&(o(n,"name")||r(n,"name",e)),t[e]!==n&&(l&&(o(n,s)||r(n,s,t[e]?""+t[e]:a.join(String(e)))),t===i?t[e]=n:u?t[e]?t[e]=n:r(t,e,n):(delete t[e],r(t,e,n)))})(Function.prototype,"toString",function(){return"function"==typeof this&&this[s]||u.call(this)})},function(t,e){t.exports=function(t){try{return!!t()}catch(t){return!0}}},function(t,e,n){var i=n(13),r=n(25);t.exports=n(4)?function(t,e,n){return i.f(t,e,r(1,n))}:function(t,e,n){return t[e]=n,t}},function(t,e){var n={}.toString;t.exports=function(t){return n.call(t).slice(8,-1)}},function(t,e){var n=t.exports={version:"2.5.7"};"number"==typeof __e&&(__e=n)},function(t,e,n){var i=n(14);t.exports=function(t,e,n){if(i(t),void 0===e)return t;switch(n){case 1:return function(n){return t.call(e,n)};case 2:return function(n,i){return t.call(e,n,i)};case 3:return function(n,i,r){return t.call(e,n,i,r)}}return function(){return t.apply(e,arguments)}}},function(t,e){var n={}.hasOwnProperty;t.exports=function(t,e){return n.call(t,e)}},function(t,e,n){var i=n(2),r=n(41),o=n(29),s=Object.defineProperty;e.f=n(4)?Object.defineProperty:function(t,e,n){if(i(t),e=o(e,!0),i(n),r)try{return s(t,e,n)}catch(t){}if("get"in n||"set"in n)throw TypeError("Accessors not supported!");return"value"in n&&(t[e]=n.value),t}},function(t,e){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,e){t.exports={}},function(t,e){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,e,n){"use strict";var i=n(7);t.exports=function(t,e){return!!t&&i(function(){e?t.call(null,function(){},1):t.call(null)})}},function(t,e,n){var i=n(23),r=n(16);t.exports=function(t){return i(r(t))}},function(t,e,n){var i=n(53),r=Math.min;t.exports=function(t){return t>0?r(i(t),9007199254740991):0}},function(t,e,n){var i=n(11),r=n(23),o=n(28),s=n(19),u=n(64);t.exports=function(t,e){var n=1==t,a=2==t,l=3==t,c=4==t,f=6==t,p=5==t||f,h=e||u;return function(e,u,d){for(var v,g,y=o(e),m=r(y),b=i(u,d,3),_=s(m.length),x=0,w=n?h(e,_):a?h(e,0):void 0;_>x;x++)if((p||x in m)&&(v=m[x],g=b(v,x,y),t))if(n)w[x]=g;else if(g)switch(t){case 3:return!0;case 5:return v;case 6:return x;case 2:w.push(v)}else if(c)return!1;return f?-1:l||c?c:w}}},function(t,e,n){var i=n(5),r=n(0).document,o=i(r)&&i(r.createElement);t.exports=function(t){return o?r.createElement(t):{}}},function(t,e){t.exports="constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",")},function(t,e,n){var i=n(9);t.exports=Object("z").propertyIsEnumerable(0)?Object:function(t){return"String"==i(t)?t.split(""):Object(t)}},function(t,e){t.exports=!1},function(t,e){t.exports=function(t,e){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:e}}},function(t,e,n){var i=n(13).f,r=n(12),o=n(1)("toStringTag");t.exports=function(t,e,n){t&&!r(t=n?t:t.prototype,o)&&i(t,o,{configurable:!0,value:e})}},function(t,e,n){var i=n(49)("keys"),r=n(30);t.exports=function(t){return i[t]||(i[t]=r(t))}},function(t,e,n){var i=n(16);t.exports=function(t){return Object(i(t))}},function(t,e,n){var i=n(5);t.exports=function(t,e){if(!i(t))return t;var n,r;if(e&&"function"==typeof(n=t.toString)&&!i(r=n.call(t)))return r;if("function"==typeof(n=t.valueOf)&&!i(r=n.call(t)))return r;if(!e&&"function"==typeof(n=t.toString)&&!i(r=n.call(t)))return r;throw TypeError("Can't convert object to primitive value")}},function(t,e){var n=0,i=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++n+i).toString(36))}},function(t,e,n){"use strict";var i=n(0),r=n(12),o=n(9),s=n(67),u=n(29),a=n(7),l=n(77).f,c=n(45).f,f=n(13).f,p=n(51).trim,h=i.Number,d=h,v=h.prototype,g="Number"==o(n(44)(v)),y="trim"in String.prototype,m=function(t){var e=u(t,!1);if("string"==typeof e&&e.length>2){e=y?e.trim():p(e,3);var n,i,r,o=e.charCodeAt(0);if(43===o||45===o){if(88===(n=e.charCodeAt(2))||120===n)return NaN}else if(48===o){switch(e.charCodeAt(1)){case 66:case 98:i=2,r=49;break;case 79:case 111:i=8,r=55;break;default:return+e}for(var s,a=e.slice(2),l=0,c=a.length;l<c;l++)if((s=a.charCodeAt(l))<48||s>r)return NaN;return parseInt(a,i)}}return+e};if(!h(" 0o1")||!h("0b1")||h("+0x1")){h=function(t){var e=arguments.length<1?0:t,n=this;return n instanceof h&&(g?a(function(){v.valueOf.call(n)}):"Number"!=o(n))?s(new d(m(e)),n,h):m(e)};for(var b,_=n(4)?l(d):"MAX_VALUE,MIN_VALUE,NaN,NEGATIVE_INFINITY,POSITIVE_INFINITY,EPSILON,isFinite,isInteger,isNaN,isSafeInteger,MAX_SAFE_INTEGER,MIN_SAFE_INTEGER,parseFloat,parseInt,isInteger".split(","),x=0;_.length>x;x++)r(d,b=_[x])&&!r(h,b)&&f(h,b,c(d,b));h.prototype=v,v.constructor=h,n(6)(i,"Number",h)}},function(t,e,n){"use strict";function i(t){return 0!==t&&(!(!Array.isArray(t)||0!==t.length)||!t)}function r(t){return function(){return!t.apply(void 0,arguments)}}function o(t,e){return void 0===t&&(t="undefined"),null===t&&(t="null"),!1===t&&(t="false"),-1!==t.toString().toLowerCase().indexOf(e.trim())}function s(t,e,n,i){return t.filter(function(t){return o(i(t,n),e)})}function u(t){return t.filter(function(t){return!t.$isLabel})}function a(t,e){return function(n){return n.reduce(function(n,i){return i[t]&&i[t].length?(n.push({$groupLabel:i[e],$isLabel:!0}),n.concat(i[t])):n},[])}}function l(t,e,i,r,o){return function(u){return u.map(function(u){var a;if(!u[i])return console.warn("Options passed to vue-multiselect do not contain groups, despite the config."),[];var l=s(u[i],t,e,o);return l.length?(a={},n.i(d.a)(a,r,u[r]),n.i(d.a)(a,i,l),a):[]})}}var c=n(59),f=n(54),p=(n.n(f),n(95)),h=(n.n(p),n(31)),d=(n.n(h),n(58)),v=n(91),g=(n.n(v),n(98)),y=(n.n(g),n(92)),m=(n.n(y),n(88)),b=(n.n(m),n(97)),_=(n.n(b),n(89)),x=(n.n(_),n(96)),w=(n.n(x),n(93)),S=(n.n(w),n(90)),O=(n.n(S),function(){for(var t=arguments.length,e=new Array(t),n=0;n<t;n++)e[n]=arguments[n];return function(t){return e.reduce(function(t,e){return e(t)},t)}});e.a={data:function(){return{search:"",isOpen:!1,preferredOpenDirection:"below",optimizedHeight:this.maxHeight}},props:{internalSearch:{type:Boolean,default:!0},options:{type:Array,required:!0},multiple:{type:Boolean,default:!1},value:{type:null,default:function(){return[]}},trackBy:{type:String},label:{type:String},searchable:{type:Boolean,default:!0},clearOnSelect:{type:Boolean,default:!0},hideSelected:{type:Boolean,default:!1},placeholder:{type:String,default:"Select option"},allowEmpty:{type:Boolean,default:!0},resetAfter:{type:Boolean,default:!1},closeOnSelect:{type:Boolean,default:!0},customLabel:{type:Function,default:function(t,e){return i(t)?"":e?t[e]:t}},taggable:{type:Boolean,default:!1},tagPlaceholder:{type:String,default:"Press enter to create a tag"},tagPosition:{type:String,default:"top"},max:{type:[Number,Boolean],default:!1},id:{default:null},optionsLimit:{type:Number,default:1e3},groupValues:{type:String},groupLabel:{type:String},groupSelect:{type:Boolean,default:!1},blockKeys:{type:Array,default:function(){return[]}},preserveSearch:{type:Boolean,default:!1},preselectFirst:{type:Boolean,default:!1}},mounted:function(){!this.multiple&&this.max&&console.warn("[Vue-Multiselect warn]: Max prop should not be used when prop Multiple equals false."),this.preselectFirst&&!this.internalValue.length&&this.options.length&&this.select(this.filteredOptions[0])},computed:{internalValue:function(){return this.value||0===this.value?Array.isArray(this.value)?this.value:[this.value]:[]},filteredOptions:function(){var t=this.search||"",e=t.toLowerCase().trim(),n=this.options.concat();return n=this.internalSearch?this.groupValues?this.filterAndFlat(n,e,this.label):s(n,e,this.label,this.customLabel):this.groupValues?a(this.groupValues,this.groupLabel)(n):n,n=this.hideSelected?n.filter(r(this.isSelected)):n,this.taggable&&e.length&&!this.isExistingOption(e)&&("bottom"===this.tagPosition?n.push({isTag:!0,label:t}):n.unshift({isTag:!0,label:t})),n.slice(0,this.optionsLimit)},valueKeys:function(){var t=this;return this.trackBy?this.internalValue.map(function(e){return e[t.trackBy]}):this.internalValue},optionKeys:function(){var t=this;return(this.groupValues?this.flatAndStrip(this.options):this.options).map(function(e){return t.customLabel(e,t.label).toString().toLowerCase()})},currentOptionLabel:function(){return this.multiple?this.searchable?"":this.placeholder:this.internalValue.length?this.getOptionLabel(this.internalValue[0]):this.searchable?"":this.placeholder}},watch:{internalValue:function(){this.resetAfter&&this.internalValue.length&&(this.search="",this.$emit("input",this.multiple?[]:null))},search:function(){this.$emit("search-change",this.search,this.id)}},methods:{getValue:function(){return this.multiple?this.internalValue:0===this.internalValue.length?null:this.internalValue[0]},filterAndFlat:function(t,e,n){return O(l(e,n,this.groupValues,this.groupLabel,this.customLabel),a(this.groupValues,this.groupLabel))(t)},flatAndStrip:function(t){return O(a(this.groupValues,this.groupLabel),u)(t)},updateSearch:function(t){this.search=t},isExistingOption:function(t){return!!this.options&&this.optionKeys.indexOf(t)>-1},isSelected:function(t){var e=this.trackBy?t[this.trackBy]:t;return this.valueKeys.indexOf(e)>-1},isOptionDisabled:function(t){return!!t.$isDisabled},getOptionLabel:function(t){if(i(t))return"";if(t.isTag)return t.label;if(t.$isLabel)return t.$groupLabel;var e=this.customLabel(t,this.label);return i(e)?"":e},select:function(t,e){if(t.$isLabel&&this.groupSelect)return void this.selectGroup(t);if(!(-1!==this.blockKeys.indexOf(e)||this.disabled||t.$isDisabled||t.$isLabel)&&(!this.max||!this.multiple||this.internalValue.length!==this.max)&&("Tab"!==e||this.pointerDirty)){if(t.isTag)this.$emit("tag",t.label,this.id),this.search="",this.closeOnSelect&&!this.multiple&&this.deactivate();else{if(this.isSelected(t))return void("Tab"!==e&&this.removeElement(t));this.$emit("select",t,this.id),this.multiple?this.$emit("input",this.internalValue.concat([t]),this.id):this.$emit("input",t,this.id),this.clearOnSelect&&(this.search="")}this.closeOnSelect&&this.deactivate()}},selectGroup:function(t){var e=this,n=this.options.find(function(n){return n[e.groupLabel]===t.$groupLabel});if(n)if(this.wholeGroupSelected(n)){this.$emit("remove",n[this.groupValues],this.id);var i=this.internalValue.filter(function(t){return-1===n[e.groupValues].indexOf(t)});this.$emit("input",i,this.id)}else{var r=n[this.groupValues].filter(function(t){return!(e.isOptionDisabled(t)||e.isSelected(t))});this.$emit("select",r,this.id),this.$emit("input",this.internalValue.concat(r),this.id)}},wholeGroupSelected:function(t){var e=this;return t[this.groupValues].every(function(t){return e.isSelected(t)||e.isOptionDisabled(t)})},wholeGroupDisabled:function(t){return t[this.groupValues].every(this.isOptionDisabled)},removeElement:function(t){var e=!(arguments.length>1&&void 0!==arguments[1])||arguments[1];if(!this.disabled&&!t.$isDisabled){if(!this.allowEmpty&&this.internalValue.length<=1)return void this.deactivate();var i="object"===n.i(c.a)(t)?this.valueKeys.indexOf(t[this.trackBy]):this.valueKeys.indexOf(t);if(this.$emit("remove",t,this.id),this.multiple){var r=this.internalValue.slice(0,i).concat(this.internalValue.slice(i+1));this.$emit("input",r,this.id)}else this.$emit("input",null,this.id);this.closeOnSelect&&e&&this.deactivate()}},removeLastElement:function(){-1===this.blockKeys.indexOf("Delete")&&0===this.search.length&&Array.isArray(this.internalValue)&&this.internalValue.length&&this.removeElement(this.internalValue[this.internalValue.length-1],!1)},activate:function(){var t=this;this.isOpen||this.disabled||(this.adjustPosition(),this.groupValues&&0===this.pointer&&this.filteredOptions.length&&(this.pointer=1),this.isOpen=!0,this.searchable?(this.preserveSearch||(this.search=""),this.$nextTick(function(){return t.$refs.search.focus()})):this.$el.focus(),this.$emit("open",this.id))},deactivate:function(){this.isOpen&&(this.isOpen=!1,this.searchable?this.$refs.search.blur():this.$el.blur(),this.preserveSearch||(this.search=""),this.$emit("close",this.getValue(),this.id))},toggle:function(){this.isOpen?this.deactivate():this.activate()},adjustPosition:function(){if("undefined"!=typeof window){var t=this.$el.getBoundingClientRect().top,e=window.innerHeight-this.$el.getBoundingClientRect().bottom;e>this.maxHeight||e>t||"below"===this.openDirection||"bottom"===this.openDirection?(this.preferredOpenDirection="below",this.optimizedHeight=Math.min(e-40,this.maxHeight)):(this.preferredOpenDirection="above",this.optimizedHeight=Math.min(t-40,this.maxHeight))}}}}},function(t,e,n){"use strict";var i=n(54),r=(n.n(i),n(31));n.n(r);e.a={data:function(){return{pointer:0,pointerDirty:!1}},props:{showPointer:{type:Boolean,default:!0},optionHeight:{type:Number,default:40}},computed:{pointerPosition:function(){return this.pointer*this.optionHeight},visibleElements:function(){return this.optimizedHeight/this.optionHeight}},watch:{filteredOptions:function(){this.pointerAdjust()},isOpen:function(){this.pointerDirty=!1}},methods:{optionHighlight:function(t,e){return{"multiselect__option--highlight":t===this.pointer&&this.showPointer,"multiselect__option--selected":this.isSelected(e)}},groupHighlight:function(t,e){var n=this;if(!this.groupSelect)return["multiselect__option--group","multiselect__option--disabled"];var i=this.options.find(function(t){return t[n.groupLabel]===e.$groupLabel});return i&&!this.wholeGroupDisabled(i)?["multiselect__option--group",{"multiselect__option--highlight":t===this.pointer&&this.showPointer},{"multiselect__option--group-selected":this.wholeGroupSelected(i)}]:"multiselect__option--disabled"},addPointerElement:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"Enter",e=t.key;this.filteredOptions.length>0&&this.select(this.filteredOptions[this.pointer],e),this.pointerReset()},pointerForward:function(){this.pointer<this.filteredOptions.length-1&&(this.pointer++,this.$refs.list.scrollTop<=this.pointerPosition-(this.visibleElements-1)*this.optionHeight&&(this.$refs.list.scrollTop=this.pointerPosition-(this.visibleElements-1)*this.optionHeight),this.filteredOptions[this.pointer]&&this.filteredOptions[this.pointer].$isLabel&&!this.groupSelect&&this.pointerForward()),this.pointerDirty=!0},pointerBackward:function(){this.pointer>0?(this.pointer--,this.$refs.list.scrollTop>=this.pointerPosition&&(this.$refs.list.scrollTop=this.pointerPosition),this.filteredOptions[this.pointer]&&this.filteredOptions[this.pointer].$isLabel&&!this.groupSelect&&this.pointerBackward()):this.filteredOptions[this.pointer]&&this.filteredOptions[0].$isLabel&&!this.groupSelect&&this.pointerForward(),this.pointerDirty=!0},pointerReset:function(){this.closeOnSelect&&(this.pointer=0,this.$refs.list&&(this.$refs.list.scrollTop=0))},pointerAdjust:function(){this.pointer>=this.filteredOptions.length-1&&(this.pointer=this.filteredOptions.length?this.filteredOptions.length-1:0),this.filteredOptions.length>0&&this.filteredOptions[this.pointer].$isLabel&&!this.groupSelect&&this.pointerForward()},pointerSet:function(t){this.pointer=t,this.pointerDirty=!0}}}},function(t,e,n){"use strict";var i=n(36),r=n(74),o=n(15),s=n(18);t.exports=n(72)(Array,"Array",function(t,e){this._t=s(t),this._i=0,this._k=e},function(){var t=this._t,e=this._k,n=this._i++;return!t||n>=t.length?(this._t=void 0,r(1)):"keys"==e?r(0,n):"values"==e?r(0,t[n]):r(0,[n,t[n]])},"values"),o.Arguments=o.Array,i("keys"),i("values"),i("entries")},function(t,e,n){"use strict";var i=n(31),r=(n.n(i),n(32)),o=n(33);e.a={name:"vue-multiselect",mixins:[r.a,o.a],props:{name:{type:String,default:""},selectLabel:{type:String,default:"Press enter to select"},selectGroupLabel:{type:String,default:"Press enter to select group"},selectedLabel:{type:String,default:"Selected"},deselectLabel:{type:String,default:"Press enter to remove"},deselectGroupLabel:{type:String,default:"Press enter to deselect group"},showLabels:{type:Boolean,default:!0},limit:{type:Number,default:99999},maxHeight:{type:Number,default:300},limitText:{type:Function,default:function(t){return"and ".concat(t," more")}},loading:{type:Boolean,default:!1},disabled:{type:Boolean,default:!1},openDirection:{type:String,default:""},showNoOptions:{type:Boolean,default:!0},showNoResults:{type:Boolean,default:!0},tabindex:{type:Number,default:0}},computed:{isSingleLabelVisible:function(){return(this.singleValue||0===this.singleValue)&&(!this.isOpen||!this.searchable)&&!this.visibleValues.length},isPlaceholderVisible:function(){return!(this.internalValue.length||this.searchable&&this.isOpen)},visibleValues:function(){return this.multiple?this.internalValue.slice(0,this.limit):[]},singleValue:function(){return this.internalValue[0]},deselectLabelText:function(){return this.showLabels?this.deselectLabel:""},deselectGroupLabelText:function(){return this.showLabels?this.deselectGroupLabel:""},selectLabelText:function(){return this.showLabels?this.selectLabel:""},selectGroupLabelText:function(){return this.showLabels?this.selectGroupLabel:""},selectedLabelText:function(){return this.showLabels?this.selectedLabel:""},inputStyle:function(){if(this.searchable||this.multiple&&this.value&&this.value.length)return this.isOpen?{width:"100%"}:{width:"0",position:"absolute",padding:"0"}},contentStyle:function(){return this.options.length?{display:"inline-block"}:{display:"block"}},isAbove:function(){return"above"===this.openDirection||"top"===this.openDirection||"below"!==this.openDirection&&"bottom"!==this.openDirection&&"above"===this.preferredOpenDirection},showSearchInput:function(){return this.searchable&&(!this.hasSingleSelectedSlot||!this.visibleSingleValue&&0!==this.visibleSingleValue||this.isOpen)}}}},function(t,e,n){var i=n(1)("unscopables"),r=Array.prototype;void 0==r[i]&&n(8)(r,i,{}),t.exports=function(t){r[i][t]=!0}},function(t,e,n){var i=n(18),r=n(19),o=n(85);t.exports=function(t){return function(e,n,s){var u,a=i(e),l=r(a.length),c=o(s,l);if(t&&n!=n){for(;l>c;)if((u=a[c++])!=u)return!0}else for(;l>c;c++)if((t||c in a)&&a[c]===n)return t||c||0;return!t&&-1}}},function(t,e,n){var i=n(9),r=n(1)("toStringTag"),o="Arguments"==i(function(){return arguments}()),s=function(t,e){try{return t[e]}catch(t){}};t.exports=function(t){var e,n,u;return void 0===t?"Undefined":null===t?"Null":"string"==typeof(n=s(e=Object(t),r))?n:o?i(e):"Object"==(u=i(e))&&"function"==typeof e.callee?"Arguments":u}},function(t,e,n){"use strict";var i=n(2);t.exports=function(){var t=i(this),e="";return t.global&&(e+="g"),t.ignoreCase&&(e+="i"),t.multiline&&(e+="m"),t.unicode&&(e+="u"),t.sticky&&(e+="y"),e}},function(t,e,n){var i=n(0).document;t.exports=i&&i.documentElement},function(t,e,n){t.exports=!n(4)&&!n(7)(function(){return 7!=Object.defineProperty(n(21)("div"),"a",{get:function(){return 7}}).a})},function(t,e,n){var i=n(9);t.exports=Array.isArray||function(t){return"Array"==i(t)}},function(t,e,n){"use strict";function i(t){var e,n;this.promise=new t(function(t,i){if(void 0!==e||void 0!==n)throw TypeError("Bad Promise constructor");e=t,n=i}),this.resolve=r(e),this.reject=r(n)}var r=n(14);t.exports.f=function(t){return new i(t)}},function(t,e,n){var i=n(2),r=n(76),o=n(22),s=n(27)("IE_PROTO"),u=function(){},a=function(){var t,e=n(21)("iframe"),i=o.length;for(e.style.display="none",n(40).appendChild(e),e.src="javascript:",t=e.contentWindow.document,t.open(),t.write("<script>document.F=Object<\/script>"),t.close(),a=t.F;i--;)delete a.prototype[o[i]];return a()};t.exports=Object.create||function(t,e){var n;return null!==t?(u.prototype=i(t),n=new u,u.prototype=null,n[s]=t):n=a(),void 0===e?n:r(n,e)}},function(t,e,n){var i=n(79),r=n(25),o=n(18),s=n(29),u=n(12),a=n(41),l=Object.getOwnPropertyDescriptor;e.f=n(4)?l:function(t,e){if(t=o(t),e=s(e,!0),a)try{return l(t,e)}catch(t){}if(u(t,e))return r(!i.f.call(t,e),t[e])}},function(t,e,n){var i=n(12),r=n(18),o=n(37)(!1),s=n(27)("IE_PROTO");t.exports=function(t,e){var n,u=r(t),a=0,l=[];for(n in u)n!=s&&i(u,n)&&l.push(n);for(;e.length>a;)i(u,n=e[a++])&&(~o(l,n)||l.push(n));return l}},function(t,e,n){var i=n(46),r=n(22);t.exports=Object.keys||function(t){return i(t,r)}},function(t,e,n){var i=n(2),r=n(5),o=n(43);t.exports=function(t,e){if(i(t),r(e)&&e.constructor===t)return e;var n=o.f(t);return(0,n.resolve)(e),n.promise}},function(t,e,n){var i=n(10),r=n(0),o=r["__core-js_shared__"]||(r["__core-js_shared__"]={});(t.exports=function(t,e){return o[t]||(o[t]=void 0!==e?e:{})})("versions",[]).push({version:i.version,mode:n(24)?"pure":"global",copyright:"© 2018 Denis Pushkarev (zloirock.ru)"})},function(t,e,n){var i=n(2),r=n(14),o=n(1)("species");t.exports=function(t,e){var n,s=i(t).constructor;return void 0===s||void 0==(n=i(s)[o])?e:r(n)}},function(t,e,n){var i=n(3),r=n(16),o=n(7),s=n(84),u="["+s+"]",a="​",l=RegExp("^"+u+u+"*"),c=RegExp(u+u+"*$"),f=function(t,e,n){var r={},u=o(function(){return!!s[t]()||a[t]()!=a}),l=r[t]=u?e(p):s[t];n&&(r[n]=l),i(i.P+i.F*u,"String",r)},p=f.trim=function(t,e){return t=String(r(t)),1&e&&(t=t.replace(l,"")),2&e&&(t=t.replace(c,"")),t};t.exports=f},function(t,e,n){var i,r,o,s=n(11),u=n(68),a=n(40),l=n(21),c=n(0),f=c.process,p=c.setImmediate,h=c.clearImmediate,d=c.MessageChannel,v=c.Dispatch,g=0,y={},m=function(){var t=+this;if(y.hasOwnProperty(t)){var e=y[t];delete y[t],e()}},b=function(t){m.call(t.data)};p&&h||(p=function(t){for(var e=[],n=1;arguments.length>n;)e.push(arguments[n++]);return y[++g]=function(){u("function"==typeof t?t:Function(t),e)},i(g),g},h=function(t){delete y[t]},"process"==n(9)(f)?i=function(t){f.nextTick(s(m,t,1))}:v&&v.now?i=function(t){v.now(s(m,t,1))}:d?(r=new d,o=r.port2,r.port1.onmessage=b,i=s(o.postMessage,o,1)):c.addEventListener&&"function"==typeof postMessage&&!c.importScripts?(i=function(t){c.postMessage(t+"","*")},c.addEventListener("message",b,!1)):i="onreadystatechange"in l("script")?function(t){a.appendChild(l("script")).onreadystatechange=function(){a.removeChild(this),m.call(t)}}:function(t){setTimeout(s(m,t,1),0)}),t.exports={set:p,clear:h}},function(t,e){var n=Math.ceil,i=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?i:n)(t)}},function(t,e,n){"use strict";var i=n(3),r=n(20)(5),o=!0;"find"in[]&&Array(1).find(function(){o=!1}),i(i.P+i.F*o,"Array",{find:function(t){return r(this,t,arguments.length>1?arguments[1]:void 0)}}),n(36)("find")},function(t,e,n){"use strict";var i,r,o,s,u=n(24),a=n(0),l=n(11),c=n(38),f=n(3),p=n(5),h=n(14),d=n(61),v=n(66),g=n(50),y=n(52).set,m=n(75)(),b=n(43),_=n(80),x=n(86),w=n(48),S=a.TypeError,O=a.process,L=O&&O.versions,k=L&&L.v8||"",P=a.Promise,T="process"==c(O),V=function(){},E=r=b.f,A=!!function(){try{var t=P.resolve(1),e=(t.constructor={})[n(1)("species")]=function(t){t(V,V)};return(T||"function"==typeof PromiseRejectionEvent)&&t.then(V)instanceof e&&0!==k.indexOf("6.6")&&-1===x.indexOf("Chrome/66")}catch(t){}}(),C=function(t){var e;return!(!p(t)||"function"!=typeof(e=t.then))&&e},D=function(t,e){if(!t._n){t._n=!0;var n=t._c;m(function(){for(var i=t._v,r=1==t._s,o=0;n.length>o;)!function(e){var n,o,s,u=r?e.ok:e.fail,a=e.resolve,l=e.reject,c=e.domain;try{u?(r||(2==t._h&&$(t),t._h=1),!0===u?n=i:(c&&c.enter(),n=u(i),c&&(c.exit(),s=!0)),n===e.promise?l(S("Promise-chain cycle")):(o=C(n))?o.call(n,a,l):a(n)):l(i)}catch(t){c&&!s&&c.exit(),l(t)}}(n[o++]);t._c=[],t._n=!1,e&&!t._h&&j(t)})}},j=function(t){y.call(a,function(){var e,n,i,r=t._v,o=N(t);if(o&&(e=_(function(){T?O.emit("unhandledRejection",r,t):(n=a.onunhandledrejection)?n({promise:t,reason:r}):(i=a.console)&&i.error&&i.error("Unhandled promise rejection",r)}),t._h=T||N(t)?2:1),t._a=void 0,o&&e.e)throw e.v})},N=function(t){return 1!==t._h&&0===(t._a||t._c).length},$=function(t){y.call(a,function(){var e;T?O.emit("rejectionHandled",t):(e=a.onrejectionhandled)&&e({promise:t,reason:t._v})})},F=function(t){var e=this;e._d||(e._d=!0,e=e._w||e,e._v=t,e._s=2,e._a||(e._a=e._c.slice()),D(e,!0))},M=function(t){var e,n=this;if(!n._d){n._d=!0,n=n._w||n;try{if(n===t)throw S("Promise can't be resolved itself");(e=C(t))?m(function(){var i={_w:n,_d:!1};try{e.call(t,l(M,i,1),l(F,i,1))}catch(t){F.call(i,t)}}):(n._v=t,n._s=1,D(n,!1))}catch(t){F.call({_w:n,_d:!1},t)}}};A||(P=function(t){d(this,P,"Promise","_h"),h(t),i.call(this);try{t(l(M,this,1),l(F,this,1))}catch(t){F.call(this,t)}},i=function(t){this._c=[],this._a=void 0,this._s=0,this._d=!1,this._v=void 0,this._h=0,this._n=!1},i.prototype=n(81)(P.prototype,{then:function(t,e){var n=E(g(this,P));return n.ok="function"!=typeof t||t,n.fail="function"==typeof e&&e,n.domain=T?O.domain:void 0,this._c.push(n),this._a&&this._a.push(n),this._s&&D(this,!1),n.promise},catch:function(t){return this.then(void 0,t)}}),o=function(){var t=new i;this.promise=t,this.resolve=l(M,t,1),this.reject=l(F,t,1)},b.f=E=function(t){return t===P||t===s?new o(t):r(t)}),f(f.G+f.W+f.F*!A,{Promise:P}),n(26)(P,"Promise"),n(83)("Promise"),s=n(10).Promise,f(f.S+f.F*!A,"Promise",{reject:function(t){var e=E(this);return(0,e.reject)(t),e.promise}}),f(f.S+f.F*(u||!A),"Promise",{resolve:function(t){return w(u&&this===s?P:this,t)}}),f(f.S+f.F*!(A&&n(73)(function(t){P.all(t).catch(V)})),"Promise",{all:function(t){var e=this,n=E(e),i=n.resolve,r=n.reject,o=_(function(){var n=[],o=0,s=1;v(t,!1,function(t){var u=o++,a=!1;n.push(void 0),s++,e.resolve(t).then(function(t){a||(a=!0,n[u]=t,--s||i(n))},r)}),--s||i(n)});return o.e&&r(o.v),n.promise},race:function(t){var e=this,n=E(e),i=n.reject,r=_(function(){v(t,!1,function(t){e.resolve(t).then(n.resolve,i)})});return r.e&&i(r.v),n.promise}})},function(t,e,n){"use strict";var i=n(3),r=n(10),o=n(0),s=n(50),u=n(48);i(i.P+i.R,"Promise",{finally:function(t){var e=s(this,r.Promise||o.Promise),n="function"==typeof t;return this.then(n?function(n){return u(e,t()).then(function(){return n})}:t,n?function(n){return u(e,t()).then(function(){throw n})}:t)}})},function(t,e,n){"use strict";function i(t){n(99)}var r=n(35),o=n(101),s=n(100),u=i,a=s(r.a,o.a,!1,u,null,null);e.a=a.exports},function(t,e,n){"use strict";function i(t,e,n){return e in t?Object.defineProperty(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[e]=n,t}e.a=i},function(t,e,n){"use strict";function i(t){return(i="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}function r(t){return(r="function"==typeof Symbol&&"symbol"===i(Symbol.iterator)?function(t){return i(t)}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":i(t)})(t)}e.a=r},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var i=n(34),r=(n.n(i),n(55)),o=(n.n(r),n(56)),s=(n.n(o),n(57)),u=n(32),a=n(33);n.d(e,"Multiselect",function(){return s.a}),n.d(e,"multiselectMixin",function(){return u.a}),n.d(e,"pointerMixin",function(){return a.a}),e.default=s.a},function(t,e){t.exports=function(t,e,n,i){if(!(t instanceof e)||void 0!==i&&i in t)throw TypeError(n+": incorrect invocation!");return t}},function(t,e,n){var i=n(14),r=n(28),o=n(23),s=n(19);t.exports=function(t,e,n,u,a){i(e);var l=r(t),c=o(l),f=s(l.length),p=a?f-1:0,h=a?-1:1;if(n<2)for(;;){if(p in c){u=c[p],p+=h;break}if(p+=h,a?p<0:f<=p)throw TypeError("Reduce of empty array with no initial value")}for(;a?p>=0:f>p;p+=h)p in c&&(u=e(u,c[p],p,l));return u}},function(t,e,n){var i=n(5),r=n(42),o=n(1)("species");t.exports=function(t){var e;return r(t)&&(e=t.constructor,"function"!=typeof e||e!==Array&&!r(e.prototype)||(e=void 0),i(e)&&null===(e=e[o])&&(e=void 0)),void 0===e?Array:e}},function(t,e,n){var i=n(63);t.exports=function(t,e){return new(i(t))(e)}},function(t,e,n){"use strict";var i=n(8),r=n(6),o=n(7),s=n(16),u=n(1);t.exports=function(t,e,n){var a=u(t),l=n(s,a,""[t]),c=l[0],f=l[1];o(function(){var e={};return e[a]=function(){return 7},7!=""[t](e)})&&(r(String.prototype,t,c),i(RegExp.prototype,a,2==e?function(t,e){return f.call(t,this,e)}:function(t){return f.call(t,this)}))}},function(t,e,n){var i=n(11),r=n(70),o=n(69),s=n(2),u=n(19),a=n(87),l={},c={},e=t.exports=function(t,e,n,f,p){var h,d,v,g,y=p?function(){return t}:a(t),m=i(n,f,e?2:1),b=0;if("function"!=typeof y)throw TypeError(t+" is not iterable!");if(o(y)){for(h=u(t.length);h>b;b++)if((g=e?m(s(d=t[b])[0],d[1]):m(t[b]))===l||g===c)return g}else for(v=y.call(t);!(d=v.next()).done;)if((g=r(v,m,d.value,e))===l||g===c)return g};e.BREAK=l,e.RETURN=c},function(t,e,n){var i=n(5),r=n(82).set;t.exports=function(t,e,n){var o,s=e.constructor;return s!==n&&"function"==typeof s&&(o=s.prototype)!==n.prototype&&i(o)&&r&&r(t,o),t}},function(t,e){t.exports=function(t,e,n){var i=void 0===n;switch(e.length){case 0:return i?t():t.call(n);case 1:return i?t(e[0]):t.call(n,e[0]);case 2:return i?t(e[0],e[1]):t.call(n,e[0],e[1]);case 3:return i?t(e[0],e[1],e[2]):t.call(n,e[0],e[1],e[2]);case 4:return i?t(e[0],e[1],e[2],e[3]):t.call(n,e[0],e[1],e[2],e[3])}return t.apply(n,e)}},function(t,e,n){var i=n(15),r=n(1)("iterator"),o=Array.prototype;t.exports=function(t){return void 0!==t&&(i.Array===t||o[r]===t)}},function(t,e,n){var i=n(2);t.exports=function(t,e,n,r){try{return r?e(i(n)[0],n[1]):e(n)}catch(e){var o=t.return;throw void 0!==o&&i(o.call(t)),e}}},function(t,e,n){"use strict";var i=n(44),r=n(25),o=n(26),s={};n(8)(s,n(1)("iterator"),function(){return this}),t.exports=function(t,e,n){t.prototype=i(s,{next:r(1,n)}),o(t,e+" Iterator")}},function(t,e,n){"use strict";var i=n(24),r=n(3),o=n(6),s=n(8),u=n(15),a=n(71),l=n(26),c=n(78),f=n(1)("iterator"),p=!([].keys&&"next"in[].keys()),h=function(){return this};t.exports=function(t,e,n,d,v,g,y){a(n,e,d);var m,b,_,x=function(t){if(!p&&t in L)return L[t];switch(t){case"keys":case"values":return function(){return new n(this,t)}}return function(){return new n(this,t)}},w=e+" Iterator",S="values"==v,O=!1,L=t.prototype,k=L[f]||L["@@iterator"]||v&&L[v],P=k||x(v),T=v?S?x("entries"):P:void 0,V="Array"==e?L.entries||k:k;if(V&&(_=c(V.call(new t)))!==Object.prototype&&_.next&&(l(_,w,!0),i||"function"==typeof _[f]||s(_,f,h)),S&&k&&"values"!==k.name&&(O=!0,P=function(){return k.call(this)}),i&&!y||!p&&!O&&L[f]||s(L,f,P),u[e]=P,u[w]=h,v)if(m={values:S?P:x("values"),keys:g?P:x("keys"),entries:T},y)for(b in m)b in L||o(L,b,m[b]);else r(r.P+r.F*(p||O),e,m);return m}},function(t,e,n){var i=n(1)("iterator"),r=!1;try{var o=[7][i]();o.return=function(){r=!0},Array.from(o,function(){throw 2})}catch(t){}t.exports=function(t,e){if(!e&&!r)return!1;var n=!1;try{var o=[7],s=o[i]();s.next=function(){return{done:n=!0}},o[i]=function(){return s},t(o)}catch(t){}return n}},function(t,e){t.exports=function(t,e){return{value:e,done:!!t}}},function(t,e,n){var i=n(0),r=n(52).set,o=i.MutationObserver||i.WebKitMutationObserver,s=i.process,u=i.Promise,a="process"==n(9)(s);t.exports=function(){var t,e,n,l=function(){var i,r;for(a&&(i=s.domain)&&i.exit();t;){r=t.fn,t=t.next;try{r()}catch(i){throw t?n():e=void 0,i}}e=void 0,i&&i.enter()};if(a)n=function(){s.nextTick(l)};else if(!o||i.navigator&&i.navigator.standalone)if(u&&u.resolve){var c=u.resolve(void 0);n=function(){c.then(l)}}else n=function(){r.call(i,l)};else{var f=!0,p=document.createTextNode("");new o(l).observe(p,{characterData:!0}),n=function(){p.data=f=!f}}return function(i){var r={fn:i,next:void 0};e&&(e.next=r),t||(t=r,n()),e=r}}},function(t,e,n){var i=n(13),r=n(2),o=n(47);t.exports=n(4)?Object.defineProperties:function(t,e){r(t);for(var n,s=o(e),u=s.length,a=0;u>a;)i.f(t,n=s[a++],e[n]);return t}},function(t,e,n){var i=n(46),r=n(22).concat("length","prototype");e.f=Object.getOwnPropertyNames||function(t){return i(t,r)}},function(t,e,n){var i=n(12),r=n(28),o=n(27)("IE_PROTO"),s=Object.prototype;t.exports=Object.getPrototypeOf||function(t){return t=r(t),i(t,o)?t[o]:"function"==typeof t.constructor&&t instanceof t.constructor?t.constructor.prototype:t instanceof Object?s:null}},function(t,e){e.f={}.propertyIsEnumerable},function(t,e){t.exports=function(t){try{return{e:!1,v:t()}}catch(t){return{e:!0,v:t}}}},function(t,e,n){var i=n(6);t.exports=function(t,e,n){for(var r in e)i(t,r,e[r],n);return t}},function(t,e,n){var i=n(5),r=n(2),o=function(t,e){if(r(t),!i(e)&&null!==e)throw TypeError(e+": can't set as prototype!")};t.exports={set:Object.setPrototypeOf||("__proto__"in{}?function(t,e,i){try{i=n(11)(Function.call,n(45).f(Object.prototype,"__proto__").set,2),i(t,[]),e=!(t instanceof Array)}catch(t){e=!0}return function(t,n){return o(t,n),e?t.__proto__=n:i(t,n),t}}({},!1):void 0),check:o}},function(t,e,n){"use strict";var i=n(0),r=n(13),o=n(4),s=n(1)("species");t.exports=function(t){var e=i[t];o&&e&&!e[s]&&r.f(e,s,{configurable:!0,get:function(){return this}})}},function(t,e){t.exports="\t\n\v\f\r   ᠎             　\u2028\u2029\ufeff"},function(t,e,n){var i=n(53),r=Math.max,o=Math.min;t.exports=function(t,e){return t=i(t),t<0?r(t+e,0):o(t,e)}},function(t,e,n){var i=n(0),r=i.navigator;t.exports=r&&r.userAgent||""},function(t,e,n){var i=n(38),r=n(1)("iterator"),o=n(15);t.exports=n(10).getIteratorMethod=function(t){if(void 0!=t)return t[r]||t["@@iterator"]||o[i(t)]}},function(t,e,n){"use strict";var i=n(3),r=n(20)(2);i(i.P+i.F*!n(17)([].filter,!0),"Array",{filter:function(t){return r(this,t,arguments[1])}})},function(t,e,n){"use strict";var i=n(3),r=n(37)(!1),o=[].indexOf,s=!!o&&1/[1].indexOf(1,-0)<0;i(i.P+i.F*(s||!n(17)(o)),"Array",{indexOf:function(t){return s?o.apply(this,arguments)||0:r(this,t,arguments[1])}})},function(t,e,n){var i=n(3);i(i.S,"Array",{isArray:n(42)})},function(t,e,n){"use strict";var i=n(3),r=n(20)(1);i(i.P+i.F*!n(17)([].map,!0),"Array",{map:function(t){return r(this,t,arguments[1])}})},function(t,e,n){"use strict";var i=n(3),r=n(62);i(i.P+i.F*!n(17)([].reduce,!0),"Array",{reduce:function(t){return r(this,t,arguments.length,arguments[1],!1)}})},function(t,e,n){var i=Date.prototype,r=i.toString,o=i.getTime;new Date(NaN)+""!="Invalid Date"&&n(6)(i,"toString",function(){var t=o.call(this);return t===t?r.call(this):"Invalid Date"})},function(t,e,n){n(4)&&"g"!=/./g.flags&&n(13).f(RegExp.prototype,"flags",{configurable:!0,get:n(39)})},function(t,e,n){n(65)("search",1,function(t,e,n){return[function(n){"use strict";var i=t(this),r=void 0==n?void 0:n[e];return void 0!==r?r.call(n,i):new RegExp(n)[e](String(i))},n]})},function(t,e,n){"use strict";n(94);var i=n(2),r=n(39),o=n(4),s=/./.toString,u=function(t){n(6)(RegExp.prototype,"toString",t,!0)};n(7)(function(){return"/a/b"!=s.call({source:"a",flags:"b"})})?u(function(){var t=i(this);return"/".concat(t.source,"/","flags"in t?t.flags:!o&&t instanceof RegExp?r.call(t):void 0)}):"toString"!=s.name&&u(function(){return s.call(this)})},function(t,e,n){"use strict";n(51)("trim",function(t){return function(){return t(this,3)}})},function(t,e,n){for(var i=n(34),r=n(47),o=n(6),s=n(0),u=n(8),a=n(15),l=n(1),c=l("iterator"),f=l("toStringTag"),p=a.Array,h={CSSRuleList:!0,CSSStyleDeclaration:!1,CSSValueList:!1,ClientRectList:!1,DOMRectList:!1,DOMStringList:!1,DOMTokenList:!0,DataTransferItemList:!1,FileList:!1,HTMLAllCollection:!1,HTMLCollection:!1,HTMLFormElement:!1,HTMLSelectElement:!1,MediaList:!0,MimeTypeArray:!1,NamedNodeMap:!1,NodeList:!0,PaintRequestList:!1,Plugin:!1,PluginArray:!1,SVGLengthList:!1,SVGNumberList:!1,SVGPathSegList:!1,SVGPointList:!1,SVGStringList:!1,SVGTransformList:!1,SourceBufferList:!1,StyleSheetList:!0,TextTrackCueList:!1,TextTrackList:!1,TouchList:!1},d=r(h),v=0;v<d.length;v++){var g,y=d[v],m=h[y],b=s[y],_=b&&b.prototype;if(_&&(_[c]||u(_,c,p),_[f]||u(_,f,y),a[y]=p,m))for(g in i)_[g]||o(_,g,i[g],!0)}},function(t,e){},function(t,e){t.exports=function(t,e,n,i,r,o){var s,u=t=t||{},a=typeof t.default;"object"!==a&&"function"!==a||(s=t,u=t.default);var l="function"==typeof u?u.options:u;e&&(l.render=e.render,l.staticRenderFns=e.staticRenderFns,l._compiled=!0),n&&(l.functional=!0),r&&(l._scopeId=r);var c;if(o?(c=function(t){t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext,t||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),i&&i.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(o)},l._ssrRegister=c):i&&(c=i),c){var f=l.functional,p=f?l.render:l.beforeCreate;f?(l._injectStyles=c,l.render=function(t,e){return c.call(e),p(t,e)}):l.beforeCreate=p?[].concat(p,c):[c]}return{esModule:s,exports:u,options:l}}},function(t,e,n){"use strict";var i=function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"multiselect",class:{"multiselect--active":t.isOpen,"multiselect--disabled":t.disabled,"multiselect--above":t.isAbove},attrs:{tabindex:t.searchable?-1:t.tabindex},on:{focus:function(e){t.activate()},blur:function(e){!t.searchable&&t.deactivate()},keydown:[function(e){return"button"in e||!t._k(e.keyCode,"down",40,e.key,["Down","ArrowDown"])?e.target!==e.currentTarget?null:(e.preventDefault(),void t.pointerForward()):null},function(e){return"button"in e||!t._k(e.keyCode,"up",38,e.key,["Up","ArrowUp"])?e.target!==e.currentTarget?null:(e.preventDefault(),void t.pointerBackward()):null}],keypress:function(e){return"button"in e||!t._k(e.keyCode,"enter",13,e.key,"Enter")||!t._k(e.keyCode,"tab",9,e.key,"Tab")?(e.stopPropagation(),e.target!==e.currentTarget?null:void t.addPointerElement(e)):null},keyup:function(e){if(!("button"in e)&&t._k(e.keyCode,"esc",27,e.key,"Escape"))return null;t.deactivate()}}},[t._t("caret",[n("div",{staticClass:"multiselect__select",on:{mousedown:function(e){e.preventDefault(),e.stopPropagation(),t.toggle()}}})],{toggle:t.toggle}),t._v(" "),t._t("clear",null,{search:t.search}),t._v(" "),n("div",{ref:"tags",staticClass:"multiselect__tags"},[t._t("selection",[n("div",{directives:[{name:"show",rawName:"v-show",value:t.visibleValues.length>0,expression:"visibleValues.length > 0"}],staticClass:"multiselect__tags-wrap"},[t._l(t.visibleValues,function(e,i){return[t._t("tag",[n("span",{key:i,staticClass:"multiselect__tag"},[n("span",{domProps:{textContent:t._s(t.getOptionLabel(e))}}),t._v(" "),n("i",{staticClass:"multiselect__tag-icon",attrs:{"aria-hidden":"true",tabindex:"1"},on:{keypress:function(n){if(!("button"in n)&&t._k(n.keyCode,"enter",13,n.key,"Enter"))return null;n.preventDefault(),t.removeElement(e)},mousedown:function(n){n.preventDefault(),t.removeElement(e)}}})])],{option:e,search:t.search,remove:t.removeElement})]})],2),t._v(" "),t.internalValue&&t.internalValue.length>t.limit?[t._t("limit",[n("strong",{staticClass:"multiselect__strong",domProps:{textContent:t._s(t.limitText(t.internalValue.length-t.limit))}})])]:t._e()],{search:t.search,remove:t.removeElement,values:t.visibleValues,isOpen:t.isOpen}),t._v(" "),n("transition",{attrs:{name:"multiselect__loading"}},[t._t("loading",[n("div",{directives:[{name:"show",rawName:"v-show",value:t.loading,expression:"loading"}],staticClass:"multiselect__spinner"})])],2),t._v(" "),t.searchable?n("input",{ref:"search",staticClass:"multiselect__input",style:t.inputStyle,attrs:{name:t.name,id:t.id,type:"text",autocomplete:"nope",placeholder:t.placeholder,disabled:t.disabled,tabindex:t.tabindex},domProps:{value:t.search},on:{input:function(e){t.updateSearch(e.target.value)},focus:function(e){e.preventDefault(),t.activate()},blur:function(e){e.preventDefault(),t.deactivate()},keyup:function(e){if(!("button"in e)&&t._k(e.keyCode,"esc",27,e.key,"Escape"))return null;t.deactivate()},keydown:[function(e){if(!("button"in e)&&t._k(e.keyCode,"down",40,e.key,["Down","ArrowDown"]))return null;e.preventDefault(),t.pointerForward()},function(e){if(!("button"in e)&&t._k(e.keyCode,"up",38,e.key,["Up","ArrowUp"]))return null;e.preventDefault(),t.pointerBackward()},function(e){if(!("button"in e)&&t._k(e.keyCode,"delete",[8,46],e.key,["Backspace","Delete"]))return null;e.stopPropagation(),t.removeLastElement()}],keypress:function(e){return"button"in e||!t._k(e.keyCode,"enter",13,e.key,"Enter")?(e.preventDefault(),e.stopPropagation(),e.target!==e.currentTarget?null:void t.addPointerElement(e)):null}}}):t._e(),t._v(" "),t.isSingleLabelVisible?n("span",{staticClass:"multiselect__single",on:{mousedown:function(e){return e.preventDefault(),t.toggle(e)}}},[t._t("singleLabel",[[t._v(t._s(t.currentOptionLabel))]],{option:t.singleValue})],2):t._e(),t._v(" "),t.isPlaceholderVisible?n("span",{staticClass:"multiselect__placeholder",on:{mousedown:function(e){return e.preventDefault(),t.toggle(e)}}},[t._t("placeholder",[t._v("\n          "+t._s(t.placeholder)+"\n        ")])],2):t._e()],2),t._v(" "),n("transition",{attrs:{name:"multiselect"}},[n("div",{directives:[{name:"show",rawName:"v-show",value:t.isOpen,expression:"isOpen"}],ref:"list",staticClass:"multiselect__content-wrapper",style:{maxHeight:t.optimizedHeight+"px"},attrs:{tabindex:"-1"},on:{focus:t.activate,mousedown:function(t){t.preventDefault()}}},[n("ul",{staticClass:"multiselect__content",style:t.contentStyle},[t._t("beforeList"),t._v(" "),t.multiple&&t.max===t.internalValue.length?n("li",[n("span",{staticClass:"multiselect__option"},[t._t("maxElements",[t._v("Maximum of "+t._s(t.max)+" options selected. First remove a selected option to select another.")])],2)]):t._e(),t._v(" "),!t.max||t.internalValue.length<t.max?t._l(t.filteredOptions,function(e,i){return n("li",{key:i,staticClass:"multiselect__element"},[e&&(e.$isLabel||e.$isDisabled)?t._e():n("span",{staticClass:"multiselect__option",class:t.optionHighlight(i,e),attrs:{"data-select":e&&e.isTag?t.tagPlaceholder:t.selectLabelText,"data-selected":t.selectedLabelText,"data-deselect":t.deselectLabelText},on:{click:function(n){n.stopPropagation(),t.select(e)},mouseenter:function(e){if(e.target!==e.currentTarget)return null;t.pointerSet(i)}}},[t._t("option",[n("span",[t._v(t._s(t.getOptionLabel(e)))])],{option:e,search:t.search})],2),t._v(" "),e&&(e.$isLabel||e.$isDisabled)?n("span",{staticClass:"multiselect__option",class:t.groupHighlight(i,e),attrs:{"data-select":t.groupSelect&&t.selectGroupLabelText,"data-deselect":t.groupSelect&&t.deselectGroupLabelText},on:{mouseenter:function(e){if(e.target!==e.currentTarget)return null;t.groupSelect&&t.pointerSet(i)},mousedown:function(n){n.preventDefault(),t.selectGroup(e)}}},[t._t("option",[n("span",[t._v(t._s(t.getOptionLabel(e)))])],{option:e,search:t.search})],2):t._e()])}):t._e(),t._v(" "),n("li",{directives:[{name:"show",rawName:"v-show",value:t.showNoResults&&0===t.filteredOptions.length&&t.search&&!t.loading,expression:"showNoResults && (filteredOptions.length === 0 && search && !loading)"}]},[n("span",{staticClass:"multiselect__option"},[t._t("noResult",[t._v("No elements found. Consider changing the search query.")],{search:t.search})],2)]),t._v(" "),n("li",{directives:[{name:"show",rawName:"v-show",value:t.showNoOptions&&0===t.options.length&&!t.search&&!t.loading,expression:"showNoOptions && (options.length === 0 && !search && !loading)"}]},[n("span",{staticClass:"multiselect__option"},[t._t("noOptions",[t._v("List is empty.")])],2)]),t._v(" "),t._t("afterList")],2)])])],2)},r=[],o={render:i,staticRenderFns:r};e.a=o}])});
+
+/***/ }),
+
+/***/ "9ed3":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var IteratorPrototype = __webpack_require__("ae93").IteratorPrototype;
+var create = __webpack_require__("7c73");
+var createPropertyDescriptor = __webpack_require__("5c6c");
+var setToStringTag = __webpack_require__("d44e");
+var Iterators = __webpack_require__("3f8c");
+
+var returnThis = function () { return this; };
+
+module.exports = function (IteratorConstructor, NAME, next) {
+  var TO_STRING_TAG = NAME + ' Iterator';
+  IteratorConstructor.prototype = create(IteratorPrototype, { next: createPropertyDescriptor(1, next) });
+  setToStringTag(IteratorConstructor, TO_STRING_TAG, false, true);
+  Iterators[TO_STRING_TAG] = returnThis;
+  return IteratorConstructor;
+};
+
+
+/***/ }),
+
+/***/ "a9e3":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var DESCRIPTORS = __webpack_require__("83ab");
+var global = __webpack_require__("da84");
+var isForced = __webpack_require__("94ca");
+var redefine = __webpack_require__("6eeb");
+var has = __webpack_require__("5135");
+var classof = __webpack_require__("c6b6");
+var inheritIfRequired = __webpack_require__("7156");
+var toPrimitive = __webpack_require__("c04e");
+var fails = __webpack_require__("d039");
+var create = __webpack_require__("7c73");
+var getOwnPropertyNames = __webpack_require__("241c").f;
+var getOwnPropertyDescriptor = __webpack_require__("06cf").f;
+var defineProperty = __webpack_require__("9bf2").f;
+var trim = __webpack_require__("58a8").trim;
+
+var NUMBER = 'Number';
+var NativeNumber = global[NUMBER];
+var NumberPrototype = NativeNumber.prototype;
+
+// Opera ~12 has broken Object#toString
+var BROKEN_CLASSOF = classof(create(NumberPrototype)) == NUMBER;
+
+// `ToNumber` abstract operation
+// https://tc39.es/ecma262/#sec-tonumber
+var toNumber = function (argument) {
+  var it = toPrimitive(argument, false);
+  var first, third, radix, maxCode, digits, length, index, code;
+  if (typeof it == 'string' && it.length > 2) {
+    it = trim(it);
+    first = it.charCodeAt(0);
+    if (first === 43 || first === 45) {
+      third = it.charCodeAt(2);
+      if (third === 88 || third === 120) return NaN; // Number('+0x1') should be NaN, old V8 fix
+    } else if (first === 48) {
+      switch (it.charCodeAt(1)) {
+        case 66: case 98: radix = 2; maxCode = 49; break; // fast equal of /^0b[01]+$/i
+        case 79: case 111: radix = 8; maxCode = 55; break; // fast equal of /^0o[0-7]+$/i
+        default: return +it;
+      }
+      digits = it.slice(2);
+      length = digits.length;
+      for (index = 0; index < length; index++) {
+        code = digits.charCodeAt(index);
+        // parseInt parses a string to a first unavailable symbol
+        // but ToNumber should return NaN if a string contains unavailable symbols
+        if (code < 48 || code > maxCode) return NaN;
+      } return parseInt(digits, radix);
+    }
+  } return +it;
+};
+
+// `Number` constructor
+// https://tc39.es/ecma262/#sec-number-constructor
+if (isForced(NUMBER, !NativeNumber(' 0o1') || !NativeNumber('0b1') || NativeNumber('+0x1'))) {
+  var NumberWrapper = function Number(value) {
+    var it = arguments.length < 1 ? 0 : value;
+    var dummy = this;
+    return dummy instanceof NumberWrapper
+      // check on 1..constructor(foo) case
+      && (BROKEN_CLASSOF ? fails(function () { NumberPrototype.valueOf.call(dummy); }) : classof(dummy) != NUMBER)
+        ? inheritIfRequired(new NativeNumber(toNumber(it)), dummy, NumberWrapper) : toNumber(it);
+  };
+  for (var keys = DESCRIPTORS ? getOwnPropertyNames(NativeNumber) : (
+    // ES3:
+    'MAX_VALUE,MIN_VALUE,NaN,NEGATIVE_INFINITY,POSITIVE_INFINITY,' +
+    // ES2015 (in case, if modules with ES2015 Number statics required before):
+    'EPSILON,isFinite,isInteger,isNaN,isSafeInteger,MAX_SAFE_INTEGER,' +
+    'MIN_SAFE_INTEGER,parseFloat,parseInt,isInteger,' +
+    // ESNext
+    'fromString,range'
+  ).split(','), j = 0, key; keys.length > j; j++) {
+    if (has(NativeNumber, key = keys[j]) && !has(NumberWrapper, key)) {
+      defineProperty(NumberWrapper, key, getOwnPropertyDescriptor(NativeNumber, key));
+    }
+  }
+  NumberWrapper.prototype = NumberPrototype;
+  NumberPrototype.constructor = NumberWrapper;
+  redefine(global, NUMBER, NumberWrapper);
+}
+
+
+/***/ }),
+
+/***/ "ae93":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var fails = __webpack_require__("d039");
+var getPrototypeOf = __webpack_require__("e163");
+var createNonEnumerableProperty = __webpack_require__("9112");
+var has = __webpack_require__("5135");
+var wellKnownSymbol = __webpack_require__("b622");
+var IS_PURE = __webpack_require__("c430");
+
+var ITERATOR = wellKnownSymbol('iterator');
+var BUGGY_SAFARI_ITERATORS = false;
+
+var returnThis = function () { return this; };
+
+// `%IteratorPrototype%` object
+// https://tc39.es/ecma262/#sec-%iteratorprototype%-object
+var IteratorPrototype, PrototypeOfArrayIteratorPrototype, arrayIterator;
+
+if ([].keys) {
+  arrayIterator = [].keys();
+  // Safari 8 has buggy iterators w/o `next`
+  if (!('next' in arrayIterator)) BUGGY_SAFARI_ITERATORS = true;
+  else {
+    PrototypeOfArrayIteratorPrototype = getPrototypeOf(getPrototypeOf(arrayIterator));
+    if (PrototypeOfArrayIteratorPrototype !== Object.prototype) IteratorPrototype = PrototypeOfArrayIteratorPrototype;
+  }
+}
+
+var NEW_ITERATOR_PROTOTYPE = IteratorPrototype == undefined || fails(function () {
+  var test = {};
+  // FF44- legacy iterators case
+  return IteratorPrototype[ITERATOR].call(test) !== test;
+});
+
+if (NEW_ITERATOR_PROTOTYPE) IteratorPrototype = {};
+
+// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
+if ((!IS_PURE || NEW_ITERATOR_PROTOTYPE) && !has(IteratorPrototype, ITERATOR)) {
+  createNonEnumerableProperty(IteratorPrototype, ITERATOR, returnThis);
+}
+
+module.exports = {
+  IteratorPrototype: IteratorPrototype,
+  BUGGY_SAFARI_ITERATORS: BUGGY_SAFARI_ITERATORS
+};
+
+
+/***/ }),
+
+/***/ "b680":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var toInteger = __webpack_require__("a691");
+var thisNumberValue = __webpack_require__("408a");
+var repeat = __webpack_require__("1148");
+var fails = __webpack_require__("d039");
+
+var nativeToFixed = 1.0.toFixed;
+var floor = Math.floor;
+
+var pow = function (x, n, acc) {
+  return n === 0 ? acc : n % 2 === 1 ? pow(x, n - 1, acc * x) : pow(x * x, n / 2, acc);
+};
+
+var log = function (x) {
+  var n = 0;
+  var x2 = x;
+  while (x2 >= 4096) {
+    n += 12;
+    x2 /= 4096;
+  }
+  while (x2 >= 2) {
+    n += 1;
+    x2 /= 2;
+  } return n;
+};
+
+var FORCED = nativeToFixed && (
+  0.00008.toFixed(3) !== '0.000' ||
+  0.9.toFixed(0) !== '1' ||
+  1.255.toFixed(2) !== '1.25' ||
+  1000000000000000128.0.toFixed(0) !== '1000000000000000128'
+) || !fails(function () {
+  // V8 ~ Android 4.3-
+  nativeToFixed.call({});
+});
+
+// `Number.prototype.toFixed` method
+// https://tc39.es/ecma262/#sec-number.prototype.tofixed
+$({ target: 'Number', proto: true, forced: FORCED }, {
+  // eslint-disable-next-line max-statements
+  toFixed: function toFixed(fractionDigits) {
+    var number = thisNumberValue(this);
+    var fractDigits = toInteger(fractionDigits);
+    var data = [0, 0, 0, 0, 0, 0];
+    var sign = '';
+    var result = '0';
+    var e, z, j, k;
+
+    var multiply = function (n, c) {
+      var index = -1;
+      var c2 = c;
+      while (++index < 6) {
+        c2 += n * data[index];
+        data[index] = c2 % 1e7;
+        c2 = floor(c2 / 1e7);
+      }
+    };
+
+    var divide = function (n) {
+      var index = 6;
+      var c = 0;
+      while (--index >= 0) {
+        c += data[index];
+        data[index] = floor(c / n);
+        c = (c % n) * 1e7;
+      }
+    };
+
+    var dataToString = function () {
+      var index = 6;
+      var s = '';
+      while (--index >= 0) {
+        if (s !== '' || index === 0 || data[index] !== 0) {
+          var t = String(data[index]);
+          s = s === '' ? t : s + repeat.call('0', 7 - t.length) + t;
+        }
+      } return s;
+    };
+
+    if (fractDigits < 0 || fractDigits > 20) throw RangeError('Incorrect fraction digits');
+    // eslint-disable-next-line no-self-compare
+    if (number != number) return 'NaN';
+    if (number <= -1e21 || number >= 1e21) return String(number);
+    if (number < 0) {
+      sign = '-';
+      number = -number;
+    }
+    if (number > 1e-21) {
+      e = log(number * pow(2, 69, 1)) - 69;
+      z = e < 0 ? number * pow(2, -e, 1) : number / pow(2, e, 1);
+      z *= 0x10000000000000;
+      e = 52 - e;
+      if (e > 0) {
+        multiply(0, z);
+        j = fractDigits;
+        while (j >= 7) {
+          multiply(1e7, 0);
+          j -= 7;
+        }
+        multiply(pow(10, j, 1), 0);
+        j = e - 1;
+        while (j >= 23) {
+          divide(1 << 23);
+          j -= 23;
+        }
+        divide(1 << j);
+        multiply(1, 1);
+        divide(2);
+        result = dataToString();
+      } else {
+        multiply(0, z);
+        multiply(1 << -e, 0);
+        result = dataToString() + repeat.call('0', fractDigits);
+      }
+    }
+    if (fractDigits > 0) {
+      k = result.length;
+      result = sign + (k <= fractDigits
+        ? '0.' + repeat.call('0', fractDigits - k) + result
+        : result.slice(0, k - fractDigits) + '.' + result.slice(k - fractDigits));
+    } else {
+      result = sign + result;
+    } return result;
+  }
+});
+
+
+/***/ }),
+
+/***/ "bee2":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ \"./node_modules/core-js/modules/es.array.for-each.js\");\n/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ \"./node_modules/core-js/modules/es.object.to-string.js\");\n/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.regexp.exec.js */ \"./node_modules/core-js/modules/es.regexp.exec.js\");\n/* harmony import */ var core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var core_js_modules_es_string_search_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.string.search.js */ \"./node_modules/core-js/modules/es.string.search.js\");\n/* harmony import */ var core_js_modules_es_string_search_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_search_js__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var core_js_modules_es_string_split_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.string.split.js */ \"./node_modules/core-js/modules/es.string.split.js\");\n/* harmony import */ var core_js_modules_es_string_split_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_split_js__WEBPACK_IMPORTED_MODULE_4__);\n/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ \"./node_modules/core-js/modules/web.dom-collections.for-each.js\");\n/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_5__);\n/* harmony import */ var wbuutilities__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! wbuutilities */ \"../wbuutilities/index.js\");\n\n\n\n\n\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  // baseUrl: \"http://gestion-tache-new.kksa\",\n  ModeDebug: true,\n  post: function post(request) {\n    var _this = this;\n\n    var datas = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};\n    return new Promise(function (resolv) {\n      var configs = {\n        headers: {}\n      };\n      wbuutilities__WEBPACK_IMPORTED_MODULE_6__[\"AjaxToastBootStrap\"].post(request + \"?\" + _this.GetQuery(), datas, configs).then(function (reponse) {\n        console.log(\"Config success : \", reponse);\n        resolv({\n          status: true,\n          data: reponse.data,\n          reponse: reponse\n        });\n      }).catch(function (error) {\n        resolv({\n          status: false,\n          error: error.response\n        });\n      });\n    });\n  },\n\n  /**\r\n   * @param datas Array\r\n   */\n  saveMetaFields: function saveMetaFields(datas) {\n    var namespace = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : \"wbu_creneaux\";\n    var endPoint = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : \"/admin/metafields.json\";\n    var metafields = [];\n    datas.forEach(function (item) {\n      metafields.push({\n        namespace: namespace,\n        key: item.key,\n        value: item.value,\n        value_type: item.value_type\n      });\n    });\n    this.post(\"/app/creneaux/shopify/request/SaveMetafields\", {\n      endPoint: endPoint,\n      metafields: metafields\n    });\n  },\n  get: function get(request) {\n    console.log(\"ssss\");\n    return new Promise(function (resolv) {\n      var configs = {\n        headers: {}\n      };\n      wbuutilities__WEBPACK_IMPORTED_MODULE_6__[\"AjaxToastBootStrap\"].get(request, configs).then(function (reponse) {\n        console.log(\"Config get success : \", reponse);\n        resolv({\n          status: true,\n          data: reponse.data,\n          reponse: reponse\n        });\n      }).catch(function (error) {\n        resolv({\n          status: false,\n          error: error.response\n        });\n      });\n    });\n  },\n  GetQuery: function GetQuery() {\n    var string = window.location.search;\n    var stringA = string.split(\"?\");\n\n    if (stringA[1]) {\n      return stringA[1];\n    } else {\n      return \"\";\n    }\n  },\n  SaveConfigsTest: function SaveConfigsTest(datas) {\n    return wbuutilities__WEBPACK_IMPORTED_MODULE_6__[\"AjaxToastBootStrap\"].post(\"/creneaux-shopify/test-config?\" + this.GetQuery(), datas);\n  }\n});\n\n//# sourceURL=webpack://AppAllCreneaux/./src/AppAdmin/configs/config.js?");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _createClass; });
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+/***/ }),
+
+/***/ "c8d2":
+/***/ (function(module, exports, __webpack_require__) {
+
+var fails = __webpack_require__("d039");
+var whitespaces = __webpack_require__("5899");
+
+var non = '\u200B\u0085\u180E';
+
+// check that a method works with the correct list
+// of whitespaces and has a correct name
+module.exports = function (METHOD_NAME) {
+  return fails(function () {
+    return !!whitespaces[METHOD_NAME]() || non[METHOD_NAME]() != non || whitespaces[METHOD_NAME].name !== METHOD_NAME;
+  });
+};
+
+
+/***/ }),
+
+/***/ "d2bb":
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__("825a");
+var aPossiblePrototype = __webpack_require__("3bbe");
+
+// `Object.setPrototypeOf` method
+// https://tc39.es/ecma262/#sec-object.setprototypeof
+// Works with __proto__ only. Old v8 can't work with null proto objects.
+/* eslint-disable no-proto */
+module.exports = Object.setPrototypeOf || ('__proto__' in {} ? function () {
+  var CORRECT_SETTER = false;
+  var test = {};
+  var setter;
+  try {
+    setter = Object.getOwnPropertyDescriptor(Object.prototype, '__proto__').set;
+    setter.call(test, []);
+    CORRECT_SETTER = test instanceof Array;
+  } catch (error) { /* empty */ }
+  return function setPrototypeOf(O, proto) {
+    anObject(O);
+    aPossiblePrototype(proto);
+    if (CORRECT_SETTER) setter.call(O, proto);
+    else O.__proto__ = proto;
+    return O;
+  };
+}() : undefined);
+
+
+/***/ }),
+
+/***/ "d4ec":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _classCallCheck; });
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+/***/ }),
+
+/***/ "d523":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "fb15");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "0026":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("bc35");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__("499e").default
+var update = add("496ca1c6", content, true, {"sourceMap":false,"shadowMode":false});
+
+/***/ }),
+
+/***/ "2350":
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+
+/***/ "2557":
+/***/ (function(module, exports) {
+
+module.exports = "\n<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\nviewBox=\"0 0 32 32\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n  <circle cx=\"16\" cy=\"3\" r=\"0\">\n    <animate attributeName=\"r\" values=\"0;3;0;0\" dur=\"1s\" repeatCount=\"indefinite\" begin=\"0\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8\" calcMode=\"spline\" />\n  </circle>\n  <circle transform=\"rotate(45 16 16)\" cx=\"16\" cy=\"3\" r=\"0\">\n    <animate attributeName=\"r\" values=\"0;3;0;0\" dur=\"1s\" repeatCount=\"indefinite\" begin=\"0.125s\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8\" calcMode=\"spline\" />\n  </circle>\n  <circle transform=\"rotate(90 16 16)\" cx=\"16\" cy=\"3\" r=\"0\">\n    <animate attributeName=\"r\" values=\"0;3;0;0\" dur=\"1s\" repeatCount=\"indefinite\" begin=\"0.25s\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8\" calcMode=\"spline\" />\n  </circle>\n  <circle transform=\"rotate(135 16 16)\" cx=\"16\" cy=\"3\" r=\"0\">\n    <animate attributeName=\"r\" values=\"0;3;0;0\" dur=\"1s\" repeatCount=\"indefinite\" begin=\"0.375s\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8\" calcMode=\"spline\" />\n  </circle>\n  <circle transform=\"rotate(180 16 16)\" cx=\"16\" cy=\"3\" r=\"0\">\n    <animate attributeName=\"r\" values=\"0;3;0;0\" dur=\"1s\" repeatCount=\"indefinite\" begin=\"0.5s\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8\" calcMode=\"spline\" />\n  </circle>\n  <circle transform=\"rotate(225 16 16)\" cx=\"16\" cy=\"3\" r=\"0\">\n    <animate attributeName=\"r\" values=\"0;3;0;0\" dur=\"1s\" repeatCount=\"indefinite\" begin=\"0.625s\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8\" calcMode=\"spline\" />\n  </circle>\n  <circle transform=\"rotate(270 16 16)\" cx=\"16\" cy=\"3\" r=\"0\">\n    <animate attributeName=\"r\" values=\"0;3;0;0\" dur=\"1s\" repeatCount=\"indefinite\" begin=\"0.75s\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8\" calcMode=\"spline\" />\n  </circle>\n  <circle transform=\"rotate(315 16 16)\" cx=\"16\" cy=\"3\" r=\"0\">\n    <animate attributeName=\"r\" values=\"0;3;0;0\" dur=\"1s\" repeatCount=\"indefinite\" begin=\"0.875s\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8\" calcMode=\"spline\" />\n  </circle>\n  <circle transform=\"rotate(180 16 16)\" cx=\"16\" cy=\"3\" r=\"0\">\n    <animate attributeName=\"r\" values=\"0;3;0;0\" dur=\"1s\" repeatCount=\"indefinite\" begin=\"0.5s\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8\" calcMode=\"spline\" />\n  </circle>\n</svg>"
+
+/***/ }),
+
+/***/ "30ed":
+/***/ (function(module, exports) {
+
+module.exports = "  <svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 50 50\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n  <path d=\"M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z\">\n    <animateTransform attributeType=\"xml\"\n      attributeName=\"transform\"\n      type=\"rotate\"\n      from=\"0 25 25\"\n      to=\"360 25 25\"\n      dur=\"0.6s\"\n      repeatCount=\"indefinite\"/>\n    </path>\n  </svg>"
+
+/***/ }),
+
+/***/ "4362":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports.nextTick = function nextTick(fn) {
+	setTimeout(fn, 0);
+};
+
+exports.platform = exports.arch = 
+exports.execPath = exports.title = 'browser';
+exports.pid = 1;
+exports.browser = true;
+exports.env = {};
+exports.argv = [];
+
+exports.binding = function (name) {
+	throw new Error('No such module. (Possibly not yet loaded)')
+};
+
+(function () {
+    var cwd = '/';
+    var path;
+    exports.cwd = function () { return cwd };
+    exports.chdir = function (dir) {
+        if (!path) path = __webpack_require__("df7c");
+        cwd = path.resolve(dir, cwd);
+    };
+})();
+
+exports.exit = exports.kill = 
+exports.umask = exports.dlopen = 
+exports.uptime = exports.memoryUsage = 
+exports.uvCounters = function() {};
+exports.features = {};
+
+
+/***/ }),
+
+/***/ "499e":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/vue-style-loader/lib/listToStyles.js
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
+
+// CONCATENATED MODULE: ./node_modules/vue-style-loader/lib/addStylesClient.js
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return addStylesClient; });
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+  Modified by Evan You @yyx990803
+*/
+
+
+
+var hasDocument = typeof document !== 'undefined'
+
+if (typeof DEBUG !== 'undefined' && DEBUG) {
+  if (!hasDocument) {
+    throw new Error(
+    'vue-style-loader cannot be used in a non-browser environment. ' +
+    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
+  ) }
+}
+
+/*
+type StyleObject = {
+  id: number;
+  parts: Array<StyleObjectPart>
+}
+
+type StyleObjectPart = {
+  css: string;
+  media: string;
+  sourceMap: ?string
+}
+*/
+
+var stylesInDom = {/*
+  [id: number]: {
+    id: number,
+    refs: number,
+    parts: Array<(obj?: StyleObjectPart) => void>
+  }
+*/}
+
+var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
+var singletonElement = null
+var singletonCounter = 0
+var isProduction = false
+var noop = function () {}
+var options = null
+var ssrIdKey = 'data-vue-ssr-id'
+
+// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+// tags it will allow on a page
+var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
+
+function addStylesClient (parentId, list, _isProduction, _options) {
+  isProduction = _isProduction
+
+  options = _options || {}
+
+  var styles = listToStyles(parentId, list)
+  addStylesToDom(styles)
+
+  return function update (newList) {
+    var mayRemove = []
+    for (var i = 0; i < styles.length; i++) {
+      var item = styles[i]
+      var domStyle = stylesInDom[item.id]
+      domStyle.refs--
+      mayRemove.push(domStyle)
+    }
+    if (newList) {
+      styles = listToStyles(parentId, newList)
+      addStylesToDom(styles)
+    } else {
+      styles = []
+    }
+    for (var i = 0; i < mayRemove.length; i++) {
+      var domStyle = mayRemove[i]
+      if (domStyle.refs === 0) {
+        for (var j = 0; j < domStyle.parts.length; j++) {
+          domStyle.parts[j]()
+        }
+        delete stylesInDom[domStyle.id]
+      }
+    }
+  }
+}
+
+function addStylesToDom (styles /* Array<StyleObject> */) {
+  for (var i = 0; i < styles.length; i++) {
+    var item = styles[i]
+    var domStyle = stylesInDom[item.id]
+    if (domStyle) {
+      domStyle.refs++
+      for (var j = 0; j < domStyle.parts.length; j++) {
+        domStyle.parts[j](item.parts[j])
+      }
+      for (; j < item.parts.length; j++) {
+        domStyle.parts.push(addStyle(item.parts[j]))
+      }
+      if (domStyle.parts.length > item.parts.length) {
+        domStyle.parts.length = item.parts.length
+      }
+    } else {
+      var parts = []
+      for (var j = 0; j < item.parts.length; j++) {
+        parts.push(addStyle(item.parts[j]))
+      }
+      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
+    }
+  }
+}
+
+function createStyleElement () {
+  var styleElement = document.createElement('style')
+  styleElement.type = 'text/css'
+  head.appendChild(styleElement)
+  return styleElement
+}
+
+function addStyle (obj /* StyleObjectPart */) {
+  var update, remove
+  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
+
+  if (styleElement) {
+    if (isProduction) {
+      // has SSR styles and in production mode.
+      // simply do nothing.
+      return noop
+    } else {
+      // has SSR styles but in dev mode.
+      // for some reason Chrome can't handle source map in server-rendered
+      // style tags - source maps in <style> only works if the style tag is
+      // created and inserted dynamically. So we remove the server rendered
+      // styles and inject new ones.
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  if (isOldIE) {
+    // use singleton mode for IE9.
+    var styleIndex = singletonCounter++
+    styleElement = singletonElement || (singletonElement = createStyleElement())
+    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
+    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
+  } else {
+    // use multi-style-tag mode in all other cases
+    styleElement = createStyleElement()
+    update = applyToTag.bind(null, styleElement)
+    remove = function () {
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  update(obj)
+
+  return function updateStyle (newObj /* StyleObjectPart */) {
+    if (newObj) {
+      if (newObj.css === obj.css &&
+          newObj.media === obj.media &&
+          newObj.sourceMap === obj.sourceMap) {
+        return
+      }
+      update(obj = newObj)
+    } else {
+      remove()
+    }
+  }
+}
+
+var replaceText = (function () {
+  var textStore = []
+
+  return function (index, replacement) {
+    textStore[index] = replacement
+    return textStore.filter(Boolean).join('\n')
+  }
+})()
+
+function applyToSingletonTag (styleElement, index, remove, obj) {
+  var css = remove ? '' : obj.css
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = replaceText(index, css)
+  } else {
+    var cssNode = document.createTextNode(css)
+    var childNodes = styleElement.childNodes
+    if (childNodes[index]) styleElement.removeChild(childNodes[index])
+    if (childNodes.length) {
+      styleElement.insertBefore(cssNode, childNodes[index])
+    } else {
+      styleElement.appendChild(cssNode)
+    }
+  }
+}
+
+function applyToTag (styleElement, obj) {
+  var css = obj.css
+  var media = obj.media
+  var sourceMap = obj.sourceMap
+
+  if (media) {
+    styleElement.setAttribute('media', media)
+  }
+  if (options.ssrId) {
+    styleElement.setAttribute(ssrIdKey, obj.id)
+  }
+
+  if (sourceMap) {
+    // https://developer.chrome.com/devtools/docs/javascript-debugging
+    // this makes source maps inside style tags work properly in Chrome
+    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
+    // http://stackoverflow.com/a/26603875
+    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
+  }
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = css
+  } else {
+    while (styleElement.firstChild) {
+      styleElement.removeChild(styleElement.firstChild)
+    }
+    styleElement.appendChild(document.createTextNode(css))
+  }
+}
+
+
+/***/ }),
+
+/***/ "5abc":
+/***/ (function(module, exports) {
+
+module.exports = "\n<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\nviewBox=\"0 0 30 30\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n  <circle transform=\"translate(8 0)\" cx=\"0\" cy=\"16\" r=\"0\"> \n    <animate attributeName=\"r\" values=\"0; 4; 0; 0\" dur=\"1.2s\" repeatCount=\"indefinite\" begin=\"0\"\n      keytimes=\"0;0.2;0.7;1\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8\" calcMode=\"spline\" />\n  </circle>\n  <circle transform=\"translate(16 0)\" cx=\"0\" cy=\"16\" r=\"0\"> \n    <animate attributeName=\"r\" values=\"0; 4; 0; 0\" dur=\"1.2s\" repeatCount=\"indefinite\" begin=\"0.3\"\n      keytimes=\"0;0.2;0.7;1\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8\" calcMode=\"spline\" />\n  </circle>\n  <circle transform=\"translate(24 0)\" cx=\"0\" cy=\"16\" r=\"0\"> \n    <animate attributeName=\"r\" values=\"0; 4; 0; 0\" dur=\"1.2s\" repeatCount=\"indefinite\" begin=\"0.6\"\n      keytimes=\"0;0.2;0.7;1\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8\" calcMode=\"spline\" />\n  </circle>\n</svg>\n\n"
+
+/***/ }),
+
+/***/ "65d9":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+  * vue-class-component v6.2.0
+  * (c) 2015-present Evan You
+  * @license MIT
+  */
+
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var Vue = _interopDefault(__webpack_require__("8bbf"));
+
+var hasProto = { __proto__: [] } instanceof Array;
+function createDecorator(factory) {
+    return function (target, key, index) {
+        var Ctor = typeof target === 'function'
+            ? target
+            : target.constructor;
+        if (!Ctor.__decorators__) {
+            Ctor.__decorators__ = [];
+        }
+        if (typeof index !== 'number') {
+            index = undefined;
+        }
+        Ctor.__decorators__.push(function (options) { return factory(options, key, index); });
+    };
+}
+function mixins() {
+    var Ctors = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        Ctors[_i] = arguments[_i];
+    }
+    return Vue.extend({ mixins: Ctors });
+}
+function isPrimitive(value) {
+    var type = typeof value;
+    return value == null || (type !== "object" && type !== "function");
+}
+function warn(message) {
+    if (typeof console !== 'undefined') {
+        console.warn('[vue-class-component] ' + message);
+    }
+}
+
+function collectDataFromConstructor(vm, Component) {
+    // override _init to prevent to init as Vue instance
+    var originalInit = Component.prototype._init;
+    Component.prototype._init = function () {
+        var _this = this;
+        // proxy to actual vm
+        var keys = Object.getOwnPropertyNames(vm);
+        // 2.2.0 compat (props are no longer exposed as self properties)
+        if (vm.$options.props) {
+            for (var key in vm.$options.props) {
+                if (!vm.hasOwnProperty(key)) {
+                    keys.push(key);
+                }
+            }
+        }
+        keys.forEach(function (key) {
+            if (key.charAt(0) !== '_') {
+                Object.defineProperty(_this, key, {
+                    get: function () { return vm[key]; },
+                    set: function (value) { return vm[key] = value; },
+                    configurable: true
+                });
+            }
+        });
+    };
+    // should be acquired class property values
+    var data = new Component();
+    // restore original _init to avoid memory leak (#209)
+    Component.prototype._init = originalInit;
+    // create plain data object
+    var plainData = {};
+    Object.keys(data).forEach(function (key) {
+        if (data[key] !== undefined) {
+            plainData[key] = data[key];
+        }
+    });
+    if (false) {}
+    return plainData;
+}
+
+var $internalHooks = [
+    'data',
+    'beforeCreate',
+    'created',
+    'beforeMount',
+    'mounted',
+    'beforeDestroy',
+    'destroyed',
+    'beforeUpdate',
+    'updated',
+    'activated',
+    'deactivated',
+    'render',
+    'errorCaptured' // 2.5
+];
+function componentFactory(Component, options) {
+    if (options === void 0) { options = {}; }
+    options.name = options.name || Component._componentTag || Component.name;
+    // prototype props.
+    var proto = Component.prototype;
+    Object.getOwnPropertyNames(proto).forEach(function (key) {
+        if (key === 'constructor') {
+            return;
+        }
+        // hooks
+        if ($internalHooks.indexOf(key) > -1) {
+            options[key] = proto[key];
+            return;
+        }
+        var descriptor = Object.getOwnPropertyDescriptor(proto, key);
+        if (typeof descriptor.value === 'function') {
+            // methods
+            (options.methods || (options.methods = {}))[key] = descriptor.value;
+        }
+        else if (descriptor.get || descriptor.set) {
+            // computed properties
+            (options.computed || (options.computed = {}))[key] = {
+                get: descriptor.get,
+                set: descriptor.set
+            };
+        }
+    });
+    (options.mixins || (options.mixins = [])).push({
+        data: function () {
+            return collectDataFromConstructor(this, Component);
+        }
+    });
+    // decorate options
+    var decorators = Component.__decorators__;
+    if (decorators) {
+        decorators.forEach(function (fn) { return fn(options); });
+        delete Component.__decorators__;
+    }
+    // find super
+    var superProto = Object.getPrototypeOf(Component.prototype);
+    var Super = superProto instanceof Vue
+        ? superProto.constructor
+        : Vue;
+    var Extended = Super.extend(options);
+    forwardStaticMembers(Extended, Component, Super);
+    return Extended;
+}
+var reservedPropertyNames = [
+    // Unique id
+    'cid',
+    // Super Vue constructor
+    'super',
+    // Component options that will be used by the component
+    'options',
+    'superOptions',
+    'extendOptions',
+    'sealedOptions',
+    // Private assets
+    'component',
+    'directive',
+    'filter'
+];
+function forwardStaticMembers(Extended, Original, Super) {
+    // We have to use getOwnPropertyNames since Babel registers methods as non-enumerable
+    Object.getOwnPropertyNames(Original).forEach(function (key) {
+        // `prototype` should not be overwritten
+        if (key === 'prototype') {
+            return;
+        }
+        // Some browsers does not allow reconfigure built-in properties
+        var extendedDescriptor = Object.getOwnPropertyDescriptor(Extended, key);
+        if (extendedDescriptor && !extendedDescriptor.configurable) {
+            return;
+        }
+        var descriptor = Object.getOwnPropertyDescriptor(Original, key);
+        // If the user agent does not support `__proto__` or its family (IE <= 10),
+        // the sub class properties may be inherited properties from the super class in TypeScript.
+        // We need to exclude such properties to prevent to overwrite
+        // the component options object which stored on the extended constructor (See #192).
+        // If the value is a referenced value (object or function),
+        // we can check equality of them and exclude it if they have the same reference.
+        // If it is a primitive value, it will be forwarded for safety.
+        if (!hasProto) {
+            // Only `cid` is explicitly exluded from property forwarding
+            // because we cannot detect whether it is a inherited property or not
+            // on the no `__proto__` environment even though the property is reserved.
+            if (key === 'cid') {
+                return;
+            }
+            var superDescriptor = Object.getOwnPropertyDescriptor(Super, key);
+            if (!isPrimitive(descriptor.value)
+                && superDescriptor
+                && superDescriptor.value === descriptor.value) {
+                return;
+            }
+        }
+        // Warn if the users manually declare reserved properties
+        if (false) {}
+        Object.defineProperty(Extended, key, descriptor);
+    });
+}
+
+function Component(options) {
+    if (typeof options === 'function') {
+        return componentFactory(options);
+    }
+    return function (Component) {
+        return componentFactory(Component, options);
+    };
+}
+(function (Component) {
+    function registerHooks(keys) {
+        $internalHooks.push.apply($internalHooks, keys);
+    }
+    Component.registerHooks = registerHooks;
+})(Component || (Component = {}));
+var Component$1 = Component;
+
+exports.default = Component$1;
+exports.createDecorator = createDecorator;
+exports.mixins = mixins;
+
+
+/***/ }),
+
+/***/ "8bbf":
+/***/ (function(module, exports) {
+
+module.exports = __webpack_require__("8bbf");
+
+/***/ }),
+
+/***/ "8d4d":
+/***/ (function(module, exports) {
+
+module.exports = "  <svg  xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" \n     width=\"24px\" height=\"30px\" viewBox=\"0 0 30 30\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n    <rect x=\"0\" y=\"0\" width=\"4\" height=\"20\" >\n      <animate attributeName=\"opacity\" attributeType=\"XML\"\n        values=\"1; .2; 1\" \n        begin=\"0s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\n    </rect>\n    <rect x=\"7\" y=\"0\" width=\"4\" height=\"20\" >\n      <animate attributeName=\"opacity\" attributeType=\"XML\"\n        values=\"1; .2; 1\" \n        begin=\"0.2s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\n    </rect>\n    <rect x=\"14\" y=\"0\" width=\"4\" height=\"20\" >\n      <animate attributeName=\"opacity\" attributeType=\"XML\"\n        values=\"1; .2; 1\" \n        begin=\"0.4s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\n    </rect>\n  </svg>"
+
+/***/ }),
+
+/***/ "8d87":
+/***/ (function(module, exports) {
+
+module.exports = "\n<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\nviewBox=\"0 0 30 30\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n  <rect x=\"0\" y=\"13\" width=\"4\" height=\"5\" >\n    <animate attributeName=\"height\" attributeType=\"XML\"\n      values=\"5;21;5\" \n      begin=\"0s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\n    <animate attributeName=\"y\" attributeType=\"XML\"\n      values=\"13; 5; 13\"\n      begin=\"0s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\n  </rect>\n  <rect x=\"10\" y=\"13\" width=\"4\" height=\"5\" >\n    <animate attributeName=\"height\" attributeType=\"XML\"\n      values=\"5;21;5\" \n      begin=\"0.15s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\n    <animate attributeName=\"y\" attributeType=\"XML\"\n      values=\"13; 5; 13\"\n      begin=\"0.15s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\n  </rect>\n  <rect x=\"20\" y=\"13\" width=\"4\" height=\"5\">\n    <animate attributeName=\"height\" attributeType=\"XML\"\n      values=\"5;21;5\" \n      begin=\"0.3s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\n    <animate attributeName=\"y\" attributeType=\"XML\"\n      values=\"13; 5; 13\"\n      begin=\"0.3s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\n  </rect>\n</svg>\n\n  "
+
+/***/ }),
+
+/***/ "98db":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process, global) {/*! *****************************************************************************
+Copyright (C) Microsoft. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+var Reflect;
+(function (Reflect) {
+    // Metadata Proposal
+    // https://rbuckton.github.io/reflect-metadata/
+    (function (factory) {
+        var root = typeof global === "object" ? global :
+            typeof self === "object" ? self :
+                typeof this === "object" ? this :
+                    Function("return this;")();
+        var exporter = makeExporter(Reflect);
+        if (typeof root.Reflect === "undefined") {
+            root.Reflect = Reflect;
+        }
+        else {
+            exporter = makeExporter(root.Reflect, exporter);
+        }
+        factory(exporter);
+        function makeExporter(target, previous) {
+            return function (key, value) {
+                if (typeof target[key] !== "function") {
+                    Object.defineProperty(target, key, { configurable: true, writable: true, value: value });
+                }
+                if (previous)
+                    previous(key, value);
+            };
+        }
+    })(function (exporter) {
+        var hasOwn = Object.prototype.hasOwnProperty;
+        // feature test for Symbol support
+        var supportsSymbol = typeof Symbol === "function";
+        var toPrimitiveSymbol = supportsSymbol && typeof Symbol.toPrimitive !== "undefined" ? Symbol.toPrimitive : "@@toPrimitive";
+        var iteratorSymbol = supportsSymbol && typeof Symbol.iterator !== "undefined" ? Symbol.iterator : "@@iterator";
+        var supportsCreate = typeof Object.create === "function"; // feature test for Object.create support
+        var supportsProto = { __proto__: [] } instanceof Array; // feature test for __proto__ support
+        var downLevel = !supportsCreate && !supportsProto;
+        var HashMap = {
+            // create an object in dictionary mode (a.k.a. "slow" mode in v8)
+            create: supportsCreate
+                ? function () { return MakeDictionary(Object.create(null)); }
+                : supportsProto
+                    ? function () { return MakeDictionary({ __proto__: null }); }
+                    : function () { return MakeDictionary({}); },
+            has: downLevel
+                ? function (map, key) { return hasOwn.call(map, key); }
+                : function (map, key) { return key in map; },
+            get: downLevel
+                ? function (map, key) { return hasOwn.call(map, key) ? map[key] : undefined; }
+                : function (map, key) { return map[key]; },
+        };
+        // Load global or shim versions of Map, Set, and WeakMap
+        var functionPrototype = Object.getPrototypeOf(Function);
+        var usePolyfill = typeof process === "object" && Object({"NODE_ENV":"production","BASE_URL":"/vue-loading/"}) && Object({"NODE_ENV":"production","BASE_URL":"/vue-loading/"})["REFLECT_METADATA_USE_MAP_POLYFILL"] === "true";
+        var _Map = !usePolyfill && typeof Map === "function" && typeof Map.prototype.entries === "function" ? Map : CreateMapPolyfill();
+        var _Set = !usePolyfill && typeof Set === "function" && typeof Set.prototype.entries === "function" ? Set : CreateSetPolyfill();
+        var _WeakMap = !usePolyfill && typeof WeakMap === "function" ? WeakMap : CreateWeakMapPolyfill();
+        // [[Metadata]] internal slot
+        // https://rbuckton.github.io/reflect-metadata/#ordinary-object-internal-methods-and-internal-slots
+        var Metadata = new _WeakMap();
+        /**
+         * Applies a set of decorators to a property of a target object.
+         * @param decorators An array of decorators.
+         * @param target The target object.
+         * @param propertyKey (Optional) The property key to decorate.
+         * @param attributes (Optional) The property descriptor for the target key.
+         * @remarks Decorators are applied in reverse order.
+         * @example
+         *
+         *     class Example {
+         *         // property declarations are not part of ES6, though they are valid in TypeScript:
+         *         // static staticProperty;
+         *         // property;
+         *
+         *         constructor(p) { }
+         *         static staticMethod(p) { }
+         *         method(p) { }
+         *     }
+         *
+         *     // constructor
+         *     Example = Reflect.decorate(decoratorsArray, Example);
+         *
+         *     // property (on constructor)
+         *     Reflect.decorate(decoratorsArray, Example, "staticProperty");
+         *
+         *     // property (on prototype)
+         *     Reflect.decorate(decoratorsArray, Example.prototype, "property");
+         *
+         *     // method (on constructor)
+         *     Object.defineProperty(Example, "staticMethod",
+         *         Reflect.decorate(decoratorsArray, Example, "staticMethod",
+         *             Object.getOwnPropertyDescriptor(Example, "staticMethod")));
+         *
+         *     // method (on prototype)
+         *     Object.defineProperty(Example.prototype, "method",
+         *         Reflect.decorate(decoratorsArray, Example.prototype, "method",
+         *             Object.getOwnPropertyDescriptor(Example.prototype, "method")));
+         *
+         */
+        function decorate(decorators, target, propertyKey, attributes) {
+            if (!IsUndefined(propertyKey)) {
+                if (!IsArray(decorators))
+                    throw new TypeError();
+                if (!IsObject(target))
+                    throw new TypeError();
+                if (!IsObject(attributes) && !IsUndefined(attributes) && !IsNull(attributes))
+                    throw new TypeError();
+                if (IsNull(attributes))
+                    attributes = undefined;
+                propertyKey = ToPropertyKey(propertyKey);
+                return DecorateProperty(decorators, target, propertyKey, attributes);
+            }
+            else {
+                if (!IsArray(decorators))
+                    throw new TypeError();
+                if (!IsConstructor(target))
+                    throw new TypeError();
+                return DecorateConstructor(decorators, target);
+            }
+        }
+        exporter("decorate", decorate);
+        // 4.1.2 Reflect.metadata(metadataKey, metadataValue)
+        // https://rbuckton.github.io/reflect-metadata/#reflect.metadata
+        /**
+         * A default metadata decorator factory that can be used on a class, class member, or parameter.
+         * @param metadataKey The key for the metadata entry.
+         * @param metadataValue The value for the metadata entry.
+         * @returns A decorator function.
+         * @remarks
+         * If `metadataKey` is already defined for the target and target key, the
+         * metadataValue for that key will be overwritten.
+         * @example
+         *
+         *     // constructor
+         *     @Reflect.metadata(key, value)
+         *     class Example {
+         *     }
+         *
+         *     // property (on constructor, TypeScript only)
+         *     class Example {
+         *         @Reflect.metadata(key, value)
+         *         static staticProperty;
+         *     }
+         *
+         *     // property (on prototype, TypeScript only)
+         *     class Example {
+         *         @Reflect.metadata(key, value)
+         *         property;
+         *     }
+         *
+         *     // method (on constructor)
+         *     class Example {
+         *         @Reflect.metadata(key, value)
+         *         static staticMethod() { }
+         *     }
+         *
+         *     // method (on prototype)
+         *     class Example {
+         *         @Reflect.metadata(key, value)
+         *         method() { }
+         *     }
+         *
+         */
+        function metadata(metadataKey, metadataValue) {
+            function decorator(target, propertyKey) {
+                if (!IsObject(target))
+                    throw new TypeError();
+                if (!IsUndefined(propertyKey) && !IsPropertyKey(propertyKey))
+                    throw new TypeError();
+                OrdinaryDefineOwnMetadata(metadataKey, metadataValue, target, propertyKey);
+            }
+            return decorator;
+        }
+        exporter("metadata", metadata);
+        /**
+         * Define a unique metadata entry on the target.
+         * @param metadataKey A key used to store and retrieve metadata.
+         * @param metadataValue A value that contains attached metadata.
+         * @param target The target object on which to define metadata.
+         * @param propertyKey (Optional) The property key for the target.
+         * @example
+         *
+         *     class Example {
+         *         // property declarations are not part of ES6, though they are valid in TypeScript:
+         *         // static staticProperty;
+         *         // property;
+         *
+         *         constructor(p) { }
+         *         static staticMethod(p) { }
+         *         method(p) { }
+         *     }
+         *
+         *     // constructor
+         *     Reflect.defineMetadata("custom:annotation", options, Example);
+         *
+         *     // property (on constructor)
+         *     Reflect.defineMetadata("custom:annotation", options, Example, "staticProperty");
+         *
+         *     // property (on prototype)
+         *     Reflect.defineMetadata("custom:annotation", options, Example.prototype, "property");
+         *
+         *     // method (on constructor)
+         *     Reflect.defineMetadata("custom:annotation", options, Example, "staticMethod");
+         *
+         *     // method (on prototype)
+         *     Reflect.defineMetadata("custom:annotation", options, Example.prototype, "method");
+         *
+         *     // decorator factory as metadata-producing annotation.
+         *     function MyAnnotation(options): Decorator {
+         *         return (target, key?) => Reflect.defineMetadata("custom:annotation", options, target, key);
+         *     }
+         *
+         */
+        function defineMetadata(metadataKey, metadataValue, target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey))
+                propertyKey = ToPropertyKey(propertyKey);
+            return OrdinaryDefineOwnMetadata(metadataKey, metadataValue, target, propertyKey);
+        }
+        exporter("defineMetadata", defineMetadata);
+        /**
+         * Gets a value indicating whether the target object or its prototype chain has the provided metadata key defined.
+         * @param metadataKey A key used to store and retrieve metadata.
+         * @param target The target object on which the metadata is defined.
+         * @param propertyKey (Optional) The property key for the target.
+         * @returns `true` if the metadata key was defined on the target object or its prototype chain; otherwise, `false`.
+         * @example
+         *
+         *     class Example {
+         *         // property declarations are not part of ES6, though they are valid in TypeScript:
+         *         // static staticProperty;
+         *         // property;
+         *
+         *         constructor(p) { }
+         *         static staticMethod(p) { }
+         *         method(p) { }
+         *     }
+         *
+         *     // constructor
+         *     result = Reflect.hasMetadata("custom:annotation", Example);
+         *
+         *     // property (on constructor)
+         *     result = Reflect.hasMetadata("custom:annotation", Example, "staticProperty");
+         *
+         *     // property (on prototype)
+         *     result = Reflect.hasMetadata("custom:annotation", Example.prototype, "property");
+         *
+         *     // method (on constructor)
+         *     result = Reflect.hasMetadata("custom:annotation", Example, "staticMethod");
+         *
+         *     // method (on prototype)
+         *     result = Reflect.hasMetadata("custom:annotation", Example.prototype, "method");
+         *
+         */
+        function hasMetadata(metadataKey, target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey))
+                propertyKey = ToPropertyKey(propertyKey);
+            return OrdinaryHasMetadata(metadataKey, target, propertyKey);
+        }
+        exporter("hasMetadata", hasMetadata);
+        /**
+         * Gets a value indicating whether the target object has the provided metadata key defined.
+         * @param metadataKey A key used to store and retrieve metadata.
+         * @param target The target object on which the metadata is defined.
+         * @param propertyKey (Optional) The property key for the target.
+         * @returns `true` if the metadata key was defined on the target object; otherwise, `false`.
+         * @example
+         *
+         *     class Example {
+         *         // property declarations are not part of ES6, though they are valid in TypeScript:
+         *         // static staticProperty;
+         *         // property;
+         *
+         *         constructor(p) { }
+         *         static staticMethod(p) { }
+         *         method(p) { }
+         *     }
+         *
+         *     // constructor
+         *     result = Reflect.hasOwnMetadata("custom:annotation", Example);
+         *
+         *     // property (on constructor)
+         *     result = Reflect.hasOwnMetadata("custom:annotation", Example, "staticProperty");
+         *
+         *     // property (on prototype)
+         *     result = Reflect.hasOwnMetadata("custom:annotation", Example.prototype, "property");
+         *
+         *     // method (on constructor)
+         *     result = Reflect.hasOwnMetadata("custom:annotation", Example, "staticMethod");
+         *
+         *     // method (on prototype)
+         *     result = Reflect.hasOwnMetadata("custom:annotation", Example.prototype, "method");
+         *
+         */
+        function hasOwnMetadata(metadataKey, target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey))
+                propertyKey = ToPropertyKey(propertyKey);
+            return OrdinaryHasOwnMetadata(metadataKey, target, propertyKey);
+        }
+        exporter("hasOwnMetadata", hasOwnMetadata);
+        /**
+         * Gets the metadata value for the provided metadata key on the target object or its prototype chain.
+         * @param metadataKey A key used to store and retrieve metadata.
+         * @param target The target object on which the metadata is defined.
+         * @param propertyKey (Optional) The property key for the target.
+         * @returns The metadata value for the metadata key if found; otherwise, `undefined`.
+         * @example
+         *
+         *     class Example {
+         *         // property declarations are not part of ES6, though they are valid in TypeScript:
+         *         // static staticProperty;
+         *         // property;
+         *
+         *         constructor(p) { }
+         *         static staticMethod(p) { }
+         *         method(p) { }
+         *     }
+         *
+         *     // constructor
+         *     result = Reflect.getMetadata("custom:annotation", Example);
+         *
+         *     // property (on constructor)
+         *     result = Reflect.getMetadata("custom:annotation", Example, "staticProperty");
+         *
+         *     // property (on prototype)
+         *     result = Reflect.getMetadata("custom:annotation", Example.prototype, "property");
+         *
+         *     // method (on constructor)
+         *     result = Reflect.getMetadata("custom:annotation", Example, "staticMethod");
+         *
+         *     // method (on prototype)
+         *     result = Reflect.getMetadata("custom:annotation", Example.prototype, "method");
+         *
+         */
+        function getMetadata(metadataKey, target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey))
+                propertyKey = ToPropertyKey(propertyKey);
+            return OrdinaryGetMetadata(metadataKey, target, propertyKey);
+        }
+        exporter("getMetadata", getMetadata);
+        /**
+         * Gets the metadata value for the provided metadata key on the target object.
+         * @param metadataKey A key used to store and retrieve metadata.
+         * @param target The target object on which the metadata is defined.
+         * @param propertyKey (Optional) The property key for the target.
+         * @returns The metadata value for the metadata key if found; otherwise, `undefined`.
+         * @example
+         *
+         *     class Example {
+         *         // property declarations are not part of ES6, though they are valid in TypeScript:
+         *         // static staticProperty;
+         *         // property;
+         *
+         *         constructor(p) { }
+         *         static staticMethod(p) { }
+         *         method(p) { }
+         *     }
+         *
+         *     // constructor
+         *     result = Reflect.getOwnMetadata("custom:annotation", Example);
+         *
+         *     // property (on constructor)
+         *     result = Reflect.getOwnMetadata("custom:annotation", Example, "staticProperty");
+         *
+         *     // property (on prototype)
+         *     result = Reflect.getOwnMetadata("custom:annotation", Example.prototype, "property");
+         *
+         *     // method (on constructor)
+         *     result = Reflect.getOwnMetadata("custom:annotation", Example, "staticMethod");
+         *
+         *     // method (on prototype)
+         *     result = Reflect.getOwnMetadata("custom:annotation", Example.prototype, "method");
+         *
+         */
+        function getOwnMetadata(metadataKey, target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey))
+                propertyKey = ToPropertyKey(propertyKey);
+            return OrdinaryGetOwnMetadata(metadataKey, target, propertyKey);
+        }
+        exporter("getOwnMetadata", getOwnMetadata);
+        /**
+         * Gets the metadata keys defined on the target object or its prototype chain.
+         * @param target The target object on which the metadata is defined.
+         * @param propertyKey (Optional) The property key for the target.
+         * @returns An array of unique metadata keys.
+         * @example
+         *
+         *     class Example {
+         *         // property declarations are not part of ES6, though they are valid in TypeScript:
+         *         // static staticProperty;
+         *         // property;
+         *
+         *         constructor(p) { }
+         *         static staticMethod(p) { }
+         *         method(p) { }
+         *     }
+         *
+         *     // constructor
+         *     result = Reflect.getMetadataKeys(Example);
+         *
+         *     // property (on constructor)
+         *     result = Reflect.getMetadataKeys(Example, "staticProperty");
+         *
+         *     // property (on prototype)
+         *     result = Reflect.getMetadataKeys(Example.prototype, "property");
+         *
+         *     // method (on constructor)
+         *     result = Reflect.getMetadataKeys(Example, "staticMethod");
+         *
+         *     // method (on prototype)
+         *     result = Reflect.getMetadataKeys(Example.prototype, "method");
+         *
+         */
+        function getMetadataKeys(target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey))
+                propertyKey = ToPropertyKey(propertyKey);
+            return OrdinaryMetadataKeys(target, propertyKey);
+        }
+        exporter("getMetadataKeys", getMetadataKeys);
+        /**
+         * Gets the unique metadata keys defined on the target object.
+         * @param target The target object on which the metadata is defined.
+         * @param propertyKey (Optional) The property key for the target.
+         * @returns An array of unique metadata keys.
+         * @example
+         *
+         *     class Example {
+         *         // property declarations are not part of ES6, though they are valid in TypeScript:
+         *         // static staticProperty;
+         *         // property;
+         *
+         *         constructor(p) { }
+         *         static staticMethod(p) { }
+         *         method(p) { }
+         *     }
+         *
+         *     // constructor
+         *     result = Reflect.getOwnMetadataKeys(Example);
+         *
+         *     // property (on constructor)
+         *     result = Reflect.getOwnMetadataKeys(Example, "staticProperty");
+         *
+         *     // property (on prototype)
+         *     result = Reflect.getOwnMetadataKeys(Example.prototype, "property");
+         *
+         *     // method (on constructor)
+         *     result = Reflect.getOwnMetadataKeys(Example, "staticMethod");
+         *
+         *     // method (on prototype)
+         *     result = Reflect.getOwnMetadataKeys(Example.prototype, "method");
+         *
+         */
+        function getOwnMetadataKeys(target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey))
+                propertyKey = ToPropertyKey(propertyKey);
+            return OrdinaryOwnMetadataKeys(target, propertyKey);
+        }
+        exporter("getOwnMetadataKeys", getOwnMetadataKeys);
+        /**
+         * Deletes the metadata entry from the target object with the provided key.
+         * @param metadataKey A key used to store and retrieve metadata.
+         * @param target The target object on which the metadata is defined.
+         * @param propertyKey (Optional) The property key for the target.
+         * @returns `true` if the metadata entry was found and deleted; otherwise, false.
+         * @example
+         *
+         *     class Example {
+         *         // property declarations are not part of ES6, though they are valid in TypeScript:
+         *         // static staticProperty;
+         *         // property;
+         *
+         *         constructor(p) { }
+         *         static staticMethod(p) { }
+         *         method(p) { }
+         *     }
+         *
+         *     // constructor
+         *     result = Reflect.deleteMetadata("custom:annotation", Example);
+         *
+         *     // property (on constructor)
+         *     result = Reflect.deleteMetadata("custom:annotation", Example, "staticProperty");
+         *
+         *     // property (on prototype)
+         *     result = Reflect.deleteMetadata("custom:annotation", Example.prototype, "property");
+         *
+         *     // method (on constructor)
+         *     result = Reflect.deleteMetadata("custom:annotation", Example, "staticMethod");
+         *
+         *     // method (on prototype)
+         *     result = Reflect.deleteMetadata("custom:annotation", Example.prototype, "method");
+         *
+         */
+        function deleteMetadata(metadataKey, target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey))
+                propertyKey = ToPropertyKey(propertyKey);
+            var metadataMap = GetOrCreateMetadataMap(target, propertyKey, /*Create*/ false);
+            if (IsUndefined(metadataMap))
+                return false;
+            if (!metadataMap.delete(metadataKey))
+                return false;
+            if (metadataMap.size > 0)
+                return true;
+            var targetMetadata = Metadata.get(target);
+            targetMetadata.delete(propertyKey);
+            if (targetMetadata.size > 0)
+                return true;
+            Metadata.delete(target);
+            return true;
+        }
+        exporter("deleteMetadata", deleteMetadata);
+        function DecorateConstructor(decorators, target) {
+            for (var i = decorators.length - 1; i >= 0; --i) {
+                var decorator = decorators[i];
+                var decorated = decorator(target);
+                if (!IsUndefined(decorated) && !IsNull(decorated)) {
+                    if (!IsConstructor(decorated))
+                        throw new TypeError();
+                    target = decorated;
+                }
+            }
+            return target;
+        }
+        function DecorateProperty(decorators, target, propertyKey, descriptor) {
+            for (var i = decorators.length - 1; i >= 0; --i) {
+                var decorator = decorators[i];
+                var decorated = decorator(target, propertyKey, descriptor);
+                if (!IsUndefined(decorated) && !IsNull(decorated)) {
+                    if (!IsObject(decorated))
+                        throw new TypeError();
+                    descriptor = decorated;
+                }
+            }
+            return descriptor;
+        }
+        function GetOrCreateMetadataMap(O, P, Create) {
+            var targetMetadata = Metadata.get(O);
+            if (IsUndefined(targetMetadata)) {
+                if (!Create)
+                    return undefined;
+                targetMetadata = new _Map();
+                Metadata.set(O, targetMetadata);
+            }
+            var metadataMap = targetMetadata.get(P);
+            if (IsUndefined(metadataMap)) {
+                if (!Create)
+                    return undefined;
+                metadataMap = new _Map();
+                targetMetadata.set(P, metadataMap);
+            }
+            return metadataMap;
+        }
+        // 3.1.1.1 OrdinaryHasMetadata(MetadataKey, O, P)
+        // https://rbuckton.github.io/reflect-metadata/#ordinaryhasmetadata
+        function OrdinaryHasMetadata(MetadataKey, O, P) {
+            var hasOwn = OrdinaryHasOwnMetadata(MetadataKey, O, P);
+            if (hasOwn)
+                return true;
+            var parent = OrdinaryGetPrototypeOf(O);
+            if (!IsNull(parent))
+                return OrdinaryHasMetadata(MetadataKey, parent, P);
+            return false;
+        }
+        // 3.1.2.1 OrdinaryHasOwnMetadata(MetadataKey, O, P)
+        // https://rbuckton.github.io/reflect-metadata/#ordinaryhasownmetadata
+        function OrdinaryHasOwnMetadata(MetadataKey, O, P) {
+            var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ false);
+            if (IsUndefined(metadataMap))
+                return false;
+            return ToBoolean(metadataMap.has(MetadataKey));
+        }
+        // 3.1.3.1 OrdinaryGetMetadata(MetadataKey, O, P)
+        // https://rbuckton.github.io/reflect-metadata/#ordinarygetmetadata
+        function OrdinaryGetMetadata(MetadataKey, O, P) {
+            var hasOwn = OrdinaryHasOwnMetadata(MetadataKey, O, P);
+            if (hasOwn)
+                return OrdinaryGetOwnMetadata(MetadataKey, O, P);
+            var parent = OrdinaryGetPrototypeOf(O);
+            if (!IsNull(parent))
+                return OrdinaryGetMetadata(MetadataKey, parent, P);
+            return undefined;
+        }
+        // 3.1.4.1 OrdinaryGetOwnMetadata(MetadataKey, O, P)
+        // https://rbuckton.github.io/reflect-metadata/#ordinarygetownmetadata
+        function OrdinaryGetOwnMetadata(MetadataKey, O, P) {
+            var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ false);
+            if (IsUndefined(metadataMap))
+                return undefined;
+            return metadataMap.get(MetadataKey);
+        }
+        // 3.1.5.1 OrdinaryDefineOwnMetadata(MetadataKey, MetadataValue, O, P)
+        // https://rbuckton.github.io/reflect-metadata/#ordinarydefineownmetadata
+        function OrdinaryDefineOwnMetadata(MetadataKey, MetadataValue, O, P) {
+            var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ true);
+            metadataMap.set(MetadataKey, MetadataValue);
+        }
+        // 3.1.6.1 OrdinaryMetadataKeys(O, P)
+        // https://rbuckton.github.io/reflect-metadata/#ordinarymetadatakeys
+        function OrdinaryMetadataKeys(O, P) {
+            var ownKeys = OrdinaryOwnMetadataKeys(O, P);
+            var parent = OrdinaryGetPrototypeOf(O);
+            if (parent === null)
+                return ownKeys;
+            var parentKeys = OrdinaryMetadataKeys(parent, P);
+            if (parentKeys.length <= 0)
+                return ownKeys;
+            if (ownKeys.length <= 0)
+                return parentKeys;
+            var set = new _Set();
+            var keys = [];
+            for (var _i = 0, ownKeys_1 = ownKeys; _i < ownKeys_1.length; _i++) {
+                var key = ownKeys_1[_i];
+                var hasKey = set.has(key);
+                if (!hasKey) {
+                    set.add(key);
+                    keys.push(key);
+                }
+            }
+            for (var _a = 0, parentKeys_1 = parentKeys; _a < parentKeys_1.length; _a++) {
+                var key = parentKeys_1[_a];
+                var hasKey = set.has(key);
+                if (!hasKey) {
+                    set.add(key);
+                    keys.push(key);
+                }
+            }
+            return keys;
+        }
+        // 3.1.7.1 OrdinaryOwnMetadataKeys(O, P)
+        // https://rbuckton.github.io/reflect-metadata/#ordinaryownmetadatakeys
+        function OrdinaryOwnMetadataKeys(O, P) {
+            var keys = [];
+            var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ false);
+            if (IsUndefined(metadataMap))
+                return keys;
+            var keysObj = metadataMap.keys();
+            var iterator = GetIterator(keysObj);
+            var k = 0;
+            while (true) {
+                var next = IteratorStep(iterator);
+                if (!next) {
+                    keys.length = k;
+                    return keys;
+                }
+                var nextValue = IteratorValue(next);
+                try {
+                    keys[k] = nextValue;
+                }
+                catch (e) {
+                    try {
+                        IteratorClose(iterator);
+                    }
+                    finally {
+                        throw e;
+                    }
+                }
+                k++;
+            }
+        }
+        // 6 ECMAScript Data Typ0es and Values
+        // https://tc39.github.io/ecma262/#sec-ecmascript-data-types-and-values
+        function Type(x) {
+            if (x === null)
+                return 1 /* Null */;
+            switch (typeof x) {
+                case "undefined": return 0 /* Undefined */;
+                case "boolean": return 2 /* Boolean */;
+                case "string": return 3 /* String */;
+                case "symbol": return 4 /* Symbol */;
+                case "number": return 5 /* Number */;
+                case "object": return x === null ? 1 /* Null */ : 6 /* Object */;
+                default: return 6 /* Object */;
+            }
+        }
+        // 6.1.1 The Undefined Type
+        // https://tc39.github.io/ecma262/#sec-ecmascript-language-types-undefined-type
+        function IsUndefined(x) {
+            return x === undefined;
+        }
+        // 6.1.2 The Null Type
+        // https://tc39.github.io/ecma262/#sec-ecmascript-language-types-null-type
+        function IsNull(x) {
+            return x === null;
+        }
+        // 6.1.5 The Symbol Type
+        // https://tc39.github.io/ecma262/#sec-ecmascript-language-types-symbol-type
+        function IsSymbol(x) {
+            return typeof x === "symbol";
+        }
+        // 6.1.7 The Object Type
+        // https://tc39.github.io/ecma262/#sec-object-type
+        function IsObject(x) {
+            return typeof x === "object" ? x !== null : typeof x === "function";
+        }
+        // 7.1 Type Conversion
+        // https://tc39.github.io/ecma262/#sec-type-conversion
+        // 7.1.1 ToPrimitive(input [, PreferredType])
+        // https://tc39.github.io/ecma262/#sec-toprimitive
+        function ToPrimitive(input, PreferredType) {
+            switch (Type(input)) {
+                case 0 /* Undefined */: return input;
+                case 1 /* Null */: return input;
+                case 2 /* Boolean */: return input;
+                case 3 /* String */: return input;
+                case 4 /* Symbol */: return input;
+                case 5 /* Number */: return input;
+            }
+            var hint = PreferredType === 3 /* String */ ? "string" : PreferredType === 5 /* Number */ ? "number" : "default";
+            var exoticToPrim = GetMethod(input, toPrimitiveSymbol);
+            if (exoticToPrim !== undefined) {
+                var result = exoticToPrim.call(input, hint);
+                if (IsObject(result))
+                    throw new TypeError();
+                return result;
+            }
+            return OrdinaryToPrimitive(input, hint === "default" ? "number" : hint);
+        }
+        // 7.1.1.1 OrdinaryToPrimitive(O, hint)
+        // https://tc39.github.io/ecma262/#sec-ordinarytoprimitive
+        function OrdinaryToPrimitive(O, hint) {
+            if (hint === "string") {
+                var toString_1 = O.toString;
+                if (IsCallable(toString_1)) {
+                    var result = toString_1.call(O);
+                    if (!IsObject(result))
+                        return result;
+                }
+                var valueOf = O.valueOf;
+                if (IsCallable(valueOf)) {
+                    var result = valueOf.call(O);
+                    if (!IsObject(result))
+                        return result;
+                }
+            }
+            else {
+                var valueOf = O.valueOf;
+                if (IsCallable(valueOf)) {
+                    var result = valueOf.call(O);
+                    if (!IsObject(result))
+                        return result;
+                }
+                var toString_2 = O.toString;
+                if (IsCallable(toString_2)) {
+                    var result = toString_2.call(O);
+                    if (!IsObject(result))
+                        return result;
+                }
+            }
+            throw new TypeError();
+        }
+        // 7.1.2 ToBoolean(argument)
+        // https://tc39.github.io/ecma262/2016/#sec-toboolean
+        function ToBoolean(argument) {
+            return !!argument;
+        }
+        // 7.1.12 ToString(argument)
+        // https://tc39.github.io/ecma262/#sec-tostring
+        function ToString(argument) {
+            return "" + argument;
+        }
+        // 7.1.14 ToPropertyKey(argument)
+        // https://tc39.github.io/ecma262/#sec-topropertykey
+        function ToPropertyKey(argument) {
+            var key = ToPrimitive(argument, 3 /* String */);
+            if (IsSymbol(key))
+                return key;
+            return ToString(key);
+        }
+        // 7.2 Testing and Comparison Operations
+        // https://tc39.github.io/ecma262/#sec-testing-and-comparison-operations
+        // 7.2.2 IsArray(argument)
+        // https://tc39.github.io/ecma262/#sec-isarray
+        function IsArray(argument) {
+            return Array.isArray
+                ? Array.isArray(argument)
+                : argument instanceof Object
+                    ? argument instanceof Array
+                    : Object.prototype.toString.call(argument) === "[object Array]";
+        }
+        // 7.2.3 IsCallable(argument)
+        // https://tc39.github.io/ecma262/#sec-iscallable
+        function IsCallable(argument) {
+            // NOTE: This is an approximation as we cannot check for [[Call]] internal method.
+            return typeof argument === "function";
+        }
+        // 7.2.4 IsConstructor(argument)
+        // https://tc39.github.io/ecma262/#sec-isconstructor
+        function IsConstructor(argument) {
+            // NOTE: This is an approximation as we cannot check for [[Construct]] internal method.
+            return typeof argument === "function";
+        }
+        // 7.2.7 IsPropertyKey(argument)
+        // https://tc39.github.io/ecma262/#sec-ispropertykey
+        function IsPropertyKey(argument) {
+            switch (Type(argument)) {
+                case 3 /* String */: return true;
+                case 4 /* Symbol */: return true;
+                default: return false;
+            }
+        }
+        // 7.3 Operations on Objects
+        // https://tc39.github.io/ecma262/#sec-operations-on-objects
+        // 7.3.9 GetMethod(V, P)
+        // https://tc39.github.io/ecma262/#sec-getmethod
+        function GetMethod(V, P) {
+            var func = V[P];
+            if (func === undefined || func === null)
+                return undefined;
+            if (!IsCallable(func))
+                throw new TypeError();
+            return func;
+        }
+        // 7.4 Operations on Iterator Objects
+        // https://tc39.github.io/ecma262/#sec-operations-on-iterator-objects
+        function GetIterator(obj) {
+            var method = GetMethod(obj, iteratorSymbol);
+            if (!IsCallable(method))
+                throw new TypeError(); // from Call
+            var iterator = method.call(obj);
+            if (!IsObject(iterator))
+                throw new TypeError();
+            return iterator;
+        }
+        // 7.4.4 IteratorValue(iterResult)
+        // https://tc39.github.io/ecma262/2016/#sec-iteratorvalue
+        function IteratorValue(iterResult) {
+            return iterResult.value;
+        }
+        // 7.4.5 IteratorStep(iterator)
+        // https://tc39.github.io/ecma262/#sec-iteratorstep
+        function IteratorStep(iterator) {
+            var result = iterator.next();
+            return result.done ? false : result;
+        }
+        // 7.4.6 IteratorClose(iterator, completion)
+        // https://tc39.github.io/ecma262/#sec-iteratorclose
+        function IteratorClose(iterator) {
+            var f = iterator["return"];
+            if (f)
+                f.call(iterator);
+        }
+        // 9.1 Ordinary Object Internal Methods and Internal Slots
+        // https://tc39.github.io/ecma262/#sec-ordinary-object-internal-methods-and-internal-slots
+        // 9.1.1.1 OrdinaryGetPrototypeOf(O)
+        // https://tc39.github.io/ecma262/#sec-ordinarygetprototypeof
+        function OrdinaryGetPrototypeOf(O) {
+            var proto = Object.getPrototypeOf(O);
+            if (typeof O !== "function" || O === functionPrototype)
+                return proto;
+            // TypeScript doesn't set __proto__ in ES5, as it's non-standard.
+            // Try to determine the superclass constructor. Compatible implementations
+            // must either set __proto__ on a subclass constructor to the superclass constructor,
+            // or ensure each class has a valid `constructor` property on its prototype that
+            // points back to the constructor.
+            // If this is not the same as Function.[[Prototype]], then this is definately inherited.
+            // This is the case when in ES6 or when using __proto__ in a compatible browser.
+            if (proto !== functionPrototype)
+                return proto;
+            // If the super prototype is Object.prototype, null, or undefined, then we cannot determine the heritage.
+            var prototype = O.prototype;
+            var prototypeProto = prototype && Object.getPrototypeOf(prototype);
+            if (prototypeProto == null || prototypeProto === Object.prototype)
+                return proto;
+            // If the constructor was not a function, then we cannot determine the heritage.
+            var constructor = prototypeProto.constructor;
+            if (typeof constructor !== "function")
+                return proto;
+            // If we have some kind of self-reference, then we cannot determine the heritage.
+            if (constructor === O)
+                return proto;
+            // we have a pretty good guess at the heritage.
+            return constructor;
+        }
+        // naive Map shim
+        function CreateMapPolyfill() {
+            var cacheSentinel = {};
+            var arraySentinel = [];
+            var MapIterator = (function () {
+                function MapIterator(keys, values, selector) {
+                    this._index = 0;
+                    this._keys = keys;
+                    this._values = values;
+                    this._selector = selector;
+                }
+                MapIterator.prototype["@@iterator"] = function () { return this; };
+                MapIterator.prototype[iteratorSymbol] = function () { return this; };
+                MapIterator.prototype.next = function () {
+                    var index = this._index;
+                    if (index >= 0 && index < this._keys.length) {
+                        var result = this._selector(this._keys[index], this._values[index]);
+                        if (index + 1 >= this._keys.length) {
+                            this._index = -1;
+                            this._keys = arraySentinel;
+                            this._values = arraySentinel;
+                        }
+                        else {
+                            this._index++;
+                        }
+                        return { value: result, done: false };
+                    }
+                    return { value: undefined, done: true };
+                };
+                MapIterator.prototype.throw = function (error) {
+                    if (this._index >= 0) {
+                        this._index = -1;
+                        this._keys = arraySentinel;
+                        this._values = arraySentinel;
+                    }
+                    throw error;
+                };
+                MapIterator.prototype.return = function (value) {
+                    if (this._index >= 0) {
+                        this._index = -1;
+                        this._keys = arraySentinel;
+                        this._values = arraySentinel;
+                    }
+                    return { value: value, done: true };
+                };
+                return MapIterator;
+            }());
+            return (function () {
+                function Map() {
+                    this._keys = [];
+                    this._values = [];
+                    this._cacheKey = cacheSentinel;
+                    this._cacheIndex = -2;
+                }
+                Object.defineProperty(Map.prototype, "size", {
+                    get: function () { return this._keys.length; },
+                    enumerable: true,
+                    configurable: true
+                });
+                Map.prototype.has = function (key) { return this._find(key, /*insert*/ false) >= 0; };
+                Map.prototype.get = function (key) {
+                    var index = this._find(key, /*insert*/ false);
+                    return index >= 0 ? this._values[index] : undefined;
+                };
+                Map.prototype.set = function (key, value) {
+                    var index = this._find(key, /*insert*/ true);
+                    this._values[index] = value;
+                    return this;
+                };
+                Map.prototype.delete = function (key) {
+                    var index = this._find(key, /*insert*/ false);
+                    if (index >= 0) {
+                        var size = this._keys.length;
+                        for (var i = index + 1; i < size; i++) {
+                            this._keys[i - 1] = this._keys[i];
+                            this._values[i - 1] = this._values[i];
+                        }
+                        this._keys.length--;
+                        this._values.length--;
+                        if (key === this._cacheKey) {
+                            this._cacheKey = cacheSentinel;
+                            this._cacheIndex = -2;
+                        }
+                        return true;
+                    }
+                    return false;
+                };
+                Map.prototype.clear = function () {
+                    this._keys.length = 0;
+                    this._values.length = 0;
+                    this._cacheKey = cacheSentinel;
+                    this._cacheIndex = -2;
+                };
+                Map.prototype.keys = function () { return new MapIterator(this._keys, this._values, getKey); };
+                Map.prototype.values = function () { return new MapIterator(this._keys, this._values, getValue); };
+                Map.prototype.entries = function () { return new MapIterator(this._keys, this._values, getEntry); };
+                Map.prototype["@@iterator"] = function () { return this.entries(); };
+                Map.prototype[iteratorSymbol] = function () { return this.entries(); };
+                Map.prototype._find = function (key, insert) {
+                    if (this._cacheKey !== key) {
+                        this._cacheIndex = this._keys.indexOf(this._cacheKey = key);
+                    }
+                    if (this._cacheIndex < 0 && insert) {
+                        this._cacheIndex = this._keys.length;
+                        this._keys.push(key);
+                        this._values.push(undefined);
+                    }
+                    return this._cacheIndex;
+                };
+                return Map;
+            }());
+            function getKey(key, _) {
+                return key;
+            }
+            function getValue(_, value) {
+                return value;
+            }
+            function getEntry(key, value) {
+                return [key, value];
+            }
+        }
+        // naive Set shim
+        function CreateSetPolyfill() {
+            return (function () {
+                function Set() {
+                    this._map = new _Map();
+                }
+                Object.defineProperty(Set.prototype, "size", {
+                    get: function () { return this._map.size; },
+                    enumerable: true,
+                    configurable: true
+                });
+                Set.prototype.has = function (value) { return this._map.has(value); };
+                Set.prototype.add = function (value) { return this._map.set(value, value), this; };
+                Set.prototype.delete = function (value) { return this._map.delete(value); };
+                Set.prototype.clear = function () { this._map.clear(); };
+                Set.prototype.keys = function () { return this._map.keys(); };
+                Set.prototype.values = function () { return this._map.values(); };
+                Set.prototype.entries = function () { return this._map.entries(); };
+                Set.prototype["@@iterator"] = function () { return this.keys(); };
+                Set.prototype[iteratorSymbol] = function () { return this.keys(); };
+                return Set;
+            }());
+        }
+        // naive WeakMap shim
+        function CreateWeakMapPolyfill() {
+            var UUID_SIZE = 16;
+            var keys = HashMap.create();
+            var rootKey = CreateUniqueKey();
+            return (function () {
+                function WeakMap() {
+                    this._key = CreateUniqueKey();
+                }
+                WeakMap.prototype.has = function (target) {
+                    var table = GetOrCreateWeakMapTable(target, /*create*/ false);
+                    return table !== undefined ? HashMap.has(table, this._key) : false;
+                };
+                WeakMap.prototype.get = function (target) {
+                    var table = GetOrCreateWeakMapTable(target, /*create*/ false);
+                    return table !== undefined ? HashMap.get(table, this._key) : undefined;
+                };
+                WeakMap.prototype.set = function (target, value) {
+                    var table = GetOrCreateWeakMapTable(target, /*create*/ true);
+                    table[this._key] = value;
+                    return this;
+                };
+                WeakMap.prototype.delete = function (target) {
+                    var table = GetOrCreateWeakMapTable(target, /*create*/ false);
+                    return table !== undefined ? delete table[this._key] : false;
+                };
+                WeakMap.prototype.clear = function () {
+                    // NOTE: not a real clear, just makes the previous data unreachable
+                    this._key = CreateUniqueKey();
+                };
+                return WeakMap;
+            }());
+            function CreateUniqueKey() {
+                var key;
+                do
+                    key = "@@WeakMap@@" + CreateUUID();
+                while (HashMap.has(keys, key));
+                keys[key] = true;
+                return key;
+            }
+            function GetOrCreateWeakMapTable(target, create) {
+                if (!hasOwn.call(target, rootKey)) {
+                    if (!create)
+                        return undefined;
+                    Object.defineProperty(target, rootKey, { value: HashMap.create() });
+                }
+                return target[rootKey];
+            }
+            function FillRandomBytes(buffer, size) {
+                for (var i = 0; i < size; ++i)
+                    buffer[i] = Math.random() * 0xff | 0;
+                return buffer;
+            }
+            function GenRandomBytes(size) {
+                if (typeof Uint8Array === "function") {
+                    if (typeof crypto !== "undefined")
+                        return crypto.getRandomValues(new Uint8Array(size));
+                    if (typeof msCrypto !== "undefined")
+                        return msCrypto.getRandomValues(new Uint8Array(size));
+                    return FillRandomBytes(new Uint8Array(size), size);
+                }
+                return FillRandomBytes(new Array(size), size);
+            }
+            function CreateUUID() {
+                var data = GenRandomBytes(UUID_SIZE);
+                // mark as random - RFC 4122 § 4.4
+                data[6] = data[6] & 0x4f | 0x40;
+                data[8] = data[8] & 0xbf | 0x80;
+                var result = "";
+                for (var offset = 0; offset < UUID_SIZE; ++offset) {
+                    var byte = data[offset];
+                    if (offset === 4 || offset === 6 || offset === 8)
+                        result += "-";
+                    if (byte < 16)
+                        result += "0";
+                    result += byte.toString(16).toLowerCase();
+                }
+                return result;
+            }
+        }
+        // uses a heuristic used by v8 and chakra to force an object into dictionary mode.
+        function MakeDictionary(obj) {
+            obj.__ = undefined;
+            delete obj.__;
+            return obj;
+        }
+    });
+})(Reflect || (Reflect = {}));
+//# sourceMappingURL=Reflect.js.map
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("4362"), __webpack_require__("c8ba")))
+
+/***/ }),
+
+/***/ "9de4":
+/***/ (function(module, exports) {
+
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\nviewBox=\"0 0 30 30\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n  <path transform=\"translate(-8 0)\" d=\"M4 12 A4 4 0 0 0 4 20 A4 4 0 0 0 4 12\"> \n    <animateTransform attributeName=\"transform\" type=\"translate\" values=\"-8 0; 2 0; 2 0;\" dur=\"0.8s\" repeatCount=\"indefinite\" begin=\"0\" keytimes=\"0;.25;1\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8\" calcMode=\"spline\"  />\n  </path>\n  <path transform=\"translate(2 0)\" d=\"M4 12 A4 4 0 0 0 4 20 A4 4 0 0 0 4 12\"> \n    <animateTransform attributeName=\"transform\" type=\"translate\" values=\"2 0; 12 0; 12 0;\" dur=\"0.8s\" repeatCount=\"indefinite\" begin=\"0\" keytimes=\"0;.35;1\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8\" calcMode=\"spline\"  />\n  </path>\n  <path transform=\"translate(12 0)\" d=\"M4 12 A4 4 0 0 0 4 20 A4 4 0 0 0 4 12\"> \n    <animateTransform attributeName=\"transform\" type=\"translate\" values=\"12 0; 22 0; 22 0;\" dur=\"0.8s\" repeatCount=\"indefinite\" begin=\"0\" keytimes=\"0;.45;1\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8\" calcMode=\"spline\"  />\n  </path>\n  <path transform=\"translate(24 0)\" d=\"M4 12 A4 4 0 0 0 4 20 A4 4 0 0 0 4 12\"> \n    <animateTransform attributeName=\"transform\" type=\"translate\" values=\"22 0; 32 0; 32 0;\" dur=\"0.8s\" repeatCount=\"indefinite\" begin=\"0\" keytimes=\"0;.55;1\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8\" calcMode=\"spline\"  />\n  </path>\n</svg>"
+
+/***/ }),
+
+/***/ "aa05":
+/***/ (function(module, exports) {
+
+module.exports = "\n  <svg  xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\nviewBox=\"0 0 30 30\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n    <rect x=\"0\" y=\"0\" width=\"4\" height=\"10\" >\n      <animateTransform attributeType=\"xml\"\n        attributeName=\"transform\" type=\"translate\"\n        values=\"0 0; 0 20; 0 0\"\n        begin=\"0\" dur=\"0.6s\" repeatCount=\"indefinite\" />\n    </rect>\n    <rect x=\"10\" y=\"0\" width=\"4\" height=\"10\" >\n      <animateTransform attributeType=\"xml\"\n        attributeName=\"transform\" type=\"translate\"\n        values=\"0 0; 0 20; 0 0\"\n        begin=\"0.2s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\n    </rect>\n    <rect x=\"20\" y=\"0\" width=\"4\" height=\"10\">\n      <animateTransform attributeType=\"xml\"\n        attributeName=\"transform\" type=\"translate\"\n        values=\"0 0; 0 20; 0 0\"\n        begin=\"0.4s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\n    </rect>\n  </svg>\n\n"
+
+/***/ }),
+
+/***/ "b82c":
+/***/ (function(module, exports) {
+
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\nviewBox=\"0 0 30 30\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\n  <path transform=\"translate(0 0)\" d=\"M0 12 V20 H4 V12z\">\n    <animateTransform attributeName=\"transform\" type=\"translate\" values=\"0 0; 28 0; 0 0; 0 0\" dur=\"1.5s\" begin=\"0\" repeatCount=\"indefinite\" keytimes=\"0;0.3;0.6;1\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8\" calcMode=\"spline\" />\n  </path>\n  <path opacity=\"0.5\" transform=\"translate(0 0)\" d=\"M0 12 V20 H4 V12z\">\n    <animateTransform attributeName=\"transform\" type=\"translate\" values=\"0 0; 28 0; 0 0; 0 0\" dur=\"1.5s\" begin=\"0.1s\" repeatCount=\"indefinite\" keytimes=\"0;0.3;0.6;1\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8\" calcMode=\"spline\" />\n  </path>\n  <path opacity=\"0.25\" transform=\"translate(0 0)\" d=\"M0 12 V20 H4 V12z\">\n    <animateTransform attributeName=\"transform\" type=\"translate\" values=\"0 0; 28 0; 0 0; 0 0\" dur=\"1.5s\" begin=\"0.2s\" repeatCount=\"indefinite\" keytimes=\"0;0.3;0.6;1\" keySplines=\"0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8\" calcMode=\"spline\" />\n  </path>\n</svg>"
+
+/***/ }),
+
+/***/ "bc35":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("2350")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".vue-loading[data-v-6ae436b8]{margin:auto}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "c8ba":
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ "cfcc":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_index_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Loading_vue_vue_type_style_index_0_id_6ae436b8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("0026");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_index_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Loading_vue_vue_type_style_index_0_id_6ae436b8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_index_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Loading_vue_vue_type_style_index_0_id_6ae436b8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+ /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_index_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Loading_vue_vue_type_style_index_0_id_6ae436b8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "df7c":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// resolves . and .. elements in a path array with directory names there
+// must be no slashes, empty elements, or device names (c:\) in the array
+// (so also no leading and trailing slashes - it does not distinguish
+// relative and absolute paths)
+function normalizeArray(parts, allowAboveRoot) {
+  // if the path tries to go above the root, `up` ends up > 0
+  var up = 0;
+  for (var i = parts.length - 1; i >= 0; i--) {
+    var last = parts[i];
+    if (last === '.') {
+      parts.splice(i, 1);
+    } else if (last === '..') {
+      parts.splice(i, 1);
+      up++;
+    } else if (up) {
+      parts.splice(i, 1);
+      up--;
+    }
+  }
+
+  // if the path is allowed to go above the root, restore leading ..s
+  if (allowAboveRoot) {
+    for (; up--; up) {
+      parts.unshift('..');
+    }
+  }
+
+  return parts;
+}
+
+// Split a filename into [root, dir, basename, ext], unix version
+// 'root' is just a slash, or nothing.
+var splitPathRe =
+    /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
+var splitPath = function(filename) {
+  return splitPathRe.exec(filename).slice(1);
+};
+
+// path.resolve([from ...], to)
+// posix version
+exports.resolve = function() {
+  var resolvedPath = '',
+      resolvedAbsolute = false;
+
+  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+    var path = (i >= 0) ? arguments[i] : process.cwd();
+
+    // Skip empty and invalid entries
+    if (typeof path !== 'string') {
+      throw new TypeError('Arguments to path.resolve must be strings');
+    } else if (!path) {
+      continue;
+    }
+
+    resolvedPath = path + '/' + resolvedPath;
+    resolvedAbsolute = path.charAt(0) === '/';
+  }
+
+  // At this point the path should be resolved to a full absolute path, but
+  // handle relative paths to be safe (might happen when process.cwd() fails)
+
+  // Normalize the path
+  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
+    return !!p;
+  }), !resolvedAbsolute).join('/');
+
+  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
+};
+
+// path.normalize(path)
+// posix version
+exports.normalize = function(path) {
+  var isAbsolute = exports.isAbsolute(path),
+      trailingSlash = substr(path, -1) === '/';
+
+  // Normalize the path
+  path = normalizeArray(filter(path.split('/'), function(p) {
+    return !!p;
+  }), !isAbsolute).join('/');
+
+  if (!path && !isAbsolute) {
+    path = '.';
+  }
+  if (path && trailingSlash) {
+    path += '/';
+  }
+
+  return (isAbsolute ? '/' : '') + path;
+};
+
+// posix version
+exports.isAbsolute = function(path) {
+  return path.charAt(0) === '/';
+};
+
+// posix version
+exports.join = function() {
+  var paths = Array.prototype.slice.call(arguments, 0);
+  return exports.normalize(filter(paths, function(p, index) {
+    if (typeof p !== 'string') {
+      throw new TypeError('Arguments to path.join must be strings');
+    }
+    return p;
+  }).join('/'));
+};
+
+
+// path.relative(from, to)
+// posix version
+exports.relative = function(from, to) {
+  from = exports.resolve(from).substr(1);
+  to = exports.resolve(to).substr(1);
+
+  function trim(arr) {
+    var start = 0;
+    for (; start < arr.length; start++) {
+      if (arr[start] !== '') break;
+    }
+
+    var end = arr.length - 1;
+    for (; end >= 0; end--) {
+      if (arr[end] !== '') break;
+    }
+
+    if (start > end) return [];
+    return arr.slice(start, end - start + 1);
+  }
+
+  var fromParts = trim(from.split('/'));
+  var toParts = trim(to.split('/'));
+
+  var length = Math.min(fromParts.length, toParts.length);
+  var samePartsLength = length;
+  for (var i = 0; i < length; i++) {
+    if (fromParts[i] !== toParts[i]) {
+      samePartsLength = i;
+      break;
+    }
+  }
+
+  var outputParts = [];
+  for (var i = samePartsLength; i < fromParts.length; i++) {
+    outputParts.push('..');
+  }
+
+  outputParts = outputParts.concat(toParts.slice(samePartsLength));
+
+  return outputParts.join('/');
+};
+
+exports.sep = '/';
+exports.delimiter = ':';
+
+exports.dirname = function(path) {
+  var result = splitPath(path),
+      root = result[0],
+      dir = result[1];
+
+  if (!root && !dir) {
+    // No dirname whatsoever
+    return '.';
+  }
+
+  if (dir) {
+    // It has a dirname, strip trailing slash
+    dir = dir.substr(0, dir.length - 1);
+  }
+
+  return root + dir;
+};
+
+
+exports.basename = function(path, ext) {
+  var f = splitPath(path)[2];
+  // TODO: make this comparison case-insensitive on windows?
+  if (ext && f.substr(-1 * ext.length) === ext) {
+    f = f.substr(0, f.length - ext.length);
+  }
+  return f;
+};
+
+
+exports.extname = function(path) {
+  return splitPath(path)[3];
+};
+
+function filter (xs, f) {
+    if (xs.filter) return xs.filter(f);
+    var res = [];
+    for (var i = 0; i < xs.length; i++) {
+        if (f(xs[i], i, xs)) res.push(xs[i]);
+    }
+    return res;
+}
+
+// String.prototype.substr - negative index don't work in IE8
+var substr = 'ab'.substr(-1) === 'b'
+    ? function (str, start, len) { return str.substr(start, len) }
+    : function (str, start, len) {
+        if (start < 0) start = str.length + start;
+        return str.substr(start, len);
+    }
+;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("4362")))
+
+/***/ }),
+
+/***/ "fb15":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var svg_namespaceObject = {};
+__webpack_require__.r(svg_namespaceObject);
+__webpack_require__.d(svg_namespaceObject, "balls", function() { return loading_balls_default.a; });
+__webpack_require__.d(svg_namespaceObject, "bars", function() { return loading_bars_default.a; });
+__webpack_require__.d(svg_namespaceObject, "beat", function() { return loading_beat_default.a; });
+__webpack_require__.d(svg_namespaceObject, "bubbles", function() { return loading_bubbles_default.a; });
+__webpack_require__.d(svg_namespaceObject, "cylon", function() { return loading_cylon_default.a; });
+__webpack_require__.d(svg_namespaceObject, "spin", function() { return loading_spin_default.a; });
+__webpack_require__.d(svg_namespaceObject, "spiningDubbles", function() { return loading_spining_dubbles_default.a; });
+__webpack_require__.d(svg_namespaceObject, "barsCylon", function() { return loading_bars_cylon_default.a; });
+
+// CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
+// This file is imported into lib/wc client bundles.
+
+if (typeof window !== 'undefined') {
+  var i
+  if ((i = window.document.currentScript) && (i = i.src.match(/(.+\/)[^/]+\.js(\?.*)?$/))) {
+    __webpack_require__.p = i[1] // eslint-disable-line
+  }
+}
+
+// Indicate to webpack that this file can be concatenated
+/* harmony default export */ var setPublicPath = (null);
+
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
+function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
+
+function _typeof(obj) {
+  if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
+    _typeof = function _typeof(obj) {
+      return _typeof2(obj);
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : _typeof2(obj);
+    };
+  }
+
+  return _typeof(obj);
+}
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js
+
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return _assertThisInitialized(self);
+}
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+// CONCATENATED MODULE: ./node_modules/tslib/tslib.es6.js
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    }
+    return __assign.apply(this, arguments);
+}
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
+            t[p[i]] = s[p[i]];
+    return t;
+}
+
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+function __param(paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+}
+
+function __metadata(metadataKey, metadataValue) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+}
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+function __exportStar(m, exports) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+
+function __values(o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+}
+
+function __read(o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+}
+
+function __spread() {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        ar = ar.concat(__read(arguments[i]));
+    return ar;
+}
+
+function __await(v) {
+    return this instanceof __await ? (this.v = v, this) : new __await(v);
+}
+
+function __asyncGenerator(thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+}
+
+function __asyncDelegator(o) {
+    var i, p;
+    return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+    function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+}
+
+function __asyncValues(o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+}
+
+function __makeTemplateObject(cooked, raw) {
+    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+    return cooked;
+};
+
+function __importStar(mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result.default = mod;
+    return result;
+}
+
+function __importDefault(mod) {
+    return (mod && mod.__esModule) ? mod : { default: mod };
+}
+
+// EXTERNAL MODULE: ./src/svg/loading-balls.svg
+var loading_balls = __webpack_require__("9de4");
+var loading_balls_default = /*#__PURE__*/__webpack_require__.n(loading_balls);
+
+// EXTERNAL MODULE: ./src/svg/loading-bars.svg
+var loading_bars = __webpack_require__("8d87");
+var loading_bars_default = /*#__PURE__*/__webpack_require__.n(loading_bars);
+
+// EXTERNAL MODULE: ./src/svg/loading-beat.svg
+var loading_beat = __webpack_require__("aa05");
+var loading_beat_default = /*#__PURE__*/__webpack_require__.n(loading_beat);
+
+// EXTERNAL MODULE: ./src/svg/loading-bubbles.svg
+var loading_bubbles = __webpack_require__("5abc");
+var loading_bubbles_default = /*#__PURE__*/__webpack_require__.n(loading_bubbles);
+
+// EXTERNAL MODULE: ./src/svg/loading-cylon.svg
+var loading_cylon = __webpack_require__("b82c");
+var loading_cylon_default = /*#__PURE__*/__webpack_require__.n(loading_cylon);
+
+// EXTERNAL MODULE: ./src/svg/loading-spin.svg
+var loading_spin = __webpack_require__("30ed");
+var loading_spin_default = /*#__PURE__*/__webpack_require__.n(loading_spin);
+
+// EXTERNAL MODULE: ./src/svg/loading-spining-dubbles.svg
+var loading_spining_dubbles = __webpack_require__("2557");
+var loading_spining_dubbles_default = /*#__PURE__*/__webpack_require__.n(loading_spining_dubbles);
+
+// EXTERNAL MODULE: ./src/svg/loading-bars-cylon.svg
+var loading_bars_cylon = __webpack_require__("8d4d");
+var loading_bars_cylon_default = /*#__PURE__*/__webpack_require__.n(loading_bars_cylon);
+
+// CONCATENATED MODULE: ./src/svg/index.ts
+
+
+
+
+
+
+
+
+// EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
+var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
+var external_commonjs_vue_commonjs2_vue_root_Vue_default = /*#__PURE__*/__webpack_require__.n(external_commonjs_vue_commonjs2_vue_root_Vue_);
+
+// EXTERNAL MODULE: ./node_modules/vue-class-component/dist/vue-class-component.common.js
+var vue_class_component_common = __webpack_require__("65d9");
+var vue_class_component_common_default = /*#__PURE__*/__webpack_require__.n(vue_class_component_common);
+
+// EXTERNAL MODULE: ./node_modules/reflect-metadata/Reflect.js
+var reflect_metadata_Reflect = __webpack_require__("98db");
+
+// CONCATENATED MODULE: ./node_modules/vue-property-decorator/lib/vue-property-decorator.js
+/** vue-property-decorator verson 6.1.0 MIT LICENSE copyright 2018 kaorun343 */
+
+
+
+
+
+/**
+ * decorator of an inject
+ * @param from key
+ * @return PropertyDecorator
+ */
+function Inject(options) {
+    return Object(vue_class_component_common["createDecorator"])(function (componentOptions, key) {
+        if (typeof componentOptions.inject === 'undefined') {
+            componentOptions.inject = {};
+        }
+        if (!Array.isArray(componentOptions.inject)) {
+            componentOptions.inject[key] = options || key;
+        }
+    });
+}
+/**
+ * decorator of a provide
+ * @param key key
+ * @return PropertyDecorator | void
+ */
+function Provide(key) {
+    return Object(vue_class_component_common["createDecorator"])(function (componentOptions, k) {
+        var provide = componentOptions.provide;
+        if (typeof provide !== 'function' || !provide.managed) {
+            var original_1 = componentOptions.provide;
+            provide = componentOptions.provide = function () {
+                var rv = Object.create((typeof original_1 === 'function' ? original_1.call(this) : original_1) || null);
+                for (var i in provide.managed)
+                    rv[provide.managed[i]] = this[i];
+                return rv;
+            };
+            provide.managed = {};
+        }
+        provide.managed[k] = key || k;
+    });
+}
+/**
+ * decorator of model
+ * @param  event event name
+ * @return PropertyDecorator
+ */
+function Model(event, options) {
+    if (options === void 0) { options = {}; }
+    return function (target, key) {
+        if (!Array.isArray(options) && typeof options.type === 'undefined') {
+            options.type = Reflect.getMetadata('design:type', target, key);
+        }
+        Object(vue_class_component_common["createDecorator"])(function (componentOptions, k) {
+            (componentOptions.props || (componentOptions.props = {}))[k] = options;
+            componentOptions.model = { prop: k, event: event || k };
+        })(target, key);
+    };
+}
+/**
+ * decorator of a prop
+ * @param  options the options for the prop
+ * @return PropertyDecorator | void
+ */
+function Prop(options) {
+    if (options === void 0) { options = {}; }
+    return function (target, key) {
+        if (!Array.isArray(options) && typeof options.type === 'undefined') {
+            options.type = Reflect.getMetadata('design:type', target, key);
+        }
+        Object(vue_class_component_common["createDecorator"])(function (componentOptions, k) {
+            (componentOptions.props || (componentOptions.props = {}))[k] = options;
+        })(target, key);
+    };
+}
+/**
+ * decorator of a watch function
+ * @param  path the path or the expression to observe
+ * @param  WatchOption
+ * @return MethodDecorator
+ */
+function Watch(path, options) {
+    if (options === void 0) { options = {}; }
+    var _a = options.deep, deep = _a === void 0 ? false : _a, _b = options.immediate, immediate = _b === void 0 ? false : _b;
+    return Object(vue_class_component_common["createDecorator"])(function (componentOptions, handler) {
+        if (typeof componentOptions.watch !== 'object') {
+            componentOptions.watch = Object.create(null);
+        }
+        componentOptions.watch[path] = { handler: handler, deep: deep, immediate: immediate };
+    });
+}
+// Code copied from Vue/src/shared/util.js
+var hyphenateRE = /\B([A-Z])/g;
+var hyphenate = function (str) { return str.replace(hyphenateRE, '-$1').toLowerCase(); };
+/**
+ * decorator of an event-emitter function
+ * @param  event The name of the event
+ * @return MethodDecorator
+ */
+function Emit(event) {
+    return function (target, key, descriptor) {
+        key = hyphenate(key);
+        var original = descriptor.value;
+        descriptor.value = function emitter() {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            if (original.apply(this, args) !== false)
+                this.$emit.apply(this, [event || key].concat(args));
+        };
+    };
+}
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/ts-loader??ref--14-3!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Loading.vue?vue&type=script&lang=tsx&
+
+
+
+
+
+
+
+
+
+var Loadingvue_type_script_lang_tsx_VueLoading =
+/*#__PURE__*/
+function (_Vue) {
+  _inherits(VueLoading, _Vue);
+
+  function VueLoading() {
+    _classCallCheck(this, VueLoading);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(VueLoading).apply(this, arguments));
+  }
+
+  _createClass(VueLoading, [{
+    key: "render",
+    value: function render() {
+      var h = arguments[0];
+      return h("div", {
+        "class": "vue-loading",
+        domProps: {
+          "innerHTML": this.svg
+        },
+        style: this.loadingStyle
+      });
+    }
+  }, {
+    key: "svg",
+    get: function get() {
+      return svg_namespaceObject[this.type];
+    }
+  }, {
+    key: "loadingStyle",
+    get: function get() {
+      return {
+        fill: this.color,
+        width: this.size.width,
+        height: this.size.height
+      };
+    }
+  }]);
+
+  return VueLoading;
+}(external_commonjs_vue_commonjs2_vue_root_Vue_default.a);
+
+__decorate([Prop({
+  default: 'bead',
+  type: String,
+  required: false
+}), __metadata("design:type", String)], Loadingvue_type_script_lang_tsx_VueLoading.prototype, "type", void 0);
+
+__decorate([Prop({
+  default: '#5ac1dd',
+  type: String,
+  required: false
+}), __metadata("design:type", String)], Loadingvue_type_script_lang_tsx_VueLoading.prototype, "color", void 0);
+
+__decorate([Prop({
+  default: function _default() {
+    return {
+      width: '30px',
+      height: '30px'
+    };
+  },
+  type: Object,
+  required: false
+}), __metadata("design:type", Object)], Loadingvue_type_script_lang_tsx_VueLoading.prototype, "size", void 0);
+
+Loadingvue_type_script_lang_tsx_VueLoading = __decorate([vue_class_component_common_default()({
+  name: 'vueLoading'
+})], Loadingvue_type_script_lang_tsx_VueLoading);
+/* harmony default export */ var Loadingvue_type_script_lang_tsx_ = (Loadingvue_type_script_lang_tsx_VueLoading);
+// CONCATENATED MODULE: ./src/components/Loading.vue?vue&type=script&lang=tsx&
+ /* harmony default export */ var components_Loadingvue_type_script_lang_tsx_ = (Loadingvue_type_script_lang_tsx_); 
+// EXTERNAL MODULE: ./src/components/Loading.vue?vue&type=style&index=0&id=6ae436b8&scoped=true&lang=css&
+var Loadingvue_type_style_index_0_id_6ae436b8_scoped_true_lang_css_ = __webpack_require__("cfcc");
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+// CONCATENATED MODULE: ./src/components/Loading.vue
+var render, staticRenderFns
+
+
+
+
+
+/* normalize component */
+
+var component = normalizeComponent(
+  components_Loadingvue_type_script_lang_tsx_,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "6ae436b8",
+  null
+  
+)
+
+component.options.__file = "Loading.vue"
+/* harmony default export */ var Loading = (component.exports);
+// CONCATENATED MODULE: ./src/index.ts
+/**
+ * Vue-loading-template
+ * @author jkchao
+ */
+
+
+var src_install = function install(vue, options) {
+  if (options) {
+    var componentProps = new Loading().$options.props;
+    componentProps.type.default = options.type || 'balls';
+    componentProps.color.default = options.color || '#5ac1dd';
+
+    componentProps.size.default = function () {
+      return options.size || {
+        width: '30px',
+        height: '30px'
+      };
+    };
+  }
+
+  vue.component('vue-loading', Loading);
+}; // 导出模块
+
+
+
+/* harmony default export */ var src = ({
+  install: src_install
+});
+// CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
+/* concated harmony reexport VueLoading */__webpack_require__.d(__webpack_exports__, "VueLoading", function() { return Loading; });
+
+
+/* harmony default export */ var entry_lib = __webpack_exports__["default"] = (src);
+
+
+
+/***/ })
+
+/******/ });
+//# sourceMappingURL=vueLoading.common.js.map
+
+/***/ }),
+
+/***/ "ddb0":
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__("da84");
+var DOMIterables = __webpack_require__("fdbc");
+var ArrayIteratorMethods = __webpack_require__("e260");
+var createNonEnumerableProperty = __webpack_require__("9112");
+var wellKnownSymbol = __webpack_require__("b622");
+
+var ITERATOR = wellKnownSymbol('iterator');
+var TO_STRING_TAG = wellKnownSymbol('toStringTag');
+var ArrayValues = ArrayIteratorMethods.values;
+
+for (var COLLECTION_NAME in DOMIterables) {
+  var Collection = global[COLLECTION_NAME];
+  var CollectionPrototype = Collection && Collection.prototype;
+  if (CollectionPrototype) {
+    // some Chrome versions have non-configurable methods on DOMTokenList
+    if (CollectionPrototype[ITERATOR] !== ArrayValues) try {
+      createNonEnumerableProperty(CollectionPrototype, ITERATOR, ArrayValues);
+    } catch (error) {
+      CollectionPrototype[ITERATOR] = ArrayValues;
+    }
+    if (!CollectionPrototype[TO_STRING_TAG]) {
+      createNonEnumerableProperty(CollectionPrototype, TO_STRING_TAG, COLLECTION_NAME);
+    }
+    if (DOMIterables[COLLECTION_NAME]) for (var METHOD_NAME in ArrayIteratorMethods) {
+      // some Chrome versions have non-configurable methods on DOMTokenList
+      if (CollectionPrototype[METHOD_NAME] !== ArrayIteratorMethods[METHOD_NAME]) try {
+        createNonEnumerableProperty(CollectionPrototype, METHOD_NAME, ArrayIteratorMethods[METHOD_NAME]);
+      } catch (error) {
+        CollectionPrototype[METHOD_NAME] = ArrayIteratorMethods[METHOD_NAME];
+      }
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "e163":
+/***/ (function(module, exports, __webpack_require__) {
+
+var has = __webpack_require__("5135");
+var toObject = __webpack_require__("7b0b");
+var sharedKey = __webpack_require__("f772");
+var CORRECT_PROTOTYPE_GETTER = __webpack_require__("e177");
+
+var IE_PROTO = sharedKey('IE_PROTO');
+var ObjectPrototype = Object.prototype;
+
+// `Object.getPrototypeOf` method
+// https://tc39.es/ecma262/#sec-object.getprototypeof
+module.exports = CORRECT_PROTOTYPE_GETTER ? Object.getPrototypeOf : function (O) {
+  O = toObject(O);
+  if (has(O, IE_PROTO)) return O[IE_PROTO];
+  if (typeof O.constructor == 'function' && O instanceof O.constructor) {
+    return O.constructor.prototype;
+  } return O instanceof Object ? ObjectPrototype : null;
+};
+
+
+/***/ }),
+
+/***/ "e177":
+/***/ (function(module, exports, __webpack_require__) {
+
+var fails = __webpack_require__("d039");
+
+module.exports = !fails(function () {
+  function F() { /* empty */ }
+  F.prototype.constructor = null;
+  return Object.getPrototypeOf(new F()) !== F.prototype;
+});
+
+
+/***/ }),
+
+/***/ "e260":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var toIndexedObject = __webpack_require__("fc6a");
+var addToUnscopables = __webpack_require__("44d2");
+var Iterators = __webpack_require__("3f8c");
+var InternalStateModule = __webpack_require__("69f3");
+var defineIterator = __webpack_require__("7dd0");
+
+var ARRAY_ITERATOR = 'Array Iterator';
+var setInternalState = InternalStateModule.set;
+var getInternalState = InternalStateModule.getterFor(ARRAY_ITERATOR);
+
+// `Array.prototype.entries` method
+// https://tc39.es/ecma262/#sec-array.prototype.entries
+// `Array.prototype.keys` method
+// https://tc39.es/ecma262/#sec-array.prototype.keys
+// `Array.prototype.values` method
+// https://tc39.es/ecma262/#sec-array.prototype.values
+// `Array.prototype[@@iterator]` method
+// https://tc39.es/ecma262/#sec-array.prototype-@@iterator
+// `CreateArrayIterator` internal method
+// https://tc39.es/ecma262/#sec-createarrayiterator
+module.exports = defineIterator(Array, 'Array', function (iterated, kind) {
+  setInternalState(this, {
+    type: ARRAY_ITERATOR,
+    target: toIndexedObject(iterated), // target
+    index: 0,                          // next index
+    kind: kind                         // kind
+  });
+// `%ArrayIteratorPrototype%.next` method
+// https://tc39.es/ecma262/#sec-%arrayiteratorprototype%.next
+}, function () {
+  var state = getInternalState(this);
+  var target = state.target;
+  var kind = state.kind;
+  var index = state.index++;
+  if (!target || index >= target.length) {
+    state.target = undefined;
+    return { value: undefined, done: true };
+  }
+  if (kind == 'keys') return { value: index, done: false };
+  if (kind == 'values') return { value: target[index], done: false };
+  return { value: [index, target[index]], done: false };
+}, 'values');
+
+// argumentsList[@@iterator] is %ArrayProto_values%
+// https://tc39.es/ecma262/#sec-createunmappedargumentsobject
+// https://tc39.es/ecma262/#sec-createmappedargumentsobject
+Iterators.Arguments = Iterators.Array;
+
+// https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
+addToUnscopables('keys');
+addToUnscopables('values');
+addToUnscopables('entries');
+
 
 /***/ })
 
 }]);
+//# sourceMappingURL=AppAllCreneaux.umd.3.js.map

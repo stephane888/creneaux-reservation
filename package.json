@@ -9,7 +9,7 @@
     "CreneauxProd": "vue-cli-service build --mode production --dest files/prod --target lib --name mylittlePressingCreneaux 'src/app_main.js'",
     "CreneauxDev": "vue-cli-service build --mode development --dest files/Dev --target lib --name AppCreneaux 'src/app_main.js'",
     "CreneauxConfigsDev": "vue-cli-service build --mode development --dest files/AppAll --target lib --name AppAllCreneaux 'src/main.js'",
-    "CreneauxConfigsProd": "vue-cli-service build --mode development --dest files/AppAll --target lib --name AppAllCreneaux 'src/main.js'"
+    "CreneauxConfigsProd": "vue-cli-service build --mode production --dest files/AppAll --target lib --name AppAllCreneaux 'src/main.js'"
   },
   "dependencies": {
     "axios": "^0.21.1",

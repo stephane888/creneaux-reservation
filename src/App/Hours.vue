@@ -11,6 +11,7 @@
       :searchable="false"
       placeholder="00:00 - 00:00"
       track-by="begin"
+      open-direction="bottom"
     >
       <!-- Pour l'affichege de la selection. -->
       <template slot="singleLabel" slot-scope="{ option }">
