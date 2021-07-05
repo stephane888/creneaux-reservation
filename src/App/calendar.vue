@@ -164,14 +164,17 @@ export default {
       this.date_select = Build.date_select;
     },
     select_date(date) {
-      for (const i in this.list_calander_days) {
-        const datePass = this.list_calander_days[i];
-        if (datePass.select) datePass.select = false;
-        var j = parseInt(i) + 1;
-        if (j === this.list_calander_days.length) date.select = true;
+      console.log("select_date : ", date);
+      if (!date.status) {
+        for (const i in this.list_calander_days) {
+          const datePass = this.list_calander_days[i];
+          if (datePass.select) datePass.select = false;
+          var j = parseInt(i) + 1;
+          if (j === this.list_calander_days.length) date.select = true;
+        }
+        this.date_select = date;
+        this.$emit("close_calendar", true);
       }
-      this.date_select = date;
-      this.$emit("close_calendar", true);
     },
     //permet de naviguer entre les mois
     toggleMonth(direction) {

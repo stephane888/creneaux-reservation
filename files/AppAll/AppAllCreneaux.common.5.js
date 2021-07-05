@@ -231,8 +231,8 @@ var modules_es_regexp_exec = __webpack_require__("9a6c");
 // EXTERNAL MODULE: ../wbuutilities/node_modules/core-js/modules/es.string.split.js
 var modules_es_string_split = __webpack_require__("7973");
 
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__("bc3a");
+// EXTERNAL MODULE: ../wbuutilities/node_modules/axios/index.js
+var axios = __webpack_require__("6b54");
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 
 // CONCATENATED MODULE: ../wbuutilities/src/Ajax/basic.js
@@ -248,7 +248,7 @@ var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
  */
 
 var InstAxios = axios_default.a.create({
-  timeout: 5000
+  timeout: 15000
 });
 var basicRequest = {
   axiosInstance: InstAxios,
@@ -362,6 +362,60 @@ var vm = new external_commonjs_vue_commonjs2_vue_root_Vue_default.a(); //console
 var AjaxToastBootStrap = Object(objectSpread2["a" /* default */])(Object(objectSpread2["a" /* default */])({}, basic), {}, {
   //$bvModal: vm.$bvModal,
   $bvToast: vm.$bvToast,
+  $bvModal: vm.$bvModal,
+  modalMessage: function modalMessage(body, conf) {
+    var _this = this;
+
+    var confDefault = {
+      size: "md",
+      buttonSize: "sm",
+      hideFooter: true,
+      centered: conf.centered !== undefined ? conf.centered : true
+    };
+
+    for (var i in conf) {
+      confDefault[i] = conf[i];
+    }
+
+    return new Promise(function (resolv, reject) {
+      _this.$bvModal.msgBoxConfirm(body, confDefault).then(function (value) {
+        resolv(value);
+      }).catch(function (err) {
+        reject(err);
+      });
+    });
+  },
+  modalConfirmDelete: function modalConfirmDelete() {
+    var body = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Confirmer la suppression, NB : cette action est irreverssible.";
+    var conf = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+      title: "Attention",
+      okVariant: "danger",
+      okTitle: "Supprimer",
+      cancelTitle: "Annuler",
+      footerClass: "p-2",
+      hideHeaderClose: false,
+      centered: true,
+      hideFooter: true
+    };
+    return this.modalMessage(body, conf);
+  },
+  modalSuccess: function modalSuccess() {
+    var body = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+    var conf = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var confDefault = {
+      title: "Succes",
+      headerBgVariant: "success",
+      bodyClass: ["p-3"],
+      hideFooter: true,
+      headerTextVariant: "light"
+    };
+
+    for (var i in conf) {
+      confDefault[i] = conf[i];
+    }
+
+    return this.modalMessage(body, confDefault);
+  },
   notification: function notification(ajaxTitle) {
     var variant = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "success";
     this.$bvToast.toast(" ", {
@@ -372,30 +426,11 @@ var AjaxToastBootStrap = Object(objectSpread2["a" /* default */])(Object(objectS
     });
   },
   post: function post(url, datas, configs) {
-    var _this = this;
+    var _this2 = this;
 
     var showNotification = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
     return new Promise(function (resolv, reject) {
       basic.post(url, datas, configs).then(function (reponse) {
-        if (showNotification) {
-          _this.notification("success");
-        }
-
-        resolv(reponse);
-      }).catch(function (error) {
-        //console.log("error : ", error);
-        _this.notification(_this.GetErrorTitle(error), "warning");
-
-        reject(error);
-      });
-    });
-  },
-  get: function get(url, configs) {
-    var _this2 = this;
-
-    var showNotification = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-    return new Promise(function (resolv, reject) {
-      basic.post(url, configs).then(function (reponse) {
         if (showNotification) {
           _this2.notification("success");
         }
@@ -404,6 +439,25 @@ var AjaxToastBootStrap = Object(objectSpread2["a" /* default */])(Object(objectS
       }).catch(function (error) {
         //console.log("error : ", error);
         _this2.notification(_this2.GetErrorTitle(error), "warning");
+
+        reject(error);
+      });
+    });
+  },
+  get: function get(url, configs) {
+    var _this3 = this;
+
+    var showNotification = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    return new Promise(function (resolv, reject) {
+      basic.post(url, configs).then(function (reponse) {
+        if (showNotification) {
+          _this3.notification("success");
+        }
+
+        resolv(reponse);
+      }).catch(function (error) {
+        //console.log("error : ", error);
+        _this3.notification(_this3.GetErrorTitle(error), "warning");
 
         reject(error);
       });
