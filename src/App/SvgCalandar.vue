@@ -25,6 +25,3 @@ export default {
   name: "SvgCalandar"
 };
 </script>
-<!--
-/siteweb/PluginsModules/stephane888/wbu-components/src/components/Crenneaux/v2/SvgCalandar.vue
--->

@@ -46,6 +46,7 @@
                 :disable_heureday="disable_heureday"
                 :disable_heuredate="disable_heuredate"
                 :url_get_creneau="url_get_creneau"
+                :filters="filters"
                 ref="selectionhoraire"
                 @ev_creneau_collecte="ev_creneau_collecte"
                 @ev_creneau_livraison="ev_creneau_livraison"
@@ -138,6 +139,7 @@ var ShopifyformatMoney = function(cents, format) {
 import TypeLivraison from "./TypeLivraison.vue";
 import SelectionHoraire from "./SelectionCreneau.vue";
 import { VueLoading } from "vue-loading-template";
+import Alert from "../components/Alert/index.vue";
 
 export default {
   name: "CrenneauV2",
@@ -248,12 +250,15 @@ export default {
     app_env_prod: {
       type: Boolean,
       default: true
+    },
+    filters: {
+      type: Array
     }
   },
   components: {
     "type-livraison": TypeLivraison,
     selectionhoraire: SelectionHoraire,
-    alert: () => import("../components/Alert/index.vue"),
+    alert: Alert,
     VueLoading
   },
   data() {
@@ -299,6 +304,13 @@ export default {
     this.initcreneau();
   },
   methods: {
+    ev_toggle_month_collecte(direction) {
+      console.log("direction_collecte", direction);
+      return this.collecte_current_date.add(direction, "month");
+    },
+    ev_toggle_month_livraison(direction) {
+      console.log("direction_livraison", direction);
+    },
     /**
      * Charge le panier.
      * Retourne true si la requte est terminée avec succes et false si non.
@@ -481,6 +493,10 @@ export default {
     },
     triggerCheckout() {
       $(".creneaux-mbt .cart-checkout .submit-cart").trigger("click");
+      console.log(
+        "verfication de la presence du bouton formulaire ",
+        $(".creneaux-mbt .cart-checkout .submit-cart")
+      );
     },
     buildAttribut() {
       //
@@ -704,8 +720,6 @@ export default {
       });
     },
     ev_change_type_livraison(datas) {
-      console.log("ev_change_type_livraison : ", datas);
-      //console.log("this.VueCollecte", this.VueCollecte);
       //on MAJ la livraison à partir des valeurs de types de livraiosns.
       this.TypeLivraison = datas;
       //on MAJ la collecte à partir des valeurs de types de livraiosns.
@@ -761,10 +775,12 @@ export default {
     },
     ev_creneau_livraison(creneau) {
       this.creneau_livraison = creneau;
+      console.log("index ev_creneau_livraison", creneau);
     },
 
     ev_creneau_collecte(creneau) {
       this.creneau_collecte = creneau;
+      console.log("index ev_creneau_collecte", creneau);
     },
     HideStaticLoading() {
       $(".londing-cover.static").fadeOut(600);

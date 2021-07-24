@@ -1,6 +1,9 @@
 <template>
   <div>
     <creneaux class="creneaux-mbt"></creneaux>
+    <div class="creneaux-mbt" v-if="displayAdmin">
+      <app-admin></app-admin>
+    </div>
   </div>
 </template>
 
@@ -42,7 +45,7 @@ export default {
           resolv(import("./Creneaux.vue"));
         };
         //on verifie la presence de Jquery;
-        if (window.jQuery) {
+        if (window.jQuery && window.Moment) {
           callbackJquery();
         } else {
           console.log(" window.jQuery not installed ");
@@ -66,7 +69,18 @@ export default {
           );
         }
       });
+    },
+    "app-admin": () => import("./AppAdmin/Admin")
+  },
+  props: {
+    // Pour activer le chargement de l'admin.
+    displayAdmin: {
+      type: Boolean,
+      default: true
     }
+  },
+  data() {
+    return {};
   }
 };
 </script>

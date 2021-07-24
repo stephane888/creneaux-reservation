@@ -3,6 +3,7 @@
     <creneau
       :blocks_type_livraisons="blocks_type_livraisons"
       :app_env_prod="app_env_prod"
+      :titre_module="titre_module"
       :nombre_res_creneau="nombre_res_creneau"
       :collecte_current_date="collecte_current_date"
       :livraison_current_date="livraison_current_date"
@@ -21,6 +22,7 @@
       :livraison_delai_jour="livraison_delai_jour"
       :livraison_interval="livraison_interval"
       :collecte_deccalage_creneau_depart="collecte_deccalage_creneau_depart"
+      :filters="filters"
       class="container first-block "
     ></creneau>
   </div>
@@ -28,20 +30,17 @@
 
 <script>
 import configSite from "./App/config.js";
-//import creneau from "./App/index.vue";
-
+import creneau from "./App/index.vue";
+const $ = window.jQuery;
 export default {
   name: "App",
   components: {
-    creneau: function() {
-      return new Promise(resolv => {
-        resolv(import("./App/index.vue"));
-      });
-    }
+    creneau: creneau
   },
   data() {
     return {
       app_env_prod: configSite.IsProduction,
+      titre_module: configSite.appTitle,
       nombre_res_creneau: configSite.nombre_res_creneau,
       blocks_type_livraisons: configSite.blocks_type_livraisons,
       collecte_current_date: configSite.current_date,
@@ -57,11 +56,34 @@ export default {
       url_save_creneau: configSite.url_save_creneau,
       url_get_creneau: configSite.url_get_creneau,
       collecte_deccalage_creneau_depart: configSite.deccalage_creneau_depart,
+      filters: configSite.filters,
       collecte_delai_jour: 0,
       collecte_interval: 120,
       livraison_delai_jour: 3,
       livraison_interval: 120
     };
+  },
+  mounted() {
+    this.init();
+  },
+  methods: {
+    init() {
+      /**
+       * Gestion du click sur le bouton de sousmission du panier.
+       */
+      (function() {
+        $(".creneaux-mbt .cart-checkout .submit-cart-test").click(function(
+          elem
+        ) {
+          $(this).removeClass("bg-danger");
+          $(".loadding", elem.target).addClass("fa-spin");
+          $(".fa-arrow-right", elem.target).fadeOut(600, function() {
+            $(".loadding", elem.target).fadeIn(600);
+          });
+          $(document).trigger("SaveCreneauxChechout");
+        });
+      })();
+    }
   }
 };
 </script>

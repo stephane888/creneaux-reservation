@@ -8,7 +8,6 @@
       :jour_desactivee="collecte_jour_desactivee"
       :date_desactivee="collecte_date_desactivee"
       :interval="collecte_interval"
-      :rebuild_creneau="collecte_plages_debut"
       :configs="collecte_configs"
       :current_date="collecte_current_date"
       :nombre_semaine="nombre_semaine"
@@ -19,6 +18,7 @@
       :url_get_creneau="url_get_creneau"
       :type_creneau="'collecte'"
       :deccalage_creneau_depart="collecte_deccalage_creneau_depart"
+      :filters="filters"
       ref="collecte"
       @ev_select_current_creneau="ev_select_current_creneau_collecte"
     ></creneau>
@@ -30,7 +30,6 @@
       :jour_desactivee="livraison_jour_desactivee"
       :date_desactivee="livraison_date_desactivee"
       :interval="livraison_interval"
-      :rebuild_creneau="livraison_rebuild_creneau"
       :configs="livraison_configs"
       :current_date="livraison_current_date"
       :nombre_semaine="nombre_semaine"
@@ -40,6 +39,7 @@
       :disable_heuredate="disable_heuredate"
       :url_get_creneau="url_get_creneau"
       :type_creneau="'livraison'"
+      :filters="filters"
       ref="livraison"
       @ev_select_current_creneau="ev_select_current_creneau_livraison"
     ></creneau>
@@ -47,6 +47,10 @@
 </template>
 
 <script>
+//import moment from "moment";
+if (window.moment) {
+  var moment = window.moment;
+}
 import creneau from "./Creneau.vue";
 export default {
   name: "SelectionHoraire",
@@ -90,9 +94,6 @@ export default {
     collecte_interval: {
       type: Number
     },
-    collecte_plages_debut: {
-      type: Object
-    },
     collecte_configs: {
       type: Object
     },
@@ -126,8 +127,8 @@ export default {
     livraison_configs: {
       type: Object
     },
-    livraison_current_date: {
-      type: Object
+    filters: {
+      type: Array
     }
   },
   components: {
@@ -135,7 +136,7 @@ export default {
   },
   data() {
     return {
-      livraison_rebuild_creneau: {}
+      livraison_current_date: null
     };
   },
   mounted() {
@@ -143,16 +144,27 @@ export default {
   },
   methods: {
     ev_select_current_creneau_collecte(creneau) {
-      this.livraison_rebuild_creneau = creneau;
       this.$emit("ev_creneau_collecte", creneau);
+      this.livraison_current_date = creneau.date;
+      console.log("ev_select_current_creneau_collecte");
     },
     ev_select_current_creneau_livraison(creneau) {
       this.$emit("ev_creneau_livraison", creneau);
+    },
+    /**
+     * Permet de convertir les données String en JSON,
+     * de les mettre dans un format valide pour la sauvegarde.
+     */
+    getValidData(creneau) {
+      var validCreneau = JSON.parse(creneau);
+      const date = moment(
+        validCreneau.date_string_not_change,
+        "DD-MM-YYYY HH:mm:ss"
+      );
+      validCreneau.date = date;
+      validCreneau.date_string = date.format("DD-MM-YYYY HH:mm:ss");
+      return validCreneau;
     }
   }
 };
 </script>
-
-<!--
-/siteweb/PluginsModules/stephane888/wbu-components/src/components/Crenneaux/v2/SelectionCreneau.vue
--->

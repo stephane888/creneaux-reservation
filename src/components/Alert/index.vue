@@ -72,6 +72,3 @@ export default {
   }
 };
 </script>
-<!--
-/siteweb/PluginsModules/stephane888/wbu-components/src/components/Alert/index.vue
--->
