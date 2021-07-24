@@ -6,7 +6,7 @@ const Utilities = {
       { text: "Mercredi", value: 1, debut: "7:30", fin: "21:30", indice: 3 },
       { text: "Jeudi", value: 1, debut: "7:30", fin: "21:30", indice: 4 },
       { text: "Vendredi", value: 1, debut: "7:30", fin: "21:30", indice: 5 },
-      { text: "Samedi", value: 1, debut: "7:30", fin: "21:30", indice: 6 },
+      { text: "Samedi", value: 0, debut: "7:30", fin: "21:30", indice: 6 },
       { text: "Dimanche", value: 0, debut: "7:30", fin: "21:30", indice: 0 }
     ];
   },
@@ -25,18 +25,20 @@ const Utilities = {
     };
   },
   filter: function() {
-    return {
-      titre: "Indisponibilité, congé",
-      h_debut: "",
-      h_fin: "",
-      jour_type: "",
-      show_select_date_indice_all: null,
-      select_jour_indice: "",
-      jourmode: "manuel",
-      jours_select: [],
-      date_desactivee: [], //{ date: "" }
-      periode_desactivee: [] //{ debut: "", fin: "" }
-    };
+    return [
+      {
+        titre: "Indisponibilité, congé",
+        h_debut: "",
+        h_fin: "",
+        jour_type: "",
+        show_select_date_indice_all: null,
+        select_jour_indice: "",
+        jourmode: "manuel",
+        jours_select: [],
+        date_desactivee: [], //{ date: "" }
+        periode_desactivee: [] //{ debut: "", fin: "" }
+      }
+    ];
   },
   GetUniqueDays: function() {
     var result = [];

@@ -7,7 +7,7 @@
         </template>
         <div class="d-flex flex-wrap align-items-center">
           <b-form-checkbox
-            v-for="(checkbox, index) in creneau_configs.days"
+            v-for="(checkbox, index) in creneauConfigs.days"
             :key="index"
             :id="'checkbox-' + index"
             v-model="checkbox.value"
@@ -23,10 +23,10 @@
         <template #label>
           <strong> Definir l'heure de debut et de fin </strong>
         </template>
-        <div class="d-flex flex-wrap ">
+        <div class="d-flex flex-wrap">
           <div
             class="d-flex mr-3"
-            v-for="(input, index) in creneau_configs.days"
+            v-for="(input, index) in creneauConfigs.days"
             :key="index"
           >
             <b-form-group>
@@ -48,7 +48,7 @@
       </b-form-group>
       <b-form-group label="Nombre semaine affichée sur le calendrier">
         <b-form-input
-          v-model="creneau_configs.nombre_semaine"
+          v-model="creneauConfigs.nombre_semaine"
           placeholder="Heure debut"
           type="number"
           class="mb-2"
@@ -56,7 +56,7 @@
       </b-form-group>
       <b-form-group label="Nombre reservation par creneau">
         <b-form-input
-          v-model="creneau_configs.nombre_res_creneau"
+          v-model="creneauConfigs.nombre_res_creneau"
           placeholder="Heure debut"
           type="number"
           class="mb-2"
@@ -65,7 +65,7 @@
 
       <b-form-group label="Titre de l'application">
         <b-form-input
-          v-model="creneau_configs.title"
+          v-model="creneauConfigs.title"
           placeholder="titre du block"
           class="mb-2"
         ></b-form-input>
@@ -74,7 +74,7 @@
         label="Decallage entre l'heure reelle et le premier creneau (en minutes)"
       >
         <b-form-input
-          v-model.number="creneau_configs.deccalage_creneau_depart"
+          v-model.number="creneauConfigs.deccalage_creneau_depart"
           type="number"
           class="mb-2"
         ></b-form-input>
@@ -84,21 +84,10 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "CreneauBase",
-  props: {
-    creneau_configs: {
-      type: Object,
-      default: function() {
-        return {
-          days: [],
-          heures: [],
-          nombre_semaine: "",
-          nombre_res_creneau: ""
-        };
-      }
-    }
-  },
+  props: {},
   components: {
     //
   },
@@ -112,7 +101,7 @@ export default {
     //
   },
   computed: {
-    //
+    ...mapState(["creneauConfigs"])
   },
   methods: {
     //

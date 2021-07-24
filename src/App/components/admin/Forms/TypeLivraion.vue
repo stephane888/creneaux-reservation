@@ -4,12 +4,7 @@
       <!-- Type de livraison -->
       <h4>Type de livraison</h4>
       <div class="accordion" role="tablist">
-        <b-card
-          no-body
-          class="mb-2"
-          v-for="(type, i) in creneauTypes.typelivraison"
-          :key="i"
-        >
+        <b-card no-body class="mb-2" v-for="(type, i) in creneauType" :key="i">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button
               block
@@ -58,21 +53,13 @@
                   class="mb-2"
                 ></b-form-textarea>
               </b-form-group>
-              <b-form-group label="Montant libélé">
+
+              <b-form-group label="Montant">
                 <template #description>
                   <div v-pre>
-                    vous pouvez utiliser les champs dynamic suivants:
-                    {{ titre }}, {{ montant }}, {{ creneau }},
-                    {{ delai_next_creneau }}, {{ delai }}
+                    Remplissez le montant avec la devise. Ex: 100€
                   </div>
                 </template>
-                <b-form-input
-                  v-model="type.montant_libele"
-                  placeholder="Libelé"
-                  class="mb-2"
-                ></b-form-input>
-              </b-form-group>
-              <b-form-group label="Montant">
                 <b-form-input
                   v-model="type.montant"
                   placeholder="montant"
@@ -203,20 +190,19 @@
       <!-- -->
       <hr />
     </b-form>
+    conf:
+    <pre>{{ creneauType }}</pre>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 //
 //import magentoSynchroListSites from "./ListSites.vue";
-import Utilities from "../Utilities";
+import Utilities from "../../../js/Utilities";
 export default {
   name: "TypeLivraion",
   props: {
-    creneauTypes: {
-      type: Object,
-      required: true
-    },
     joursActive: {
       type: Array,
       required: true
@@ -241,6 +227,7 @@ export default {
     //
   },
   computed: {
+    ...mapState(["creneauType"]),
     joursActiveOptions() {
       var result = [];
       this.joursActive.forEach(jour => {
@@ -251,18 +238,15 @@ export default {
   },
   methods: {
     OverrideAdd(i) {
-      if (this.creneauTypes.typelivraison[i]) {
-        this.creneauTypes.typelivraison[i].delais_jour.push(
+      if (this.creneauType[i]) {
+        this.creneauType[i].delais_jour.push(
           Utilities.getDefaultDelaiOverride()
         );
       }
     },
     DeleteOverride(i, ii) {
-      if (
-        this.creneauTypes.typelivraison[i] &&
-        this.creneauTypes.typelivraison[i].delais_jour[ii]
-      ) {
-        this.creneauTypes.typelivraison[i].delais_jour.splice(ii, 1);
+      if (this.creneauType[i] && this.creneauType[i].delais_jour[ii]) {
+        this.creneauType[i].delais_jour.splice(ii, 1);
       }
     },
     getJour(indice) {

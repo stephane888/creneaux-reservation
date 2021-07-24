@@ -10,7 +10,7 @@
         <b-card
           no-body
           class="mb-2"
-          v-for="(filter, index) in filters"
+          v-for="(filter, index) in creneauFilters"
           :key="index"
         >
           <b-card-header header-tag="header" class="p-1" role="tab">
@@ -107,12 +107,15 @@
                 <b-form-group>
                   <template #label>
                     <div
-                      class="d-flex justify-content-between aligns-items-center mt-3"
+                      class="
+                        d-flex
+                        justify-content-between
+                        aligns-items-center
+                        mt-3
+                      "
                     >
-                      <strong>
-                        Selectionner les dates
-                      </strong>
-                      <div class="ctn-action-button ">
+                      <strong> Selectionner les dates </strong>
+                      <div class="ctn-action-button">
                         <b-button
                           variant="outline-info"
                           size="sm"
@@ -163,11 +166,14 @@
                 <b-form-group>
                   <template #label>
                     <div
-                      class="d-flex justify-content-between aligns-items-center mt-3"
+                      class="
+                        d-flex
+                        justify-content-between
+                        aligns-items-center
+                        mt-3
+                      "
                     >
-                      <strong>
-                        Selectionner les periodes
-                      </strong>
+                      <strong> Selectionner les periodes </strong>
                       <div class="ctn-action-button">
                         <b-button
                           variant="outline-info"
@@ -232,14 +238,11 @@
 </template>
 
 <script>
-import Utilities from "../Utilities";
+import { mapState } from "vuex";
+import Utilities from "../../../js/Utilities";
 export default {
   name: "CreneauBase",
   props: {
-    filters: {
-      type: Array,
-      required: true
-    },
     joursActive: {
       type: Array,
       required: true
@@ -264,6 +267,7 @@ export default {
     //
   },
   computed: {
+    ...mapState(["creneauFilters"]),
     joursActiveOptions() {
       var result = [];
       this.joursActive.forEach(jour => {
@@ -283,21 +287,23 @@ export default {
       //
     },
     SelectAllDate(check, i) {
-      if (this.filters[i]) {
-        this.filters[i].jours_select = [];
+      if (this.creneauFilters[i]) {
+        this.creneauFilters[i].jours_select = [];
         if (check === "all") {
           this.joursActive.forEach(item => {
-            this.filters[i].jours_select.push(item.indice);
+            this.creneauFilters[i].jours_select.push(item.indice);
           });
         }
       }
     },
     SelectOneDate(i) {
-      if (this.filters[i]) {
-        if (this.filters[i].jours_select.length >= this.joursActive.length) {
-          this.filters[i].jourmode = "all";
+      if (this.creneauFilters[i]) {
+        if (
+          this.creneauFilters[i].jours_select.length >= this.joursActive.length
+        ) {
+          this.creneauFilters[i].jourmode = "all";
         } else {
-          this.filters[i].jourmode = "manuel";
+          this.creneauFilters[i].jourmode = "manuel";
         }
       }
     },
@@ -318,11 +324,11 @@ export default {
       return min_date;
     },
     FilterAdd() {
-      this.filters.push(Utilities.filter());
+      this.creneauFilters.push(Utilities.filter());
     },
     FilterRemove(i) {
-      if (this.filters[i]) {
-        this.filters.splice(i, 1);
+      if (this.creneauFilters[i]) {
+        this.creneauFilters.splice(i, 1);
       }
     }
   }

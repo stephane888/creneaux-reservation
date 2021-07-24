@@ -4,17 +4,17 @@
     <div class="my-4">
       <b-tabs content-class="my-3">
         <b-tab title="Configuration de base" active>
-          <CreneauBase :creneau_configs="creneau_configs"></CreneauBase>
+          <CreneauBase :creneauConfigs="creneauType"></CreneauBase>
         </b-tab>
         <b-tab title="Configuration des creneaux et dates">
           <CreneauFilters
-            :filters="creneau_filters"
+            :filters="creneauConfigs"
             :jours-active="joursActive"
           ></CreneauFilters>
         </b-tab>
         <b-tab title="Type de livraison">
           <TypeLivraison
-            :creneau-types="creneau_types"
+            :creneau-types="creneauType"
             :jours-active="joursActive"
           ></TypeLivraison>
         </b-tab>
@@ -64,7 +64,7 @@
 <script>
 import Vue from "vue";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
-import configs from "./configs/config.js";
+import configs from "./components/admin/configs/config";
 //
 /**
  * Cette approche ne limite pas BootstrapVue pour ce composant, mais il sera charge si ce composant est demandé.
@@ -73,23 +73,20 @@ import configs from "./configs/config.js";
 Vue.use(BootstrapVue);
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin);
-import Utilities from "./Utilities";
+import Utilities from "./js/Utilities";
+import { mapGetters, mapState } from "vuex";
 export default {
   name: "Admin",
   props: {
     //
   },
   components: {
-    CreneauBase: () => import("./Forms/CreneauBase"),
-    CreneauFilters: () => import("./Forms/CreneauFilters"),
-    TypeLivraison: () => import("./Forms/TypeLivraion")
+    CreneauBase: () => import("./components/admin/Forms/CreneauBase"),
+    CreneauFilters: () => import("./components/admin/Forms/CreneauFilters"),
+    TypeLivraison: () => import("./components/admin/Forms/TypeLivraion")
   },
   data() {
-    return {
-      creneau_configs: {},
-      creneau_filters: [],
-      creneau_types: {}
-    };
+    return {};
   },
   mounted() {
     this.LoadValues();
@@ -98,45 +95,34 @@ export default {
     //
   },
   computed: {
-    joursActive() {
-      var result = [];
-      if (this.creneau_configs.days) {
-        for (const i in this.creneau_configs.days) {
-          if (this.creneau_configs.days[i].value) {
-            result.push(this.creneau_configs.days[i]);
-          }
-        }
-      }
-      return result;
-    }
+    ...mapState(["creneauConfigs", "creneauFilters", "creneauType"]),
+    ...mapGetters(["joursActive"])
   },
   methods: {
     async resetDatas() {
-      this.creneau_configs = Utilities.DefaultCreneauConfigs();
-      this.creneau_filters = [Utilities.filter()];
-      this.creneau_types = Utilities.DefaultCreneauTypes();
+      this.$store.dispatch("ResetDatas");
     },
     async BuildDays() {
-      if (this.creneau_configs.days && this.creneau_configs.days.length == 0)
+      if (this.creneauConfigs.days && this.creneauConfigs.days.length == 0)
         Utilities.JourInfos().forEach(item => {
-          this.creneau_configs.days.push(item);
+          this.creneauConfigs.days.push(item);
         });
     },
     SaveMetafieldConfig() {
       configs.saveMetaFields([
         {
-          key: "creneau_configs",
-          value: this.creneau_configs,
+          key: "creneauConfigs",
+          value: this.creneauConfigs,
           value_type: "json_string"
         },
         {
-          key: "creneau_filters",
-          value: this.creneau_filters,
+          key: "creneauFilters",
+          value: this.creneauFilters,
           value_type: "json_string"
         },
         {
-          key: "creneau_types",
-          value: this.creneau_types,
+          key: "creneauType",
+          value: this.creneauType,
           value_type: "json_string"
         }
       ]);
@@ -147,24 +133,21 @@ export default {
         typeof localStorage !== "undefined"
       ) {
         localStorage.setItem(
-          "creneau_configs",
-          JSON.stringify(this.creneau_configs)
+          "creneauConfigs",
+          JSON.stringify(this.creneauConfigs)
         );
         localStorage.setItem(
-          "creneau_filters",
-          JSON.stringify(this.creneau_filters)
+          "creneauFilters",
+          JSON.stringify(this.creneauFilters)
         );
-        localStorage.setItem(
-          "creneau_types",
-          JSON.stringify(this.creneau_types)
-        );
+        localStorage.setItem("creneauType", JSON.stringify(this.creneauType));
         window.location.reload();
       } else {
         configs
           .SaveConfigsTest({
-            creneau_configs: this.creneau_configs,
-            creneau_filters: this.creneau_filters,
-            creneau_types: this.creneau_types
+            creneauConfigs: this.creneauConfigs,
+            creneauFilters: this.creneauFilters,
+            creneauType: this.creneauType
           })
           .then(() => {
             window.location.reload();
@@ -179,9 +162,9 @@ export default {
         window.location.host === "localhost:8080" &&
         typeof localStorage !== "undefined"
       ) {
-        localStorage.removeItem("creneau_configs");
-        localStorage.removeItem("creneau_filters");
-        localStorage.removeItem("creneau_types");
+        localStorage.removeItem("creneauConfigs");
+        localStorage.removeItem("creneauFilters");
+        localStorage.removeItem("creneauType");
       }
       //load default datas
       await this.resetDatas();
@@ -201,14 +184,14 @@ export default {
               if (metafield.namespace === "wbu_creneaux") {
                 StoreHasConfig = true;
                 switch (metafield.key) {
-                  case "creneau_configs":
-                    this.creneau_configs = JSON.parse(metafield.value);
+                  case "creneauConfigs":
+                    this.creneauConfigs = JSON.parse(metafield.value);
                     break;
-                  case "creneau_filters":
-                    this.creneau_filters = JSON.parse(metafield.value);
+                  case "creneauFilters":
+                    this.creneauFilters = JSON.parse(metafield.value);
                     break;
-                  case "creneau_types":
-                    this.creneau_types = JSON.parse(metafield.value);
+                  case "creneauType":
+                    this.creneauType = JSON.parse(metafield.value);
                     break;
                 }
               }
@@ -224,22 +207,22 @@ export default {
     },
     async LoadValues() {
       var StoreHasTestConfig = false;
-      var creneau_configs = window.creneau_configs;
-      if (creneau_configs && creneau_configs.days) {
-        this.creneau_configs = creneau_configs;
+      var creneauConfigs = window.creneauConfigs;
+      if (creneauConfigs && creneauConfigs.days) {
+        this.creneauConfigs = creneauConfigs;
         StoreHasTestConfig = true;
       }
       //
-      var creneau_types = window.creneau_types;
-      if (creneau_types && creneau_types.typelivraison) {
-        this.creneau_types = creneau_types;
+      var creneauType = window.creneauType;
+      if (creneauType && creneauType.typelivraison) {
+        this.creneauType = creneauType;
       }
       //
-      var creneau_filters = window.creneau_filters;
-      if (creneau_filters && creneau_filters.length) {
-        this.creneau_filters = creneau_filters;
+      var creneauFilters = window.creneauFilters;
+      if (creneauFilters && creneauFilters.length) {
+        this.creneauFilters = creneauFilters;
       }
-      if (!StoreHasTestConfig) {
+      if (StoreHasTestConfig) {
         await this.resetDatas();
       }
       this.loadDefaultDatas();
