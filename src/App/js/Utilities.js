@@ -1,4 +1,63 @@
 const Utilities = {
+  getDefaultCreneauConfig() {
+    return {
+      days: [
+        {
+          text: "Lundi",
+          value: 0,
+          debut: "7:30",
+          fin: "21:30",
+          indice: 1
+        },
+        {
+          text: "Mardi",
+          value: 1,
+          debut: "7:30",
+          fin: "21:30",
+          indice: 2
+        },
+        {
+          text: "Mercredi",
+          value: 1,
+          debut: "7:30",
+          fin: "21:30",
+          indice: 3
+        },
+        {
+          text: "Jeudi",
+          value: 1,
+          debut: "7:30",
+          fin: "21:30",
+          indice: 4
+        },
+        {
+          text: "Vendredi",
+          value: 1,
+          debut: "7:30",
+          fin: "21:30",
+          indice: 5
+        },
+        {
+          text: "Samedi",
+          value: 1,
+          debut: "7:30",
+          fin: "21:30",
+          indice: 6
+        },
+        {
+          text: "Dimanche",
+          value: 0,
+          debut: "7:30",
+          fin: "21:30",
+          indice: 0
+        }
+      ],
+      nombre_semaine: 5,
+      nombre_res_creneau: 2,
+      title: "Gugle Das souhaite finaliser la commande",
+      deccalage_creneau_depart: 0
+    };
+  },
   JourInfos: function() {
     return [
       { text: "Lundi", value: 1, debut: "7:30", fin: "21:30", indice: 1 },
@@ -24,21 +83,29 @@ const Utilities = {
       typelivraison: this.getDefaultTypeLivraion()
     };
   },
+  /**
+   * Retourne le model de filtre par defaut.
+   * @returns
+   */
+  getDefaultFilter: function() {
+    return {
+      titre: "Indisponibilité, congé",
+      h_debut: "",
+      h_fin: "",
+      jour_type: "",
+      show_select_date_indice_all: null,
+      select_jour_indice: "",
+      jourmode: "manuel",
+      jours_select: [],
+      date_desactivee: [], //{ date: "" }
+      periode_desactivee: [] //{ debut: "", fin: "" }
+    };
+  },
+  /**
+   * Reinitialise le filtre.
+   */
   filter: function() {
-    return [
-      {
-        titre: "Indisponibilité, congé",
-        h_debut: "",
-        h_fin: "",
-        jour_type: "",
-        show_select_date_indice_all: null,
-        select_jour_indice: "",
-        jourmode: "manuel",
-        jours_select: [],
-        date_desactivee: [], //{ date: "" }
-        periode_desactivee: [] //{ debut: "", fin: "" }
-      }
-    ];
+    return [this.getDefaultFilter()];
   },
   GetUniqueDays: function() {
     var result = [];
@@ -55,45 +122,30 @@ const Utilities = {
       delai: 4
     };
   },
-  getDefaultTypeLivraion: function() {
+  getDefaultTypeLivraion() {
     return [
       {
         titre: "Gratuit",
-        body: `<div class="d-flex justify-content-between"> <span>Créneau horaire de {{ creneau }} min </span> <span>Délai de traitement de {{ delai }} Jours </span> </div>`,
-        montant_libele: "Frais de livraison : {{montant}}",
+        body:
+          '<div class="col-12 col-sm-6 col-md-4 my-2">Créneau horaire de aeieaeaeie {{ creneau }} min</div><div class="col-12 col-sm-6 col-md-4 my-2">Délai de aeieieiea traitement de {{ delai }} jours</div><div class="col-12 col-sm-6 col-md-4 my-2">Frais de livraison : {{montant}}</div>',
         montant: "Gratuit",
         type: "free",
-        creneau: 120, // la durée d'un creneaux.
-        delai_next_creneau: 30, // la durée entre les creneaux.
-        delai: 3, // delai de traitement entre la collecte et la livraion.
-        //permet de surcharger le delai de traitement en fonction des jours de la semaine.
-        /*
-        example:
-        delais_jour: [
-          {
-            day: 4,
-            delai: 4
-          },
-          {
-            day: 5,
-            delai: 4
-          }
-        ],
-        /**/
+        creneau: 120,
+        delai_next_creneau: 30,
+        delai: 3,
         delais_jour: [],
         id: 32583132807228,
         active: true
-        //delai_override est ajoute de maniere dynamique à object, il permet de partager la valeur dynamique du delai.
-        // il a pour avantages d'etre court donc plus performant qu'un $emit.
       },
       {
         titre: "Plus",
-        body: `<div class="d-flex justify-content-between"> <span>Créneau horaire de {{ creneau }} min </span> <span>Délai de traitement de {{ delai }} jours </span> </div>`,
+        body:
+          '<div class="col-12 col-sm-6 col-md-4 my-2">Créneau horaire de {{ creneau }} min</div><div class="col-12 col-sm-6 col-md-4 my-2">Délai de traitement de {{ delai }} jours</div><div class="col-12 col-sm-6 col-md-4 my-2">Frais de livraison : {{montant}}</div>',
         montant_libele: "Frais de livraison : {{montant}}€",
-        montant: "9.99",
+        montant: "9.99€",
         type: "plus",
         creneau: 60,
-        delai_next_creneau: 30, // la durée entre les creneaux.
+        delai_next_creneau: 30,
         delai: 2,
         delais_jour: [],
         id: 32583132839996,
@@ -101,12 +153,12 @@ const Utilities = {
       },
       {
         titre: "Express",
-        body: `<div class="d-flex justify-content-between"> <span>Créneau horaire de {{ creneau }} min </span> <span>Délai de traitement de {{ delai }} jours </span> </div>`,
-        montant_libele: "Frais de livraison : {{montant}}€",
-        montant: "19.99",
+        body:
+          '<div class="col-12 col-sm-6 col-md-4 my-2">Créneau horaire de {{ creneau }} min</div><div class="col-12 col-sm-6 col-md-4 my-2">Délai de traitement de {{ delai }} jours</div><div class="col-12 col-sm-6 col-md-4 my-2">Frais de livraison : {{montant}}</div>',
+        montant: "19.99€",
         type: "express",
         creneau: 30,
-        delai_next_creneau: 30, // la durée entre les creneaux.
+        delai_next_creneau: 30,
         delai: 1,
         delais_jour: [],
         id: 32583132872764,

@@ -7,35 +7,11 @@
           <tab-option></tab-option>
         </div>
         <div class="block-border">
-          <div class="row mt-3 ml-md-2 mb-3 font-weight-bold type-livraison">
+          <div class="row font-weight-bold type-livraison mb-2">
             <inline-description></inline-description>
-            <!-- <div class="list-inline-item col-md-8">
-              <div class="d-flex justify-content-between">
-                <span>Créneau horaire de 60 min </span>
-                <span>Délai de traitement de 2 jours </span>
-              </div>
-            </div> -->
-
-            <!-- <div class="col-12 col-sm-6 col-md-4 my-2">
-              Créneau horaire de 60 min
-            </div>
-            <div class="col-12 col-sm-6 col-md-4 my-2">
-              Délai de traitement de 2 jours
-            </div>
-            <div class="col-12 col-sm-6 col-md-4 my-2">
-              Frais de livraison : 9.99€
-            </div> -->
-
-            <!-- <div class="col-12 col-sm-6 col-md-4">
-              <p><span> Délai de traitement de 2 jours </span></p>
-            </div>
-            <div class="col-12 col-sm-6 col-md-4">
-              <p><span> Frais de livraison : 9.99€ </span></p>
-            </div> -->
           </div>
           <div class="row d-flex justify-content-start commande-detail mb-5">
             <!-- affiche les alerts -->
-
             <div
               class="
                 rectangle
@@ -71,7 +47,7 @@
               </div>
             </div>
             <div class="col-md-7">
-              <div class="row ml-md-4">
+              <div class="row ml-md-4 h-100">
                 <div
                   class="
                     rectangle
