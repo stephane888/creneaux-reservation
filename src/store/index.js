@@ -5,14 +5,42 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    // -------------------------------------------------------------
+    //  Configuration par defaut.
+    // -------------------------------------------------------------
     creneauConfigs: Utilities.getDefaultCreneauConfig(),
     creneauFilters: Utilities.filter(),
     creneauType: Utilities.getDefaultTypeLivraion(),
-    joursActive: [],
-    /* Représente l'index de la Tab sélectionné */
-    activeType: 0
+    /**
+     * Représente l'index de la Tab sélectionné par defaut.
+     */
+    activeType: 0,
+    /**
+     * Date du jour.
+     */
+    dateDuJour: null,
+    // -------------------------------------------------------------
+    //  Gestion des heures sur le crenau.
+    // -------------------------------------------------------------
+    hours: {
+      //Contient l'heure de collecte selectionner
+      current_collecte: "",
+      //Contient l'heure de livraison selectionner
+      current_livraison: ""
+    },
+    // -------------------------------------------------------------
+    //  Gestion des dates (calendrier) sur le crenau.
+    // -------------------------------------------------------------
+    calendar: {
+      //
+    }
   },
   getters: {
+    /**
+     * Retourne les index des jours activées.
+     * @param {*} state
+     * @returns
+     */
     joursActive: state => {
       var result = [];
       if (state.creneauConfigs.days) {
@@ -24,6 +52,11 @@ export default new Vuex.Store({
       }
       return result;
     },
+    /**
+     * Retourne le texte de l'option.
+     * @param {*} state.
+     * @returns.
+     */
     activeTabOption: state => {
       function formatString(str) {
         var regex = /\{\{(.*?)\}\}/g;
@@ -45,6 +78,16 @@ export default new Vuex.Store({
       } else {
         return "";
       }
+    },
+    /**
+     * Determine la date minimal utilisable par l'application,
+     * Elle est etroitement lié à la date du jour.
+     */
+    appDate(state) {
+      if (state.dateDuJour) {
+        var d = moment(state.dateDuJour);
+        return d;
+      } else return null;
     }
   },
   mutations: {
@@ -54,9 +97,12 @@ export default new Vuex.Store({
       state.activeType = payload;
     },
     RESETDATAS: state => {
-      state.creneauConfigs = Utilities.DefaultCreneauConfigs();
+      state.creneauConfigs = Utilities.getDefaultCreneauConfig();
       state.creneauFilters = Utilities.filter();
       state.creneauType = Utilities.getDefaultTypeLivraion();
+    },
+    DATEDUJOUR: (state, date) => {
+      state.dateDuJour = date;
     }
   },
   actions: {
@@ -65,6 +111,9 @@ export default new Vuex.Store({
     },
     ResetDatas({ commit }) {
       commit("RESETDATAS");
+    },
+    SetDateDuJour({ commit }, date) {
+      commit("DATEDUJOUR", date);
     }
   },
   modules: {}

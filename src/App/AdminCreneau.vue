@@ -4,7 +4,7 @@
     <div class="my-4">
       <b-tabs content-class="my-3">
         <b-tab title="Configuration de base" active>
-          <CreneauBase :creneauConfigs="creneauType"></CreneauBase>
+          <CreneauBase :creneau-configs="creneauType"></CreneauBase>
         </b-tab>
         <b-tab title="Configuration des creneaux et dates">
           <CreneauFilters
@@ -17,6 +17,9 @@
             :creneau-types="creneauType"
             :jours-active="joursActive"
           ></TypeLivraison>
+        </b-tab>
+        <b-tab title="Configuration de la map">
+          <MapGoogle></MapGoogle>
         </b-tab>
       </b-tabs>
       <div class="d-flex justify-content-end">
@@ -83,7 +86,8 @@ export default {
   components: {
     CreneauBase: () => import("./components/admin/Forms/CreneauBase"),
     CreneauFilters: () => import("./components/admin/Forms/CreneauFilters"),
-    TypeLivraison: () => import("./components/admin/Forms/TypeLivraion")
+    TypeLivraison: () => import("./components/admin/Forms/TypeLivraion"),
+    MapGoogle: () => import("map-google-location/src/AppManageApiGoogle.vue")
   },
   data() {
     return {};

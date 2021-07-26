@@ -152,6 +152,8 @@
 
         &.flat {
           padding-top: 0;
+          left: 0;
+          top: 100%;
 
           ul {
             .date {

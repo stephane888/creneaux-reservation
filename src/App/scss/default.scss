@@ -255,21 +255,3 @@ $color3: #f53def !default; //on importe les modules bootstrap.
     }
   }
 }
-
-$color_bg: #f3f3f3;
-.creneaux-mbt {
-  .app-admin {
-    background-color: $color_bg !important;
-  }
-}
-.app-admin {
-  @import "~bootstrap/scss/bootstrap.scss";
-  @import "~bootstrap-vue/src/index.scss";
-  .ctn-action-button {
-    &.static {
-      position: absolute;
-      top: 0.5em;
-      right: 0.5em;
-    }
-  }
-}

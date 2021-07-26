@@ -54,26 +54,6 @@ const Utilities = {
       ],
       nombre_semaine: 5,
       nombre_res_creneau: 2,
-      title: "Gugle Das souhaite finaliser la commande",
-      deccalage_creneau_depart: 0
-    };
-  },
-  JourInfos: function() {
-    return [
-      { text: "Lundi", value: 1, debut: "7:30", fin: "21:30", indice: 1 },
-      { text: "Mardi", value: 1, debut: "7:30", fin: "21:30", indice: 2 },
-      { text: "Mercredi", value: 1, debut: "7:30", fin: "21:30", indice: 3 },
-      { text: "Jeudi", value: 1, debut: "7:30", fin: "21:30", indice: 4 },
-      { text: "Vendredi", value: 1, debut: "7:30", fin: "21:30", indice: 5 },
-      { text: "Samedi", value: 0, debut: "7:30", fin: "21:30", indice: 6 },
-      { text: "Dimanche", value: 0, debut: "7:30", fin: "21:30", indice: 0 }
-    ];
-  },
-  DefaultCreneauConfigs: function() {
-    return {
-      days: [],
-      nombre_semaine: 5,
-      nombre_res_creneau: 2,
       title: "Finaliser la commande",
       deccalage_creneau_depart: 0
     };
@@ -168,8 +148,8 @@ const Utilities = {
   }
 };
 export default Utilities;
-// Les ids de produits.
 
+// Les ids de produits.
 // 32583132807228
 // 32583132839996
 // 32583132872764
