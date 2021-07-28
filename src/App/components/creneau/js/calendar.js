@@ -4,7 +4,7 @@ import Filtre from "./filtre";
  * Doc : https://github.com/niinpatel/calendarHTML-Javascript/blob/master/scripts.js
  */
 class calendar {
-  constructor(date, appDate, type, creneauConfigs) {
+  constructor(date, appDate, type, creneauConfigs, currentCreneauType) {
     this.currentDate = moment(date);
     // indice du mois. [ Entre 0 et 11 ];
     this.currentMonth = this.currentDate.month();
@@ -14,18 +14,27 @@ class calendar {
     this.dates = [];
     /**
      * Date de l'application sans les les heures.
+     * elle egalment le role de date de reference. (tous les dates en dessous sont desactivées);
      */
     this.dateMonth = moment(appDate).set({ hour: 0, minute: 0, second: 0 });
     this.creneauConfigs = creneauConfigs;
+    this.currentCreneauType = currentCreneauType;
     /**
      * cest deux cas possible: collecte ou livraison.
      */
     this.type = type;
+    /**
+     *
+     */
+    this.CountDecallageAppliquer = 0;
+    this.currentCreneauType.delai = parseInt(this.currentCreneauType.delai);
   }
   /**
    * -
    */
   buildDaysOfMonth() {
+    //On s'assure que le mois a au moins un jour valide, sinon on passe au mois suivant.
+    // ()=>{}
     let nombreSemaine = 6;
     let premierJourMois = moment().set({
       year: this.currentYear,
@@ -67,29 +76,54 @@ class calendar {
     for (let i = 0; i < nombreSemaine; i++) {
       if (date > daysInMonth) break;
       for (let j = 0; j < 7; j++) {
-        const filter = new Filtre(this.dateMonth, this.creneauConfigs);
+        const filter = new Filtre(
+          this.dateMonth,
+          this.type,
+          this.creneauConfigs,
+          this.currentCreneauType
+        );
         // Si nous sommes sur la premiere semaine, et que l'indice du premier jour de mois est inferieur à la valeur encours,
         // On ajoute ces dates comme etant desactivées.
         if (i === 0 && j < indiceDuPremierJourDumois) {
           let pre_jour = premierJourMois.add(1, "day");
           filter.ValidationDay(pre_jour).then(stateValidationDay => {
-            this.dates.push(stateValidationDay);
+            this.dates.push(this.DisabledBydelai(stateValidationDay));
           });
         } else if (date > daysInMonth) {
           // On commence avec les jours du prochain mois.
           let last_jour = DernierJourMois.add(1, "day");
           filter.ValidationDay(last_jour).then(stateValidationDay => {
-            this.dates.push(stateValidationDay);
+            this.dates.push(this.DisabledBydelai(stateValidationDay));
           });
         } else {
           let next_jour = premierJourMois.add(1, "day");
           filter.ValidationDay(next_jour).then(stateValidationDay => {
-            this.dates.push(stateValidationDay);
+            this.dates.push(this.DisabledBydelai(stateValidationDay));
           });
           date++;
         }
       }
     }
+  }
+  /**
+   * On applique le delais, sur le bloc livraison, suivant plusieurs cas de figure.
+   * Le delai est definit par la date de collecte,
+   * Le delai par defaut est dans this.currentCreneauType.delai et peut etre surcharger par celui definit par par this.currentCreneauType.delais_jour
+   * @param {*} stateValidationDay
+   * @returns
+   */
+  DisabledBydelai(stateValidationDay) {
+    if (this.type === "livraison") {
+      if (
+        this.CountDecallageAppliquer < this.currentCreneauType.delai &&
+        stateValidationDay.status
+      ) {
+        this.CountDecallageAppliquer++;
+        stateValidationDay.status = false;
+        stateValidationDay.custom_class = "default-disable-delai";
+      }
+    }
+    return stateValidationDay;
   }
 }
 export default calendar;

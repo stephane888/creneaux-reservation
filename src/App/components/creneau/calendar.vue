@@ -1,7 +1,9 @@
 <template>
   <div
     class="container-date flat cercle"
-    :initCalendar="initCalendar"
+    :initCreneau="initCreneau"
+    :ReInitCreneauLivraison="ReInitCreneauLivraison"
+    :updateCurrentDateSelect="updateCurrentDateSelect"
     v-show="showCalandar"
   >
     <div class="single-date-picker__calendar-month-header">
@@ -62,6 +64,7 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 import calendar from "./js/calendar.js";
+import Utilities from "../../js/Utilities";
 export default {
   name: "Calendar",
   props: {
@@ -92,45 +95,176 @@ export default {
   },
   computed: {
     ...mapGetters(["appDate"]),
-    ...mapState(["creneauConfigs"]),
+    ...mapState([
+      "activeType",
+      "creneauConfigs",
+      "creneauType",
+      "creneauCollecte",
+      "creneauLivraison"
+    ]),
     /**
-     * Permet de demarer le calendrier avec la date par defaut.
+     * Permet de demarer le calendrier.
+     * Si nous sommes dans le cas de la collecte, on utilise la date par defaut.
+     * Si on est dans la livraison on utilise la date definit par la collecte.
      */
-    initCalendar() {
-      if (this.appDate) {
-        this.buildCalendar();
-        return this.appDate;
+    initCreneau() {
+      console.log("initCreneau : ", this.type);
+      if (this.type === Utilities.crex1.id) {
+        if (this.appDate) {
+          this.buildCalendar();
+          return this.appDate;
+        }
+      } else if (this.type === Utilities.crex2.id) {
+        if (this.creneauCollecte.date_string) {
+          this.buildCalendar();
+          return this.creneauCollecte.date_string;
+        }
       }
       return null;
+    },
+    /**
+     * Re-initialise le creneau livaison si l'utilisateur change la date de livraison ou si l'utilisateur change de type de livraison.
+     */
+    ReInitCreneauLivraison() {
+      if (this.creneauCollecte.date_string && this.currentCreneauType) {
+        if (this.type === Utilities.crex2.id) {
+          this.emptyCurentDateSelect();
+        }
+      }
+      return this.creneauCollecte.date_string;
+    },
+
+    /**
+     * Permet de selectionner une date par defaut ou lorque le calendrier change change.
+     * On met à jour la date creneauInfo[this.type].date si ce dernier est null.
+     * Si creneauInfo[this.type].date n'est pas null, alors l'utilisateur a deja selectionné une date.
+     *
+     */
+    updateCurrentDateSelect() {
+      if (this.listCalanderDays.length) {
+        if (this.type == Utilities.crex1.id) {
+          if (!this.creneauCollecte.date_string) {
+            this.selectFirstActiveDate();
+          } else {
+            this.selectEgalActiveDate();
+          }
+        }
+        if (this.type == Utilities.crex2.id) {
+          if (!this.creneauLivraison.date_string) {
+            this.selectFirstActiveDate();
+          } else {
+            this.selectEgalActiveDate();
+          }
+        }
+
+        return this.listCalanderDays.length;
+      }
+      return null;
+    },
+    /**
+     * -
+     */
+    currentCreneauType() {
+      return this.creneauType[this.activeType];
     }
   },
   methods: {
+    emptyCurentDateSelect() {
+      this.$store.dispatch("SetSelectDate", this.BuildPayload(false));
+      this.calendarNav = 0;
+    },
+    BuildPayload(val) {
+      return {
+        type: this.type,
+        date_string: val
+      };
+    },
+    /**
+     * Selectionne la premiere date active,
+     * s'il nya pas de date active, dans le mois en cours, on incremente le mois.
+     */
+    selectFirstActiveDate() {
+      for (const i in this.listCalanderDays) {
+        const e = this.listCalanderDays[i];
+        if (e.status) {
+          e.select = true;
+          this.$store.dispatch(
+            "SetSelectDate",
+            this.BuildPayload(e.date_string)
+          );
+          break;
+        }
+        var ii = parseInt(i) + 1;
+        //si on a parcourut tout le tableau sans trouve de valeur active, on prend le prochain mois.
+        if (this.listCalanderDays.length === ii) this.nextMonth();
+      }
+    },
+    /**
+     * Cette function permet de selectionner la cellule sur le calendrier == la date precedament selectionné.
+     * Elle declanche selectFirstActiveDate() si la date selectionné est desactivé;
+     */
+    selectEgalActiveDate() {
+      for (const i in this.listCalanderDays) {
+        const e = this.listCalanderDays[i];
+        if (this.type === Utilities.crex1.id)
+          if (e.date_string === this.creneauCollecte.date_string) {
+            if (!e.status) this.selectFirstActiveDate();
+            else e.select = true;
+            break;
+          }
+        if (this.type === Utilities.crex2.id)
+          if (e.date_string === this.creneauLivraison.date_string) {
+            if (!e.status) this.selectFirstActiveDate();
+            else e.select = true;
+            break;
+          }
+        // Pour permettre à la livraison de toujours selectionné une date.
+
+        var ii = parseInt(i) + 1;
+        if (
+          this.listCalanderDays.length == ii &&
+          this.type === Utilities.crex2.id
+        ) {
+          //this.selectFirstActiveDate();
+        }
+      }
+    },
     selectDate(date) {
       if (!date.status) return false;
-      this.listCalanderDays.forEach(element => {
-        element.select = "";
+      this.listCalanderDays.forEach(e => {
+        e.select = false;
       });
       date.select = "selected";
+      this.$store.dispatch(
+        "SetSelectDate",
+        this.BuildPayload(date.date_string)
+      );
     },
     previowMonth() {
       this.calendarNav--;
-      this.buildCalendar();
     },
     nextMonth() {
       this.calendarNav++;
-      this.buildCalendar();
     },
     buildCalendar() {
-      const date =
-        this.calendarNav === 0
-          ? this.appDate
-          : moment(this.appDate).add(this.calendarNav, "month");
+      var date, appDate;
+      if (this.type === Utilities.crex1.id) {
+        date = moment(this.appDate).add(this.calendarNav, "month");
+        appDate = this.appDate;
+      } else {
+        date = moment(this.creneauCollecte.date_string, "YYYY-MM-DD").add(
+          this.calendarNav,
+          "month"
+        );
+        appDate = moment(this.creneauCollecte.date_string, "YYYY-MM-DD");
+      }
       // Build calendar.
       const cal = new calendar(
         date,
-        this.appDate,
+        appDate,
         this.type,
-        this.creneauConfigs
+        this.creneauConfigs,
+        this.currentCreneauType
       );
       cal.buildDaysOfMonth();
       this.listCalanderDays = cal.dates;

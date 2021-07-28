@@ -34,15 +34,7 @@ import AdvancedSelect from "vue-multiselect";
 // import { BuildCreneaux } from "./AppResouces.js";
 export default {
   name: "Hours",
-  props: {
-    /**
-     * La date provenant du calendrier.
-     */
-    appDateFromCalandar: {
-      type: [Object, String],
-      required: true
-    }
-  },
+  props: {},
   components: {
     AdvancedSelect
   },

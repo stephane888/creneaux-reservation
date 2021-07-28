@@ -7,9 +7,8 @@
     <div
       class=" d-flex justify-content-between justify-content-md-start line-creneau h1 "
     >
-      <!--
       <hours></hours>
-       -->
+
       <i
         class="icone-svg mb-md-1 mb-lg-2 cursor-pointer"
         @click="showCalandar = !showCalandar"
@@ -18,17 +17,26 @@
       </i>
     </div>
 
-    <calendar :show-calandar="showCalandar" :type="type"></calendar>
-    <p class="cursor-pointer">Mercredi 7 juillet</p>
+    <p @click="showCalandar = !showCalandar" class="cursor-pointer">
+      {{ appDateDisplay }}
+    </p>
     <div
       class="over-container-date"
       v-if="showCalandar"
       @click="showCalandar = !showCalandar"
     ></div>
+    <calendar :show-calandar="showCalandar" :type="type"></calendar>
+    <pre v-if="type == 'livraison'">
+      creneauLivraison {{ creneauLivraison }}
+    </pre>
+    <pre v-if="type == 'collecte'">
+      creneauCollecte {{ creneauCollecte }}
+    </pre>
   </div>
 </template>
 <script>
-//import hours from "./Hours.vue";
+import { mapState } from "vuex";
+import hours from "./Hours.vue";
 import calendar from "./calendar.vue";
 import SvgCalandar from "./SvgCalandar.vue";
 export default {
@@ -48,7 +56,7 @@ export default {
     }
   },
   components: {
-    //hours,
+    hours,
     calendar,
     SvgCalandar
   },
@@ -56,6 +64,30 @@ export default {
     return {
       showCalandar: false
     };
+  },
+  /**
+   * Date affiché.
+   */
+
+  computed: {
+    ...mapState(["creneauCollecte", "creneauLivraison"]),
+    appDateDisplay: {
+      get() {
+        if (this.type === "livraison" && this.creneauLivraison.date_string) {
+          return moment(this.creneauLivraison.date_string, "YYYY-MM-DD")
+            .locale("fr")
+            .format("dddd Do MMMM");
+        } else if (
+          this.type === "collecte" &&
+          this.creneauCollecte.date_string
+        ) {
+          return moment(this.creneauCollecte.date_string, "YYYY-MM-DD")
+            .locale("fr")
+            .format("dddd Do MMMM");
+        }
+        return "";
+      }
+    }
   }
 };
 </script>

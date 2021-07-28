@@ -20,19 +20,20 @@ export default new Vuex.Store({
      */
     dateDuJour: null,
     // -------------------------------------------------------------
-    //  Gestion des heures sur le crenau.
+    //  Gestion des données selectionnes.( date et creneau)
     // -------------------------------------------------------------
-    hours: {
-      //Contient l'heure de collecte selectionner
-      current_collecte: "",
-      //Contient l'heure de livraison selectionner
-      current_livraison: ""
+    /**
+     * Date selectionné automatiquement par l'App ou manuelment par l'utilisateur.
+     * Format anglais. => "YYYY-MM-DD"
+     * Les données doivent etre stocker dans creneauInfo[type]date
+     */
+    creneauCollecte: {
+      hour: false,
+      date_string: false
     },
-    // -------------------------------------------------------------
-    //  Gestion des dates (calendrier) sur le crenau.
-    // -------------------------------------------------------------
-    calendar: {
-      //
+    creneauLivraison: {
+      hour: false,
+      date_string: false
     }
   },
   getters: {
@@ -103,6 +104,13 @@ export default new Vuex.Store({
     },
     DATEDUJOUR: (state, date) => {
       state.dateDuJour = date;
+    },
+    ApplySelectDate: (state, payload) => {
+      if (payload.type === Utilities.crex1.id) {
+        state.creneauCollecte.date_string = payload.date_string;
+      } else if (payload.type === Utilities.crex2.id) {
+        state.creneauLivraison.date_string = payload.date_string;
+      }
     }
   },
   actions: {
@@ -114,6 +122,9 @@ export default new Vuex.Store({
     },
     SetDateDuJour({ commit }, date) {
       commit("DATEDUJOUR", date);
+    },
+    SetSelectDate({ commit }, payload) {
+      commit("ApplySelectDate", payload);
     }
   },
   modules: {}

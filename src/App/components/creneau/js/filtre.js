@@ -1,5 +1,5 @@
 class filtre {
-  constructor(dateMonth, creneauConfigs, filters = {}) {
+  constructor(dateMonth, type, creneauConfigs, currentCreneauType) {
     /**
      * Date de l'application sans les les heures.
      */
@@ -8,6 +8,8 @@ class filtre {
     if (creneauConfigs.days) {
       this.DaysDisabled(creneauConfigs.days);
     }
+    this.type = type;
+    this.currentCreneauType = currentCreneauType;
   }
   /**
    * Jours desactivés
@@ -38,7 +40,9 @@ class filtre {
         //permet de desactivée en function de l'indice.
         if (this.IndexDayDisabled.includes(date.day())) {
           resolvEnd(this.statusDate(date, false, "default-disable-day"));
-        } else resolvEnd(this.statusDate(date, true, "default-disable-day"));
+        } else {
+          resolvEnd(this.statusDate(date, true, "default-actif-day"));
+        }
       } else {
         resolvEnd(this.statusDate(date, false, "default-disable"));
       }
@@ -93,13 +97,13 @@ class filtre {
     });
   }
   /** */
-  statusDate(date, status, custom_class, select = "") {
+  statusDate(date, status, custom_class, select = false) {
     return {
       status: status,
       custom_class: custom_class,
       date: date.date(),
       select: select,
-      date_french: date.format("YYYY-MM-DD")
+      date_string: date.format("YYYY-MM-DD")
     };
   }
 }

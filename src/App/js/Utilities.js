@@ -145,6 +145,14 @@ const Utilities = {
         active: false
       }
     ];
+  },
+  crex1: {
+    label: "Collecte",
+    id: "collecte"
+  },
+  crex2: {
+    label: "Livraison",
+    id: "livraison"
   }
 };
 export default Utilities;

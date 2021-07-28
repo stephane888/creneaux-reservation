@@ -796,6 +796,28 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 /***/ }),
 
+/***/ "2532":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var notARegExp = __webpack_require__("5a34");
+var requireObjectCoercible = __webpack_require__("1d80");
+var correctIsRegExpLogic = __webpack_require__("ab13");
+
+// `String.prototype.includes` method
+// https://tc39.es/ecma262/#sec-string.prototype.includes
+$({ target: 'String', proto: true, forced: !correctIsRegExpLogic('includes') }, {
+  includes: function includes(searchString /* , position = 0 */) {
+    return !!~String(requireObjectCoercible(this))
+      .indexOf(notARegExp(searchString), arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+
+/***/ }),
+
 /***/ "2626":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2376,6 +2398,33 @@ module.exports = fails(function () {
 
 /***/ }),
 
+/***/ "44d2":
+/***/ (function(module, exports, __webpack_require__) {
+
+var wellKnownSymbol = __webpack_require__("b622");
+var create = __webpack_require__("7c73");
+var definePropertyModule = __webpack_require__("9bf2");
+
+var UNSCOPABLES = wellKnownSymbol('unscopables');
+var ArrayPrototype = Array.prototype;
+
+// Array.prototype[@@unscopables]
+// https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
+if (ArrayPrototype[UNSCOPABLES] == undefined) {
+  definePropertyModule.f(ArrayPrototype, UNSCOPABLES, {
+    configurable: true,
+    value: create(null)
+  });
+}
+
+// add a key to Array.prototype[@@unscopables]
+module.exports = function (key) {
+  ArrayPrototype[UNSCOPABLES][key] = true;
+};
+
+
+/***/ }),
+
 /***/ "44de":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2386,6 +2435,25 @@ module.exports = function (a, b) {
   if (console && console.error) {
     arguments.length === 1 ? console.error(a) : console.error(a, b);
   }
+};
+
+
+/***/ }),
+
+/***/ "44e7":
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__("861d");
+var classof = __webpack_require__("c6b6");
+var wellKnownSymbol = __webpack_require__("b622");
+
+var MATCH = wellKnownSymbol('match');
+
+// `IsRegExp` abstract operation
+// https://tc39.es/ecma262/#sec-isregexp
+module.exports = function (it) {
+  var isRegExp;
+  return isObject(it) && ((isRegExp = it[MATCH]) !== undefined ? !!isRegExp : classof(it) == 'RegExp');
 };
 
 
@@ -2809,6 +2877,20 @@ module.exports = {
   // `String.prototype.trim` method
   // https://tc39.es/ecma262/#sec-string.prototype.trim
   trim: createMethod(3)
+};
+
+
+/***/ }),
+
+/***/ "5a34":
+/***/ (function(module, exports, __webpack_require__) {
+
+var isRegExp = __webpack_require__("44e7");
+
+module.exports = function (it) {
+  if (isRegExp(it)) {
+    throw TypeError("The method doesn't accept regular expressions");
+  } return it;
 };
 
 
@@ -3940,6 +4022,28 @@ module.exports = function (argument) {
 
 /***/ }),
 
+/***/ "ab13":
+/***/ (function(module, exports, __webpack_require__) {
+
+var wellKnownSymbol = __webpack_require__("b622");
+
+var MATCH = wellKnownSymbol('match');
+
+module.exports = function (METHOD_NAME) {
+  var regexp = /./;
+  try {
+    '/./'[METHOD_NAME](regexp);
+  } catch (error1) {
+    try {
+      regexp[MATCH] = false;
+      return '/./'[METHOD_NAME](regexp);
+    } catch (error2) { /* empty */ }
+  } return false;
+};
+
+
+/***/ }),
+
 /***/ "ac1f":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4364,6 +4468,32 @@ module.exports = function (object, names) {
   }
   return result;
 };
+
+
+/***/ }),
+
+/***/ "caad":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var $includes = __webpack_require__("4d64").includes;
+var addToUnscopables = __webpack_require__("44d2");
+var arrayMethodUsesToLength = __webpack_require__("ae40");
+
+var USES_TO_LENGTH = arrayMethodUsesToLength('indexOf', { ACCESSORS: true, 1: 0 });
+
+// `Array.prototype.includes` method
+// https://tc39.es/ecma262/#sec-array.prototype.includes
+$({ target: 'Array', proto: true, forced: !USES_TO_LENGTH }, {
+  includes: function includes(el /* , fromIndex = 0 */) {
+    return $includes(this, el, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+// https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
+addToUnscopables('includes');
 
 
 /***/ }),
@@ -5333,12 +5463,12 @@ if (typeof window !== 'undefined') {
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 var external_commonjs_vue_commonjs2_vue_root_Vue_default = /*#__PURE__*/__webpack_require__.n(external_commonjs_vue_commonjs2_vue_root_Vue_);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"856ff512-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/UserCreneau.vue?vue&type=template&id=f02ff9f0&
-var UserCreneauvue_type_template_id_f02ff9f0_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"creneaux-mbt"},[_c('div',{staticClass:"container first-block"},[_c('div',{staticClass:"creneaux-mbt--block mt-5"},[_c('app-title'),_c('div',{staticClass:"block-left"},[_c('tab-option')],1),_c('div',{staticClass:"block-border"},[_c('div',{staticClass:"row font-weight-bold type-livraison mb-2"},[_c('inline-description')],1),_c('div',{staticClass:"row d-flex justify-content-start commande-detail mb-5"},[_c('div',{staticClass:" rectangle rond-left rond-right mx-3 mx-md-0 mb-3 mb-md-0  ml-md-5  mr-lg-5  pt-3  pl-3 pr-3 col-md-3 "},[_c('div',{staticClass:"h2 cursor-pointer"},[_vm._v("ADRESSE")]),_c('div',{staticClass:"d-flex justify-content-between justify-content-md-start align-items-center"},[_c('mapGoogle'),_c('div',{staticClass:"icone-map"})],1)]),_c('div',{staticClass:"col-md-7"},[_c('div',{staticClass:"row ml-md-4 h-100"},[_c('creneau',{attrs:{"title":"Collecte"}}),_c('creneau',{attrs:{"title":"livraison","classes":"rond-right"}})],1)])])])],1)])])}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"856ff512-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/UserCreneau.vue?vue&type=template&id=fc523568&
+var UserCreneauvue_type_template_id_fc523568_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"creneaux-mbt"},[_c('div',{staticClass:"container first-block"},[_c('div',{staticClass:"creneaux-mbt--block mt-5"},[_c('app-title'),_c('div',{staticClass:"block-left"},[_c('tab-option')],1),_c('div',{staticClass:"block-border"},[_c('div',{staticClass:"row font-weight-bold type-livraison mb-2"},[_c('inline-description')],1),_c('div',{staticClass:"row d-flex justify-content-start commande-detail mb-5"},[_c('div',{staticClass:" rectangle rond-left rond-right mx-3 mx-md-0 mb-3 mb-md-0  ml-md-5  mr-lg-5  pt-3  pl-3 pr-3 col-md-3 "},[_c('div',{staticClass:"h2 cursor-pointer"},[_vm._v("ADRESSE")]),_c('div',{staticClass:"d-flex justify-content-between justify-content-md-start align-items-center"},[_c('mapGoogle'),_c('div',{staticClass:"icone-map"})],1)]),_c('div',{staticClass:"col-md-7"},[_c('div',{staticClass:"row ml-md-4 h-100"},[_c('creneau',{attrs:{"title":"Collecte","type":"collecte"}}),_c('creneau',{attrs:{"title":"Livraison","classes":"rond-right","type":"livraison"}})],1)])])])],1)])])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App/UserCreneau.vue?vue&type=template&id=f02ff9f0&
+// CONCATENATED MODULE: ./src/App/UserCreneau.vue?vue&type=template&id=fc523568&
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js + 1 modules
 var objectSpread2 = __webpack_require__("5530");
@@ -5595,24 +5725,24 @@ var map_google_component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* harmony default export */ var map_google = (map_google_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"856ff512-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/creneau.vue?vue&type=template&id=650c5b75&
-var creneauvue_type_template_id_650c5b75_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"rectangle mx-2 mx-md-0 mb-3 mb-md-0 mx-3 pt-4 pl-sm-3 col-md-6",class:_vm.classes},[_c('div',{staticClass:"title-creneau h2"},[_vm._v(_vm._s(_vm.title))]),_vm._m(0),_c('calendar'),_c('p',{staticClass:"cursor-pointer"},[_vm._v("Mercredi 7 juillet")])],1)}
-var creneauvue_type_template_id_650c5b75_staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:" d-flex justify-content-between justify-content-md-start line-creneau h1 "},[_c('i',{staticClass:"icone-svg mb-md-1 mb-lg-2 cursor-pointer"})])}]
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"856ff512-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/creneau.vue?vue&type=template&id=5dda9288&
+var creneauvue_type_template_id_5dda9288_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"rectangle mx-2 mx-md-0 mb-3 mb-md-0 mx-3 pt-4 pl-sm-3 col-md-6",class:_vm.classes},[_c('div',{staticClass:"title-creneau h2"},[_vm._v(_vm._s(_vm.title))]),_c('div',{staticClass:" d-flex justify-content-between justify-content-md-start line-creneau h1 "},[_c('i',{staticClass:"icone-svg mb-md-1 mb-lg-2 cursor-pointer",on:{"click":function($event){_vm.showCalandar = !_vm.showCalandar}}},[_c('SvgCalandar')],1)]),_c('p',{staticClass:"cursor-pointer",on:{"click":function($event){_vm.showCalandar = !_vm.showCalandar}}},[_vm._v(" "+_vm._s(_vm.appDateDisplay)+" ")]),(_vm.showCalandar)?_c('div',{staticClass:"over-container-date",on:{"click":function($event){_vm.showCalandar = !_vm.showCalandar}}}):_vm._e(),_c('calendar',{attrs:{"show-calandar":_vm.showCalandar,"type":_vm.type,"creneau-info":_vm.creneauInfo}}),_c('pre',[_vm._v("    creneauInfo "+_vm._s(_vm.creneauInfo)+"\n  ")])],1)}
+var creneauvue_type_template_id_5dda9288_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App/components/creneau/creneau.vue?vue&type=template&id=650c5b75&
+// CONCATENATED MODULE: ./src/App/components/creneau/creneau.vue?vue&type=template&id=5dda9288&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"856ff512-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/calendar.vue?vue&type=template&id=35c0c4b9&
-var calendarvue_type_template_id_35c0c4b9_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container-date flat cercle",attrs:{"initCalendar":_vm.initCalendar}},[_c('div',{staticClass:"single-date-picker__calendar-month-header"},[_c('div',{staticClass:"single-date-picker__arrow left",on:{"click":_vm.previowMonth}}),(_vm.calandarTitle != '')?_c('div',{staticClass:"single-date-picker__year",domProps:{"innerHTML":_vm._s(_vm.calandarTitle)}}):_vm._e(),_c('div',{staticClass:"single-date-picker__arrow right",on:{"click":_vm.nextMonth}})]),_c('ul',{staticClass:"d-flex flex-wrap justify-content-center"},[(_vm.showDayLabel)?_c('div',{staticClass:"d-flex flex-wrap justify-content-center w-100"},[_c('li',{staticClass:"date day"},[_vm._v(" Lun ")]),_c('li',{staticClass:"date day"},[_vm._v(" Mar ")]),_c('li',{staticClass:"date day"},[_vm._v(" Mer ")]),_c('li',{staticClass:"date day"},[_vm._v(" Jeu ")]),_c('li',{staticClass:"date day"},[_vm._v(" Ven ")]),_c('li',{staticClass:"date day"},[_vm._v(" Sam ")]),_c('li',{staticClass:"date day"},[_vm._v(" Dim ")])]):_vm._e(),_vm._l((_vm.listCalanderDays),function(date,i){return _c('li',{key:i,class:[
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"856ff512-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/calendar.vue?vue&type=template&id=bb6dc660&
+var calendarvue_type_template_id_bb6dc660_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.showCalandar),expression:"showCalandar"}],staticClass:"container-date flat cercle",attrs:{"initCalendar":_vm.initCalendar,"updateCurrentDateSelect":_vm.updateCurrentDateSelect}},[_c('div',{staticClass:"single-date-picker__calendar-month-header"},[_c('div',{staticClass:"single-date-picker__arrow left",on:{"click":_vm.previowMonth}}),(_vm.calandarTitle != '')?_c('div',{staticClass:"single-date-picker__year",domProps:{"innerHTML":_vm._s(_vm.calandarTitle)}}):_vm._e(),_c('div',{staticClass:"single-date-picker__arrow right",on:{"click":_vm.nextMonth}})]),_c('ul',{staticClass:"d-flex flex-wrap justify-content-center"},[(_vm.showDayLabel)?_c('div',{staticClass:"d-flex flex-wrap justify-content-center w-100"},[_c('li',{staticClass:"date day"},[_vm._v(" Lun ")]),_c('li',{staticClass:"date day"},[_vm._v(" Mar ")]),_c('li',{staticClass:"date day"},[_vm._v(" Mer ")]),_c('li',{staticClass:"date day"},[_vm._v(" Jeu ")]),_c('li',{staticClass:"date day"},[_vm._v(" Ven ")]),_c('li',{staticClass:"date day"},[_vm._v(" Sam ")]),_c('li',{staticClass:"date day"},[_vm._v(" Dim ")])]):_vm._e(),_vm._l((_vm.listCalanderDays),function(date,i){return _c('li',{key:i,class:[
         'date',
         date.status ? 'actif' : 'disable',
         date.custom_class,
         date.select ? 'selected' : ''
-      ],on:{"click":function($event){return _vm.selectDate(date)}}},[_c('span',{domProps:{"innerHTML":_vm._s(date.date)}})])})],2)])}
-var calendarvue_type_template_id_35c0c4b9_staticRenderFns = []
+      ],on:{"click":function($event){return _vm.selectDate(date)}}},[_c('span',{domProps:{"innerHTML":_vm._s(date.date)}})])})],2),_c('pre',[_vm._v("    appDate "+_vm._s(_vm.appDate)+"\n  ")])])}
+var calendarvue_type_template_id_bb6dc660_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App/components/creneau/calendar.vue?vue&type=template&id=35c0c4b9&
+// CONCATENATED MODULE: ./src/App/components/creneau/calendar.vue?vue&type=template&id=bb6dc660&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.for-each.js
 var es_array_for_each = __webpack_require__("4160");
@@ -5642,53 +5772,148 @@ function _createClass(Constructor, protoProps, staticProps) {
   if (staticProps) _defineProperties(Constructor, staticProps);
   return Constructor;
 }
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.includes.js
+var es_array_includes = __webpack_require__("caad");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.includes.js
+var es_string_includes = __webpack_require__("2532");
+
 // CONCATENATED MODULE: ./src/App/components/creneau/js/filtre.js
 
 
 
 
 
-var filtre_filtre = /*#__PURE__*/function () {
-  function filtre(dateMonth) {
-    var filters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
+
+
+
+var filtre_filtre = /*#__PURE__*/function () {
+  function filtre(dateMonth, type, creneauConfigs, currentCreneauType) {
     _classCallCheck(this, filtre);
 
     /**
      * Date de l'application sans les les heures.
      */
     this.dateMonth = dateMonth;
-    this.filters = filters;
+    this.IndexDayDisabled = [];
+
+    if (creneauConfigs.days) {
+      this.DaysDisabled(creneauConfigs.days);
+    }
+
+    this.type = type;
+    this.currentCreneauType = currentCreneauType;
   }
   /**
-   * permet de valider un date, active ou pas.
-   * @param {*} date Doit etre un object moment.
+   * Jours desactivés
    */
 
 
   _createClass(filtre, [{
-    key: "ValidationDay",
-    value: function ValidationDay(date) {
+    key: "DaysDisabled",
+    value: function DaysDisabled(days) {
       var _this = this;
 
+      days.forEach(function (e) {
+        if (!e.value) _this.IndexDayDisabled.push(e.indice);
+      });
+    }
+    /**
+     * permet de valider un date, active ou pas.
+     * @param {*} date Doit etre un object moment.
+     */
+
+  }, {
+    key: "ValidationDay",
+    value: function ValidationDay(date) {
+      var _this2 = this;
+
       return new Promise(function (resolvEnd) {
-        if (date.diff(_this.dateMonth, "day") >= 0) {
-          resolvEnd(_this.statusDate(date, true, "default-disable-app-date"));
+        //permet de dessactiver les jour avant le jour valide par l'application.
+
+        /*
+        console.log(
+          'date.diff(this.dateMonth, "day") : ',
+          date.format("DD-MM-YYYY HH:mm:ss"),
+          "\n dateMonth",
+          this.dateMonth.format("DD-MM-YYYY HH:mm:ss"),
+          "\n :: ",
+          date.diff(this.dateMonth, "minute", true)
+        );
+        /**/
+        if (date.diff(_this2.dateMonth, "minute") >= 0) {
+          //permet de desactivée en function de l'indice.
+          if (_this2.IndexDayDisabled.includes(date.day())) {
+            resolvEnd(_this2.statusDate(date, false, "default-disable-day"));
+          } else {
+            resolvEnd(_this2.statusDate(date, true, "default-actif-day"));
+          }
         } else {
-          resolvEnd(_this.statusDate(date, false, "default-disable-app-date"));
+          resolvEnd(_this2.statusDate(date, false, "default-disable"));
         }
       });
     }
+    /*
+    DisableDateByfilter(date) {
+      var self = this;
+      return new Promise(resolvEnd => {
+        var index_day = date.day();
+        var app_date_current_string_en = date.format("YYYY-MM-DD");
+        var app_date_current_en = moment(
+          app_date_current_string_en,
+          "YYYY-MM-DD"
+        );
+        // Desactivation du jour en function des filtres.
+        const CustomLoop = function(i = 0) {
+          return new Promise(resolv => {
+            const filter = self.filters[i];
+            if (filter.h_debut.length === 0 && filter.h_fin.length === 0) {
+              Filtres.loopAttribFilter(
+                i,
+                filter,
+                app_date_current_en,
+                app_date_current_string_en,
+                index_day,
+                "date"
+              ).then(result => {
+                result.custom_class = "filtre-" + i + " " + result.verificateur;
+                resolv(result);
+              });
+            } else {
+              resolv({ status: false, i: i, custom_class: "nothing" });
+            }
+          });
+        };
+        const execution = (i = 0) => {
+          CustomLoop(i).then(result => {
+            var ii = result.i + 1;
+            if (result.status) {
+              resolvEnd(result);
+              return;
+            } else if (self.filters[ii]) {
+              execution(ii);
+            } else {
+              resolvEnd(result);
+              return;
+            }
+          });
+        };
+        execution();
+      });
+    }
+    /** */
+
   }, {
     key: "statusDate",
     value: function statusDate(date, status, custom_class) {
-      var select = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "";
+      var select = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
       return {
         status: status,
         custom_class: custom_class,
         date: date.date(),
         select: select,
-        date_french: date.format("YYYY-MM-DD")
+        date_string: date.format("YYYY-MM-DD")
       };
     }
   }]);
@@ -5707,7 +5932,7 @@ var filtre_filtre = /*#__PURE__*/function () {
  */
 
 var calendar_calendar = /*#__PURE__*/function () {
-  function calendar(date, appDate) {
+  function calendar(date, appDate, type, creneauConfigs, currentCreneauType) {
     _classCallCheck(this, calendar);
 
     this.currentDate = moment(date); // indice du mois. [ Entre 0 et 11 ];
@@ -5726,6 +5951,19 @@ var calendar_calendar = /*#__PURE__*/function () {
       minute: 0,
       second: 0
     });
+    this.creneauConfigs = creneauConfigs;
+    this.currentCreneauType = currentCreneauType;
+    /**
+     * cest deux cas possible: collecte ou livraison.
+     */
+
+    this.type = type;
+    /**
+     *
+     */
+
+    this.CountDecallageAppliquer = 0;
+    this.currentCreneauType.delai = parseInt(this.currentCreneauType.delai);
   }
   /**
    * -
@@ -5737,6 +5975,8 @@ var calendar_calendar = /*#__PURE__*/function () {
     value: function buildDaysOfMonth() {
       var _this = this;
 
+      //On s'assure que le mois a au moins un jour valide, sinon on passe au mois suivant.
+      // ()=>{}
       var nombreSemaine = 6;
       var premierJourMois = moment().set({
         year: this.currentYear,
@@ -5774,33 +6014,40 @@ var calendar_calendar = /*#__PURE__*/function () {
         if (date > daysInMonth) break;
 
         for (var j = 0; j < 7; j++) {
-          var filter = new js_filtre(this.dateMonth); // Si nous sommes sur la premiere semaine, et que l'indice du premier jour de mois est inferieur à la valeur encours,
+          var filter = new js_filtre(this.dateMonth, this.type, this.creneauConfigs, this.currentCreneauType); // Si nous sommes sur la premiere semaine, et que l'indice du premier jour de mois est inferieur à la valeur encours,
           // On ajoute ces dates comme etant desactivées.
 
           if (i === 0 && j < indiceDuPremierJourDumois) {
             var pre_jour = premierJourMois.add(1, "day");
-            this.dates.push({
-              status: false,
-              date: pre_jour.date(),
-              custom_class: "",
-              select: "",
-              date_french: pre_jour.format("YYYY-MM-DD")
+            filter.ValidationDay(pre_jour).then(function (stateValidationDay) {
+              _this.dates.push(_this.DisabledBydelai(stateValidationDay));
             });
           } else if (date > daysInMonth) {
             // On commence avec les jours du prochain mois.
             var last_jour = DernierJourMois.add(1, "day");
             filter.ValidationDay(last_jour).then(function (stateValidationDay) {
-              _this.dates.push(stateValidationDay);
+              _this.dates.push(_this.DisabledBydelai(stateValidationDay));
             });
           } else {
             var next_jour = premierJourMois.add(1, "day");
             filter.ValidationDay(next_jour).then(function (stateValidationDay) {
-              _this.dates.push(stateValidationDay);
+              _this.dates.push(_this.DisabledBydelai(stateValidationDay));
             });
             date++;
           }
         }
       }
+    }
+  }, {
+    key: "DisabledBydelai",
+    value: function DisabledBydelai(stateValidationDay) {
+      if (this.CountDecallageAppliquer < this.currentCreneauType.delai && stateValidationDay.status && this.type === "livraison") {
+        this.CountDecallageAppliquer++;
+        stateValidationDay.status = false;
+        stateValidationDay.custom_class = "default-disable-delai";
+      }
+
+      return stateValidationDay;
     }
   }]);
 
@@ -5869,11 +6116,38 @@ var calendar_calendar = /*#__PURE__*/function () {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ var calendarvue_type_script_lang_js_ = ({
   name: "Calendar",
-  props: {},
+  props: {
+    showCalandar: {
+      type: Boolean,
+      default: false
+    },
+    type: {
+      type: String,
+      required: true
+    },
+
+    /**
+     * Date selectionné automatiquement par l'App ou manuelment par l'utilisateur.
+     * Format anglais. => "YYYY-MM-DD"
+     * Les données doivent etre stocker dans creneauInfo.date
+     */
+    creneauInfo: {
+      type: Object,
+      required: true
+    }
+  },
   data: function data() {
     return {
       /**
@@ -5891,40 +6165,107 @@ var calendar_calendar = /*#__PURE__*/function () {
       dateSelect: null
     };
   },
-  computed: Object(objectSpread2["a" /* default */])(Object(objectSpread2["a" /* default */])({}, Object(vuex_esm["b" /* mapGetters */])(["appDate"])), {}, {
+  computed: Object(objectSpread2["a" /* default */])(Object(objectSpread2["a" /* default */])(Object(objectSpread2["a" /* default */])({}, Object(vuex_esm["b" /* mapGetters */])(["appDate"])), Object(vuex_esm["c" /* mapState */])(["activeType", "creneauConfigs", "creneauType"])), {}, {
     /**
      * Permet de demarer le calendrier avec la date par defaut.
      */
     initCalendar: function initCalendar() {
       if (this.appDate) {
-        this.buildCalendar(this.appDate);
+        this.buildCalendar();
         return this.appDate;
       }
 
       return null;
+    },
+
+    /**
+     * Permet de selectionner une date par defaut ou lorque le calendrier change change.
+     * On met à jour la date creneauInfo.date si ce dernier est null.
+     * Si creneauInfo.date n'est pas null, alors l'utilisateur a deja selectionné une date.
+     *
+     */
+    updateCurrentDateSelect: function updateCurrentDateSelect() {
+      if (this.listCalanderDays.length) {
+        if (!this.creneauInfo.date) {
+          this.selectFirstActiveDate();
+        } else {
+          this.selectEgalActiveDate();
+        }
+
+        return this.listCalanderDays.length;
+      }
+
+      return null;
+    },
+
+    /**
+     * -
+     */
+    currentCreneauType: function currentCreneauType() {
+      return this.creneauType[this.activeType];
     }
   }),
   methods: {
+    emptyCurentDateSelect: function emptyCurentDateSelect() {
+      this.creneauInfo.date = null;
+    },
+
+    /**
+     * Selectionne la premiere date active,
+     * s'il nya pas de date active, dans le mois en cours, on incremente le mois.
+     */
+    selectFirstActiveDate: function selectFirstActiveDate() {
+      console.log("selectFirstActiveDate " + this.type);
+
+      for (var i in this.listCalanderDays) {
+        var e = this.listCalanderDays[i];
+
+        if (e.status) {
+          e.select = true;
+          this.creneauInfo.date = e.date_string;
+          break;
+        }
+
+        var ii = parseInt(i) + 1; //si on a parcourut tout le tableau sans trouve de valeur active, on prend le prochain mois.
+
+        if (this.listCalanderDays.length === ii) this.nextMonth();
+      }
+    },
+
+    /**
+     * Cette function permet de selectionner la cellule sur le calendrier == la date precedament selectionné.
+     * Elle declanche selectFirstActiveDate() si la date selectionné est desactivé;
+     */
+    selectEgalActiveDate: function selectEgalActiveDate() {
+      for (var i in this.listCalanderDays) {
+        var e = this.listCalanderDays[i];
+
+        if (e.date_string === this.creneauInfo.date) {
+          if (!e.status) this.selectFirstActiveDate();else e.select = true;
+          break;
+        }
+      }
+    },
     selectDate: function selectDate(date) {
       if (!date.status) return false;
-      this.listCalanderDays.forEach(function (element) {
-        element.select = "";
+      this.listCalanderDays.forEach(function (e) {
+        e.select = false;
       });
       date.select = "selected";
+      this.creneauInfo.date = date.date_string;
     },
     previowMonth: function previowMonth() {
       this.calendarNav--;
-      this.buildCalendar(moment(this.appDate).add(this.calendarNav, "month"), this.appDate);
     },
     nextMonth: function nextMonth() {
       this.calendarNav++;
-      this.buildCalendar(moment(this.appDate).add(this.calendarNav, "month"), this.appDate);
     },
-    buildCalendar: function buildCalendar(date) {
-      //build calendar.
-      var cal = new js_calendar(date);
+    buildCalendar: function buildCalendar() {
+      var date = this.calendarNav === 0 ? this.appDate : moment(this.appDate).add(this.calendarNav, "month"); // Build calendar.
+
+      var cal = new js_calendar(date, this.appDate, this.type, this.creneauConfigs, this.currentCreneauType);
       cal.buildDaysOfMonth();
-      this.listCalanderDays = cal.dates; // display current mois
+      this.listCalanderDays = cal.dates; // Display current mois
 
       this.calandarTitle = moment(date).locale("fr").format("MMMM  YYYY");
     }
@@ -5946,8 +6287,8 @@ var calendarvue_type_style_index_0_lang_scss_ = __webpack_require__("1e11");
 
 var calendar_component = Object(componentNormalizer["a" /* default */])(
   creneau_calendarvue_type_script_lang_js_,
-  calendarvue_type_template_id_35c0c4b9_render,
-  calendarvue_type_template_id_35c0c4b9_staticRenderFns,
+  calendarvue_type_template_id_bb6dc660_render,
+  calendarvue_type_template_id_bb6dc660_staticRenderFns,
   false,
   null,
   null,
@@ -5956,7 +6297,80 @@ var calendar_component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* harmony default export */ var creneau_calendar = (calendar_component.exports);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"856ff512-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/SvgCalandar.vue?vue&type=template&id=92fb9028&
+var SvgCalandarvue_type_template_id_92fb9028_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{staticStyle:{"enable-background":"new 0 0 122.88 122.88"},attrs:{"version":"1.1","id":"Layer_1","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink","x":"0px","y":"0px","viewBox":"0 0 122.88 122.88","xml:space":"preserve"}},[_c('g',[_c('path',{attrs:{"d":"M81.61,4.73c0-2.61,2.58-4.73,5.77-4.73c3.19,0,5.77,2.12,5.77,4.73v20.72c0,2.61-2.58,4.73-5.77,4.73 c-3.19,0-5.77-2.12-5.77-4.73V4.73L81.61,4.73z M66.11,103.81c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2H81.9 c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H66.11L66.11,103.81z M15.85,67.09c-0.34,0-0.61-1.43-0.61-3.2 c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H15.85L15.85,67.09z M40.98,67.09 c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H40.98 L40.98,67.09z M66.11,67.09c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2H81.9c0.34,0,0.61,1.43,0.61,3.2 c0,1.77-0.27,3.2-0.61,3.2H66.11L66.11,67.09z M91.25,67.09c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79 c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H91.25L91.25,67.09z M15.85,85.45c-0.34,0-0.61-1.43-0.61-3.2 c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H15.85L15.85,85.45z M40.98,85.45 c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H40.98 L40.98,85.45z M66.11,85.45c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2H81.9c0.34,0,0.61,1.43,0.61,3.2 c0,1.77-0.27,3.2-0.61,3.2H66.11L66.11,85.45z M91.25,85.45c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79 c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H91.25L91.25,85.45z M15.85,103.81c-0.34,0-0.61-1.43-0.61-3.2 c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H15.85L15.85,103.81z M40.98,103.81 c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H40.98 L40.98,103.81z M29.61,4.73c0-2.61,2.58-4.73,5.77-4.73s5.77,2.12,5.77,4.73v20.72c0,2.61-2.58,4.73-5.77,4.73 s-5.77-2.12-5.77-4.73V4.73L29.61,4.73z M6.4,45.32h110.07V21.47c0-0.8-0.33-1.53-0.86-2.07c-0.53-0.53-1.26-0.86-2.07-0.86H103 c-1.77,0-3.2-1.43-3.2-3.2c0-1.77,1.43-3.2,3.2-3.2h10.55c2.57,0,4.9,1.05,6.59,2.74c1.69,1.69,2.74,4.02,2.74,6.59v27.06v65.03 c0,2.57-1.05,4.9-2.74,6.59c-1.69,1.69-4.02,2.74-6.59,2.74H9.33c-2.57,0-4.9-1.05-6.59-2.74C1.05,118.45,0,116.12,0,113.55V48.52 V21.47c0-2.57,1.05-4.9,2.74-6.59c1.69-1.69,4.02-2.74,6.59-2.74H20.6c1.77,0,3.2,1.43,3.2,3.2c0,1.77-1.43,3.2-3.2,3.2H9.33 c-0.8,0-1.53,0.33-2.07,0.86c-0.53,0.53-0.86,1.26-0.86,2.07V45.32L6.4,45.32z M116.48,51.73H6.4v61.82c0,0.8,0.33,1.53,0.86,2.07 c0.53,0.53,1.26,0.86,2.07,0.86h104.22c0.8,0,1.53-0.33,2.07-0.86c0.53-0.53,0.86-1.26,0.86-2.07V51.73L116.48,51.73z M50.43,18.54 c-1.77,0-3.2-1.43-3.2-3.2c0-1.77,1.43-3.2,3.2-3.2h21.49c1.77,0,3.2,1.43,3.2,3.2c0,1.77-1.43,3.2-3.2,3.2H50.43L50.43,18.54z"}})])])}
+var SvgCalandarvue_type_template_id_92fb9028_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/App/components/creneau/SvgCalandar.vue?vue&type=template&id=92fb9028&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/SvgCalandar.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ var SvgCalandarvue_type_script_lang_js_ = ({
+  name: "SvgCalandar"
+});
+// CONCATENATED MODULE: ./src/App/components/creneau/SvgCalandar.vue?vue&type=script&lang=js&
+ /* harmony default export */ var creneau_SvgCalandarvue_type_script_lang_js_ = (SvgCalandarvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/App/components/creneau/SvgCalandar.vue
+
+
+
+
+
+/* normalize component */
+
+var SvgCalandar_component = Object(componentNormalizer["a" /* default */])(
+  creneau_SvgCalandarvue_type_script_lang_js_,
+  SvgCalandarvue_type_template_id_92fb9028_render,
+  SvgCalandarvue_type_template_id_92fb9028_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ var SvgCalandar = (SvgCalandar_component.exports);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/creneau.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5977,6 +6391,7 @@ var calendar_component = Object(componentNormalizer["a" /* default */])(
 //
 //import hours from "./Hours.vue";
 
+
 /* harmony default export */ var creneauvue_type_script_lang_js_ = ({
   name: "Creneau",
   props: {
@@ -5987,11 +6402,44 @@ var calendar_component = Object(componentNormalizer["a" /* default */])(
     classes: {
       type: String,
       default: "rond-left"
+    },
+    type: {
+      type: String,
+      required: true
     }
   },
   components: {
     //hours,
-    calendar: creneau_calendar
+    calendar: creneau_calendar,
+    SvgCalandar: SvgCalandar
+  },
+  data: function data() {
+    return {
+      showCalandar: false,
+
+      /**
+       * contient la date et le crenau horaire selectionner.
+       */
+      creneauInfo: {
+        date: false,
+        hour: false
+      }
+    };
+  },
+
+  /**
+   * Date affiché.
+   */
+  computed: {
+    appDateDisplay: {
+      get: function get() {
+        if (this.creneauInfo.date) {
+          return moment(this.creneauInfo.date, "YYYY-MM-DD").locale("fr").format("dddd Do MMMM");
+        }
+
+        return "";
+      }
+    }
   }
 });
 // CONCATENATED MODULE: ./src/App/components/creneau/creneau.vue?vue&type=script&lang=js&
@@ -6006,8 +6454,8 @@ var calendar_component = Object(componentNormalizer["a" /* default */])(
 
 var creneau_component = Object(componentNormalizer["a" /* default */])(
   creneau_creneauvue_type_script_lang_js_,
-  creneauvue_type_template_id_650c5b75_render,
-  creneauvue_type_template_id_650c5b75_staticRenderFns,
+  creneauvue_type_template_id_5dda9288_render,
+  creneauvue_type_template_id_5dda9288_staticRenderFns,
   false,
   null,
   null,
@@ -6017,6 +6465,10 @@ var creneau_component = Object(componentNormalizer["a" /* default */])(
 
 /* harmony default export */ var creneau = (creneau_component.exports);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/UserCreneau.vue?vue&type=script&lang=js&
+//
+//
+//
+//
 //
 //
 //
@@ -6101,7 +6553,7 @@ var UserCreneauvue_type_style_index_0_lang_scss_ = __webpack_require__("86d8");
 
 var UserCreneau_component = Object(componentNormalizer["a" /* default */])(
   App_UserCreneauvue_type_script_lang_js_,
-  UserCreneauvue_type_template_id_f02ff9f0_render,
+  UserCreneauvue_type_template_id_fc523568_render,
   staticRenderFns,
   false,
   null,
@@ -6177,51 +6629,6 @@ var Utilities = {
       title: "Finaliser la commande",
       deccalage_creneau_depart: 0
     };
-  },
-  JourInfos: function JourInfos() {
-    return [{
-      text: "Lundi",
-      value: 1,
-      debut: "7:30",
-      fin: "21:30",
-      indice: 1
-    }, {
-      text: "Mardi",
-      value: 1,
-      debut: "7:30",
-      fin: "21:30",
-      indice: 2
-    }, {
-      text: "Mercredi",
-      value: 1,
-      debut: "7:30",
-      fin: "21:30",
-      indice: 3
-    }, {
-      text: "Jeudi",
-      value: 1,
-      debut: "7:30",
-      fin: "21:30",
-      indice: 4
-    }, {
-      text: "Vendredi",
-      value: 1,
-      debut: "7:30",
-      fin: "21:30",
-      indice: 5
-    }, {
-      text: "Samedi",
-      value: 0,
-      debut: "7:30",
-      fin: "21:30",
-      indice: 6
-    }, {
-      text: "Dimanche",
-      value: 0,
-      debut: "7:30",
-      fin: "21:30",
-      indice: 0
-    }];
   },
   DefaultCreneauTypes: function DefaultCreneauTypes() {
     return {
