@@ -7,7 +7,7 @@
     <div
       class=" d-flex justify-content-between justify-content-md-start line-creneau h1 "
     >
-      <hours></hours>
+      <hours :type="type"></hours>
 
       <i
         class="icone-svg mb-md-1 mb-lg-2 cursor-pointer"
