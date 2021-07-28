@@ -29,11 +29,13 @@ export default new Vuex.Store({
      */
     creneauCollecte: {
       hour: false,
-      date_string: false
+      date_string: false,
+      date: false
     },
     creneauLivraison: {
       hour: false,
-      date_string: false
+      date_string: false,
+      date: false
     }
   },
   getters: {
@@ -111,6 +113,15 @@ export default new Vuex.Store({
       } else if (payload.type === Utilities.crex2.id) {
         state.creneauLivraison.date_string = payload.date_string;
       }
+    },
+    ApplySelectHour: (state, payload) => {
+      if (payload.type === Utilities.crex1.id) {
+        state.creneauCollecte.hour = payload.hour;
+        state.creneauCollecte.date = payload.date;
+      } else if (payload.type === Utilities.crex2.id) {
+        state.creneauLivraison.hour = payload.hour;
+        state.creneauLivraison.date = payload.date;
+      }
     }
   },
   actions: {
@@ -125,6 +136,9 @@ export default new Vuex.Store({
     },
     SetSelectDate({ commit }, payload) {
       commit("ApplySelectDate", payload);
+    },
+    SetSelectHour({ commit }, payload) {
+      commit("ApplySelectHour", payload);
     }
   },
   modules: {}
