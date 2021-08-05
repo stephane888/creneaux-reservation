@@ -54,14 +54,15 @@ export default {
      * Date du jour.
      */
     dateDuJour: {
-      type: [String, Object],
+      type: [String, Object, Date],
       required: true
     }
   },
   components: { TabOption, InlineDescription, AppTitle, mapGoogle, creneau },
   mounted() {
+    //const d = moment("4-08-2021 18:00:00", "DD-MM-YYYY HH:mm:ss");
     const d = moment(this.dateDuJour, "DD-MM-YYYY HH:mm:ss");
-    console.log("date du jour : ", d);
+    //const d = moment();
     if (d._isValid) this.$store.dispatch("SetDateDuJour", d);
   }
 };

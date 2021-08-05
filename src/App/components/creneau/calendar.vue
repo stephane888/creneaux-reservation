@@ -98,6 +98,7 @@ export default {
     ...mapState([
       "activeType",
       "creneauConfigs",
+      "creneauFilters",
       "creneauType",
       "creneauCollecte",
       "creneauLivraison"
@@ -200,6 +201,33 @@ export default {
       }
     },
     /**
+     * permet de selectionner la prochaine date valide.
+     *  - utiliser par les hours lorsque les horaires de la journée sont epuisées.
+     */
+    selectSpecifiqDateActive(ref = 1) {
+      var active = 0;
+      for (const i in this.listCalanderDays) {
+        const e = this.listCalanderDays[i];
+        if (e.status) {
+          if (active == ref && active < 5) {
+            e.select = true;
+            this.$store.dispatch(
+              "SetSelectDate",
+              this.BuildPayload(e.date_string)
+            );
+            break;
+          } else {
+            e.select = false;
+            e.status = false;
+          }
+          active++;
+        }
+        var ii = parseInt(i) + 1;
+        //si on a parcourut tout le tableau sans trouve de valeur active, on prend le prochain mois.
+        if (this.listCalanderDays.length === ii) this.nextMonth();
+      }
+    },
+    /**
      * Cette function permet de selectionner la cellule sur le calendrier == la date precedament selectionné.
      * Elle declanche selectFirstActiveDate() si la date selectionné est desactivé;
      */
@@ -234,7 +262,7 @@ export default {
       this.listCalanderDays.forEach(e => {
         e.select = false;
       });
-      date.select = "selected";
+      date.select = true;
       this.$store.dispatch(
         "SetSelectDate",
         this.BuildPayload(date.date_string)
@@ -264,7 +292,8 @@ export default {
         appDate,
         this.type,
         this.creneauConfigs,
-        this.currentCreneauType
+        this.currentCreneauType,
+        this.creneauFilters
       );
       cal.buildDaysOfMonth();
       this.listCalanderDays = cal.dates;

@@ -93,10 +93,11 @@ export default {
       if (this.type === Utilities.crex1.id)
         return {
           hour: this.appDate.hour(),
-          minute: this.appDate.minute(),
+          minute:
+            this.appDate.minute() +
+            parseInt(this.creneauConfigs.deccalage_creneau_depart),
           second: this.appDate.second()
         };
-
       if (this.type === Utilities.crex2.id && this.creneauCollecte.date)
         return {
           hour: this.creneauCollecte.date.hour(),
@@ -186,7 +187,7 @@ export default {
     },
     buildHours() {
       this.list_creneaux = [];
-      console.log("getCurrentBandHour : ", this.getCurrentBandHour);
+      //console.log("getCurrentBandHour : ", this.getCurrentBandHour);
       const h_min = this.getCurrentBandHour.debut.split(":");
       const h_max = this.getCurrentBandHour.fin.split(":");
       const dateMin = moment(this.WatchDateSelect).set({
@@ -217,8 +218,11 @@ export default {
           dateMin.add(this.currentCreneauType.delai_next_creneau, "minute");
           addCreneau();
         } else {
-          console.log("Last execution hours : ", this.list_creneaux);
-          this.$emit("selectNextDay", 1);
+          //Le bascule auto de la date au prochain jour ne fonctionne pas.
+          setTimeout(() => {
+            //console.log("Last execution hours : ", this.list_creneaux);
+            if (this.list_creneaux.length === 0) this.$emit("selectNextDay", 1);
+          }, 600);
         }
       };
       addCreneau();

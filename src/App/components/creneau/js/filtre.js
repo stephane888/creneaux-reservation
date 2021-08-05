@@ -1,102 +1,101 @@
 class filtre {
-  constructor(dateMonth, type, creneauConfigs, currentCreneauType) {
+  constructor(
+    dateMonth,
+    type,
+    creneauConfigs,
+    currentCreneauType,
+    creneauFilters
+  ) {
     /**
      * Date de l'application sans les les heures.
      */
     this.dateMonth = dateMonth;
     this.IndexDayDisabled = [];
+    this.DaysDisabledDate = [];
+    this.DaysDisabledPeriode = [];
     if (creneauConfigs.days) {
-      this.DaysDisabled(creneauConfigs.days);
+      this.setDaysDisabled(creneauConfigs.days);
     }
     this.type = type;
     this.currentCreneauType = currentCreneauType;
+    if (creneauFilters.length) {
+      for (const i in creneauFilters) {
+        const filter = creneauFilters[0];
+        if (filter.type_disabled === "days") {
+          this.setDaysDisabledDate(filter.date_desactivee);
+          this.setDaysDisabledPeriode(filter.periode_desactivee);
+        }
+      }
+    }
   }
   /**
-   * Jours desactivés
+   * Jours desactivés en function de l'indice du jour.
    */
-  DaysDisabled(days) {
+  setDaysDisabled(days) {
     days.forEach(e => {
       if (!e.value) this.IndexDayDisabled.push(e.indice);
     });
   }
   /**
-   * permet de valider un date, active ou pas.
+   * Jours desactivés en function des dates.
+   */
+  setDaysDisabledDate(date_desactivee) {
+    date_desactivee.forEach(e => {
+      this.DaysDisabledDate.push(e.date);
+    });
+  }
+  /**
+   * Jours desactivés en function des periodes.
+   */
+  setDaysDisabledPeriode(periode_desactivee) {
+    periode_desactivee.forEach(e => {
+      if (e.debut !== "" && e.fin !== "") this.DaysDisabledPeriode.push(e);
+    });
+  }
+  /**
+   * Permet de valider un date, active ou pas.
    * @param {*} date Doit etre un object moment.
    */
   ValidationDay(date) {
     return new Promise(resolvEnd => {
-      //permet de dessactiver les jour avant le jour valide par l'application.
-      /*
-      console.log(
-        'date.diff(this.dateMonth, "day") : ',
-        date.format("DD-MM-YYYY HH:mm:ss"),
-        "\n dateMonth",
-        this.dateMonth.format("DD-MM-YYYY HH:mm:ss"),
-        "\n :: ",
-        date.diff(this.dateMonth, "minute", true)
-      );
-      /**/
+      //permet de dessactiver les jours avant le jour valide par l'application.
       if (date.diff(this.dateMonth, "minute") >= 0) {
         //permet de desactivée en function de l'indice.
         if (this.IndexDayDisabled.includes(date.day())) {
           resolvEnd(this.statusDate(date, false, "default-disable-day"));
         } else {
-          resolvEnd(this.statusDate(date, true, "default-actif-day"));
+          /**
+           * On verifie le jour  par rapport au tableau des jours desactivées.
+           * à ce niveau on desactive en function des dates.
+           */
+          if (this.DaysDisabledDate.includes(date.format("YYYY-MM-DD"))) {
+            resolvEnd(this.statusDate(date, false, "default-disable-date"));
+          } else if (this.DaysDisabledPeriode.length) {
+            /**
+             * à ce niveau, on desactive en function de la periode.
+             */
+            for (const i in this.DaysDisabledPeriode) {
+              const p = this.DaysDisabledPeriode[i];
+              const p_d = date.diff(moment(p.debut, "YYYY-MM-DD"), "minute");
+              const p_f = date.diff(moment(p.fin, "YYYY-MM-DD"), "minute");
+              if (p_d >= 0 && p_f <= 0) {
+                resolvEnd(
+                  this.statusDate(date, false, "default-disable-periode")
+                );
+                break;
+              }
+              var ii = parseInt(i) + 1;
+              if (ii === this.DaysDisabledPeriode.length) {
+                resolvEnd(this.statusDate(date, true, "default-actif-periode"));
+              }
+            }
+          } else resolvEnd(this.statusDate(date, true, "default-actif-date"));
         }
       } else {
         resolvEnd(this.statusDate(date, false, "default-disable"));
       }
     });
   }
-  /*
-  DisableDateByfilter(date) {
-    var self = this;
-    return new Promise(resolvEnd => {
-      var index_day = date.day();
-      var app_date_current_string_en = date.format("YYYY-MM-DD");
-      var app_date_current_en = moment(
-        app_date_current_string_en,
-        "YYYY-MM-DD"
-      );
-      // Desactivation du jour en function des filtres.
-      const CustomLoop = function(i = 0) {
-        return new Promise(resolv => {
-          const filter = self.filters[i];
-          if (filter.h_debut.length === 0 && filter.h_fin.length === 0) {
-            Filtres.loopAttribFilter(
-              i,
-              filter,
-              app_date_current_en,
-              app_date_current_string_en,
-              index_day,
-              "date"
-            ).then(result => {
-              result.custom_class = "filtre-" + i + " " + result.verificateur;
-              resolv(result);
-            });
-          } else {
-            resolv({ status: false, i: i, custom_class: "nothing" });
-          }
-        });
-      };
-      const execution = (i = 0) => {
-        CustomLoop(i).then(result => {
-          var ii = result.i + 1;
-          if (result.status) {
-            resolvEnd(result);
-            return;
-          } else if (self.filters[ii]) {
-            execution(ii);
-          } else {
-            resolvEnd(result);
-            return;
-          }
-        });
-      };
-      execution();
-    });
-  }
-  /** */
   statusDate(date, status, custom_class, select = false) {
     return {
       status: status,

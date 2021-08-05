@@ -4,7 +4,14 @@ import Filtre from "./filtre";
  * Doc : https://github.com/niinpatel/calendarHTML-Javascript/blob/master/scripts.js
  */
 class calendar {
-  constructor(date, appDate, type, creneauConfigs, currentCreneauType) {
+  constructor(
+    date,
+    appDate,
+    type,
+    creneauConfigs,
+    currentCreneauType,
+    creneauFilters
+  ) {
     this.currentDate = moment(date);
     // indice du mois. [ Entre 0 et 11 ];
     this.currentMonth = this.currentDate.month();
@@ -19,6 +26,7 @@ class calendar {
     this.dateMonth = moment(appDate).set({ hour: 0, minute: 0, second: 0 });
     this.creneauConfigs = creneauConfigs;
     this.currentCreneauType = currentCreneauType;
+    this.creneauFilters = creneauFilters;
     /**
      * cest deux cas possible: collecte ou livraison.
      */
@@ -80,7 +88,8 @@ class calendar {
           this.dateMonth,
           this.type,
           this.creneauConfigs,
-          this.currentCreneauType
+          this.currentCreneauType,
+          this.creneauFilters
         );
         // Si nous sommes sur la premiere semaine, et que l'indice du premier jour de mois est inferieur à la valeur encours,
         // On ajoute ces dates comme etant desactivées.

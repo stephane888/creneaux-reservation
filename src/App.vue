@@ -27,7 +27,6 @@ export default {
     //UserCreneau: () => import("./App/UserCreneau.vue"),
     AdminCreneau,
     UserCreneau: () => {
-      var self = this;
       return new Promise(resolv => {
         const callbackJquery = () => {
           console.log("Chargement du module creneau");
@@ -41,10 +40,6 @@ export default {
             "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"
           ).then(status => {
             if (status) callbackJquery();
-            self.dateDuJour = moment(
-              "25-05-2021 20:30:00",
-              "DD-MM-YYYY HH:mm:ss"
-            );
           });
         }
       });
@@ -52,7 +47,7 @@ export default {
   },
   data() {
     return {
-      dateDuJour: "25-05-2021 20:30:00"
+      dateDuJour: new Date() //"26-07-2021 10:00:00"
     };
   },
   mounted() {

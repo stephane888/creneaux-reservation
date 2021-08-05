@@ -78,7 +78,12 @@ const Utilities = {
       jourmode: "manuel",
       jours_select: [],
       date_desactivee: [], //{ date: "" }
-      periode_desactivee: [] //{ debut: "", fin: "" }
+      periode_desactivee: [], //{ debut: "", fin: "" }
+      type_disabled: "", // Permet de désactiver les heures ou les dates.
+      type_disabled_options: [
+        { text: "Desactive les plages d'heures", value: "hours" },
+        { text: "Desactive les jours", value: "days" }
+      ]
     };
   },
   /**

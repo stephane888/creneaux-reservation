@@ -25,7 +25,11 @@
       v-if="showCalandar"
       @click="showCalandar = !showCalandar"
     ></div>
-    <calendar :show-calandar="showCalandar" :type="type"></calendar>
+    <calendar
+      :show-calandar="showCalandar"
+      :type="type"
+      ref="calendar"
+    ></calendar>
     <pre v-if="type == 'livraison'">
       creneauLivraison {{ creneauLivraison }}
     </pre>
@@ -70,7 +74,7 @@ export default {
    */
 
   computed: {
-    ...mapState(["creneauCollecte", "creneauLivraison"]),
+    ...mapState(["creneauCollecte", "creneauLivraison", "creneauConfigs"]),
     appDateDisplay: {
       get() {
         if (this.type === "livraison" && this.creneauLivraison.date_string) {
@@ -90,7 +94,10 @@ export default {
     }
   },
   methods: {
-    selectNextDay() {}
+    selectNextDay() {
+      console.log("selectSpecifiqDateActive : ", this.type);
+      this.$refs.calendar.selectSpecifiqDateActive();
+    }
   }
 };
 </script>
