@@ -112,7 +112,7 @@ export default {
       return this.creneauType[this.activeType];
     },
     /**
-     * Recuperer la page de date du jour.
+     * Recuperer la plage de date du jour.
      */
     getCurrentBandHour() {
       if (
@@ -204,10 +204,7 @@ export default {
           this.currentCreneauType.creneau,
           "minute"
         );
-        const nextCreneau = moment(dateMin).add(
-          this.currentCreneauType.delai_next_creneau,
-          "minute"
-        );
+
         if (endCreneau.diff(dateMax) <= 0) {
           var bloc_date = {
             begin: dateMin.format("HH:mm"),
@@ -219,6 +216,9 @@ export default {
             this.list_creneaux.push(bloc_date);
           dateMin.add(this.currentCreneauType.delai_next_creneau, "minute");
           addCreneau();
+        } else {
+          console.log("Last execution hours : ", this.list_creneaux);
+          this.$emit("selectNextDay", 1);
         }
       };
       addCreneau();

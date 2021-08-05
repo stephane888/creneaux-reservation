@@ -84,7 +84,7 @@ export default {
        */
       listCalanderDays: [],
       calendarNav: 0,
-      calandarTitle: "ddfd",
+      calandarTitle: "",
       /**
        * Configuration de la date.
        */

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UserCreneau></UserCreneau>
+    <UserCreneau :date-du-jour="dateDuJour"></UserCreneau>
     <div class="creneaux-mbt">
       <admin-creneau></admin-creneau>
     </div>
@@ -27,12 +27,13 @@ export default {
     //UserCreneau: () => import("./App/UserCreneau.vue"),
     AdminCreneau,
     UserCreneau: () => {
+      var self = this;
       return new Promise(resolv => {
         const callbackJquery = () => {
           console.log("Chargement du module creneau");
           resolv(import("./App/UserCreneau.vue"));
         };
-        //on verifie la presence de Jquery;
+        //On verifie la presence de Moment;
         if (window.Moment) {
           callbackJquery();
         } else {
@@ -40,10 +41,22 @@ export default {
             "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"
           ).then(status => {
             if (status) callbackJquery();
+            self.dateDuJour = moment(
+              "25-05-2021 20:30:00",
+              "DD-MM-YYYY HH:mm:ss"
+            );
           });
         }
       });
     }
+  },
+  data() {
+    return {
+      dateDuJour: "25-05-2021 20:30:00"
+    };
+  },
+  mounted() {
+    //this.dateDuJour = moment("25-05-2021 20:30:00", "DD-MM-YYYY HH:mm:ss");
   }
 };
 </script>

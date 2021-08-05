@@ -55,14 +55,14 @@ export default {
      */
     dateDuJour: {
       type: [String, Object],
-      default() {
-        return moment();
-      }
+      required: true
     }
   },
   components: { TabOption, InlineDescription, AppTitle, mapGoogle, creneau },
   mounted() {
-    this.$store.dispatch("SetDateDuJour", this.dateDuJour);
+    const d = moment(this.dateDuJour, "DD-MM-YYYY HH:mm:ss");
+    console.log("date du jour : ", d);
+    if (d._isValid) this.$store.dispatch("SetDateDuJour", d);
   }
 };
 </script>

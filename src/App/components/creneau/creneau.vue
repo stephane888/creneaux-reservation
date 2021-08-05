@@ -7,7 +7,7 @@
     <div
       class=" d-flex justify-content-between justify-content-md-start line-creneau h1 "
     >
-      <hours :type="type"></hours>
+      <hours :type="type" @selectNextDay="selectNextDay"></hours>
 
       <i
         class="icone-svg mb-md-1 mb-lg-2 cursor-pointer"
@@ -88,6 +88,9 @@ export default {
         return "";
       }
     }
+  },
+  methods: {
+    selectNextDay() {}
   }
 };
 </script>
