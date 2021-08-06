@@ -257,6 +257,60 @@
                     </div>
                   </b-form-group>
                   <hr />
+                  <!--  -->
+                  <b-form-group>
+                    <template #label>
+                      <div
+                        class="
+                        d-flex
+                        justify-content-between
+                        aligns-items-center
+                        mt-3
+                      "
+                      >
+                        <strong> Gerer les zones </strong>
+                        <div class="ctn-action-button">
+                          <b-button
+                            variant="outline-info"
+                            size="sm"
+                            @click="FilterAddZone(filter.pobox)"
+                          >
+                            Ajouter une zone +
+                          </b-button>
+                        </div>
+                      </div>
+                    </template>
+                    <div class="row">
+                      <div
+                        v-for="(box, i) in filter.pobox"
+                        :key="i"
+                        class="col-md-6 "
+                      >
+                        <div class="bg-light px-3 mb-2">
+                          <div class="row">
+                            <b-form-group
+                              label="Nom de la zone"
+                              class="col-md-6"
+                            >
+                              <b-form-input
+                                v-model="box.text"
+                                trim
+                                required
+                              ></b-form-input>
+                            </b-form-group>
+                            <b-form-group label="Code postale" class="col-md-6">
+                              <b-form-input
+                                v-model="box.value"
+                                trim
+                                required
+                              ></b-form-input>
+                            </b-form-group>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </b-form-group>
+                  <hr />
                 </div>
                 <!--  -->
               </b-form-group>
@@ -367,6 +421,9 @@ export default {
       if (this.creneauFilters[i]) {
         this.creneauFilters.splice(i, 1);
       }
+    },
+    FilterAddZone(zones) {
+      zones.push({ text: "", value: "" });
     }
   }
 };

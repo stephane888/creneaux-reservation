@@ -79,7 +79,8 @@ const Utilities = {
       jours_select: [],
       date_desactivee: [], //{ date: "" }
       periode_desactivee: [], //{ debut: "", fin: "" }
-      type_disabled: "" // Permet de désactiver les heures ou les dates.
+      type_disabled: "", // Permet de désactiver les heures ou les dates.
+      pobox: []
     };
   },
   /**
