@@ -146,7 +146,7 @@ export default {
       return null;
     },
     /**
-     * action apres la construction du formaulaire.
+     * Action apres la construction du formaulaire.
      */
     TriggerAfterHourBuild() {
       if (this.list_creneaux.length) {
@@ -189,6 +189,19 @@ export default {
       };
     },
     buildHours() {
+      console.log("buildHours : ", this.type);
+      const H = new Hours(
+        this.WatchDateSelect,
+        this.creneauFilters,
+        this.creneauConfigs,
+        this.currentCreneauType,
+        this.type
+      );
+      H.buildHour().then(() => {
+        this.list_creneaux = H.list_creneaux;
+      });
+    },
+    buildHoursNone() {
       this.list_creneaux = [];
       //console.log("getCurrentBandHour : ", this.getCurrentBandHour);
       const h_min = this.getCurrentBandHour.debut.split(":");
@@ -203,28 +216,31 @@ export default {
         minute: h_max[1],
         second: 0
       });
-      const addCreneau = async () => {
+      const addCreneau = () => {
         const endCreneau = moment(dateMin).add(
           this.currentCreneauType.creneau,
           "minute"
         );
         if (endCreneau.diff(dateMax) <= 0) {
-          const status = await this.ValidHour(dateMin, endCreneau);
+          //const status = await this.ValidHour(dateMin, endCreneau);
           //console.log("status : ", status);
-          var bloc_date = {
-            begin: dateMin.format("HH:mm"),
-            end: endCreneau.format("HH:mm"),
-            $isDisabled: status,
-            checkstatus: ""
-          };
-          if (dateMin.diff(this.WatchDateSelect) > 0 && !status)
-            this.list_creneaux.push(bloc_date);
-          dateMin.add(this.currentCreneauType.delai_next_creneau, "minute");
-          addCreneau();
+          //const status = false;
+          this.ValidHour(dateMin, endCreneau).then(status => {
+            var bloc_date = {
+              begin: dateMin.format("HH:mm"),
+              end: endCreneau.format("HH:mm"),
+              $isDisabled: status,
+              checkstatus: ""
+            };
+            if (dateMin.diff(this.WatchDateSelect) > 0 && !status)
+              this.list_creneaux.push(bloc_date);
+            dateMin.add(this.currentCreneauType.delai_next_creneau, "minute");
+            addCreneau();
+          });
         } else {
-          //Le bascule auto de la date au prochain jour ne fonctionne pas.
+          // Le bascule auto de la date au prochain jour ne fonctionne pas.
           setTimeout(() => {
-            //if (this.list_creneaux.length === 0) this.$emit("selectNextDay", 1);
+            // if (this.list_creneaux.length === 0) this.$emit("selectNextDay", 1);
           }, 600);
         }
       };
