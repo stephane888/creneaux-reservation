@@ -4,7 +4,8 @@ class filtre {
     type,
     creneauConfigs,
     currentCreneauType,
-    creneauFilters
+    creneauFilters,
+    type_disabled = "days"
   ) {
     /**
      * Date de l'application sans les les heures.
@@ -21,7 +22,7 @@ class filtre {
     if (creneauFilters.length) {
       for (const i in creneauFilters) {
         const filter = creneauFilters[0];
-        if (filter.type_disabled === "days") {
+        if (filter.type_disabled === type_disabled) {
           this.setDaysDisabledDate(filter.date_desactivee);
           this.setDaysDisabledPeriode(filter.periode_desactivee);
         }
@@ -55,6 +56,7 @@ class filtre {
   /**
    * Permet de valider un date, active ou pas.
    * @param {*} date Doit etre un object moment.
+   * @return true pour une date active et false sinon;
    */
   ValidationDay(date) {
     return new Promise(resolvEnd => {
@@ -96,6 +98,14 @@ class filtre {
       }
     });
   }
+  /**
+   *
+   * @param {*} date
+   * @param {*} status
+   * @param {*} custom_class
+   * @param {*} select
+   * @returns
+   */
   statusDate(date, status, custom_class, select = false) {
     return {
       status: status,

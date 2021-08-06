@@ -49,8 +49,9 @@
                 <b-form-group label="Données à desactiver">
                   <b-form-radio-group
                     v-model="filter.type_disabled"
-                    :options="filter.type_disabled_options"
+                    :options="type_disabled_options"
                     name="radio-options"
+                    debounce="2000"
                   ></b-form-radio-group>
                 </b-form-group>
                 <!-- -->
@@ -71,6 +72,7 @@
                           placeholder="Heure debut"
                           class="mb-2"
                           size="sm"
+                          debounce="2000"
                         ></b-form-input>
                       </b-col>
                       <b-col sm="6">
@@ -78,6 +80,7 @@
                           v-model="filter.h_fin"
                           placeholder="Heure fin"
                           size="sm"
+                          debounce="2000"
                         ></b-form-input>
                       </b-col>
                     </b-row>
@@ -286,7 +289,11 @@ export default {
     const minDate = new Date(today);
     return {
       //filters: [Utilities.filter()],
-      min_date: minDate
+      min_date: minDate,
+      type_disabled_options: [
+        { text: "Desactive les plages d'heures", value: "hours" },
+        { text: "Desactive les jours", value: "days" }
+      ]
     };
   },
   mounted() {
@@ -353,7 +360,8 @@ export default {
       return min_date;
     },
     FilterAdd() {
-      this.creneauFilters.push(Utilities.filter());
+      //this.creneauFilters.push(Utilities.filter());
+      this.$store.dispatch("SetFilterAdd");
     },
     FilterRemove(i) {
       if (this.creneauFilters[i]) {

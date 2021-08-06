@@ -133,7 +133,7 @@ export default {
     },
     SaveConfigTestReload() {
       if (
-        window.location.host === "localhost:8080" &&
+        window.location.host === "creneaux-reservation.kksa:8080" &&
         typeof localStorage !== "undefined"
       ) {
         localStorage.setItem(

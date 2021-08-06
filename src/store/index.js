@@ -122,6 +122,9 @@ export default new Vuex.Store({
         state.creneauLivraison.hour = payload.hour;
         state.creneauLivraison.date = payload.date;
       }
+    },
+    FilterAdd: state => {
+      state.creneauFilters.push(Utilities.getDefaultFilter());
     }
   },
   actions: {
@@ -139,6 +142,9 @@ export default new Vuex.Store({
     },
     SetSelectHour({ commit }, payload) {
       commit("ApplySelectHour", payload);
+    },
+    SetFilterAdd({ commit }) {
+      commit("FilterAdd");
     }
   },
   modules: {}

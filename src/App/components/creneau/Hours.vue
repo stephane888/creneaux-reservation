@@ -37,6 +37,7 @@
 import AdvancedSelect from "vue-multiselect";
 import { mapState, mapGetters } from "vuex";
 import Utilities from "../../js/Utilities";
+import Hours from "./js/hours";
 export default {
   name: "Hours",
   props: {
@@ -60,6 +61,7 @@ export default {
     ...mapState([
       "activeType",
       "creneauConfigs",
+      "creneauFilters",
       "creneauType",
       "creneauCollecte",
       "creneauLivraison"
@@ -166,6 +168,7 @@ export default {
     },
     emptyValue() {
       this.current_creneau = false;
+      this.list_creneaux = [];
     },
     BuildPayload(val) {
       if (!val)
@@ -200,32 +203,42 @@ export default {
         minute: h_max[1],
         second: 0
       });
-      const addCreneau = () => {
+      const addCreneau = async () => {
         const endCreneau = moment(dateMin).add(
           this.currentCreneauType.creneau,
           "minute"
         );
-
         if (endCreneau.diff(dateMax) <= 0) {
+          const status = await this.ValidHour(dateMin, endCreneau);
+          //console.log("status : ", status);
           var bloc_date = {
             begin: dateMin.format("HH:mm"),
             end: endCreneau.format("HH:mm"),
-            $isDisabled: false,
+            $isDisabled: status,
             checkstatus: ""
           };
-          if (dateMin.diff(this.WatchDateSelect) > 0)
+          if (dateMin.diff(this.WatchDateSelect) > 0 && !status)
             this.list_creneaux.push(bloc_date);
           dateMin.add(this.currentCreneauType.delai_next_creneau, "minute");
           addCreneau();
         } else {
           //Le bascule auto de la date au prochain jour ne fonctionne pas.
           setTimeout(() => {
-            //console.log("Last execution hours : ", this.list_creneaux);
-            if (this.list_creneaux.length === 0) this.$emit("selectNextDay", 1);
+            //if (this.list_creneaux.length === 0) this.$emit("selectNextDay", 1);
           }, 600);
         }
       };
       addCreneau();
+    },
+    ValidHour(c_min, c_max) {
+      const H = new Hours(this.WatchDateSelect, this.type, this.creneauFilters);
+      return new Promise(resolv => {
+        H.getPlageDate2().then(() => {
+          H.checkIsDisabled(c_min, c_max).then(resp => {
+            resolv(resp);
+          });
+        });
+      });
     }
   }
 };

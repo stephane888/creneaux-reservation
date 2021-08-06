@@ -79,19 +79,24 @@ const Utilities = {
       jours_select: [],
       date_desactivee: [], //{ date: "" }
       periode_desactivee: [], //{ debut: "", fin: "" }
-      type_disabled: "", // Permet de désactiver les heures ou les dates.
-      type_disabled_options: [
-        { text: "Desactive les plages d'heures", value: "hours" },
-        { text: "Desactive les jours", value: "days" }
-      ]
+      type_disabled: "" // Permet de désactiver les heures ou les dates.
     };
   },
   /**
    * Reinitialise le filtre.
    */
   filter: function() {
+    const F = localStorage.getItem("creneauFilters");
+    console.log("filter", F);
+    if (F && F !== undefined) {
+      return JSON.parse(F);
+    }
     return [this.getDefaultFilter()];
   },
+  /**
+   *
+   * @returns
+   */
   GetUniqueDays: function() {
     var result = [];
     this.jours_selects.forEach(item => {
@@ -101,6 +106,10 @@ const Utilities = {
     });
     return result;
   },
+  /**
+   *
+   * @returns
+   */
   getDefaultDelaiOverride: function() {
     return {
       day: "",

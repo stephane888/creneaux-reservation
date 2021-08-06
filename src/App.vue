@@ -47,7 +47,7 @@ export default {
   },
   data() {
     return {
-      dateDuJour: new Date() //"26-07-2021 10:00:00"
+      dateDuJour: "06-08-2021 04:00:00" //new Date() //"06-08-2021 04:00:00"
     };
   },
   mounted() {
