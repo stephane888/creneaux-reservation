@@ -3,7 +3,7 @@
     <h3>Configuration de l'application</h3>
     <div class="my-4">
       <b-tabs content-class="my-3">
-        <b-tab title="Configuration de base" active>
+        <b-tab title="Configuration de base">
           <CreneauBase :creneau-configs="creneauType"></CreneauBase>
         </b-tab>
         <b-tab title="Configuration des creneaux et dates">
@@ -18,8 +18,8 @@
             :jours-active="joursActive"
           ></TypeLivraison>
         </b-tab>
-        <b-tab title="Configuration de la map">
-          <MapGoogle></MapGoogle>
+        <b-tab title="Configuration de la map" active>
+          <MapGoogle ref="mapGoogle" :configs="configsMap"></MapGoogle>
         </b-tab>
       </b-tabs>
       <div class="d-flex justify-content-end">
@@ -29,35 +29,24 @@
           variant="outline-info"
           class="mr-2"
         >
-          Ré-initialise
+          Ré-initialiser
         </b-button>
-
-        <!--
-          Le bouton  enregistre les données dans localStorage.
-        -->
         <b-button
           size="sm"
-          @click="SaveConfigTestReload"
+          @click="SavePreProdConfig(false)"
           variant="outline-info"
           class="mr-2"
         >
-          Voir l'aperçu
+          Enregistrer
         </b-button>
         <hr />
         <b-button
           size="sm"
-          @click="loadMetafieldConfig"
-          variant="outline-info"
-          class="mr-2"
-        >
-          Charge la config de production
-        </b-button>
-        <b-button
-          size="sm"
           @click="SaveMetafieldConfig"
-          variant="outline-success"
+          :variant="isSaveInProd ? 'secondary' : 'outline-success'"
+          :disabled="isSaveInProd"
         >
-          Enregistrer en production
+          Publier en production
         </b-button>
       </div>
     </div>
@@ -67,7 +56,8 @@
 <script>
 import Vue from "vue";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
-import configs from "./components/admin/configs/config";
+import queryString from "query-string";
+
 //
 /**
  * Cette approche ne limite pas BootstrapVue pour ce composant, mais il sera charge si ce composant est demandé.
@@ -77,7 +67,10 @@ Vue.use(BootstrapVue);
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin);
 import Utilities from "./js/Utilities";
+import config from "./components/admin/configs/config";
 import { mapGetters, mapState } from "vuex";
+import store from "map-google-location/src/store/index";
+const query = queryString.parse(window.location.search);
 export default {
   name: "Admin",
   props: {
@@ -87,19 +80,33 @@ export default {
     CreneauBase: () => import("./components/admin/Forms/CreneauBase"),
     CreneauFilters: () => import("./components/admin/Forms/CreneauFilters"),
     TypeLivraison: () => import("./components/admin/Forms/TypeLivraion"),
-    MapGoogle: () => import("map-google-location/src/AppManageApiGoogle.vue")
+    MapGoogle: () =>
+      import("map-google-location/src/components/admin/manage-config.vue")
   },
   data() {
-    return {};
+    return {
+      query: queryString.parse(window.location.search),
+      shop: config.isLocalDev ? "creneaux-reservation.kksa" : query.shop,
+      configsMap: store.state.configs
+    };
   },
   mounted() {
-    this.LoadValues();
-  },
-  watch: {
-    //
+    this.initDefaultConfig().then(() => {
+      this.$store.dispatch("loadPreProdConfigs", this.shop);
+      setTimeout(() => {
+        this.$refs.mapGoogle.LoadValues().then(resp => {
+          if (resp.value) this.configsMap = JSON.parse(resp.value);
+        });
+      }, 3000);
+    });
   },
   computed: {
-    ...mapState(["creneauConfigs", "creneauFilters", "creneauType"]),
+    ...mapState([
+      "creneauConfigs",
+      "creneauFilters",
+      "creneauType",
+      "isSaveInProd"
+    ]),
     ...mapGetters(["joursActive"])
   },
   methods: {
@@ -112,54 +119,24 @@ export default {
           this.creneauConfigs.days.push(item);
         });
     },
-    SaveMetafieldConfig() {
-      configs.saveMetaFields([
-        {
-          key: "creneauConfigs",
-          value: this.creneauConfigs,
-          value_type: "json_string"
-        },
-        {
-          key: "creneauFilters",
-          value: this.creneauFilters,
-          value_type: "json_string"
-        },
-        {
-          key: "creneauType",
-          value: this.creneauType,
-          value_type: "json_string"
-        }
-      ]);
-    },
-    SaveConfigTestReload() {
-      if (
-        window.location.host === "creneaux-reservation.kksa:8080" &&
-        typeof localStorage !== "undefined"
-      ) {
-        localStorage.setItem(
-          "creneauConfigs",
-          JSON.stringify(this.creneauConfigs)
-        );
-        localStorage.setItem(
-          "creneauFilters",
-          JSON.stringify(this.creneauFilters)
-        );
-        localStorage.setItem("creneauType", JSON.stringify(this.creneauType));
-        window.location.reload();
-      } else {
-        configs
-          .SaveConfigsTest({
-            creneauConfigs: this.creneauConfigs,
-            creneauFilters: this.creneauFilters,
-            creneauType: this.creneauType
-          })
-          .then(() => {
-            window.location.reload();
-          });
-      }
-    },
     /**
-     * re-initialise la configuration et l'enregistre en DB pour les tests.
+     * --
+     */
+    SaveMetafieldConfig() {
+      const datas = [
+        config.AddMetafield("creneauConfigs", this.creneauConfigs),
+        config.AddMetafield("creneauFilters", this.creneauFilters),
+        config.AddMetafield("creneauType", this.creneauType),
+        config.AddMetafield("localisation", this.configsMap)
+      ];
+      config.SfPost("metafields", datas).then(() => {
+        this.$store.dispatch("UpdateIsSaveInProd", true);
+        this.SavePreProdConfig(true);
+      });
+    },
+
+    /**
+     * Re-initialise la configuration et l'enregistre en DB pour les tests.
      */
     async ResetConfigTest() {
       if (
@@ -173,66 +150,46 @@ export default {
       //load default datas
       await this.resetDatas();
       await this.loadDefaultDatas();
-      this.SaveConfigTestReload();
     },
-    loadMetafieldConfig() {
-      configs
-        .post("/app/creneaux/shopify/request/LoadMetafields", {
-          endPoint: "/admin/metafields.json"
+    /**
+     *
+     */
+    SavePreProdConfig(status) {
+      const params = {
+        creneauConfigs: this.creneauConfigs,
+        creneauFilters: this.creneauFilters,
+        creneauType: this.creneauType,
+        status: status //isSaveInProd
+      };
+      config
+        .bPost("/shopify-api-rest/save-configs", params, {
+          params: { key: "creneaux-configs", shop: this.shop }
         })
-        .then(reponse => {
-          var StoreHasConfig = false;
-          if (reponse.status && reponse.data.metafields) {
-            for (const i in reponse.data.metafields) {
-              const metafield = reponse.data.metafields[i];
-              if (metafield.namespace === "wbu_creneaux") {
-                StoreHasConfig = true;
-                switch (metafield.key) {
-                  case "creneauConfigs":
-                    this.creneauConfigs = JSON.parse(metafield.value);
-                    break;
-                  case "creneauFilters":
-                    this.creneauFilters = JSON.parse(metafield.value);
-                    break;
-                  case "creneauType":
-                    this.creneauType = JSON.parse(metafield.value);
-                    break;
-                }
-              }
-              var ii = parseInt(i) + 1;
-              if (ii === reponse.data.metafields.length && !StoreHasConfig) {
-                this.LoadValues();
-              }
-            }
-          } else {
-            this.LoadValues();
+        .then(() => {
+          if (!status) {
+            this.$store.dispatch("UpdateIsSaveInProd", false);
           }
         });
-    },
-    async LoadValues() {
-      var StoreHasTestConfig = false;
-      var creneauConfigs = window.creneauConfigs;
-      if (creneauConfigs && creneauConfigs.days) {
-        this.creneauConfigs = creneauConfigs;
-        StoreHasTestConfig = true;
-      }
-      //
-      var creneauType = window.creneauType;
-      if (creneauType && creneauType.typelivraison) {
-        this.creneauType = creneauType;
-      }
-      //
-      var creneauFilters = window.creneauFilters;
-      if (creneauFilters && creneauFilters.length) {
-        this.creneauFilters = creneauFilters;
-      }
-      if (StoreHasTestConfig) {
-        await this.resetDatas();
-      }
-      this.loadDefaultDatas();
+      this.$refs.mapGoogle.SavePreProdConfig();
     },
     async loadDefaultDatas() {
       await this.BuildDays();
+    },
+    /**
+     * Permet d'initialiser la configuration par default
+     */
+    initDefaultConfig() {
+      return new Promise(resolv => {
+        if (config.isLocalDev) {
+          config
+            .post("/shopify-api-rest/init-local", {
+              origin: this.shop
+            })
+            .then(r => {
+              resolv(r);
+            });
+        } else resolv();
+      });
     }
   }
 };

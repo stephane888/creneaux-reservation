@@ -6,5 +6,6 @@ Vue.config.productionTip = false;
 
 new Vue({
   store,
-  render: h => h(UserCreneau)
-}).$mount("#app");
+  render: h =>
+    h(UserCreneau, { props: { dateDuJour: window.wbu_current_date } })
+}).$mount("#creneau-mylittlepressing");

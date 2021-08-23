@@ -30,12 +30,14 @@
       :type="type"
       ref="calendar"
     ></calendar>
+    <!--
     <pre v-if="type == 'livraison'">
       creneauLivraison {{ creneauLivraison }}
     </pre>
     <pre v-if="type == 'collecte'">
       creneauCollecte {{ creneauCollecte }}
     </pre>
+-->
   </div>
 </template>
 <script>

@@ -1,76 +1,55 @@
-import { AjaxToastBootStrap as axios } from "wbuutilities";
-
+import { AjaxToastBootStrap } from "wbuutilities";
+AjaxToastBootStrap.TestDomain = "http://habeuk.kksa";
 export default {
-  // baseUrl: "http://gestion-tache-new.kksa",
-  ModeDebug: true,
-  post: function(request, datas = {}) {
-    return new Promise(resolv => {
-      var configs = {
-        headers: {}
-      };
-      axios
-        .post(request + "?" + this.GetQuery(), datas, configs)
-        .then(reponse => {
-          console.log("Config success : ", reponse);
-          resolv({ status: true, data: reponse.data, reponse: reponse });
-        })
-        .catch(error => {
-          resolv({ status: false, error: error.response });
-        });
-    });
+  ...AjaxToastBootStrap,
+  apiVersion: "2021-07",
+  namespace: "wbu_myl_creneaux",
+  SfPost(token, datas, param = {}) {
+    return this.post(
+      "/shopify-api-rest/request/save-" + token + window.location.search,
+      {
+        endPoint: this.buildEndPoint(param) + token + ".json",
+        [token]: datas
+      }
+    );
   },
   /**
-   * @param datas Array
+   * Load data from shopify
+   * @param {*} token
+   * @param {*} param
+   * @returns
    */
-  saveMetaFields: function(
-    datas,
-    namespace = "wbu_creneaux",
-    endPoint = "/admin/metafields.json"
-  ) {
-    var metafields = [];
-    datas.forEach(item => {
-      metafields.push({
-        namespace: namespace,
-        key: item.key,
-        value: item.value,
-        value_type: item.value_type
-      });
-    });
-    this.post("/app/creneaux/shopify/request/SaveMetafields", {
-      endPoint: endPoint,
-      metafields: metafields
-    });
-  },
-  get: function(request) {
-    console.log("ssss");
-    return new Promise(resolv => {
-      var configs = {
-        headers: {}
-      };
-      axios
-        .get(request, configs)
-        .then(reponse => {
-          console.log("Config get success : ", reponse);
-          resolv({ status: true, data: reponse.data, reponse: reponse });
-        })
-        .catch(error => {
-          resolv({ status: false, error: error.response });
-        });
-    });
-  },
-  GetQuery: function() {
-    var string = window.location.search;
-    var stringA = string.split("?");
-    if (stringA[1]) {
-      return stringA[1];
-    } else {
-      return "";
-    }
-  },
-  SaveConfigsTest: function(datas) {
-    return axios.post(
-      "/creneaux-shopify/test-config?" + this.GetQuery(),
-      datas
+  SfGet(token, param = {}) {
+    return this.post(
+      "/shopify-api-rest/request/load-" + token + window.location.search,
+      {
+        endPoint: this.buildEndPoint(param) + token + ".json"
+      }
     );
+  },
+  /**
+   *
+   * @param {*} key
+   * @param {*} value
+   * @param {*} value_type
+   * @returns
+   */
+  AddMetafield(key, value, value_type = "json_string") {
+    return {
+      namespace: this.namespace,
+      key: key,
+      value: value,
+      value_type: value_type
+    };
+  },
+  buildEndPoint(param) {
+    var endPoint = "/admin/api/" + this.apiVersion + "/";
+    if (param.entity && param.entityId) {
+      endPoint += param.entity + "/";
+      endPoint += param.entityId + "/";
+    } else if (param.entityId) {
+      endPoint += param.entityId + "/";
+    }
+    return endPoint;
   }
 };

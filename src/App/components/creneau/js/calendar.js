@@ -28,7 +28,7 @@ class calendar {
     this.currentCreneauType = currentCreneauType;
     this.creneauFilters = creneauFilters;
     /**
-     * cest deux cas possible: collecte ou livraison.
+     * C'est deux cas possible: collecte ou livraison.
      */
     this.type = type;
     /**

@@ -108,13 +108,13 @@ class filterHours {
         //Verifie les jours de la semaine.
         if (filter.jours_select.length) {
           if (filter.jours_select.includes(this.date.day())) {
-            if (loop(filter)) {
+            if (loop(filter) && !filter.dayValid) {
               resolv(true);
               break;
             }
           }
         } else {
-          if (loop(filter) && filter.dayValid) {
+          if (loop(filter) && !filter.dayValid) {
             resolv(true);
             break;
           }

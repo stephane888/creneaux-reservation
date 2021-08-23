@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import Utilities from "../App/js/Utilities";
-Vue.use(Vuex);
 
+Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     // -------------------------------------------------------------
@@ -36,7 +36,14 @@ export default new Vuex.Store({
       hour: false,
       date_string: false,
       date: false
-    }
+    },
+    /**
+     * Contient les données de localisation choisie par l'utilisateur ou charger à partir de localstorage.
+     */
+    location: Utilities.getLocation(),
+    /**
+     */
+    isSaveInProd: false
   },
   getters: {
     /**
@@ -104,6 +111,11 @@ export default new Vuex.Store({
       state.creneauFilters = Utilities.filter();
       state.creneauType = Utilities.getDefaultTypeLivraion();
     },
+    SETDATAS: (state, conf) => {
+      state.creneauConfigs = conf.creneauConfigs;
+      state.creneauFilters = conf.creneauFilters;
+      state.creneauType = conf.creneauType;
+    },
     DATEDUJOUR: (state, date) => {
       state.dateDuJour = date;
     },
@@ -125,6 +137,12 @@ export default new Vuex.Store({
     },
     FilterAdd: state => {
       state.creneauFilters.push(Utilities.getDefaultFilter());
+    },
+    LOCATION: (state, payload) => {
+      state.location = payload;
+    },
+    SETisSaveInProd: (state, payload) => {
+      state.isSaveInProd = payload;
     }
   },
   actions: {
@@ -145,6 +163,20 @@ export default new Vuex.Store({
     },
     SetFilterAdd({ commit }) {
       commit("FilterAdd");
+    },
+    setLocation({ commit }, payload) {
+      commit("LOCATION", payload);
+    },
+    loadPreProdConfigs({ commit }, shop) {
+      Utilities.LoadValues(shop).then(resp => {
+        if (resp) {
+          commit("SETDATAS", resp);
+          commit("SETisSaveInProd", resp.status);
+        }
+      });
+    },
+    UpdateIsSaveInProd({ commit }, status) {
+      commit("SETisSaveInProd", status);
     }
   },
   modules: {}

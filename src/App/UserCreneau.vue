@@ -37,6 +37,7 @@
           </div>
         </div>
       </div>
+      <button @click="testProduct">test products</button>
     </div>
   </div>
 </template>
@@ -47,6 +48,7 @@ import InlineDescription from "./components/creneau/InlineDescription.vue";
 import TabOption from "./components/creneau/TabOption.vue";
 import mapGoogle from "./components/creneau/map-google.vue";
 import creneau from "./components/creneau/creneau.vue";
+import config from "./components/admin/configs/config";
 export default {
   name: "App",
   props: {
@@ -64,6 +66,33 @@ export default {
     const d = moment(this.dateDuJour, "DD-MM-YYYY HH:mm:ss");
     //const d = moment();
     if (d._isValid) this.$store.dispatch("SetDateDuJour", d);
+  },
+  methods: {
+    testProduct() {
+      config.SfGet("metafields");
+      config.SfGet("metafields", {
+        entity: "products",
+        entityId: "7142363988137"
+      });
+      const datas = [
+        config.AddMetafield("test0", moment().unix()),
+        config.AddMetafield("test1", {
+          title: "heure d'ici",
+          unixtime: moment().unix()
+        })
+      ];
+      config
+        .SfPost("metafields", datas, {
+          entity: "products",
+          entityId: "7142363988137"
+        })
+        .then(() => {
+          config.SfGet("metafields", {
+            entity: "products",
+            entityId: "7142363988137"
+          });
+        });
+    }
   }
 };
 </script>

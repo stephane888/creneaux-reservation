@@ -8,6 +8,7 @@ module.exports = {
         fix: true,
       });
   },
+
   /**/
   devServer: {
     host: "creneaux-reservation.kksa",

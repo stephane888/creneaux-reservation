@@ -1,3 +1,4 @@
+import store from "../../../../store/index";
 class filtre {
   constructor(
     dateMonth,
@@ -14,6 +15,7 @@ class filtre {
     this.IndexDayDisabled = [];
     this.DaysDisabledDate = [];
     this.DaysDisabledPeriode = [];
+    this.location = store.state.location;
     if (creneauConfigs.days) {
       this.setDaysDisabled(creneauConfigs.days);
     }
@@ -21,10 +23,10 @@ class filtre {
     this.currentCreneauType = currentCreneauType;
     if (creneauFilters.length) {
       for (const i in creneauFilters) {
-        const filter = creneauFilters[0];
+        const filter = creneauFilters[i];
         if (filter.type_disabled === type_disabled) {
-          this.setDaysDisabledDate(filter.date_desactivee);
-          this.setDaysDisabledPeriode(filter.periode_desactivee);
+          this.setDaysDisabledDate(filter.date_desactivee, filter.pobox);
+          this.setDaysDisabledPeriode(filter.periode_desactivee, filter.pobox);
         }
       }
     }
@@ -40,18 +42,35 @@ class filtre {
   /**
    * Jours desactivés en function des dates.
    */
-  setDaysDisabledDate(date_desactivee) {
-    date_desactivee.forEach(e => {
-      this.DaysDisabledDate.push(e.date);
-    });
+  setDaysDisabledDate(date_desactivee, pobox) {
+    //this.location.current_address
+    let inBox = false;
+    if (this.location.current_address)
+      pobox.forEach(b => {
+        if (this.location.current_address.includes(b.value)) {
+          inBox = true;
+        }
+      });
+    if (pobox.length === 0 || inBox)
+      date_desactivee.forEach(e => {
+        this.DaysDisabledDate.push(e.date);
+      });
   }
   /**
    * Jours desactivés en function des periodes.
    */
-  setDaysDisabledPeriode(periode_desactivee) {
-    periode_desactivee.forEach(e => {
-      if (e.debut !== "" && e.fin !== "") this.DaysDisabledPeriode.push(e);
-    });
+  setDaysDisabledPeriode(periode_desactivee, pobox) {
+    let inBox = false;
+    if (this.location.current_address)
+      pobox.forEach(b => {
+        if (this.location.current_address.includes(b.value)) {
+          inBox = true;
+        }
+      });
+    if (pobox.length === 0 || inBox)
+      periode_desactivee.forEach(e => {
+        if (e.debut !== "" && e.fin !== "") this.DaysDisabledPeriode.push(e);
+      });
   }
   /**
    * Permet de valider un date, active ou pas.
@@ -59,6 +78,7 @@ class filtre {
    * @return true pour une date active et false sinon;
    */
   ValidationDay(date) {
+    //this.disabledByCodePostal();
     return new Promise(resolvEnd => {
       //permet de dessactiver les jours avant le jour valide par l'application.
       if (date.diff(this.dateMonth, "minute") >= 0) {
@@ -97,6 +117,10 @@ class filtre {
         resolvEnd(this.statusDate(date, false, "default-disable"));
       }
     });
+  }
+
+  disabledByCodePostal() {
+    console.log("store : ", store.state.location);
   }
   /**
    *

@@ -1,10 +1,12 @@
+import config from "../components/admin/configs/config";
 const Utilities = {
   getDefaultCreneauConfig() {
+    if (window.creneauConfigs) return window.creneauConfigs;
     return {
       days: [
         {
           text: "Lundi",
-          value: 0,
+          value: 1,
           debut: "7:30",
           fin: "21:30",
           indice: 1
@@ -46,7 +48,7 @@ const Utilities = {
         },
         {
           text: "Dimanche",
-          value: 0,
+          value: 1,
           debut: "7:30",
           fin: "21:30",
           indice: 0
@@ -87,11 +89,7 @@ const Utilities = {
    * Reinitialise le filtre.
    */
   filter: function() {
-    const F = localStorage.getItem("creneauFilters");
-    console.log("filter", F);
-    if (F && F !== undefined) {
-      return JSON.parse(F);
-    }
+    if (window.creneauFilters) return window.creneauFilters;
     return [this.getDefaultFilter()];
   },
   /**
@@ -118,6 +116,7 @@ const Utilities = {
     };
   },
   getDefaultTypeLivraion() {
+    if (window.creneauType) return window.creneauType;
     return [
       {
         titre: "Gratuit",
@@ -168,6 +167,25 @@ const Utilities = {
   crex2: {
     label: "Livraison",
     id: "livraison"
+  },
+  getLocation() {
+    const l = config.isLocalDev
+      ? localStorage.getItem("wbu-google-location")
+      : null;
+    return l !== null && l !== undefined ? JSON.parse(l) : "";
+  },
+  LoadValues(shop) {
+    return new Promise(resolv => {
+      config
+        .bGet("/shopify-api-rest/load-configs", {
+          params: { key: "creneaux-configs", shop: shop }
+        })
+        .then(resp => {
+          if (resp.data && resp.data.value) {
+            resolv(JSON.parse(resp.data.value));
+          } else resolv(false);
+        });
+    });
   }
 };
 export default Utilities;
