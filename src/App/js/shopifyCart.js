@@ -121,6 +121,14 @@ export default {
    * Permet à un programme externe/interne d'execute le processus de sauvegarde.
    */
   setEvant() {
+    const bt = document.querySelector(".btn.submit-cart-test");
+    bt.classList.add("d-inline-block");
+    bt.addEventListener("click", () => {
+      bt.querySelector("i.fa-arrow-right").classList.add("d-none");
+      bt.querySelector("i.fa-refresh").classList.remove("loadding");
+      bt.querySelector("i.fa-refresh").classList.add("fa-spin");
+      this.SaveCreneau(bt);
+    });
     document.addEventListener("SaveCreneauxChechout", () => {
       this.SaveCreneau(elem);
     });
@@ -133,30 +141,29 @@ export default {
     if (test) {
       var attribut = await this.buildAttribut();
       await this.SaveAttributeCart(attribut);
+      this.saveOnExternalServer(attribut);
       //on verifie que le panier est ok.
       await this.loadcart();
       if (
         (this.cart && this.cart.attributes && this.cart.attributes.livraison) ||
         !this.app_env_prod
       ) {
-        //$(".cart-checkout .loadding", elem.target).removeClass("fa-spin");
-        console.log("elem.target : ", elem.target);
-        alert("triggerCheckout");
-        this.triggerCheckout();
+        elem.querySelector("i.fa-arrow-right").classList.remove("d-none");
+        elem.querySelector("i.fa-refresh").classList.add("loadding");
+        //this.triggerCheckout();
       } else {
+        elem.classList.add("bg-danger");
         this.show_alert = true;
         this.alert_attribut_class = "alert-danger ml-md-4";
-        this.alert_message +=
+        store.state.alert_message +=
           '- Une erreur s"est produite lors de la sauvegarde de vos informations. <br /> Verifier votre connexion et actualiser la page <br />';
         return false;
       }
     } else {
-      if (elem && elem.target) {
-        alert("error");
-        // $(".cart-checkout .submit-cart-test", elem.target).addClass(
-        //   "bg-danger"
-        // );
-        // $(".cart-checkout .loadding", elem.target).removeClass("fa-spin");
+      if (elem) {
+        elem.classList.add("bg-danger");
+        elem.querySelector("i.fa-refresh").classList.add("loadding");
+        console.log("store.state.alert_message : ", store.state.alert_message);
       }
     }
   }

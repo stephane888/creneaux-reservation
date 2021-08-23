@@ -83,7 +83,7 @@
         ></b-form-input>
       </b-form-group>
       <!-- -->
-      <b-form-group label="Montant min d'une commande ">
+      <b-form-group label="Montant min d'une commande (en euros)">
         <b-form-input
           v-model.number="creneauConfigs.montant_min"
           type="number"

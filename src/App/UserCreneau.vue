@@ -3,6 +3,12 @@
     <div class="container first-block" :currentCreneauType="currentCreneauType">
       <div class="creneaux-mbt--block mt-5">
         <app-title></app-title>
+        <div
+          class="alert alert-danger"
+          v-if="alert_message && alert_message != ''"
+        >
+          {{ alert_message }}
+        </div>
         <div class="block-left">
           <tab-option></tab-option>
         </div>
@@ -79,7 +85,7 @@ export default {
    */
 
   computed: {
-    ...mapState(["creneauType", "activeType"]),
+    ...mapState(["creneauType", "activeType", "alert_message"]),
     appDateDisplay: {
       get() {
         if (this.type === "livraison" && this.creneauLivraison.date_string) {

@@ -172,9 +172,10 @@ const Utilities = {
     id: "livraison"
   },
   getLocation() {
-    const l = config.isLocalDev
-      ? localStorage.getItem("wbu-google-location")
-      : null;
+    const l =
+      window.location.host === "habeuk.online"
+        ? null
+        : localStorage.getItem("wbu-google-location");
     return l !== null && l !== undefined ? JSON.parse(l) : "";
   },
   LoadValues(shop) {

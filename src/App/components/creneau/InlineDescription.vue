@@ -18,13 +18,6 @@
 import { mapGetters } from "vuex";
 export default {
   name: "InlineDesc",
-  props: {},
-  data() {
-    return {};
-  },
-  components: {},
-  watch: {},
-  computed: { ...mapGetters(["activeTabOption"]) },
-  methods: {}
+  computed: { ...mapGetters(["activeTabOption"]) }
 };
 </script>

@@ -43,7 +43,8 @@ export default new Vuex.Store({
     location: Utilities.getLocation(),
     /**
      */
-    isSaveInProd: false
+    isSaveInProd: false,
+    alert_message: null
   },
   getters: {
     /**

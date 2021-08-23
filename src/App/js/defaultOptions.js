@@ -4,6 +4,7 @@ export default {
   show_cover: false,
   cart: null,
   creneauTypes: store.state.creneauType,
+  creneauConfigs: store.state.creneauConfigs,
   /**
    * Coontient la valeur de type de livraison dans la panier.
    */
@@ -14,7 +15,6 @@ export default {
    * (sinitialise des le debut)
    */
   TypeLivraison: {},
-  alert_message: "",
   show_alert: false,
   creneauCollecte: store.state.creneauCollecte,
   creneauLivraison: store.state.creneauLivraison,
@@ -87,12 +87,13 @@ export default {
     });
   },
   async verification() {
-    this.alert_message = "";
+    store.state.alert_message = "";
     this.show_alert = false;
     //var test1 = await this.verificationTypeLivraison();
     var test2 = await this.VerificationCrenaux();
-    var test3 = await this.VerificationAdress();
-    if (test2 && test3) {
+    var test3 = await this.VerificationAddress();
+    var test4 = await this.ValidationMontant();
+    if (test2 && test3 && test4) {
       return true;
     } else {
       this.show_alert = true;
@@ -103,59 +104,98 @@ export default {
   async VerificationCrenaux() {
     var livraison = true;
     var collecte = true;
-    if (!creneauCollecte.date || !creneauCollecte.hour) {
+    if (!this.creneauCollecte.date || !this.creneauCollecte.hour) {
       collecte = false;
-      this.alert_message +=
+      store.state.alert_message +=
         "- Vous devez selectionner un creneau pour la collecte.<br />";
     }
-    if (!creneauLivraison.date || !creneauLivraison.date) {
+    if (!this.creneauLivraison.date || !this.creneauLivraison.date) {
       livraison = false;
-      this.alert_message +=
+      store.state.alert_message +=
         "- Vous devez selectionner un creneau pour la livraison.<br />";
     }
 
     if (livraison && collecte) return true;
     else return false;
   },
-  async VerificationAdress() {
-    if (location.current_address) {
+  /**
+   *
+   * @returns
+   */
+  async VerificationAddress() {
+    if (this.location.current_address) {
       return true;
-    } else return false;
+    } else {
+      store.state.alert_message +=
+        " - Vous devez selectionner une adresse. <br /> ";
+      return false;
+    }
   },
-  buildAttribut() {
+  /**
+   * Valide le montant dans le panier.
+   */
+  async ValidationMontant() {
+    const montantMin = parseFloat(this.creneauConfigs.montant_min) * 10;
+    var formatString = str => {
+      var regex = /\{\{(.*?)\}\}/g;
+      let found;
+      var int = 0;
+      while ((found = regex.exec(str)) !== null && int < 10) {
+        int++;
+        var attr = found[1].trim(" ");
+        str = str.replace(
+          found[0],
+          this.creneauConfigs[attr] !== undefined
+            ? this.creneauConfigs[attr]
+            : "..."
+        );
+      }
+      return str;
+    };
+    if (montantMin >= this.cart.total_price) {
+      store.state.alert_message += formatString(
+        this.creneauConfigs.text_alert_montant_min
+      );
+      return false;
+    }
+    return true;
+  },
+  async buildAttribut() {
     //
     var livraison = "Livraison";
     livraison += "\r\n";
-    livraison += "Date :" + creneauLivraison.date.format("DD-MM-YYYY HH:mm:ss");
+    livraison +=
+      "Date :" + this.creneauLivraison.date.format("DD-MM-YYYY HH:mm:ss");
     livraison += "\r\n";
     livraison +=
       "Creneau :" +
-      creneauLivraison.hour.begin +
+      this.creneauLivraison.hour.begin +
       " - " +
-      creneauLivraison.hour.end;
+      this.creneauLivraison.hour.end;
     //
     var collecte = "Collecte";
     collecte += "\r\n";
-    collecte += "Date :" + creneauCollecte.date.format("DD-MM-YYYY HH:mm:ss");
+    collecte +=
+      "Date :" + this.creneauCollecte.date.format("DD-MM-YYYY HH:mm:ss");
     collecte += "\r\n";
     collecte +=
       "Creneau :" +
-      creneauCollecte.hour.begin +
+      this.creneauCollecte.hour.begin +
       " - " +
-      creneauCollecte.hour.end;
+      this.creneauCollecte.hour.end;
     /**
      * Données pour format Zapier
      */
-    var z_collecte_date = creneauCollecte.date.format("DD-MM-YYYY");
+    var z_collecte_date = this.creneauCollecte.date.format("DD-MM-YYYY");
     var z_collecte_heure =
-      creneauCollecte.hour.begin + " - " + creneauCollecte.hour.end;
+      this.creneauCollecte.hour.begin + " - " + this.creneauCollecte.hour.end;
     //
-    var z_livraison_date = creneauLivraison.date.format("DD-MM-YYYY");
+    var z_livraison_date = this.creneauLivraison.date.format("DD-MM-YYYY");
     var z_livraison_heure =
-      creneauLivraison.hour.begin + " - " + creneauLivraison.hour.end;
+      this.creneauLivraison.hour.begin + " - " + this.creneauLivraison.hour.end;
     return {
       attributes: {
-        localisation: location.current_address,
+        localisation: this.location.current_address,
         recuperation: collecte,
         livraison: livraison,
         z_collecte_date: z_collecte_date,
@@ -177,6 +217,24 @@ export default {
           this.show_cover = false;
           if (AjaxBasic.isLocalDev) resolv(e);
           else reject();
+        });
+    });
+  },
+  /**
+   * -
+   */
+  saveOnExternalServer(datas) {
+    return new Promise((resolv, reject) => {
+      AjaxBasic.post(
+        "https://habeuk.online/shopify-api-rest/add-creneau-reserve",
+        datas.attributes,
+        { params: { shop: window.ShopId } }
+      )
+        .then(r => {
+          resolv(r);
+        })
+        .catch(e => {
+          reject();
         });
     });
   },

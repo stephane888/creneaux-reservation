@@ -9,10 +9,16 @@
     >
       Ajouter une adresse
     </span>
-    <div class="h1 cursor-pointer" @click="openPopupMap">
+    <div
+      class="h1 cursor-pointer"
+      @click="openPopupMap"
+      v-if="location.current_address !== ''"
+    >
       {{ location.locality }}
     </div>
-    <p class="cursor-pointer">{{ location.current_address }}</p>
+    <p class="cursor-pointer" v-if="location.current_address !== ''">
+      {{ location.current_address }}
+    </p>
     <AppPopUpMap
       ref="apppopupmap"
       :etape-checkout="false"

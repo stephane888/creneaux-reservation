@@ -1,72 +1,38 @@
 ((typeof self !== 'undefined' ? self : this)["webpackJsonpcreneauxMylittlepressing"] = (typeof self !== 'undefined' ? self : this)["webpackJsonpcreneauxMylittlepressing"] || []).push([[7],{
 
-/***/ "3fae":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _creneaux_reservation_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_creneaux_reservation_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_creneaux_reservation_node_modules_vue_loader_lib_loaders_stylePostLoader_js_creneaux_reservation_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_creneaux_reservation_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_creneaux_reservation_node_modules_cache_loader_dist_cjs_js_ref_0_0_creneaux_reservation_node_modules_vue_loader_lib_index_js_vue_loader_options_manage_config_vue_vue_type_style_index_0_id_0298ad70_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("c8c2");
-/* harmony import */ var _creneaux_reservation_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_creneaux_reservation_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_creneaux_reservation_node_modules_vue_loader_lib_loaders_stylePostLoader_js_creneaux_reservation_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_creneaux_reservation_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_creneaux_reservation_node_modules_cache_loader_dist_cjs_js_ref_0_0_creneaux_reservation_node_modules_vue_loader_lib_index_js_vue_loader_options_manage_config_vue_vue_type_style_index_0_id_0298ad70_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_creneaux_reservation_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_creneaux_reservation_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_creneaux_reservation_node_modules_vue_loader_lib_loaders_stylePostLoader_js_creneaux_reservation_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_creneaux_reservation_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_creneaux_reservation_node_modules_cache_loader_dist_cjs_js_ref_0_0_creneaux_reservation_node_modules_vue_loader_lib_index_js_vue_loader_options_manage_config_vue_vue_type_style_index_0_id_0298ad70_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
-
-
-/***/ }),
-
-/***/ "9f0a":
+/***/ "1eb6":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!../map-google-location/src/components/admin/manage-config.vue?vue&type=template&id=0298ad70&scoped=true&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('section',{staticClass:"border p-4 my-5"},[_c('h1',{staticClass:"titre"},[_vm._v("Configuration de la map")]),_c('b-form-group',{attrs:{"label":"Api Key"}},[_c('b-form-input',{model:{value:(_vm.configs.mapConfig.apiKey),callback:function ($$v) {_vm.$set(_vm.configs.mapConfig, "apiKey", $$v)},expression:"configs.mapConfig.apiKey"}})],1),_c('hr'),_c('b-form-group',{attrs:{"label":"Selectionner le type de filtre"}},[_c('b-form-radio-group',{attrs:{"options":_vm.configs.type_filtre.options,"stacked":""},model:{value:(_vm.configs.type_filtre.value),callback:function ($$v) {_vm.$set(_vm.configs.type_filtre, "value", $$v)},expression:"configs.type_filtre.value"}})],1),_c('b-form-group',{attrs:{"label":"placeholder"}},[_c('b-form-input',{model:{value:(_vm.configs.input_placeholder.value),callback:function ($$v) {_vm.$set(_vm.configs.input_placeholder, "value", $$v)},expression:"configs.input_placeholder.value"}})],1),_c('b-form-group',{attrs:{"label":"Text bouton"}},[_c('b-form-input',{model:{value:(_vm.configs.input_text_button.value),callback:function ($$v) {_vm.$set(_vm.configs.input_text_button, "value", $$v)},expression:"configs.input_text_button.value"}})],1),_c('b-form-group',{attrs:{"label":"Titre du bloc"}},[_c('b-form-input',{model:{value:(_vm.configs.titre_map.value),callback:function ($$v) {_vm.$set(_vm.configs.titre_map, "value", $$v)},expression:"configs.titre_map.value"}})],1),_c('b-form-group',{attrs:{"label":"Url de la page apres une adresse valide"}},[_c('b-form-input',{model:{value:(_vm.configs.redirect_true.value),callback:function ($$v) {_vm.$set(_vm.configs.redirect_true, "value", $$v)},expression:"configs.redirect_true.value"}})],1),_c('b-form-group',{attrs:{"label":"Url de la page apres une adresse non valide"}},[_c('b-form-input',{model:{value:(_vm.configs.redirect_false.value),callback:function ($$v) {_vm.$set(_vm.configs.redirect_false, "value", $$v)},expression:"configs.redirect_false.value"}})],1),_c('b-form-group',{attrs:{"label":"Zone valide","description":"Creer la zone sur http://geojson.io/ et copier coller son contenu JSON, NB: le typde doit etre 'Polygon'"}},[_c('b-form-textarea',{attrs:{"rows":"8"},model:{value:(_vm.configs.zone_valide.value),callback:function ($$v) {_vm.$set(_vm.configs.zone_valide, "value", $$v)},expression:"configs.zone_valide.value"}})],1),_c('b-form-group',{attrs:{"label":"Villes","description":"Ajouter les villes separées par des points vigule (;)"}},[_c('b-form-textarea',{attrs:{"rows":"8"},model:{value:(_vm.configs.villes.value),callback:function ($$v) {_vm.$set(_vm.configs.villes, "value", $$v)},expression:"configs.villes.value"}})],1),_c('b-form-group',{attrs:{"label":"Liste de BP","description":"Ajouter les BP, un element par ligne"}},[_c('b-form-textarea',{attrs:{"rows":"8"},model:{value:(_vm.configs.bps.value),callback:function ($$v) {_vm.$set(_vm.configs.bps, "value", $$v)},expression:"configs.bps.value"}})],1)],1)])}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/admin/Forms/TypeLivraion.vue?vue&type=template&id=1197891d&scoped=true&lang=html&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('b-form',[_c('h4',[_vm._v("Type de livraison")]),_c('div',{staticClass:"accordion",attrs:{"role":"tablist"}},_vm._l((_vm.creneauType),function(type,i){return _c('b-card',{key:i,staticClass:"mb-2",attrs:{"no-body":""}},[_c('b-card-header',{staticClass:"p-1",attrs:{"header-tag":"header","role":"tab"}},[_c('b-button',{directives:[{name:"b-toggle",rawName:"v-b-toggle",value:('config-accordion-' + i),expression:"'config-accordion-' + i"}],attrs:{"block":"","variant":"transparent"}},[_c('strong',[_vm._v(" Type "+_vm._s(i + 1)+" : "),_c('i',[_vm._v(_vm._s(type.titre))])])])],1),_c('b-collapse',{attrs:{"id":'config-accordion-' + i,"visible":i === 0 ? true : false,"accordion":"my-accordion-type","role":"tabpanel"}},[_c('b-card-body',[_c('b-form-group',{scopedSlots:_vm._u([{key:"label",fn:function(){return [_c('strong',{staticClass:"mt-3 mb-2 d-block"},[_vm._v(" Type de livraison. ")])]},proxy:true}],null,true)},[_c('b-form-group',{attrs:{"label":"Selectionner le type de livraison"}},[_c('b-form-input',{staticClass:"mb-2",attrs:{"placeholder":"Titre du type de livraison"},model:{value:(type.titre),callback:function ($$v) {_vm.$set(type, "titre", $$v)},expression:"type.titre"}})],1)],1),_c('b-form-group',{attrs:{"label":"Description"},scopedSlots:_vm._u([{key:"description",fn:function(){return [_c('div',{pre:true},[_vm._v(" vous pouvez utiliser les champs dynamic suivants: {{ titre }}, {{ montant }}, {{ creneau }}, {{ delai_next_creneau }}, {{ delai }} ")])]},proxy:true}],null,true)},[_c('b-form-textarea',{staticClass:"mb-2",attrs:{"placeholder":"Enter something...","rows":"3","max-rows":"3"},model:{value:(type.body),callback:function ($$v) {_vm.$set(type, "body", $$v)},expression:"type.body"}})],1),_c('b-form-group',{attrs:{"label":"Montant"},scopedSlots:_vm._u([{key:"description",fn:function(){return [_c('div',{pre:true},[_vm._v(" Remplissez le montant avec la devise. Ex: 100€ ")])]},proxy:true}],null,true)},[_c('b-form-input',{staticClass:"mb-2",attrs:{"placeholder":"montant"},model:{value:(type.montant),callback:function ($$v) {_vm.$set(type, "montant", $$v)},expression:"type.montant"}})],1),_c('b-form-group',{attrs:{"label":"Type"}},[_c('b-form-input',{staticClass:"mb-2",attrs:{"placeholder":"type"},model:{value:(type.type),callback:function ($$v) {_vm.$set(type, "type", $$v)},expression:"type.type"}})],1),_c('b-form-group',{attrs:{"label":"Durée d'un creneau"}},[_c('b-form-input',{staticClass:"mb-2",attrs:{"placeholder":"creneau","type":"number"},model:{value:(type.creneau),callback:function ($$v) {_vm.$set(type, "creneau", $$v)},expression:"type.creneau"}})],1),_c('b-form-group',{attrs:{"label":"interval entre les creneaux"}},[_c('b-form-input',{staticClass:"mb-2",attrs:{"placeholder":"delai_next_creneau","type":"number"},model:{value:(type.delai_next_creneau),callback:function ($$v) {_vm.$set(type, "delai_next_creneau", $$v)},expression:"type.delai_next_creneau"}})],1),_c('b-form-group',{attrs:{"label":"Delai en jour(s)"}},[_c('b-form-input',{staticClass:"mb-2",attrs:{"placeholder":"delai","type":"number"},model:{value:(type.delai),callback:function ($$v) {_vm.$set(type, "delai", $$v)},expression:"type.delai"}})],1),_c('b-form-group',{attrs:{"label":"Selectionner le produit"}},[_c('b-form-select',{attrs:{"options":_vm.products},model:{value:(type.id),callback:function ($$v) {_vm.$set(type, "id", $$v)},expression:"type.id"}})],1),_c('b-form-group',[_c('b-form-checkbox',{attrs:{"size":"sm","value":true,"unchecked-value":false},model:{value:(type.active),callback:function ($$v) {_vm.$set(type, "active", $$v)},expression:"type.active"}},[_vm._v(" Activé par defaut ")])],1),_c('hr'),_c('h5',[_vm._v("Surchagé le delai de livraison en function du jour.")]),_c('div',{staticClass:"ctn-action-button d-flex justify-content-end mb-2"},[_c('b-button',{attrs:{"variant":"outline-info","size":"sm"},on:{"click":function($event){return _vm.OverrideAdd(i)}}},[_vm._v(" Ajouter une surcharge + ")])],1),_c('div',{staticClass:"accordion",attrs:{"role":"tablist"}},_vm._l((type.delais_jour),function(override,ii){return _c('b-card',{key:ii,staticClass:"mb-2",attrs:{"no-body":""}},[_c('b-card-header',{staticClass:"p-1",attrs:{"header-tag":"header","role":"tab"}},[_c('b-button',{directives:[{name:"b-toggle",rawName:"v-b-toggle",value:('config-accordion-over' + ii),expression:"'config-accordion-over' + ii"}],attrs:{"block":"","variant":"transparent"}},[_c('strong',[_vm._v(" Surcharge "+_vm._s(ii + 1)+" : "+_vm._s(_vm.getJour(override.day))+" ")])])],1),_c('b-collapse',{attrs:{"id":'config-accordion-over' + ii,"visible":ii === 0 ? false : false,"accordion":"my-accordion-surcharge","role":"tabpanel"}},[_c('b-card-body',[_c('b-form-group',{scopedSlots:_vm._u([{key:"label",fn:function(){return [_c('strong',{staticClass:"mt-3 mb-2 d-block"},[_vm._v(" Surcharger un delai de livraison. ")])]},proxy:true}],null,true)},[_c('b-row',[_c('b-col',{attrs:{"sm":"4"}},[_c('b-form-group',{attrs:{"label":"Selectionner le jour de la semaine"}},[_c('b-form-select',{attrs:{"options":_vm.joursActiveOptions},model:{value:(override.day),callback:function ($$v) {_vm.$set(override, "day", $$v)},expression:"override.day"}})],1)],1),_c('b-col',{attrs:{"sm":"4"}},[_c('b-form-group',{attrs:{"label":"Delai en jour(s)"}},[_c('b-form-input',{staticClass:"mb-2",attrs:{"placeholder":"delai","type":"number"},model:{value:(override.delai),callback:function ($$v) {_vm.$set(override, "delai", $$v)},expression:"override.delai"}})],1)],1)],1)],1)],1)],1)],1)}),1)],1)],1)],1)}),1),_c('hr')]),_vm._v(" conf: "),_c('pre',[_vm._v(_vm._s(_vm.creneauType))])],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ../map-google-location/src/components/admin/manage-config.vue?vue&type=template&id=0298ad70&scoped=true&
+// CONCATENATED MODULE: ./src/App/components/admin/Forms/TypeLivraion.vue?vue&type=template&id=1197891d&scoped=true&lang=html&
 
-// EXTERNAL MODULE: ../map-google-location/node_modules/core-js/modules/es.object.to-string.js
-var es_object_to_string = __webpack_require__("39e3");
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.for-each.js
+var es_array_for_each = __webpack_require__("4160");
 
-// EXTERNAL MODULE: ../map-google-location/node_modules/core-js/modules/es.promise.js
-var es_promise = __webpack_require__("ab51");
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.splice.js
+var es_array_splice = __webpack_require__("a434");
 
-// EXTERNAL MODULE: ../map-google-location/node_modules/core-js/modules/es.regexp.exec.js
-var es_regexp_exec = __webpack_require__("c10f");
+// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.for-each.js
+var web_dom_collections_for_each = __webpack_require__("159b");
 
-// EXTERNAL MODULE: ../map-google-location/node_modules/core-js/modules/es.string.search.js
-var es_string_search = __webpack_require__("a87e");
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js
+var objectSpread2 = __webpack_require__("5530");
 
-// EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
-var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
-var external_commonjs_vue_commonjs2_vue_root_Vue_default = /*#__PURE__*/__webpack_require__.n(external_commonjs_vue_commonjs2_vue_root_Vue_);
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__("2f62");
 
-// EXTERNAL MODULE: ../map-google-location/node_modules/wbuutilities/index.js + 34 modules
-var wbuutilities = __webpack_require__("3401");
+// EXTERNAL MODULE: ./src/App/js/Utilities.js
+var Utilities = __webpack_require__("2069");
 
-// EXTERNAL MODULE: ../map-google-location/node_modules/query-string/index.js
-var query_string = __webpack_require__("2959");
-var query_string_default = /*#__PURE__*/__webpack_require__.n(query_string);
-
-// EXTERNAL MODULE: ../map-google-location/node_modules/bootstrap-vue/esm/components/form/index.js + 2 modules
-var components_form = __webpack_require__("9dd1");
-
-// EXTERNAL MODULE: ../map-google-location/node_modules/bootstrap-vue/esm/components/form-input/index.js + 1 modules
-var form_input = __webpack_require__("b3cb");
-
-// EXTERNAL MODULE: ../map-google-location/node_modules/bootstrap-vue/esm/components/form-group/index.js + 3 modules
-var form_group = __webpack_require__("47e6");
-
-// EXTERNAL MODULE: ../map-google-location/node_modules/bootstrap-vue/esm/components/form-select/index.js + 5 modules
-var form_select = __webpack_require__("968f");
-
-// EXTERNAL MODULE: ../map-google-location/node_modules/bootstrap-vue/esm/components/form-radio/index.js + 6 modules
-var form_radio = __webpack_require__("5656");
-
-// EXTERNAL MODULE: ../map-google-location/node_modules/bootstrap-vue/esm/components/form-textarea/index.js + 2 modules
-var form_textarea = __webpack_require__("93e8");
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!../map-google-location/src/components/admin/manage-config.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/admin/Forms/TypeLivraion.vue?vue&type=script&lang=js&
 
 
 
@@ -129,73 +95,215 @@ var form_textarea = __webpack_require__("93e8");
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+ //
+//import magentoSynchroListSites from "./ListSites.vue";
 
 
-
-
-external_commonjs_vue_commonjs2_vue_root_Vue_default.a.use(components_form["a" /* FormPlugin */]);
-external_commonjs_vue_commonjs2_vue_root_Vue_default.a.use(form_input["a" /* FormInputPlugin */]);
-external_commonjs_vue_commonjs2_vue_root_Vue_default.a.use(form_group["a" /* FormGroupPlugin */]);
-external_commonjs_vue_commonjs2_vue_root_Vue_default.a.use(form_select["a" /* FormSelectPlugin */]);
-external_commonjs_vue_commonjs2_vue_root_Vue_default.a.use(form_radio["a" /* FormRadioPlugin */]);
-external_commonjs_vue_commonjs2_vue_root_Vue_default.a.use(form_textarea["a" /* FormTextareaPlugin */]);
-var query = query_string_default.a.parse(window.location.search);
-var keyConfig = "google-config";
-wbuutilities["a" /* AjaxBasic */].TestDomain = "http://habeuk.kksa";
-/* harmony default export */ var manage_configvue_type_script_lang_js_ = ({
-  name: "ManageConfig",
+/* harmony default export */ var TypeLivraionvue_type_script_lang_js_ = ({
+  name: "TypeLivraion",
   props: {
-    configs: {
-      type: Object,
+    joursActive: {
+      type: Array,
       required: true
     }
   },
+  components: {//
+  },
   data: function data() {
     return {
-      shop: wbuutilities["a" /* AjaxBasic */].isLocalDev ? "creneaux-reservation.kksa" : query.shop
+      products: [{
+        text: "32583132807228",
+        value: "32583132807228"
+      }, {
+        text: "32583132839996",
+        value: "32583132839996"
+      }, {
+        text: "32583132872764",
+        value: "32583132872764"
+      }]
     };
   },
-  methods: {
-    SavePreProdConfig: function SavePreProdConfig() {
-      wbuutilities["a" /* AjaxBasic */].post("/shopify-api-rest/save-configs", this.configs, {
-        params: {
-          key: keyConfig,
-          shop: this.shop
-        }
-      });
-    },
-
-    /**
-     * -
-     */
-    LoadValues: function LoadValues() {
-      var _this = this;
-
-      return new Promise(function (resolv, reject) {
-        wbuutilities["a" /* AjaxBasic */].get("/shopify-api-rest/load-configs", {
-          params: {
-            key: keyConfig,
-            shop: _this.shop
-          }
-        }).then(function (resp) {
-          if (resp.data) {
-            resolv(resp.data);
-          } else reject();
+  mounted: function mounted() {//
+  },
+  watch: {//
+  },
+  computed: Object(objectSpread2["a" /* default */])(Object(objectSpread2["a" /* default */])({}, Object(vuex_esm["c" /* mapState */])(["creneauType"])), {}, {
+    joursActiveOptions: function joursActiveOptions() {
+      var result = [];
+      this.joursActive.forEach(function (jour) {
+        result.push({
+          text: jour.text,
+          value: jour.indice
         });
       });
+      return result;
+    }
+  }),
+  methods: {
+    OverrideAdd: function OverrideAdd(i) {
+      if (this.creneauType[i]) {
+        this.creneauType[i].delais_jour.push(Utilities["a" /* default */].getDefaultDelaiOverride());
+      }
+    },
+    DeleteOverride: function DeleteOverride(i, ii) {
+      if (this.creneauType[i] && this.creneauType[i].delais_jour[ii]) {
+        this.creneauType[i].delais_jour.splice(ii, 1);
+      }
+    },
+    getJour: function getJour(indice) {
+      for (var i in this.joursActive) {
+        if (this.joursActive[i].indice === indice) {
+          return this.joursActive[i].text;
+        }
+      }
     }
   }
 });
-// CONCATENATED MODULE: ../map-google-location/src/components/admin/manage-config.vue?vue&type=script&lang=js&
- /* harmony default export */ var admin_manage_configvue_type_script_lang_js_ = (manage_configvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ../map-google-location/src/components/admin/manage-config.vue?vue&type=style&index=0&id=0298ad70&lang=scss&scoped=true&
-var manage_configvue_type_style_index_0_id_0298ad70_lang_scss_scoped_true_ = __webpack_require__("3fae");
-
+// CONCATENATED MODULE: ./src/App/components/admin/Forms/TypeLivraion.vue?vue&type=script&lang=js&
+ /* harmony default export */ var Forms_TypeLivraionvue_type_script_lang_js_ = (TypeLivraionvue_type_script_lang_js_); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__("2877");
 
-// CONCATENATED MODULE: ../map-google-location/src/components/admin/manage-config.vue
-
+// CONCATENATED MODULE: ./src/App/components/admin/Forms/TypeLivraion.vue
 
 
 
@@ -204,24 +312,95 @@ var componentNormalizer = __webpack_require__("2877");
 /* normalize component */
 
 var component = Object(componentNormalizer["a" /* default */])(
-  admin_manage_configvue_type_script_lang_js_,
+  Forms_TypeLivraionvue_type_script_lang_js_,
   render,
   staticRenderFns,
   false,
   null,
-  "0298ad70",
+  "1197891d",
   null
   
 )
 
-/* harmony default export */ var manage_config = __webpack_exports__["default"] = (component.exports);
+/* harmony default export */ var TypeLivraion = __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "c8c2":
+/***/ "a434":
 /***/ (function(module, exports, __webpack_require__) {
 
-// extracted by mini-css-extract-plugin
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var toAbsoluteIndex = __webpack_require__("23cb");
+var toInteger = __webpack_require__("a691");
+var toLength = __webpack_require__("50c4");
+var toObject = __webpack_require__("7b0b");
+var arraySpeciesCreate = __webpack_require__("65f0");
+var createProperty = __webpack_require__("8418");
+var arrayMethodHasSpeciesSupport = __webpack_require__("1dde");
+var arrayMethodUsesToLength = __webpack_require__("ae40");
+
+var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('splice');
+var USES_TO_LENGTH = arrayMethodUsesToLength('splice', { ACCESSORS: true, 0: 0, 1: 2 });
+
+var max = Math.max;
+var min = Math.min;
+var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF;
+var MAXIMUM_ALLOWED_LENGTH_EXCEEDED = 'Maximum allowed length exceeded';
+
+// `Array.prototype.splice` method
+// https://tc39.es/ecma262/#sec-array.prototype.splice
+// with adding support of @@species
+$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGTH }, {
+  splice: function splice(start, deleteCount /* , ...items */) {
+    var O = toObject(this);
+    var len = toLength(O.length);
+    var actualStart = toAbsoluteIndex(start, len);
+    var argumentsLength = arguments.length;
+    var insertCount, actualDeleteCount, A, k, from, to;
+    if (argumentsLength === 0) {
+      insertCount = actualDeleteCount = 0;
+    } else if (argumentsLength === 1) {
+      insertCount = 0;
+      actualDeleteCount = len - actualStart;
+    } else {
+      insertCount = argumentsLength - 2;
+      actualDeleteCount = min(max(toInteger(deleteCount), 0), len - actualStart);
+    }
+    if (len + insertCount - actualDeleteCount > MAX_SAFE_INTEGER) {
+      throw TypeError(MAXIMUM_ALLOWED_LENGTH_EXCEEDED);
+    }
+    A = arraySpeciesCreate(O, actualDeleteCount);
+    for (k = 0; k < actualDeleteCount; k++) {
+      from = actualStart + k;
+      if (from in O) createProperty(A, k, O[from]);
+    }
+    A.length = actualDeleteCount;
+    if (insertCount < actualDeleteCount) {
+      for (k = actualStart; k < len - actualDeleteCount; k++) {
+        from = k + actualDeleteCount;
+        to = k + insertCount;
+        if (from in O) O[to] = O[from];
+        else delete O[to];
+      }
+      for (k = len; k > len - actualDeleteCount + insertCount; k--) delete O[k - 1];
+    } else if (insertCount > actualDeleteCount) {
+      for (k = len - actualDeleteCount; k > actualStart; k--) {
+        from = k + actualDeleteCount - 1;
+        to = k + insertCount - 1;
+        if (from in O) O[to] = O[from];
+        else delete O[to];
+      }
+    }
+    for (k = 0; k < insertCount; k++) {
+      O[k + actualStart] = arguments[k + 2];
+    }
+    O.length = len - actualDeleteCount + insertCount;
+    return A;
+  }
+});
+
 
 /***/ })
 

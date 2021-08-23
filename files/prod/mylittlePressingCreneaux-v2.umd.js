@@ -13915,12 +13915,12 @@ if (typeof window !== 'undefined') {
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 var external_commonjs_vue_commonjs2_vue_root_Vue_default = /*#__PURE__*/__webpack_require__.n(external_commonjs_vue_commonjs2_vue_root_Vue_);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/UserCreneau.vue?vue&type=template&id=4b5b8b8d&
-var UserCreneauvue_type_template_id_4b5b8b8d_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"creneaux-mbt"},[_c('div',{staticClass:"container first-block",attrs:{"currentCreneauType":_vm.currentCreneauType}},[_c('div',{staticClass:"creneaux-mbt--block mt-5"},[_c('app-title'),_c('div',{staticClass:"block-left"},[_c('tab-option')],1),_c('div',{staticClass:"block-border"},[_c('div',{staticClass:"row font-weight-bold type-livraison mb-2"},[_c('inline-description')],1),_c('div',{staticClass:"row d-flex justify-content-start commande-detail mb-5"},[_c('div',{staticClass:" rectangle rond-left rond-right mx-3 mx-md-0 mb-3 mb-md-0  ml-md-5  mr-lg-5  pt-3  pl-3 pr-3 col-md-3 "},[_c('div',{staticClass:"h2 cursor-pointer"},[_vm._v("ADRESSE")]),_c('div',{staticClass:"d-flex justify-content-between justify-content-md-start align-items-center"},[_c('mapGoogle'),_c('div',{staticClass:"icone-map"})],1)]),_c('div',{staticClass:"col-md-7"},[_c('div',{staticClass:"row ml-md-4 h-100"},[_c('creneau',{attrs:{"title":"Collecte","type":"collecte"}}),_c('creneau',{attrs:{"title":"Livraison","classes":"rond-right","type":"livraison"}})],1)])])])],1)])])}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/UserCreneau.vue?vue&type=template&id=79fd019e&
+var UserCreneauvue_type_template_id_79fd019e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"creneaux-mbt"},[_c('div',{staticClass:"container first-block",attrs:{"currentCreneauType":_vm.currentCreneauType}},[_c('div',{staticClass:"creneaux-mbt--block mt-5"},[_c('app-title'),(_vm.alert_message && _vm.alert_message != '')?_c('div',{staticClass:"alert alert-danger"},[_vm._v(" "+_vm._s(_vm.alert_message)+" ")]):_vm._e(),_c('div',{staticClass:"block-left"},[_c('tab-option')],1),_c('div',{staticClass:"block-border"},[_c('div',{staticClass:"row font-weight-bold type-livraison mb-2"},[_c('inline-description')],1),_c('div',{staticClass:"row d-flex justify-content-start commande-detail mb-5"},[_c('div',{staticClass:" rectangle rond-left rond-right mx-3 mx-md-0 mb-3 mb-md-0  ml-md-5  mr-lg-5  pt-3  pl-3 pr-3 col-md-3 "},[_c('div',{staticClass:"h2 cursor-pointer"},[_vm._v("ADRESSE")]),_c('div',{staticClass:"d-flex justify-content-between justify-content-md-start align-items-center"},[_c('mapGoogle'),_c('div',{staticClass:"icone-map"})],1)]),_c('div',{staticClass:"col-md-7"},[_c('div',{staticClass:"row ml-md-4 h-100"},[_c('creneau',{attrs:{"title":"Collecte","type":"collecte"}}),_c('creneau',{attrs:{"title":"Livraison","classes":"rond-right","type":"livraison"}})],1)])])])],1)])])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App/UserCreneau.vue?vue&type=template&id=4b5b8b8d&
+// CONCATENATED MODULE: ./src/App/UserCreneau.vue?vue&type=template&id=79fd019e&
 
 // EXTERNAL MODULE: ./node_modules/regenerator-runtime/runtime.js
 var runtime = __webpack_require__("96cf");
@@ -14193,12 +14193,12 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var AppTitle = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/InlineDescription.vue?vue&type=template&id=2ec78722&
-var InlineDescriptionvue_type_template_id_2ec78722_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"\n    col-12\n    width-100\n    d-flex\n    flex-wrap\n    mt-3\n    mb-3\n    font-weight-bold\n    type-livraison\n  ",domProps:{"innerHTML":_vm._s(_vm.activeTabOption)}})}
-var InlineDescriptionvue_type_template_id_2ec78722_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/InlineDescription.vue?vue&type=template&id=2965dbc2&
+var InlineDescriptionvue_type_template_id_2965dbc2_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"\n    col-12\n    width-100\n    d-flex\n    flex-wrap\n    mt-3\n    mb-3\n    font-weight-bold\n    type-livraison\n  ",domProps:{"innerHTML":_vm._s(_vm.activeTabOption)}})}
+var InlineDescriptionvue_type_template_id_2965dbc2_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App/components/creneau/InlineDescription.vue?vue&type=template&id=2ec78722&
+// CONCATENATED MODULE: ./src/App/components/creneau/InlineDescription.vue?vue&type=template&id=2965dbc2&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/InlineDescription.vue?vue&type=script&lang=js&
 
@@ -14221,14 +14221,7 @@ var InlineDescriptionvue_type_template_id_2ec78722_staticRenderFns = []
 
 /* harmony default export */ var InlineDescriptionvue_type_script_lang_js_ = ({
   name: "InlineDesc",
-  props: {},
-  data: function data() {
-    return {};
-  },
-  components: {},
-  watch: {},
-  computed: _objectSpread2({}, Object(vuex_esm["b" /* mapGetters */])(["activeTabOption"])),
-  methods: {}
+  computed: _objectSpread2({}, Object(vuex_esm["b" /* mapGetters */])(["activeTabOption"]))
 });
 // CONCATENATED MODULE: ./src/App/components/creneau/InlineDescription.vue?vue&type=script&lang=js&
  /* harmony default export */ var creneau_InlineDescriptionvue_type_script_lang_js_ = (InlineDescriptionvue_type_script_lang_js_); 
@@ -14242,8 +14235,8 @@ var InlineDescriptionvue_type_template_id_2ec78722_staticRenderFns = []
 
 var InlineDescription_component = normalizeComponent(
   creneau_InlineDescriptionvue_type_script_lang_js_,
-  InlineDescriptionvue_type_template_id_2ec78722_render,
-  InlineDescriptionvue_type_template_id_2ec78722_staticRenderFns,
+  InlineDescriptionvue_type_template_id_2965dbc2_render,
+  InlineDescriptionvue_type_template_id_2965dbc2_staticRenderFns,
   false,
   null,
   null,
@@ -14252,12 +14245,12 @@ var InlineDescription_component = normalizeComponent(
 )
 
 /* harmony default export */ var InlineDescription = (InlineDescription_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/TabOption.vue?vue&type=template&id=68482459&
-var TabOptionvue_type_template_id_68482459_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"first-row"},_vm._l((_vm.creneauType),function(item,index){return _c('div',{key:index,staticClass:"option btn",class:item.active ? 'option-badge' : '',on:{"click":function($event){return _vm.SelectTypeTab(index)}}},[_c('div',{staticClass:"mx-auto h2 titre-tab"},[_vm._v(" "+_vm._s(item.titre)+" "),(index > 0)?_c('span',{staticClass:"small small-text d-block"},[_vm._v(" "+_vm._s(item.montant)+"€")]):_vm._e()])])}),0)}
-var TabOptionvue_type_template_id_68482459_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/TabOption.vue?vue&type=template&id=46b468f1&
+var TabOptionvue_type_template_id_46b468f1_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"first-row"},_vm._l((_vm.creneauType),function(item,index){return _c('div',{key:index,staticClass:"option btn",class:item.active ? 'option-badge' : '',on:{"click":function($event){return _vm.SelectTypeTab(index)}}},[_c('div',{staticClass:"mx-auto h2 titre-tab"},[_vm._v(" "+_vm._s(item.titre)+" "),(index > 0)?_c('span',{staticClass:"small small-text d-block"},[_vm._v(" "+_vm._s(item.montant)+" ")]):_vm._e()])])}),0)}
+var TabOptionvue_type_template_id_46b468f1_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App/components/creneau/TabOption.vue?vue&type=template&id=68482459&
+// CONCATENATED MODULE: ./src/App/components/creneau/TabOption.vue?vue&type=template&id=46b468f1&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/TabOption.vue?vue&type=script&lang=js&
 
@@ -14283,26 +14276,6 @@ var TabOptionvue_type_template_id_68482459_staticRenderFns = []
 
 /* harmony default export */ var TabOptionvue_type_script_lang_js_ = ({
   name: "SelectionHoraire",
-  props: {},
-  data: function data() {
-    return {
-      tabOption: [{
-        name: "Gratuit",
-        price: "10.45",
-        isActive: true
-      }, {
-        name: "Plus",
-        price: "85.58",
-        isActive: false
-      }, {
-        name: "Express",
-        price: "120.28",
-        isActive: false
-      }]
-    };
-  },
-  components: {},
-  watch: {},
   computed: _objectSpread2({}, Object(vuex_esm["c" /* mapState */])(["creneauType"])),
   methods: {
     SelectTypeTab: function SelectTypeTab(index) {
@@ -14322,8 +14295,8 @@ var TabOptionvue_type_template_id_68482459_staticRenderFns = []
 
 var TabOption_component = normalizeComponent(
   creneau_TabOptionvue_type_script_lang_js_,
-  TabOptionvue_type_template_id_68482459_render,
-  TabOptionvue_type_template_id_68482459_staticRenderFns,
+  TabOptionvue_type_template_id_46b468f1_render,
+  TabOptionvue_type_template_id_46b468f1_staticRenderFns,
   false,
   null,
   null,
@@ -14332,12 +14305,12 @@ var TabOption_component = normalizeComponent(
 )
 
 /* harmony default export */ var TabOption = (TabOption_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/map-google.vue?vue&type=template&id=420d882e&
-var map_googlevue_type_template_id_420d882e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"h1 cursor-pointer"}),_c('p',{staticClass:"cursor-pointer"}),(!_vm.location.city_on_map && !_vm.location.locality)?_c('span',{staticClass:"btn option-badge mt-4 mb-3",on:{"click":_vm.openPopupMap}},[_vm._v(" Ajouter une adresse ")]):_vm._e(),_c('div',{staticClass:"h1 cursor-pointer",on:{"click":_vm.openPopupMap}},[_vm._v(" "+_vm._s(_vm.location.locality)+" ")]),_c('p',{staticClass:"cursor-pointer"},[_vm._v(_vm._s(_vm.location.current_address))]),_c('AppPopUpMap',{ref:"apppopupmap",attrs:{"etape-checkout":false,"action-after":false},on:{"update_location":_vm.update_location}})],1)}
-var map_googlevue_type_template_id_420d882e_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/map-google.vue?vue&type=template&id=76e0080a&
+var map_googlevue_type_template_id_76e0080a_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"h1 cursor-pointer"}),_c('p',{staticClass:"cursor-pointer"}),(!_vm.location.city_on_map && !_vm.location.locality)?_c('span',{staticClass:"btn option-badge mt-4 mb-3",on:{"click":_vm.openPopupMap}},[_vm._v(" Ajouter une adresse ")]):_vm._e(),(_vm.location.current_address !== '')?_c('div',{staticClass:"h1 cursor-pointer",on:{"click":_vm.openPopupMap}},[_vm._v(" "+_vm._s(_vm.location.locality)+" ")]):_vm._e(),(_vm.location.current_address !== '')?_c('p',{staticClass:"cursor-pointer"},[_vm._v(" "+_vm._s(_vm.location.current_address)+" ")]):_vm._e(),_c('AppPopUpMap',{ref:"apppopupmap",attrs:{"etape-checkout":false,"action-after":false},on:{"update_location":_vm.update_location}})],1)}
+var map_googlevue_type_template_id_76e0080a_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App/components/creneau/map-google.vue?vue&type=template&id=420d882e&
+// CONCATENATED MODULE: ./src/App/components/creneau/map-google.vue?vue&type=template&id=76e0080a&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!../map-google-location/src/AppPopUpMap.vue?vue&type=template&id=6b7adad7&scoped=true&
 var AppPopUpMapvue_type_template_id_6b7adad7_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('mapgoogle',{ref:"mapgoogle",attrs:{"configs":_vm.configs,"etape-checkout":_vm.etapeCheckout,"action-after":_vm.actionAfter},on:{"update_location":_vm.update_location}})}
@@ -14352,7 +14325,7 @@ var dist_vuex_esm = __webpack_require__("b787");
 // CONCATENATED MODULE: ../map-google-location/src/store/Utilitie.js
 /* harmony default export */ var Utilitie = ({
   getLocation: function getLocation() {
-    var l = localStorage.getItem("wbu-google-location");
+    var l = typeof localStorage !== "undefined" ? localStorage.getItem("wbu-google-location") : null;
     return l !== null && l !== undefined ? JSON.parse(l) : "";
   },
   getConfig: function getConfig() {
@@ -15888,6 +15861,12 @@ var AppPopUpMap_component = normalizeComponent(
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ var map_googlevue_type_script_lang_js_ = ({
@@ -15918,8 +15897,8 @@ var AppPopUpMap_component = normalizeComponent(
 
 var map_google_component = normalizeComponent(
   creneau_map_googlevue_type_script_lang_js_,
-  map_googlevue_type_template_id_420d882e_render,
-  map_googlevue_type_template_id_420d882e_staticRenderFns,
+  map_googlevue_type_template_id_76e0080a_render,
+  map_googlevue_type_template_id_76e0080a_staticRenderFns,
   false,
   null,
   null,
@@ -22418,7 +22397,9 @@ var Utilities = {
       nombre_semaine: 5,
       nombre_res_creneau: 2,
       title: "Finaliser la commande",
-      deccalage_creneau_depart: 0
+      deccalage_creneau_depart: 0,
+      montant_min: 0,
+      text_alert_montant_min: " le moment de la commande doit etre > à {{ montant_min }} €"
     };
   },
   DefaultCreneauTypes: function DefaultCreneauTypes() {
@@ -22530,7 +22511,7 @@ var Utilities = {
     id: "livraison"
   },
   getLocation: function getLocation() {
-    var l = configs_config.isLocalDev ? localStorage.getItem("wbu-google-location") : null;
+    var l = typeof localStorage !== "undefined" ? localStorage.getItem("wbu-google-location") : null;
     return l !== null && l !== undefined ? JSON.parse(l) : "";
   },
   LoadValues: function LoadValues(shop) {
@@ -22648,7 +22629,8 @@ external_commonjs_vue_commonjs2_vue_root_Vue_default.a.use(vuex_esm["a" /* defau
 
     /**
      */
-    isSaveInProd: false
+    isSaveInProd: false,
+    alert_message: null
   },
   getters: {
     /**
@@ -24261,10 +24243,12 @@ var es_string_match = __webpack_require__("466d");
 
 
 
+
 /* harmony default export */ var defaultOptions = ({
   show_cover: false,
   cart: null,
   creneauTypes: src_store.state.creneauType,
+  creneauConfigs: src_store.state.creneauConfigs,
 
   /**
    * Coontient la valeur de type de livraison dans la panier.
@@ -24277,7 +24261,6 @@ var es_string_match = __webpack_require__("466d");
    * (sinitialise des le debut)
    */
   TypeLivraison: {},
-  alert_message: "",
   show_alert: false,
   creneauCollecte: src_store.state.creneauCollecte,
   creneauLivraison: src_store.state.creneauLivraison,
@@ -24362,12 +24345,12 @@ var es_string_match = __webpack_require__("466d");
     var _this2 = this;
 
     return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-      var test2, test3;
+      var test2, test3, test4;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _this2.alert_message = "";
+              src_store.state.alert_message = "";
               _this2.show_alert = false; //var test1 = await this.verificationTypeLivraison();
 
               _context.next = 4;
@@ -24376,24 +24359,29 @@ var es_string_match = __webpack_require__("466d");
             case 4:
               test2 = _context.sent;
               _context.next = 7;
-              return _this2.VerificationAdress();
+              return _this2.VerificationAddress();
 
             case 7:
               test3 = _context.sent;
+              _context.next = 10;
+              return _this2.ValidationMontant();
 
-              if (!(test2 && test3)) {
-                _context.next = 12;
+            case 10:
+              test4 = _context.sent;
+
+              if (!(test2 && test3 && test4)) {
+                _context.next = 15;
                 break;
               }
 
               return _context.abrupt("return", true);
 
-            case 12:
+            case 15:
               _this2.show_alert = true;
               _this2.alert_attribut_class = "alert-danger ml-md-4";
               return _context.abrupt("return", false);
 
-            case 15:
+            case 18:
             case "end":
               return _context.stop();
           }
@@ -24413,14 +24401,14 @@ var es_string_match = __webpack_require__("466d");
               livraison = true;
               collecte = true;
 
-              if (!creneauCollecte.date || !creneauCollecte.hour) {
+              if (!_this3.creneauCollecte.date || !_this3.creneauCollecte.hour) {
                 collecte = false;
-                _this3.alert_message += "- Vous devez selectionner un creneau pour la collecte.<br />";
+                src_store.state.alert_message += "- Vous devez selectionner un creneau pour la collecte.<br />";
               }
 
-              if (!creneauLivraison.date || !creneauLivraison.date) {
+              if (!_this3.creneauLivraison.date || !_this3.creneauLivraison.date) {
                 livraison = false;
-                _this3.alert_message += "- Vous devez selectionner un creneau pour la livraison.<br />";
+                src_store.state.alert_message += "- Vous devez selectionner un creneau pour la livraison.<br />";
               }
 
               if (!(livraison && collecte)) {
@@ -24441,13 +24429,20 @@ var es_string_match = __webpack_require__("466d");
       }, _callee2);
     }))();
   },
-  VerificationAdress: function VerificationAdress() {
+
+  /**
+   *
+   * @returns
+   */
+  VerificationAddress: function VerificationAddress() {
+    var _this4 = this;
+
     return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              if (!location.current_address) {
+              if (!_this4.location.current_address) {
                 _context3.next = 4;
                 break;
               }
@@ -24455,9 +24450,10 @@ var es_string_match = __webpack_require__("466d");
               return _context3.abrupt("return", true);
 
             case 4:
+              src_store.state.alert_message += " - Vous devez selectionner une adresse. <br /> ";
               return _context3.abrupt("return", false);
 
-            case 5:
+            case 6:
             case "end":
               return _context3.stop();
           }
@@ -24465,51 +24461,132 @@ var es_string_match = __webpack_require__("466d");
       }, _callee3);
     }))();
   },
+
+  /**
+   * Valide le montant dans le panier.
+   */
+  ValidationMontant: function ValidationMontant() {
+    var _this5 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+      var montantMin, formatString;
+      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              montantMin = parseFloat(_this5.creneauConfigs.montant_min) * 10;
+
+              formatString = function formatString(str) {
+                var regex = /\{\{(.*?)\}\}/g;
+                var found;
+                var int = 0;
+
+                while ((found = regex.exec(str)) !== null && int < 10) {
+                  int++;
+                  var attr = found[1].trim(" ");
+                  str = str.replace(found[0], _this5.creneauConfigs[attr] !== undefined ? _this5.creneauConfigs[attr] : "...");
+                }
+
+                return str;
+              };
+
+              if (!(montantMin >= _this5.cart.total_price)) {
+                _context4.next = 5;
+                break;
+              }
+
+              src_store.state.alert_message += formatString(_this5.creneauConfigs.text_alert_montant_min);
+              return _context4.abrupt("return", false);
+
+            case 5:
+              return _context4.abrupt("return", true);
+
+            case 6:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }))();
+  },
   buildAttribut: function buildAttribut() {
-    //
-    var livraison = "Livraison";
-    livraison += "\r\n";
-    livraison += "Date :" + creneauLivraison.date.format("DD-MM-YYYY HH:mm:ss");
-    livraison += "\r\n";
-    livraison += "Creneau :" + creneauLivraison.hour.begin + " - " + creneauLivraison.hour.end; //
+    var _this6 = this;
 
-    var collecte = "Collecte";
-    collecte += "\r\n";
-    collecte += "Date :" + creneauCollecte.date.format("DD-MM-YYYY HH:mm:ss");
-    collecte += "\r\n";
-    collecte += "Creneau :" + creneauCollecte.hour.begin + " - " + creneauCollecte.hour.end;
-    /**
-     * Données pour format Zapier
-     */
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+      var livraison, collecte, z_collecte_date, z_collecte_heure, z_livraison_date, z_livraison_heure;
+      return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              //
+              livraison = "Livraison";
+              livraison += "\r\n";
+              livraison += "Date :" + _this6.creneauLivraison.date.format("DD-MM-YYYY HH:mm:ss");
+              livraison += "\r\n";
+              livraison += "Creneau :" + _this6.creneauLivraison.hour.begin + " - " + _this6.creneauLivraison.hour.end; //
 
-    var z_collecte_date = creneauCollecte.date.format("DD-MM-YYYY");
-    var z_collecte_heure = creneauCollecte.hour.begin + " - " + creneauCollecte.hour.end; //
+              collecte = "Collecte";
+              collecte += "\r\n";
+              collecte += "Date :" + _this6.creneauCollecte.date.format("DD-MM-YYYY HH:mm:ss");
+              collecte += "\r\n";
+              collecte += "Creneau :" + _this6.creneauCollecte.hour.begin + " - " + _this6.creneauCollecte.hour.end;
+              /**
+               * Données pour format Zapier
+               */
 
-    var z_livraison_date = creneauLivraison.date.format("DD-MM-YYYY");
-    var z_livraison_heure = creneauLivraison.hour.begin + " - " + creneauLivraison.hour.end;
-    return {
-      attributes: {
-        localisation: location.current_address,
-        recuperation: collecte,
-        livraison: livraison,
-        z_collecte_date: z_collecte_date,
-        z_collecte_heure: z_collecte_heure,
-        z_livraison_date: z_livraison_date,
-        z_livraison_heure: z_livraison_heure
-      }
-    };
+              z_collecte_date = _this6.creneauCollecte.date.format("DD-MM-YYYY");
+              z_collecte_heure = _this6.creneauCollecte.hour.begin + " - " + _this6.creneauCollecte.hour.end; //
+
+              z_livraison_date = _this6.creneauLivraison.date.format("DD-MM-YYYY");
+              z_livraison_heure = _this6.creneauLivraison.hour.begin + " - " + _this6.creneauLivraison.hour.end;
+              return _context5.abrupt("return", {
+                attributes: {
+                  localisation: _this6.location.current_address,
+                  recuperation: collecte,
+                  livraison: livraison,
+                  z_collecte_date: z_collecte_date,
+                  z_collecte_heure: z_collecte_heure,
+                  z_livraison_date: z_livraison_date,
+                  z_livraison_heure: z_livraison_heure
+                }
+              });
+
+            case 15:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }))();
   },
   SaveAttributeCart: function SaveAttributeCart(datas) {
-    var _this4 = this;
+    var _this7 = this;
 
     return new Promise(function (resolv, reject) {
-      _this4.show_cover = true;
+      _this7.show_cover = true;
       basic.post("/cart/update", datas).then(function (r) {
-        _this4.show_cover = false;
+        _this7.show_cover = false;
         resolv(r);
       }).catch(function (e) {
-        _this4.show_cover = false;
+        _this7.show_cover = false;
         if (basic.isLocalDev) resolv(e);else reject();
+      });
+    });
+  },
+
+  /**
+   * -
+   */
+  saveOnExternalServer: function saveOnExternalServer(datas) {
+    return new Promise(function (resolv, reject) {
+      basic.post("https://habeuk.online/shopify-api-rest/add-creneau-reserve", datas.attributes, {
+        params: {
+          shop: window.ShopId
+        }
+      }).then(function (r) {
+        resolv(r);
+      }).catch(function (e) {
+        reject();
       });
     });
   },
@@ -24522,24 +24599,24 @@ var es_string_match = __webpack_require__("466d");
    * Supprime un produit / ou supprime et ajoute un autre.( modifier la variante)
    */
   deleteUpdateProduct: function deleteUpdateProduct(id_product) {
-    var _this5 = this;
+    var _this8 = this;
 
     var new_product = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     return new Promise(function (resolve, reject) {
       var product = {
         updates: {}
       };
-      _this5.show_cover = true;
+      _this8.show_cover = true;
       product.updates[id_product] = 0;
       basic.post("/cart/update", product).then(function () {
         if (new_product) {
-          resolve(_this5.addProduct(new_product));
+          resolve(_this8.addProduct(new_product));
         } else {
-          _this5.show_cover = false;
+          _this8.show_cover = false;
           resolve(true);
         }
       }).catch(function () {
-        _this5.show_cover = false;
+        _this8.show_cover = false;
         reject();
       });
     });
@@ -24775,6 +24852,15 @@ basic.TestDomain = "http://habeuk.kksa";
   setEvant: function setEvant() {
     var _this5 = this;
 
+    var bt = document.querySelector(".btn.submit-cart-test");
+    bt.classList.add("d-inline-block");
+    bt.addEventListener("click", function () {
+      bt.querySelector("i.fa-arrow-right").classList.add("d-none");
+      bt.querySelector("i.fa-refresh").classList.remove("loadding");
+      bt.querySelector("i.fa-refresh").classList.add("fa-spin");
+
+      _this5.SaveCreneau(bt);
+    });
     document.addEventListener("SaveCreneauxChechout", function () {
       _this5.SaveCreneau(elem);
     });
@@ -24801,7 +24887,7 @@ basic.TestDomain = "http://habeuk.kksa";
               test = _context4.sent;
 
               if (!test) {
-                _context4.next = 24;
+                _context4.next = 25;
                 break;
               }
 
@@ -24814,43 +24900,43 @@ basic.TestDomain = "http://habeuk.kksa";
               return _this6.SaveAttributeCart(attribut);
 
             case 10:
-              _context4.next = 12;
+              _this6.saveOnExternalServer(attribut); //on verifie que le panier est ok.
+
+
+              _context4.next = 13;
               return _this6.loadcart();
 
-            case 12:
+            case 13:
               if (!(_this6.cart && _this6.cart.attributes && _this6.cart.attributes.livraison || !_this6.app_env_prod)) {
                 _context4.next = 18;
                 break;
               }
 
-              //$(".cart-checkout .loadding", elem.target).removeClass("fa-spin");
-              console.log("elem.target : ", elem.target);
-              alert("triggerCheckout");
+              elem.querySelector("i.fa-arrow-right").classList.remove("d-none");
+              elem.querySelector("i.fa-refresh").classList.add("loadding"); //this.triggerCheckout();
 
-              _this6.triggerCheckout();
-
-              _context4.next = 22;
+              _context4.next = 23;
               break;
 
             case 18:
+              elem.classList.add("bg-danger");
               _this6.show_alert = true;
               _this6.alert_attribut_class = "alert-danger ml-md-4";
-              _this6.alert_message += '- Une erreur s"est produite lors de la sauvegarde de vos informations. <br /> Verifier votre connexion et actualiser la page <br />';
+              src_store.state.alert_message += '- Une erreur s"est produite lors de la sauvegarde de vos informations. <br /> Verifier votre connexion et actualiser la page <br />';
               return _context4.abrupt("return", false);
 
-            case 22:
-              _context4.next = 25;
+            case 23:
+              _context4.next = 26;
               break;
 
-            case 24:
-              if (elem && elem.target) {
-                alert("error"); // $(".cart-checkout .submit-cart-test", elem.target).addClass(
-                //   "bg-danger"
-                // );
-                // $(".cart-checkout .loadding", elem.target).removeClass("fa-spin");
+            case 25:
+              if (elem) {
+                elem.classList.add("bg-danger");
+                elem.querySelector("i.fa-refresh").classList.add("loadding");
+                console.log("store.state.alert_message : ", src_store.state.alert_message);
               }
 
-            case 25:
+            case 26:
             case "end":
               return _context4.stop();
           }
@@ -24863,6 +24949,12 @@ basic.TestDomain = "http://habeuk.kksa";
 
 
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -24949,7 +25041,7 @@ basic.TestDomain = "http://habeuk.kksa";
   /**
    * Date affiché.
    */
-  computed: _objectSpread2(_objectSpread2({}, Object(vuex_esm["c" /* mapState */])(["creneauType", "activeType"])), {}, {
+  computed: _objectSpread2(_objectSpread2({}, Object(vuex_esm["c" /* mapState */])(["creneauType", "activeType", "alert_message"])), {}, {
     appDateDisplay: {
       get: function get() {
         if (this.type === "livraison" && this.creneauLivraison.date_string) {
@@ -24963,7 +25055,7 @@ basic.TestDomain = "http://habeuk.kksa";
     },
 
     /**
-     * !!!! Cette function s'excute deux foix, ????
+     * -
      */
     currentCreneauType: function currentCreneauType() {
       this.initManageCart(this.creneauType[this.activeType]);
@@ -24980,20 +25072,19 @@ basic.TestDomain = "http://habeuk.kksa";
             switch (_context.prev = _context.next) {
               case 0:
                 if (!(_this.CreneauTypeProductId !== currentCreneauType.id)) {
-                  _context.next = 7;
+                  _context.next = 6;
                   break;
                 }
 
-                console.log("currentCreneauType : ", currentCreneauType, "\n this.initAuto : ", _this.initAuto, "\n id : ", currentCreneauType.id);
                 _this.CreneauTypeProductId = currentCreneauType.id;
                 shopifyCart.TypeLivraison = currentCreneauType;
-                _context.next = 6;
+                _context.next = 5;
                 return shopifyCart.initcreneau(_this.initAuto);
 
-              case 6:
+              case 5:
                 _this.initAuto = false;
 
-              case 7:
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -25019,7 +25110,7 @@ var UserCreneauvue_type_style_index_0_lang_scss_ = __webpack_require__("86d8");
 
 var UserCreneau_component = normalizeComponent(
   App_UserCreneauvue_type_script_lang_js_,
-  UserCreneauvue_type_template_id_4b5b8b8d_render,
+  UserCreneauvue_type_template_id_79fd019e_render,
   staticRenderFns,
   false,
   null,
