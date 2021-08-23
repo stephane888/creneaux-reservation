@@ -57,7 +57,10 @@ const Utilities = {
       nombre_semaine: 5,
       nombre_res_creneau: 2,
       title: "Finaliser la commande",
-      deccalage_creneau_depart: 0
+      deccalage_creneau_depart: 0,
+      montant_min: 0,
+      text_alert_montant_min:
+        " le moment de la commande doit etre > à {{ montant_min }} €"
     };
   },
   DefaultCreneauTypes: function() {

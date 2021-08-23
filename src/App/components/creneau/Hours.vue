@@ -158,7 +158,7 @@ export default {
   },
   watch: {
     current_creneau(val) {
-      console.log("watch current_creneau : ", this.type, " :: ", val);
+      //console.log("watch current_creneau : ", this.type, " :: ", val);
       this.$store.dispatch("SetSelectHour", this.BuildPayload(val));
     }
   },

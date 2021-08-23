@@ -39,10 +39,6 @@ export default {
   methods: {
     SelectTypeTab(index) {
       this.$store.dispatch("SelectTypeTab", index);
-      // this.tabOption.forEach((item) => {
-      //   item.isActive = false;
-      // });
-      // this.tabOption[index].isActive = true;
     }
   }
 };

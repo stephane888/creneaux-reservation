@@ -3,7 +3,7 @@
     <h3>Configuration de l'application</h3>
     <div class="my-4">
       <b-tabs content-class="my-3">
-        <b-tab title="Configuration de base">
+        <b-tab title="Configuration de base" active>
           <CreneauBase :creneau-configs="creneauType"></CreneauBase>
         </b-tab>
         <b-tab title="Configuration des creneaux et dates">
@@ -18,7 +18,7 @@
             :jours-active="joursActive"
           ></TypeLivraison>
         </b-tab>
-        <b-tab title="Configuration de la map" active>
+        <b-tab title="Configuration de la map">
           <MapGoogle ref="mapGoogle" :configs="configsMap"></MapGoogle>
         </b-tab>
       </b-tabs>

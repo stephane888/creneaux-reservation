@@ -46,6 +46,7 @@
           </div>
         </div>
       </b-form-group>
+      <!-- -->
       <b-form-group label="Nombre semaine affichée sur le calendrier">
         <b-form-input
           v-model="creneauConfigs.nombre_semaine"
@@ -54,6 +55,7 @@
           class="mb-2"
         ></b-form-input>
       </b-form-group>
+      <!-- -->
       <b-form-group label="Nombre reservation par creneau">
         <b-form-input
           v-model="creneauConfigs.nombre_res_creneau"
@@ -62,7 +64,7 @@
           class="mb-2"
         ></b-form-input>
       </b-form-group>
-
+      <!-- -->
       <b-form-group label="Titre de l'application">
         <b-form-input
           v-model="creneauConfigs.title"
@@ -70,12 +72,28 @@
           class="mb-2"
         ></b-form-input>
       </b-form-group>
+      <!-- -->
       <b-form-group
         label="Decallage entre l'heure reelle et le premier creneau (en minutes)"
       >
         <b-form-input
           v-model.number="creneauConfigs.deccalage_creneau_depart"
           type="number"
+          class="mb-2"
+        ></b-form-input>
+      </b-form-group>
+      <!-- -->
+      <b-form-group label="Montant min d'une commande ">
+        <b-form-input
+          v-model.number="creneauConfigs.montant_min"
+          type="number"
+          class="mb-2"
+        ></b-form-input>
+      </b-form-group>
+      <!-- -->
+      <b-form-group label="Texte alert montant min">
+        <b-form-input
+          v-model="creneauConfigs.text_alert_montant_min"
           class="mb-2"
         ></b-form-input>
       </b-form-group>

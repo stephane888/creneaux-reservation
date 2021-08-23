@@ -501,6 +501,28 @@ module.exports = function spread(callback) {
 
 /***/ }),
 
+/***/ "1148":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var toInteger = __webpack_require__("a691");
+var requireObjectCoercible = __webpack_require__("1d80");
+
+// `String.prototype.repeat` method implementation
+// https://tc39.es/ecma262/#sec-string.prototype.repeat
+module.exports = ''.repeat || function repeat(count) {
+  var str = String(requireObjectCoercible(this));
+  var result = '';
+  var n = toInteger(count);
+  if (n < 0 || n == Infinity) throw RangeError('Wrong number of repetitions');
+  for (;n > 0; (n >>>= 1) && (str += str)) if (n & 1) result += str;
+  return result;
+};
+
+
+/***/ }),
+
 /***/ "124c":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4157,6 +4179,23 @@ module.exports = {};
 
 /***/ }),
 
+/***/ "408a":
+/***/ (function(module, exports, __webpack_require__) {
+
+var classof = __webpack_require__("c6b6");
+
+// `thisNumberValue` abstract operation
+// https://tc39.es/ecma262/#sec-thisnumbervalue
+module.exports = function (value) {
+  if (typeof value != 'number' && classof(value) != 'Number') {
+    throw TypeError('Incorrect invocation');
+  }
+  return +value;
+};
+
+
+/***/ }),
+
 /***/ "4100":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4488,6 +4527,58 @@ module.exports = function (it) {
   if (it == undefined) throw TypeError("Can't call method on " + it);
   return it;
 };
+
+
+/***/ }),
+
+/***/ "466d":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var fixRegExpWellKnownSymbolLogic = __webpack_require__("d784");
+var anObject = __webpack_require__("825a");
+var toLength = __webpack_require__("50c4");
+var requireObjectCoercible = __webpack_require__("1d80");
+var advanceStringIndex = __webpack_require__("8aa5");
+var regExpExec = __webpack_require__("14c3");
+
+// @@match logic
+fixRegExpWellKnownSymbolLogic('match', 1, function (MATCH, nativeMatch, maybeCallNative) {
+  return [
+    // `String.prototype.match` method
+    // https://tc39.es/ecma262/#sec-string.prototype.match
+    function match(regexp) {
+      var O = requireObjectCoercible(this);
+      var matcher = regexp == undefined ? undefined : regexp[MATCH];
+      return matcher !== undefined ? matcher.call(regexp, O) : new RegExp(regexp)[MATCH](String(O));
+    },
+    // `RegExp.prototype[@@match]` method
+    // https://tc39.es/ecma262/#sec-regexp.prototype-@@match
+    function (regexp) {
+      var res = maybeCallNative(nativeMatch, regexp, this);
+      if (res.done) return res.value;
+
+      var rx = anObject(regexp);
+      var S = String(this);
+
+      if (!rx.global) return regExpExec(rx, S);
+
+      var fullUnicode = rx.unicode;
+      rx.lastIndex = 0;
+      var A = [];
+      var n = 0;
+      var result;
+      while ((result = regExpExec(rx, S)) !== null) {
+        var matchStr = String(result[0]);
+        A[n] = matchStr;
+        if (matchStr === '') rx.lastIndex = advanceStringIndex(S, toLength(rx.lastIndex), fullUnicode);
+        n++;
+      }
+      return n === 0 ? null : A;
+    }
+  ];
+});
 
 
 /***/ }),
@@ -9298,6 +9389,140 @@ $({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES }, {
 
 /***/ }),
 
+/***/ "b680":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var toInteger = __webpack_require__("a691");
+var thisNumberValue = __webpack_require__("408a");
+var repeat = __webpack_require__("1148");
+var fails = __webpack_require__("d039");
+
+var nativeToFixed = 1.0.toFixed;
+var floor = Math.floor;
+
+var pow = function (x, n, acc) {
+  return n === 0 ? acc : n % 2 === 1 ? pow(x, n - 1, acc * x) : pow(x * x, n / 2, acc);
+};
+
+var log = function (x) {
+  var n = 0;
+  var x2 = x;
+  while (x2 >= 4096) {
+    n += 12;
+    x2 /= 4096;
+  }
+  while (x2 >= 2) {
+    n += 1;
+    x2 /= 2;
+  } return n;
+};
+
+var FORCED = nativeToFixed && (
+  0.00008.toFixed(3) !== '0.000' ||
+  0.9.toFixed(0) !== '1' ||
+  1.255.toFixed(2) !== '1.25' ||
+  1000000000000000128.0.toFixed(0) !== '1000000000000000128'
+) || !fails(function () {
+  // V8 ~ Android 4.3-
+  nativeToFixed.call({});
+});
+
+// `Number.prototype.toFixed` method
+// https://tc39.es/ecma262/#sec-number.prototype.tofixed
+$({ target: 'Number', proto: true, forced: FORCED }, {
+  // eslint-disable-next-line max-statements
+  toFixed: function toFixed(fractionDigits) {
+    var number = thisNumberValue(this);
+    var fractDigits = toInteger(fractionDigits);
+    var data = [0, 0, 0, 0, 0, 0];
+    var sign = '';
+    var result = '0';
+    var e, z, j, k;
+
+    var multiply = function (n, c) {
+      var index = -1;
+      var c2 = c;
+      while (++index < 6) {
+        c2 += n * data[index];
+        data[index] = c2 % 1e7;
+        c2 = floor(c2 / 1e7);
+      }
+    };
+
+    var divide = function (n) {
+      var index = 6;
+      var c = 0;
+      while (--index >= 0) {
+        c += data[index];
+        data[index] = floor(c / n);
+        c = (c % n) * 1e7;
+      }
+    };
+
+    var dataToString = function () {
+      var index = 6;
+      var s = '';
+      while (--index >= 0) {
+        if (s !== '' || index === 0 || data[index] !== 0) {
+          var t = String(data[index]);
+          s = s === '' ? t : s + repeat.call('0', 7 - t.length) + t;
+        }
+      } return s;
+    };
+
+    if (fractDigits < 0 || fractDigits > 20) throw RangeError('Incorrect fraction digits');
+    // eslint-disable-next-line no-self-compare
+    if (number != number) return 'NaN';
+    if (number <= -1e21 || number >= 1e21) return String(number);
+    if (number < 0) {
+      sign = '-';
+      number = -number;
+    }
+    if (number > 1e-21) {
+      e = log(number * pow(2, 69, 1)) - 69;
+      z = e < 0 ? number * pow(2, -e, 1) : number / pow(2, e, 1);
+      z *= 0x10000000000000;
+      e = 52 - e;
+      if (e > 0) {
+        multiply(0, z);
+        j = fractDigits;
+        while (j >= 7) {
+          multiply(1e7, 0);
+          j -= 7;
+        }
+        multiply(pow(10, j, 1), 0);
+        j = e - 1;
+        while (j >= 23) {
+          divide(1 << 23);
+          j -= 23;
+        }
+        divide(1 << j);
+        multiply(1, 1);
+        divide(2);
+        result = dataToString();
+      } else {
+        multiply(0, z);
+        multiply(1 << -e, 0);
+        result = dataToString() + repeat.call('0', fractDigits);
+      }
+    }
+    if (fractDigits > 0) {
+      k = result.length;
+      result = sign + (k <= fractDigits
+        ? '0.' + repeat.call('0', fractDigits - k) + result
+        : result.slice(0, k - fractDigits) + '.' + result.slice(k - fractDigits));
+    } else {
+      result = sign + result;
+    } return result;
+  }
+});
+
+
+/***/ }),
+
 /***/ "b727":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13690,13 +13915,61 @@ if (typeof window !== 'undefined') {
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 var external_commonjs_vue_commonjs2_vue_root_Vue_default = /*#__PURE__*/__webpack_require__.n(external_commonjs_vue_commonjs2_vue_root_Vue_);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/UserCreneau.vue?vue&type=template&id=7a078424&
-var UserCreneauvue_type_template_id_7a078424_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"creneaux-mbt"},[_c('div',{staticClass:"container first-block"},[_c('div',{staticClass:"creneaux-mbt--block mt-5"},[_c('app-title'),_c('div',{staticClass:"block-left"},[_c('tab-option')],1),_c('div',{staticClass:"block-border"},[_c('div',{staticClass:"row font-weight-bold type-livraison mb-2"},[_c('inline-description')],1),_c('div',{staticClass:"row d-flex justify-content-start commande-detail mb-5"},[_c('div',{staticClass:" rectangle rond-left rond-right mx-3 mx-md-0 mb-3 mb-md-0  ml-md-5  mr-lg-5  pt-3  pl-3 pr-3 col-md-3 "},[_c('div',{staticClass:"h2 cursor-pointer"},[_vm._v("ADRESSE")]),_c('div',{staticClass:"d-flex justify-content-between justify-content-md-start align-items-center"},[_c('mapGoogle'),_c('div',{staticClass:"icone-map"})],1)]),_c('div',{staticClass:"col-md-7"},[_c('div',{staticClass:"row ml-md-4 h-100"},[_c('creneau',{attrs:{"title":"Collecte","type":"collecte"}}),_c('creneau',{attrs:{"title":"Livraison","classes":"rond-right","type":"livraison"}})],1)])])])],1),_c('button',{on:{"click":_vm.testProduct}},[_vm._v("test products")])])])}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/UserCreneau.vue?vue&type=template&id=4b5b8b8d&
+var UserCreneauvue_type_template_id_4b5b8b8d_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"creneaux-mbt"},[_c('div',{staticClass:"container first-block",attrs:{"currentCreneauType":_vm.currentCreneauType}},[_c('div',{staticClass:"creneaux-mbt--block mt-5"},[_c('app-title'),_c('div',{staticClass:"block-left"},[_c('tab-option')],1),_c('div',{staticClass:"block-border"},[_c('div',{staticClass:"row font-weight-bold type-livraison mb-2"},[_c('inline-description')],1),_c('div',{staticClass:"row d-flex justify-content-start commande-detail mb-5"},[_c('div',{staticClass:" rectangle rond-left rond-right mx-3 mx-md-0 mb-3 mb-md-0  ml-md-5  mr-lg-5  pt-3  pl-3 pr-3 col-md-3 "},[_c('div',{staticClass:"h2 cursor-pointer"},[_vm._v("ADRESSE")]),_c('div',{staticClass:"d-flex justify-content-between justify-content-md-start align-items-center"},[_c('mapGoogle'),_c('div',{staticClass:"icone-map"})],1)]),_c('div',{staticClass:"col-md-7"},[_c('div',{staticClass:"row ml-md-4 h-100"},[_c('creneau',{attrs:{"title":"Collecte","type":"collecte"}}),_c('creneau',{attrs:{"title":"Livraison","classes":"rond-right","type":"livraison"}})],1)])])])],1)])])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App/UserCreneau.vue?vue&type=template&id=7a078424&
+// CONCATENATED MODULE: ./src/App/UserCreneau.vue?vue&type=template&id=4b5b8b8d&
 
+// EXTERNAL MODULE: ./node_modules/regenerator-runtime/runtime.js
+var runtime = __webpack_require__("96cf");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
+var es_object_to_string = __webpack_require__("d3b7");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.promise.js
+var es_promise = __webpack_require__("e6cf");
+
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
+  }
+
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this,
+        args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+      }
+
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+
+      _next(undefined);
+    });
+  };
+}
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
 var es_symbol = __webpack_require__("a4d3");
 
@@ -13979,12 +14252,12 @@ var InlineDescription_component = normalizeComponent(
 )
 
 /* harmony default export */ var InlineDescription = (InlineDescription_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/TabOption.vue?vue&type=template&id=564fa39e&
-var TabOptionvue_type_template_id_564fa39e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"first-row"},_vm._l((_vm.creneauType),function(item,index){return _c('div',{key:index,staticClass:"option btn",class:item.active ? 'option-badge' : '',on:{"click":function($event){return _vm.SelectTypeTab(index)}}},[_c('div',{staticClass:"mx-auto h2 titre-tab"},[_vm._v(" "+_vm._s(item.titre)+" "),(index > 0)?_c('span',{staticClass:"small small-text d-block"},[_vm._v(" "+_vm._s(item.montant)+"€")]):_vm._e()])])}),0)}
-var TabOptionvue_type_template_id_564fa39e_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/TabOption.vue?vue&type=template&id=68482459&
+var TabOptionvue_type_template_id_68482459_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"first-row"},_vm._l((_vm.creneauType),function(item,index){return _c('div',{key:index,staticClass:"option btn",class:item.active ? 'option-badge' : '',on:{"click":function($event){return _vm.SelectTypeTab(index)}}},[_c('div',{staticClass:"mx-auto h2 titre-tab"},[_vm._v(" "+_vm._s(item.titre)+" "),(index > 0)?_c('span',{staticClass:"small small-text d-block"},[_vm._v(" "+_vm._s(item.montant)+"€")]):_vm._e()])])}),0)}
+var TabOptionvue_type_template_id_68482459_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App/components/creneau/TabOption.vue?vue&type=template&id=564fa39e&
+// CONCATENATED MODULE: ./src/App/components/creneau/TabOption.vue?vue&type=template&id=68482459&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/TabOption.vue?vue&type=script&lang=js&
 
@@ -14033,10 +14306,7 @@ var TabOptionvue_type_template_id_564fa39e_staticRenderFns = []
   computed: _objectSpread2({}, Object(vuex_esm["c" /* mapState */])(["creneauType"])),
   methods: {
     SelectTypeTab: function SelectTypeTab(index) {
-      this.$store.dispatch("SelectTypeTab", index); // this.tabOption.forEach((item) => {
-      //   item.isActive = false;
-      // });
-      // this.tabOption[index].isActive = true;
+      this.$store.dispatch("SelectTypeTab", index);
     }
   }
 });
@@ -14052,8 +14322,8 @@ var TabOptionvue_type_template_id_564fa39e_staticRenderFns = []
 
 var TabOption_component = normalizeComponent(
   creneau_TabOptionvue_type_script_lang_js_,
-  TabOptionvue_type_template_id_564fa39e_render,
-  TabOptionvue_type_template_id_564fa39e_staticRenderFns,
+  TabOptionvue_type_template_id_68482459_render,
+  TabOptionvue_type_template_id_68482459_staticRenderFns,
   false,
   null,
   null,
@@ -14200,10 +14470,10 @@ var es_string_split = __webpack_require__("43c9");
 var modules_web_dom_collections_for_each = __webpack_require__("0202");
 
 // EXTERNAL MODULE: ../map-google-location/node_modules/core-js/modules/es.object.to-string.js
-var es_object_to_string = __webpack_require__("39e3");
+var modules_es_object_to_string = __webpack_require__("39e3");
 
 // EXTERNAL MODULE: ../map-google-location/node_modules/core-js/modules/es.promise.js
-var es_promise = __webpack_require__("ab51");
+var modules_es_promise = __webpack_require__("ab51");
 
 // EXTERNAL MODULE: ../map-google-location/node_modules/core-js/modules/es.string.trim.js
 var es_string_trim = __webpack_require__("7eb8");
@@ -15658,27 +15928,21 @@ var map_google_component = normalizeComponent(
 )
 
 /* harmony default export */ var map_google = (map_google_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/creneau.vue?vue&type=template&id=c9e8c24a&
-var creneauvue_type_template_id_c9e8c24a_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"rectangle mx-2 mx-md-0 mb-3 mb-md-0 mx-3 pt-4 pl-sm-3 col-md-6",class:_vm.classes},[_c('div',{staticClass:"title-creneau h2"},[_vm._v(_vm._s(_vm.title))]),_c('div',{staticClass:" d-flex justify-content-between justify-content-md-start line-creneau h1 "},[_c('hours',{attrs:{"type":_vm.type},on:{"selectNextDay":_vm.selectNextDay}}),_c('i',{staticClass:"icone-svg mb-md-1 mb-lg-2 cursor-pointer",on:{"click":function($event){_vm.showCalandar = !_vm.showCalandar}}},[_c('SvgCalandar')],1)],1),_c('p',{staticClass:"cursor-pointer",on:{"click":function($event){_vm.showCalandar = !_vm.showCalandar}}},[_vm._v(" "+_vm._s(_vm.appDateDisplay)+" ")]),(_vm.showCalandar)?_c('div',{staticClass:"over-container-date",on:{"click":function($event){_vm.showCalandar = !_vm.showCalandar}}}):_vm._e(),_c('calendar',{ref:"calendar",attrs:{"show-calandar":_vm.showCalandar,"type":_vm.type}})],1)}
-var creneauvue_type_template_id_c9e8c24a_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/creneau.vue?vue&type=template&id=f2ca21c8&
+var creneauvue_type_template_id_f2ca21c8_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"rectangle mx-2 mx-md-0 mb-3 mb-md-0 mx-3 pt-4 pl-sm-3 col-md-6",class:_vm.classes},[_c('div',{staticClass:"title-creneau h2"},[_vm._v(_vm._s(_vm.title))]),_c('div',{staticClass:" d-flex justify-content-between justify-content-md-start line-creneau h1 "},[_c('hours',{attrs:{"type":_vm.type},on:{"selectNextDay":_vm.selectNextDay}}),_c('i',{staticClass:"icone-svg mb-md-1 mb-lg-2 cursor-pointer",on:{"click":function($event){_vm.showCalandar = !_vm.showCalandar}}},[_c('SvgCalandar')],1)],1),_c('p',{staticClass:"cursor-pointer",on:{"click":function($event){_vm.showCalandar = !_vm.showCalandar}}},[_vm._v(" "+_vm._s(_vm.appDateDisplay)+" ")]),(_vm.showCalandar)?_c('div',{staticClass:"over-container-date",on:{"click":function($event){_vm.showCalandar = !_vm.showCalandar}}}):_vm._e(),_c('calendar',{ref:"calendar",attrs:{"show-calandar":_vm.showCalandar,"type":_vm.type}})],1)}
+var creneauvue_type_template_id_f2ca21c8_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App/components/creneau/creneau.vue?vue&type=template&id=c9e8c24a&
+// CONCATENATED MODULE: ./src/App/components/creneau/creneau.vue?vue&type=template&id=f2ca21c8&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/Hours.vue?vue&type=template&id=4da7dbcf&lang=html&
-var Hoursvue_type_template_id_4da7dbcf_lang_html_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticStyle:{"width":"100%"},attrs:{"triggerBuilder":_vm.triggerBuilder,"TriggerAfterHourBuild":_vm.TriggerAfterHourBuild}},[_c('advanced-select',{attrs:{"disabled":_vm.disabled_creneau,"options":_vm.list_creneaux,"show-labels":false,"searchable":false,"placeholder":"00:00 - 00:00","track-by":"begin","open-direction":"bottom"},scopedSlots:_vm._u([{key:"singleLabel",fn:function(ref){
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/Hours.vue?vue&type=template&id=0ae33522&lang=html&
+var Hoursvue_type_template_id_0ae33522_lang_html_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticStyle:{"width":"100%"},attrs:{"triggerBuilder":_vm.triggerBuilder,"TriggerAfterHourBuild":_vm.TriggerAfterHourBuild}},[_c('advanced-select',{attrs:{"disabled":_vm.disabled_creneau,"options":_vm.list_creneaux,"show-labels":false,"searchable":false,"placeholder":"00:00 - 00:00","track-by":"begin","open-direction":"bottom"},scopedSlots:_vm._u([{key:"singleLabel",fn:function(ref){
 var option = ref.option;
 return [_vm._v(" "+_vm._s(option.begin)+" - "+_vm._s(option.end)+" ")]}},{key:"option",fn:function(props){return [_c('span',{attrs:{"checkstatus":props.option.checkstatus}},[_vm._v(" "+_vm._s(props.option.begin)+" - "+_vm._s(props.option.end)+" ")])]}}]),model:{value:(_vm.current_creneau),callback:function ($$v) {_vm.current_creneau=$$v},expression:"current_creneau"}},[_c('template',{slot:"noOptions"},[_c('span',[_vm._v(" Aucun créneau disponible à cette date ")])])],2)],1)}
-var Hoursvue_type_template_id_4da7dbcf_lang_html_staticRenderFns = []
+var Hoursvue_type_template_id_0ae33522_lang_html_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App/components/creneau/Hours.vue?vue&type=template&id=4da7dbcf&lang=html&
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
-var modules_es_object_to_string = __webpack_require__("d3b7");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.promise.js
-var modules_es_promise = __webpack_require__("e6cf");
+// CONCATENATED MODULE: ./src/App/components/creneau/Hours.vue?vue&type=template&id=0ae33522&lang=html&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.exec.js
 var modules_es_regexp_exec = __webpack_require__("ac1f");
@@ -22288,48 +22552,6 @@ var Utilities = {
 // 32583132807228
 // 32583132839996
 // 32583132872764
-// EXTERNAL MODULE: ./node_modules/regenerator-runtime/runtime.js
-var runtime = __webpack_require__("96cf");
-
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
-  try {
-    var info = gen[key](arg);
-    var value = info.value;
-  } catch (error) {
-    reject(error);
-    return;
-  }
-
-  if (info.done) {
-    resolve(value);
-  } else {
-    Promise.resolve(value).then(_next, _throw);
-  }
-}
-
-function _asyncToGenerator(fn) {
-  return function () {
-    var self = this,
-        args = arguments;
-    return new Promise(function (resolve, reject) {
-      var gen = fn.apply(self, args);
-
-      function _next(value) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
-      }
-
-      function _throw(err) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
-      }
-
-      _next(undefined);
-    });
-  };
-}
 // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 function classCallCheck_classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -23254,7 +23476,7 @@ var hours_Hours = /*#__PURE__*/function () {
   }),
   watch: {
     current_creneau: function current_creneau(val) {
-      console.log("watch current_creneau : ", this.type, " :: ", val);
+      //console.log("watch current_creneau : ", this.type, " :: ", val);
       this.$store.dispatch("SetSelectHour", this.BuildPayload(val));
     }
   },
@@ -23365,8 +23587,8 @@ var Hoursvue_type_style_index_0_lang_css_ = __webpack_require__("d85a");
 
 var Hours_component = normalizeComponent(
   creneau_Hoursvue_type_script_lang_js_,
-  Hoursvue_type_template_id_4da7dbcf_lang_html_render,
-  Hoursvue_type_template_id_4da7dbcf_lang_html_staticRenderFns,
+  Hoursvue_type_template_id_0ae33522_lang_html_render,
+  Hoursvue_type_template_id_0ae33522_lang_html_staticRenderFns,
   false,
   null,
   null,
@@ -23995,7 +24217,6 @@ var SvgCalandar_component = normalizeComponent(
   }),
   methods: {
     selectNextDay: function selectNextDay() {
-      console.log("selectSpecifiqDateActive : ", this.type);
       this.$refs.calendar.selectSpecifiqDateActive();
     }
   }
@@ -24012,8 +24233,8 @@ var SvgCalandar_component = normalizeComponent(
 
 var creneau_component = normalizeComponent(
   creneau_creneauvue_type_script_lang_js_,
-  creneauvue_type_template_id_c9e8c24a_render,
-  creneauvue_type_template_id_c9e8c24a_staticRenderFns,
+  creneauvue_type_template_id_f2ca21c8_render,
+  creneauvue_type_template_id_f2ca21c8_staticRenderFns,
   false,
   null,
   null,
@@ -24022,7 +24243,626 @@ var creneau_component = normalizeComponent(
 )
 
 /* harmony default export */ var creneau = (creneau_component.exports);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.to-fixed.js
+var es_number_to_fixed = __webpack_require__("b680");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.match.js
+var es_string_match = __webpack_require__("466d");
+
+// CONCATENATED MODULE: ./src/App/js/defaultOptions.js
+
+
+
+
+
+
+
+
+
+
+
+/* harmony default export */ var defaultOptions = ({
+  show_cover: false,
+  cart: null,
+  creneauTypes: src_store.state.creneauType,
+
+  /**
+   * Coontient la valeur de type de livraison dans la panier.
+   */
+  CartTypeLivraison: "",
+
+  /**
+   * Contient la valeur courante de type de livraiosn.( valeur fournit par la configuration ).
+   * ne doit pas etre vide avant la vilidation.
+   * (sinitialise des le debut)
+   */
+  TypeLivraison: {},
+  alert_message: "",
+  show_alert: false,
+  creneauCollecte: src_store.state.creneauCollecte,
+  creneauLivraison: src_store.state.creneauLivraison,
+  location: src_store.state.location,
+  alert_attribut_class: "alert-primary",
+
+  /**
+   *
+   * @param {*} cents
+   * @param {*} format
+   * @returns
+   */
+  ShopifyFormatMoney: function ShopifyFormatMoney(cents, format) {
+    var value = "",
+        placeholderRegex = /\{\{\s*(\w+)\s*\}\}/,
+        formatString = format || this.money_format;
+
+    if (typeof cents == "string") {
+      cents = cents.replace(".", "");
+    }
+
+    function defaultOption(opt, def) {
+      return typeof opt == "undefined" ? def : opt;
+    }
+
+    function formatWithDelimiters(number, precision, thousands, decimal) {
+      precision = defaultOption(precision, 2);
+      thousands = defaultOption(thousands, ",");
+      decimal = defaultOption(decimal, ".");
+
+      if (isNaN(number) || number == null) {
+        return 0;
+      }
+
+      number = (number / 100.0).toFixed(precision);
+      var parts = number.split("."),
+          dollars = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + thousands),
+          cents = parts[1] ? decimal + parts[1] : "";
+      return dollars + cents;
+    }
+
+    switch (formatString.match(placeholderRegex)[1]) {
+      case "amount":
+        value = formatWithDelimiters(cents, 2);
+        break;
+
+      case "amount_no_decimals":
+        value = formatWithDelimiters(cents, 0);
+        break;
+
+      case "amount_with_comma_separator":
+        value = formatWithDelimiters(cents, 2, ".", ",");
+        break;
+
+      case "amount_no_decimals_with_comma_separator":
+        value = formatWithDelimiters(cents, 0, ".", ",");
+        break;
+    }
+
+    return formatString.replace(placeholderRegex, value);
+  },
+  addProduct: function addProduct(id_product) {
+    var _this = this;
+
+    var qte = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+    this.show_cover = true;
+    return new Promise(function (resolv, reject) {
+      _this.show_cover = true;
+      basic.post("/cart/add", {
+        id: id_product,
+        quantity: qte
+      }).then(function (resp) {
+        _this.show_cover = false;
+        resolv(resp);
+      }).catch(function () {
+        _this.show_cover = false;
+        reject(false);
+      });
+    });
+  },
+  verification: function verification() {
+    var _this2 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      var test2, test3;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _this2.alert_message = "";
+              _this2.show_alert = false; //var test1 = await this.verificationTypeLivraison();
+
+              _context.next = 4;
+              return _this2.VerificationCrenaux();
+
+            case 4:
+              test2 = _context.sent;
+              _context.next = 7;
+              return _this2.VerificationAdress();
+
+            case 7:
+              test3 = _context.sent;
+
+              if (!(test2 && test3)) {
+                _context.next = 12;
+                break;
+              }
+
+              return _context.abrupt("return", true);
+
+            case 12:
+              _this2.show_alert = true;
+              _this2.alert_attribut_class = "alert-danger ml-md-4";
+              return _context.abrupt("return", false);
+
+            case 15:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  VerificationCrenaux: function VerificationCrenaux() {
+    var _this3 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+      var livraison, collecte;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              livraison = true;
+              collecte = true;
+
+              if (!creneauCollecte.date || !creneauCollecte.hour) {
+                collecte = false;
+                _this3.alert_message += "- Vous devez selectionner un creneau pour la collecte.<br />";
+              }
+
+              if (!creneauLivraison.date || !creneauLivraison.date) {
+                livraison = false;
+                _this3.alert_message += "- Vous devez selectionner un creneau pour la livraison.<br />";
+              }
+
+              if (!(livraison && collecte)) {
+                _context2.next = 8;
+                break;
+              }
+
+              return _context2.abrupt("return", true);
+
+            case 8:
+              return _context2.abrupt("return", false);
+
+            case 9:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  },
+  VerificationAdress: function VerificationAdress() {
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              if (!location.current_address) {
+                _context3.next = 4;
+                break;
+              }
+
+              return _context3.abrupt("return", true);
+
+            case 4:
+              return _context3.abrupt("return", false);
+
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }))();
+  },
+  buildAttribut: function buildAttribut() {
+    //
+    var livraison = "Livraison";
+    livraison += "\r\n";
+    livraison += "Date :" + creneauLivraison.date.format("DD-MM-YYYY HH:mm:ss");
+    livraison += "\r\n";
+    livraison += "Creneau :" + creneauLivraison.hour.begin + " - " + creneauLivraison.hour.end; //
+
+    var collecte = "Collecte";
+    collecte += "\r\n";
+    collecte += "Date :" + creneauCollecte.date.format("DD-MM-YYYY HH:mm:ss");
+    collecte += "\r\n";
+    collecte += "Creneau :" + creneauCollecte.hour.begin + " - " + creneauCollecte.hour.end;
+    /**
+     * Données pour format Zapier
+     */
+
+    var z_collecte_date = creneauCollecte.date.format("DD-MM-YYYY");
+    var z_collecte_heure = creneauCollecte.hour.begin + " - " + creneauCollecte.hour.end; //
+
+    var z_livraison_date = creneauLivraison.date.format("DD-MM-YYYY");
+    var z_livraison_heure = creneauLivraison.hour.begin + " - " + creneauLivraison.hour.end;
+    return {
+      attributes: {
+        localisation: location.current_address,
+        recuperation: collecte,
+        livraison: livraison,
+        z_collecte_date: z_collecte_date,
+        z_collecte_heure: z_collecte_heure,
+        z_livraison_date: z_livraison_date,
+        z_livraison_heure: z_livraison_heure
+      }
+    };
+  },
+  SaveAttributeCart: function SaveAttributeCart(datas) {
+    var _this4 = this;
+
+    return new Promise(function (resolv, reject) {
+      _this4.show_cover = true;
+      basic.post("/cart/update", datas).then(function (r) {
+        _this4.show_cover = false;
+        resolv(r);
+      }).catch(function (e) {
+        _this4.show_cover = false;
+        if (basic.isLocalDev) resolv(e);else reject();
+      });
+    });
+  },
+  triggerCheckout: function triggerCheckout() {
+    document.querySelector(".creneaux-mbt .cart-checkout .submit-cart").click();
+    console.log("verfication de la presence du bouton formulaire ", document.querySelector(".creneaux-mbt .cart-checkout .submit-cart"));
+  },
+
+  /**
+   * Supprime un produit / ou supprime et ajoute un autre.( modifier la variante)
+   */
+  deleteUpdateProduct: function deleteUpdateProduct(id_product) {
+    var _this5 = this;
+
+    var new_product = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    return new Promise(function (resolve, reject) {
+      var product = {
+        updates: {}
+      };
+      _this5.show_cover = true;
+      product.updates[id_product] = 0;
+      basic.post("/cart/update", product).then(function () {
+        if (new_product) {
+          resolve(_this5.addProduct(new_product));
+        } else {
+          _this5.show_cover = false;
+          resolve(true);
+        }
+      }).catch(function () {
+        _this5.show_cover = false;
+        reject();
+      });
+    });
+  }
+});
+// CONCATENATED MODULE: ./src/App/js/shopifyCart.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+basic.TestDomain = "http://habeuk.kksa";
+/* harmony default export */ var shopifyCart = (_objectSpread2(_objectSpread2({}, defaultOptions), {}, {
+  /**
+   *
+   * @param {*} prefertCartProductLivraison
+   */
+  initcreneau: function initcreneau(prefertCartProductLivraison) {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      var status_cart;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              //on modifie les html
+              _this.HideStaticLoading(); // On charge la panier.
+
+
+              _context.next = 3;
+              return _this.loadcart();
+
+            case 3:
+              status_cart = _context.sent;
+
+              if (!status_cart) {
+                _context.next = 20;
+                break;
+              }
+
+              _context.next = 7;
+              return _this.getProductType();
+
+            case 7:
+              if (!_this.TypeLivraison) {
+                _context.next = 20;
+                break;
+              }
+
+              if (!(_this.CartTypeLivraison && _this.CartTypeLivraison.id && _this.CartTypeLivraison.id !== _this.TypeLivraison.id)) {
+                _context.next = 16;
+                break;
+              }
+
+              // si le produit qui est dans la panier est different de celui qui est selectionné, et que nous sommes à l'initialisation,
+              // on garde la valeur dans le panier.
+              if (prefertCartProductLivraison) _this.apply_type_livraison_by_id(_this.CartTypeLivraison.id); // si non, on retire le produit qui est dans le panier et on applique le nouveau.
+
+              _context.next = 12;
+              return _this.deleteUpdateProduct(_this.CartTypeLivraison.id, _this.TypeLivraison.id);
+
+            case 12:
+              _context.next = 14;
+              return _this.loadcart();
+
+            case 14:
+              _context.next = 19;
+              break;
+
+            case 16:
+              if (!(_this.TypeLivraison && !_this.CartTypeLivraison.id)) {
+                _context.next = 19;
+                break;
+              }
+
+              _context.next = 19;
+              return _this.addDefaultProductTypeLivraison();
+
+            case 19:
+              // on ecoute l'evenement
+              _this.setEvant();
+
+            case 20:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  HideStaticLoading: function HideStaticLoading() {//$(".londing-cover.static").fadeOut(600);
+  },
+
+  /**
+   * Charge le panier.
+   * Retourne true si la requte est terminée avec succes et false si non.
+   */
+  loadcart: function loadcart() {
+    var _this2 = this;
+
+    return new Promise(function (resolve, reject) {
+      _this2.show_cover = true;
+      basic.get("/cart.js").then(function (cart) {
+        console.log("Panier textStatus : ", cart);
+        _this2.show_cover = false;
+        _this2.cart = cart.data;
+        resolve(true);
+      }).catch(function () {
+        if (basic.isLocalDev) resolve(false);else reject();
+      });
+    });
+  },
+
+  /**
+   * Permet de comparer le type de livraison dans le panier et celui en affichage.
+   * Retourne  le product (type de livraison) actuelement present dans le panier.
+   * @return l'object (type de livraison) ou false, si cest vide.
+   */
+  getProductType: function getProductType() {
+    var _this3 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+      var typeLivraisonIds, i, product;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              if (!(_this3.cart && _this3.cart.item_count > 0)) {
+                _context2.next = 13;
+                break;
+              }
+
+              typeLivraisonIds = _this3.typeLivraisonIds();
+              _context2.t0 = regeneratorRuntime.keys(_this3.cart.items);
+
+            case 3:
+              if ((_context2.t1 = _context2.t0()).done) {
+                _context2.next = 11;
+                break;
+              }
+
+              i = _context2.t1.value;
+              product = _this3.cart.items[i];
+
+              if (!typeLivraisonIds.includes(product.id)) {
+                _context2.next = 9;
+                break;
+              }
+
+              _this3.CartTypeLivraison = product;
+              return _context2.abrupt("return", product);
+
+            case 9:
+              _context2.next = 3;
+              break;
+
+            case 11:
+              _context2.next = 14;
+              break;
+
+            case 13:
+              return _context2.abrupt("return", false);
+
+            case 14:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  },
+  typeLivraisonIds: function typeLivraisonIds() {
+    var ids = [];
+    this.creneauTypes.forEach(function (type) {
+      ids.push(type.id);
+    });
+    return ids;
+  },
+
+  /**
+   * Applique un type de livraison.
+   * Ce type de livraison est fournit par le panier.(produit precedament selectionne par le client )
+   */
+  apply_type_livraison_by_id: function apply_type_livraison_by_id(id) {
+    for (var i in this.creneauTypes) {
+      if (id == this.creneauTypes[i].id) {
+        src_store.dispatch("SelectTypeTab", parseInt(i));
+      }
+    }
+  },
+
+  /**
+   * Ajoute le produit permettant de definir le mode de livraiosn,
+   * s"execute si le mode de livraiosn n'est pas definit.
+   */
+  addDefaultProductTypeLivraison: function addDefaultProductTypeLivraison() {
+    var _this4 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return _this4.addProduct(_this4.TypeLivraison.id);
+
+            case 2:
+              _context3.next = 4;
+              return _this4.loadcart();
+
+            case 4:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }))();
+  },
+
+  /**
+   * Permet à un programme externe/interne d'execute le processus de sauvegarde.
+   */
+  setEvant: function setEvant() {
+    var _this5 = this;
+
+    document.addEventListener("SaveCreneauxChechout", function () {
+      _this5.SaveCreneau(elem);
+    });
+  },
+
+  /**
+   * Processus de sauvegarde.
+   */
+  SaveCreneau: function SaveCreneau() {
+    var _arguments = arguments,
+        _this6 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+      var elem, test, attribut;
+      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              elem = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : null;
+              _context4.next = 3;
+              return _this6.verification();
+
+            case 3:
+              test = _context4.sent;
+
+              if (!test) {
+                _context4.next = 24;
+                break;
+              }
+
+              _context4.next = 7;
+              return _this6.buildAttribut();
+
+            case 7:
+              attribut = _context4.sent;
+              _context4.next = 10;
+              return _this6.SaveAttributeCart(attribut);
+
+            case 10:
+              _context4.next = 12;
+              return _this6.loadcart();
+
+            case 12:
+              if (!(_this6.cart && _this6.cart.attributes && _this6.cart.attributes.livraison || !_this6.app_env_prod)) {
+                _context4.next = 18;
+                break;
+              }
+
+              //$(".cart-checkout .loadding", elem.target).removeClass("fa-spin");
+              console.log("elem.target : ", elem.target);
+              alert("triggerCheckout");
+
+              _this6.triggerCheckout();
+
+              _context4.next = 22;
+              break;
+
+            case 18:
+              _this6.show_alert = true;
+              _this6.alert_attribut_class = "alert-danger ml-md-4";
+              _this6.alert_message += '- Une erreur s"est produite lors de la sauvegarde de vos informations. <br /> Verifier votre connexion et actualiser la page <br />';
+              return _context4.abrupt("return", false);
+
+            case 22:
+              _context4.next = 25;
+              break;
+
+            case 24:
+              if (elem && elem.target) {
+                alert("error"); // $(".cart-checkout .submit-cart-test", elem.target).addClass(
+                //   "bg-danger"
+                // );
+                // $(".cart-checkout .loadding", elem.target).removeClass("fa-spin");
+              }
+
+            case 25:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }))();
+  }
+}));
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/UserCreneau.vue?vue&type=script&lang=js&
+
+
+
 //
 //
 //
@@ -24066,7 +24906,7 @@ var creneau_component = normalizeComponent(
 //
 //
 //
-//
+
 
 
 
@@ -24091,32 +24931,75 @@ var creneau_component = normalizeComponent(
     mapGoogle: map_google,
     creneau: creneau
   },
+  data: function data() {
+    return {
+      CreneauTypeProductId: null,
+      // permet de reduire l'execution que si un nouveau elment est choisit.
+      initAuto: true //permet de differentier le comportement auto et le click de l'utilisateur.(true => action auto ).
+
+    };
+  },
   mounted: function mounted() {
     //const d = moment("4-08-2021 18:00:00", "DD-MM-YYYY HH:mm:ss");
     var d = moment(this.dateDuJour, "DD-MM-YYYY HH:mm:ss"); //const d = moment();
 
     if (d._isValid) this.$store.dispatch("SetDateDuJour", d);
   },
+
+  /**
+   * Date affiché.
+   */
+  computed: _objectSpread2(_objectSpread2({}, Object(vuex_esm["c" /* mapState */])(["creneauType", "activeType"])), {}, {
+    appDateDisplay: {
+      get: function get() {
+        if (this.type === "livraison" && this.creneauLivraison.date_string) {
+          return moment(this.creneauLivraison.date_string, "YYYY-MM-DD").locale("fr").format("dddd Do MMMM");
+        } else if (this.type === "collecte" && this.creneauCollecte.date_string) {
+          return moment(this.creneauCollecte.date_string, "YYYY-MM-DD").locale("fr").format("dddd Do MMMM");
+        }
+
+        return "";
+      }
+    },
+
+    /**
+     * !!!! Cette function s'excute deux foix, ????
+     */
+    currentCreneauType: function currentCreneauType() {
+      this.initManageCart(this.creneauType[this.activeType]);
+      return this.creneauType[this.activeType];
+    }
+  }),
   methods: {
-    testProduct: function testProduct() {
-      configs_config.SfGet("metafields");
-      configs_config.SfGet("metafields", {
-        entity: "products",
-        entityId: "7142363988137"
-      });
-      var datas = [configs_config.AddMetafield("test0", moment().unix()), configs_config.AddMetafield("test1", {
-        title: "heure d'ici",
-        unixtime: moment().unix()
-      })];
-      configs_config.SfPost("metafields", datas, {
-        entity: "products",
-        entityId: "7142363988137"
-      }).then(function () {
-        configs_config.SfGet("metafields", {
-          entity: "products",
-          entityId: "7142363988137"
-        });
-      });
+    initManageCart: function initManageCart(currentCreneauType) {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(_this.CreneauTypeProductId !== currentCreneauType.id)) {
+                  _context.next = 7;
+                  break;
+                }
+
+                console.log("currentCreneauType : ", currentCreneauType, "\n this.initAuto : ", _this.initAuto, "\n id : ", currentCreneauType.id);
+                _this.CreneauTypeProductId = currentCreneauType.id;
+                shopifyCart.TypeLivraison = currentCreneauType;
+                _context.next = 6;
+                return shopifyCart.initcreneau(_this.initAuto);
+
+              case 6:
+                _this.initAuto = false;
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   }
 });
@@ -24136,7 +25019,7 @@ var UserCreneauvue_type_style_index_0_lang_scss_ = __webpack_require__("86d8");
 
 var UserCreneau_component = normalizeComponent(
   App_UserCreneauvue_type_script_lang_js_,
-  UserCreneauvue_type_template_id_7a078424_render,
+  UserCreneauvue_type_template_id_4b5b8b8d_render,
   staticRenderFns,
   false,
   null,

@@ -1,6 +1,6 @@
 <template>
   <div class="creneaux-mbt">
-    <div class="container first-block" :currentCreneauType="currentCreneauType">
+    <div class="container first-block">
       <div class="creneaux-mbt--block mt-5">
         <app-title></app-title>
         <div class="block-left">
@@ -37,6 +37,7 @@
           </div>
         </div>
       </div>
+      <button @click="testProduct">test products</button>
     </div>
   </div>
 </template>
@@ -47,9 +48,7 @@ import InlineDescription from "./components/creneau/InlineDescription.vue";
 import TabOption from "./components/creneau/TabOption.vue";
 import mapGoogle from "./components/creneau/map-google.vue";
 import creneau from "./components/creneau/creneau.vue";
-import { mapState } from "vuex";
-import shopifyCart from "./js/shopifyCart";
-
+import config from "./components/admin/configs/config";
 export default {
   name: "App",
   props: {
@@ -62,57 +61,37 @@ export default {
     }
   },
   components: { TabOption, InlineDescription, AppTitle, mapGoogle, creneau },
-  data() {
-    return {
-      CreneauTypeProductId: null, // permet de reduire l'execution que si un nouveau elment est choisit.
-      initAuto: true //permet de differentier le comportement auto et le click de l'utilisateur.(true => action auto ).
-    };
-  },
   mounted() {
     //const d = moment("4-08-2021 18:00:00", "DD-MM-YYYY HH:mm:ss");
     const d = moment(this.dateDuJour, "DD-MM-YYYY HH:mm:ss");
     //const d = moment();
     if (d._isValid) this.$store.dispatch("SetDateDuJour", d);
   },
-  /**
-   * Date affiché.
-   */
-
-  computed: {
-    ...mapState(["creneauType", "activeType"]),
-    appDateDisplay: {
-      get() {
-        if (this.type === "livraison" && this.creneauLivraison.date_string) {
-          return moment(this.creneauLivraison.date_string, "YYYY-MM-DD")
-            .locale("fr")
-            .format("dddd Do MMMM");
-        } else if (
-          this.type === "collecte" &&
-          this.creneauCollecte.date_string
-        ) {
-          return moment(this.creneauCollecte.date_string, "YYYY-MM-DD")
-            .locale("fr")
-            .format("dddd Do MMMM");
-        }
-        return "";
-      }
-    },
-    /**
-     * -
-     */
-    currentCreneauType() {
-      this.initManageCart(this.creneauType[this.activeType]);
-      return this.creneauType[this.activeType];
-    }
-  },
   methods: {
-    async initManageCart(currentCreneauType) {
-      if (this.CreneauTypeProductId !== currentCreneauType.id) {
-        this.CreneauTypeProductId = currentCreneauType.id;
-        shopifyCart.TypeLivraison = currentCreneauType;
-        await shopifyCart.initcreneau(this.initAuto);
-        this.initAuto = false;
-      }
+    testProduct() {
+      config.SfGet("metafields");
+      config.SfGet("metafields", {
+        entity: "products",
+        entityId: "7142363988137"
+      });
+      const datas = [
+        config.AddMetafield("test0", moment().unix()),
+        config.AddMetafield("test1", {
+          title: "heure d'ici",
+          unixtime: moment().unix()
+        })
+      ];
+      config
+        .SfPost("metafields", datas, {
+          entity: "products",
+          entityId: "7142363988137"
+        })
+        .then(() => {
+          config.SfGet("metafields", {
+            entity: "products",
+            entityId: "7142363988137"
+          });
+        });
     }
   }
 };

@@ -45,6 +45,7 @@ import { mapState } from "vuex";
 import hours from "./Hours.vue";
 import calendar from "./calendar.vue";
 import SvgCalandar from "./SvgCalandar.vue";
+
 export default {
   name: "Creneau",
   props: {
@@ -71,6 +72,7 @@ export default {
       showCalandar: false
     };
   },
+
   /**
    * Date affiché.
    */
@@ -97,7 +99,6 @@ export default {
   },
   methods: {
     selectNextDay() {
-      console.log("selectSpecifiqDateActive : ", this.type);
       this.$refs.calendar.selectSpecifiqDateActive();
     }
   }
