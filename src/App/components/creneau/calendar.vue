@@ -295,6 +295,8 @@ export default {
         this.currentCreneauType,
         this.creneauFilters
       );
+
+      // demarre la construction des tableaux de dates.
       cal.buildDaysOfMonth();
       this.listCalanderDays = cal.dates;
       // Display current mois

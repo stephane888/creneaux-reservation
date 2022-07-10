@@ -28,8 +28,13 @@ class Hours {
   /**
    * -
    */
-  async buildHour() {
-    const Filter = new filterHours(this.date, this.type, this.creneauFilters);
+  async buildHour(CreneauxExterne = []) {
+    const Filter = new filterHours(
+      this.date,
+      this.type,
+      this.creneauFilters,
+      CreneauxExterne
+    );
     await Filter.rebuildFilter();
     const d = await this.getCurrentBandHour();
     const h_min = d.debut.split(":");
@@ -44,7 +49,6 @@ class Hours {
       minute: h_max[1],
       second: 0
     });
-
     return new Promise(resolv => {
       const addCreneau = () => {
         const endCreneau = moment(dateMin).add(

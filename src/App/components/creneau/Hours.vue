@@ -38,6 +38,7 @@ import AdvancedSelect from "vue-multiselect";
 import { mapState, mapGetters } from "vuex";
 import Utilities from "../../js/Utilities";
 import Hours from "./js/hours";
+import { AjaxBasic } from "wbuutilities";
 export default {
   name: "Hours",
   props: {
@@ -64,7 +65,8 @@ export default {
       "creneauFilters",
       "creneauType",
       "creneauCollecte",
-      "creneauLivraison"
+      "creneauLivraison",
+      "CreneauxExterne"
     ]),
     WatchDateSelect() {
       if (this.appDate) {
@@ -189,7 +191,6 @@ export default {
       };
     },
     buildHours() {
-      console.log("buildHours : ", this.type);
       const H = new Hours(
         this.WatchDateSelect,
         this.creneauFilters,
@@ -197,65 +198,77 @@ export default {
         this.currentCreneauType,
         this.type
       );
-      H.buildHour().then(() => {
-        this.list_creneaux = H.list_creneaux;
-      });
-    },
-    buildHoursNone() {
-      this.list_creneaux = [];
-      //console.log("getCurrentBandHour : ", this.getCurrentBandHour);
-      const h_min = this.getCurrentBandHour.debut.split(":");
-      const h_max = this.getCurrentBandHour.fin.split(":");
-      const dateMin = moment(this.WatchDateSelect).set({
-        hour: h_min[0],
-        minute: h_min[1],
-        second: 0
-      });
-      const dateMax = moment(this.WatchDateSelect).set({
-        hour: h_max[0],
-        minute: h_max[1],
-        second: 0
-      });
-      const addCreneau = () => {
-        const endCreneau = moment(dateMin).add(
-          this.currentCreneauType.creneau,
-          "minute"
-        );
-        if (endCreneau.diff(dateMax) <= 0) {
-          //const status = await this.ValidHour(dateMin, endCreneau);
-          //console.log("status : ", status);
-          //const status = false;
-          this.ValidHour(dateMin, endCreneau).then(status => {
-            var bloc_date = {
-              begin: dateMin.format("HH:mm"),
-              end: endCreneau.format("HH:mm"),
-              $isDisabled: status,
-              checkstatus: ""
-            };
-            if (dateMin.diff(this.WatchDateSelect) > 0 && !status)
-              this.list_creneaux.push(bloc_date);
-            dateMin.add(this.currentCreneauType.delai_next_creneau, "minute");
-            addCreneau();
-          });
-        } else {
-          // Le bascule auto de la date au prochain jour ne fonctionne pas.
-          setTimeout(() => {
-            // if (this.list_creneaux.length === 0) this.$emit("selectNextDay", 1);
-          }, 600);
-        }
+      // Demande la liste des creneaux deja reservés pour le jour.
+      const param = {
+        month: this.WatchDateSelect.format("YYYY-MM-DD"),
+        shop: AjaxBasic.isLocalDev
+          ? "my-little-pressing.myshopify.com"
+          : window.ShopId,
+        nombre_creneau: this.creneauConfigs.nombre_res_creneau,
+        type: this.type
       };
-      addCreneau();
-    },
-    ValidHour(c_min, c_max) {
-      const H = new Hours(this.WatchDateSelect, this.type, this.creneauFilters);
-      return new Promise(resolv => {
-        H.getPlageDate2().then(() => {
-          H.checkIsDisabled(c_min, c_max).then(resp => {
-            resolv(resp);
-          });
+      Utilities.LoadCreneauxExterne(param).then(resp => {
+        console.log(" LoadCreneauxExterne ", this.type, " : ", resp);
+        H.buildHour(resp).then(() => {
+          this.list_creneaux = H.list_creneaux;
         });
       });
     }
+    // buildHoursNone() {
+    //   this.list_creneaux = [];
+    //   //console.log("getCurrentBandHour : ", this.getCurrentBandHour);
+    //   const h_min = this.getCurrentBandHour.debut.split(":");
+    //   const h_max = this.getCurrentBandHour.fin.split(":");
+    //   const dateMin = moment(this.WatchDateSelect).set({
+    //     hour: h_min[0],
+    //     minute: h_min[1],
+    //     second: 0
+    //   });
+    //   const dateMax = moment(this.WatchDateSelect).set({
+    //     hour: h_max[0],
+    //     minute: h_max[1],
+    //     second: 0
+    //   });
+    //   const addCreneau = () => {
+    //     const endCreneau = moment(dateMin).add(
+    //       this.currentCreneauType.creneau,
+    //       "minute"
+    //     );
+    //     if (endCreneau.diff(dateMax) <= 0) {
+    //       //const status = await this.ValidHour(dateMin, endCreneau);
+    //       //console.log("status : ", status);
+    //       //const status = false;
+    //       this.ValidHour(dateMin, endCreneau).then(status => {
+    //         var bloc_date = {
+    //           begin: dateMin.format("HH:mm"),
+    //           end: endCreneau.format("HH:mm"),
+    //           $isDisabled: status,
+    //           checkstatus: ""
+    //         };
+    //         if (dateMin.diff(this.WatchDateSelect) > 0 && !status)
+    //           this.list_creneaux.push(bloc_date);
+    //         dateMin.add(this.currentCreneauType.delai_next_creneau, "minute");
+    //         addCreneau();
+    //       });
+    //     } else {
+    //       // Le bascule auto de la date au prochain jour ne fonctionne pas.
+    //       setTimeout(() => {
+    //         // if (this.list_creneaux.length === 0) this.$emit("selectNextDay", 1);
+    //       }, 600);
+    //     }
+    //   };
+    //   addCreneau();
+    // },
+    // ValidHour(c_min, c_max) {
+    //   const H = new Hours(this.WatchDateSelect, this.type, this.creneauFilters);
+    //   return new Promise(resolv => {
+    //     H.getPlageDate2().then(() => {
+    //       H.checkIsDisabled(c_min, c_max).then(resp => {
+    //         resolv(resp);
+    //       });
+    //     });
+    //   });
+    // }
   }
 };
 </script>

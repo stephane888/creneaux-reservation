@@ -1889,17 +1889,17 @@ var Hours_component = Object(componentNormalizer["a" /* default */])(
 )
 
 /* harmony default export */ var creneau_Hours = (Hours_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/calendar.vue?vue&type=template&id=1ce863ec&
-var calendarvue_type_template_id_1ce863ec_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.showCalandar),expression:"showCalandar"}],staticClass:"container-date flat cercle",attrs:{"initCreneau":_vm.initCreneau,"ReInitCreneauLivraison":_vm.ReInitCreneauLivraison,"updateCurrentDateSelect":_vm.updateCurrentDateSelect}},[_c('div',{staticClass:"single-date-picker__calendar-month-header"},[_c('div',{staticClass:"single-date-picker__arrow left",on:{"click":_vm.previowMonth}}),(_vm.calandarTitle != '')?_c('div',{staticClass:"single-date-picker__year",domProps:{"innerHTML":_vm._s(_vm.calandarTitle)}}):_vm._e(),_c('div',{staticClass:"single-date-picker__arrow right",on:{"click":_vm.nextMonth}})]),_c('ul',{staticClass:"d-flex flex-wrap justify-content-center"},[(_vm.showDayLabel)?_c('div',{staticClass:"d-flex flex-wrap justify-content-center w-100"},[_c('li',{staticClass:"date day"},[_vm._v(" Lun ")]),_c('li',{staticClass:"date day"},[_vm._v(" Mar ")]),_c('li',{staticClass:"date day"},[_vm._v(" Mer ")]),_c('li',{staticClass:"date day"},[_vm._v(" Jeu ")]),_c('li',{staticClass:"date day"},[_vm._v(" Ven ")]),_c('li',{staticClass:"date day"},[_vm._v(" Sam ")]),_c('li',{staticClass:"date day"},[_vm._v(" Dim ")])]):_vm._e(),_vm._l((_vm.listCalanderDays),function(date,i){return _c('li',{key:i,class:[
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/calendar.vue?vue&type=template&id=67a654e8&
+var calendarvue_type_template_id_67a654e8_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.showCalandar),expression:"showCalandar"}],staticClass:"container-date flat cercle",attrs:{"initCreneau":_vm.initCreneau,"ReInitCreneauLivraison":_vm.ReInitCreneauLivraison,"updateCurrentDateSelect":_vm.updateCurrentDateSelect}},[_c('div',{staticClass:"single-date-picker__calendar-month-header"},[_c('div',{staticClass:"single-date-picker__arrow left",on:{"click":_vm.previowMonth}}),(_vm.calandarTitle != '')?_c('div',{staticClass:"single-date-picker__year",domProps:{"innerHTML":_vm._s(_vm.calandarTitle)}}):_vm._e(),_c('div',{staticClass:"single-date-picker__arrow right",on:{"click":_vm.nextMonth}})]),_c('ul',{staticClass:"d-flex flex-wrap justify-content-center"},[(_vm.showDayLabel)?_c('div',{staticClass:"d-flex flex-wrap justify-content-center w-100"},[_c('li',{staticClass:"date day"},[_vm._v(" Lun ")]),_c('li',{staticClass:"date day"},[_vm._v(" Mar ")]),_c('li',{staticClass:"date day"},[_vm._v(" Mer ")]),_c('li',{staticClass:"date day"},[_vm._v(" Jeu ")]),_c('li',{staticClass:"date day"},[_vm._v(" Ven ")]),_c('li',{staticClass:"date day"},[_vm._v(" Sam ")]),_c('li',{staticClass:"date day"},[_vm._v(" Dim ")])]):_vm._e(),_vm._l((_vm.listCalanderDays),function(date,i){return _c('li',{key:i,class:[
         'date',
         date.status ? 'actif' : 'disable',
         date.custom_class,
         date.select ? 'selected' : ''
       ],on:{"click":function($event){return _vm.selectDate(date)}}},[_c('span',{domProps:{"innerHTML":_vm._s(date.date)}})])})],2)])}
-var calendarvue_type_template_id_1ce863ec_staticRenderFns = []
+var calendarvue_type_template_id_67a654e8_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App/components/creneau/calendar.vue?vue&type=template&id=1ce863ec&
+// CONCATENATED MODULE: ./src/App/components/creneau/calendar.vue?vue&type=template&id=67a654e8&
 
 // CONCATENATED MODULE: ./src/App/components/creneau/js/calendar.js
 
@@ -2329,7 +2329,10 @@ var calendar_calendar = /*#__PURE__*/function () {
       } // Build calendar.
 
 
-      var cal = new js_calendar(date, appDate, this.type, this.creneauConfigs, this.currentCreneauType, this.creneauFilters);
+      var cal = new js_calendar(date, appDate, this.type, this.creneauConfigs, this.currentCreneauType, this.creneauFilters); // demande la liste des creneaux deja reservés pour le mois encours.
+
+      this.$store.dispatch("getCreneauxExterne", date.format("YYYY-MM")); // demarre la construction des tableaux de dates.
+
       cal.buildDaysOfMonth();
       this.listCalanderDays = cal.dates; // Display current mois
 
@@ -2353,8 +2356,8 @@ var calendarvue_type_style_index_0_lang_scss_ = __webpack_require__("1e11");
 
 var calendar_component = Object(componentNormalizer["a" /* default */])(
   creneau_calendarvue_type_script_lang_js_,
-  calendarvue_type_template_id_1ce863ec_render,
-  calendarvue_type_template_id_1ce863ec_staticRenderFns,
+  calendarvue_type_template_id_67a654e8_render,
+  calendarvue_type_template_id_67a654e8_staticRenderFns,
   false,
   null,
   null,

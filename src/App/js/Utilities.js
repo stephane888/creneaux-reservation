@@ -190,6 +190,26 @@ const Utilities = {
           } else resolv(false);
         });
     });
+  },
+  LoadCreneauxExterne(param) {
+    return new Promise(resolv => {
+      config
+        .post(
+          "https://habeuk.online/shopify-api-rest/load-creneau-reserve",
+          {},
+          {
+            params: param
+          }
+        )
+        .then(resp => {
+          if (resp.data) {
+            resolv(resp.data);
+          } else resolv(false);
+        })
+        .catch(e => {
+          reject(e);
+        });
+    });
   }
 };
 export default Utilities;

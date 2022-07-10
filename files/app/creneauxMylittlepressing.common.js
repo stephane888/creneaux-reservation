@@ -1857,6 +1857,20 @@ var Utilities = {
         } else resolv(false);
       });
     });
+  },
+  LoadCreneauxExterne: function LoadCreneauxExterne(month) {
+    return new Promise(function (resolv) {
+      _components_admin_configs_config__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"].bGet("/shopify-api-rest/load-creneau-reserve", {
+        params: {
+          month: month,
+          shop: shop
+        }
+      }).then(function (resp) {
+        if (resp.data) {
+          resolv(resp.data);
+        } else resolv(false);
+      });
+    });
   }
 };
 /* harmony default export */ __webpack_exports__["a"] = (Utilities); // Les ids de produits.
@@ -5399,7 +5413,12 @@ vue__WEBPACK_IMPORTED_MODULE_6___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_7__
     /**
      */
     isSaveInProd: false,
-    alert_message: null
+    alert_message: null,
+
+    /**
+     * Contient la liste des creneaux (deja utilisés) chargés depuis le serveur distant.
+     */
+    CreneauxExterne: {}
   },
   getters: {
     /**
@@ -5506,6 +5525,9 @@ vue__WEBPACK_IMPORTED_MODULE_6___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_7__
     },
     SETisSaveInProd: function SETisSaveInProd(state, payload) {
       state.isSaveInProd = payload;
+    },
+    SETCreneauxExterne: function SETCreneauxExterne(state, payload) {
+      state.CreneauxExterne[payload.key] = payload.data;
     }
   },
   actions: {
@@ -5549,6 +5571,15 @@ vue__WEBPACK_IMPORTED_MODULE_6___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_7__
     UpdateIsSaveInProd: function UpdateIsSaveInProd(_ref9, status) {
       var commit = _ref9.commit;
       commit("SETisSaveInProd", status);
+    },
+    getCreneauxExterne: function getCreneauxExterne(_ref10, month) {
+      var commit = _ref10.commit;
+      _App_js_Utilities__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].LoadCreneauxExterne(month).then(function (resp) {
+        commit("SETCreneauxExterne", {
+          key: month,
+          data: resp
+        });
+      });
     }
   },
   modules: {}

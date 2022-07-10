@@ -14325,8 +14325,7 @@ var dist_vuex_esm = __webpack_require__("b787");
 // CONCATENATED MODULE: ../map-google-location/src/store/Utilitie.js
 /* harmony default export */ var Utilitie = ({
   getLocation: function getLocation() {
-    var l = typeof localStorage !== "undefined" ? localStorage.getItem("wbu-google-location") : null;
-    return l !== null && l !== undefined ? JSON.parse(l) : "";
+    return "";
   },
   getConfig: function getConfig() {
     if (window.googleConfig) return window.googleConfig;
@@ -15914,14 +15913,14 @@ var creneauvue_type_template_id_f2ca21c8_staticRenderFns = []
 
 // CONCATENATED MODULE: ./src/App/components/creneau/creneau.vue?vue&type=template&id=f2ca21c8&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/Hours.vue?vue&type=template&id=0ae33522&lang=html&
-var Hoursvue_type_template_id_0ae33522_lang_html_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticStyle:{"width":"100%"},attrs:{"triggerBuilder":_vm.triggerBuilder,"TriggerAfterHourBuild":_vm.TriggerAfterHourBuild}},[_c('advanced-select',{attrs:{"disabled":_vm.disabled_creneau,"options":_vm.list_creneaux,"show-labels":false,"searchable":false,"placeholder":"00:00 - 00:00","track-by":"begin","open-direction":"bottom"},scopedSlots:_vm._u([{key:"singleLabel",fn:function(ref){
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/Hours.vue?vue&type=template&id=5a34d7be&lang=html&
+var Hoursvue_type_template_id_5a34d7be_lang_html_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticStyle:{"width":"100%"},attrs:{"triggerBuilder":_vm.triggerBuilder,"TriggerAfterHourBuild":_vm.TriggerAfterHourBuild}},[_c('advanced-select',{attrs:{"disabled":_vm.disabled_creneau,"options":_vm.list_creneaux,"show-labels":false,"searchable":false,"placeholder":"00:00 - 00:00","track-by":"begin","open-direction":"bottom"},scopedSlots:_vm._u([{key:"singleLabel",fn:function(ref){
 var option = ref.option;
 return [_vm._v(" "+_vm._s(option.begin)+" - "+_vm._s(option.end)+" ")]}},{key:"option",fn:function(props){return [_c('span',{attrs:{"checkstatus":props.option.checkstatus}},[_vm._v(" "+_vm._s(props.option.begin)+" - "+_vm._s(props.option.end)+" ")])]}}]),model:{value:(_vm.current_creneau),callback:function ($$v) {_vm.current_creneau=$$v},expression:"current_creneau"}},[_c('template',{slot:"noOptions"},[_c('span',[_vm._v(" Aucun créneau disponible à cette date ")])])],2)],1)}
-var Hoursvue_type_template_id_0ae33522_lang_html_staticRenderFns = []
+var Hoursvue_type_template_id_5a34d7be_lang_html_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App/components/creneau/Hours.vue?vue&type=template&id=0ae33522&lang=html&
+// CONCATENATED MODULE: ./src/App/components/creneau/Hours.vue?vue&type=template&id=5a34d7be&lang=html&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.exec.js
 var modules_es_regexp_exec = __webpack_require__("ac1f");
@@ -22511,7 +22510,7 @@ var Utilities = {
     id: "livraison"
   },
   getLocation: function getLocation() {
-    var l = typeof localStorage !== "undefined" ? localStorage.getItem("wbu-google-location") : null;
+    var l = window.location.host === "habeuk.online" ? null : localStorage.getItem("wbu-google-location");
     return l !== null && l !== undefined ? JSON.parse(l) : "";
   },
   LoadValues: function LoadValues(shop) {
@@ -22525,6 +22524,19 @@ var Utilities = {
         if (resp.data && resp.data.value) {
           resolv(JSON.parse(resp.data.value));
         } else resolv(false);
+      });
+    });
+  },
+  LoadCreneauxExterne: function LoadCreneauxExterne(param) {
+    return new Promise(function (resolv) {
+      configs_config.post("https://habeuk.online/shopify-api-rest/load-creneau-reserve", {}, {
+        params: param
+      }).then(function (resp) {
+        if (resp.data) {
+          resolv(resp.data);
+        } else resolv(false);
+      }).catch(function (e) {
+        reject(e);
       });
     });
   }
@@ -22979,23 +22991,19 @@ var filtre_filtre = /*#__PURE__*/function () {
 
 
 
-
+ //import store from "../../../../store/index";
 
 var filterHours_filterHours = /*#__PURE__*/function () {
   function filterHours(date, type, creneauFilters) {
+    var CreneauxExterne = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
+
     classCallCheck_classCallCheck(this, filterHours);
 
     this.type = type;
     this.date = date;
     this.filterHours = [];
     this.creneauFilters = creneauFilters;
-    /*
-    creneauFilters.forEach(Filter => {
-      if (Filter.type_disabled === "hours") {
-        this.getPlageDate(Filter);
-      }
-    });
-    /**/
+    this.CreneauxExterne = CreneauxExterne;
   }
 
   createClass_createClass(filterHours, [{
@@ -23096,7 +23104,7 @@ var filterHours_filterHours = /*#__PURE__*/function () {
       return rebuildFilter;
     }()
     /**
-     *
+     * permet d'analyser un creneau et de determiner s'il est actif ou pas.
      * @param {*} c_min
      * @param {*} c_max
      * @returns false to not disable creneau and true to disabled this creneau.
@@ -23113,6 +23121,14 @@ var filterHours_filterHours = /*#__PURE__*/function () {
             switch (_context2.prev = _context2.next) {
               case 0:
                 return _context2.abrupt("return", new Promise(function (resolv) {
+                  // desactive les creneaux dont le nombre de reservation est superieur à nombre_max.
+                  var key = c_min.format("HH:mm") + " - " + c_max.format("HH:mm");
+
+                  if (_this.CreneauxExterne.includes(key)) {
+                    resolv(true);
+                  } // si le tableau de filtre est vide, on ne desactive pas.
+
+
                   if (_this.filterHours.length === 0) {
                     resolv(false);
                   }
@@ -23131,8 +23147,7 @@ var filterHours_filterHours = /*#__PURE__*/function () {
                   };
 
                   for (var i in _this.filterHours) {
-                    var filter = _this.filterHours[i]; //console.log("filter : ", filter);
-                    //Verifie les jours de la semaine.
+                    var filter = _this.filterHours[i]; // Verifie les jours de la semaine.
 
                     if (filter.jours_select.length) {
                       if (filter.jours_select.includes(_this.date.day())) {
@@ -23141,12 +23156,13 @@ var filterHours_filterHours = /*#__PURE__*/function () {
                           break;
                         }
                       }
-                    } else {
-                      if (loop(filter) && !filter.dayValid) {
-                        resolv(true);
-                        break;
+                    } //
+                    else {
+                        if (loop(filter) && !filter.dayValid) {
+                          resolv(true);
+                          break;
+                        }
                       }
-                    }
 
                     var ii = parseInt(i) + 1;
 
@@ -23231,20 +23247,28 @@ var hours_Hours = /*#__PURE__*/function () {
       var _buildHour = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
         var _this2 = this;
 
-        var Filter, d, h_min, h_max, dateMin, dateMax;
+        var CreneauxExterne,
+            Filter,
+            d,
+            h_min,
+            h_max,
+            dateMin,
+            dateMax,
+            _args = arguments;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                Filter = new js_filterHours(this.date, this.type, this.creneauFilters);
-                _context.next = 3;
+                CreneauxExterne = _args.length > 0 && _args[0] !== undefined ? _args[0] : [];
+                Filter = new js_filterHours(this.date, this.type, this.creneauFilters, CreneauxExterne);
+                _context.next = 4;
                 return Filter.rebuildFilter();
 
-              case 3:
-                _context.next = 5;
+              case 4:
+                _context.next = 6;
                 return this.getCurrentBandHour();
 
-              case 5:
+              case 6:
                 d = _context.sent;
                 h_min = d.debut.split(":");
                 h_max = d.fin.split(":");
@@ -23283,7 +23307,7 @@ var hours_Hours = /*#__PURE__*/function () {
                   addCreneau();
                 }));
 
-              case 11:
+              case 12:
               case "end":
                 return _context.stop();
             }
@@ -23307,43 +23331,42 @@ var hours_Hours = /*#__PURE__*/function () {
 
 
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -23366,7 +23389,7 @@ var hours_Hours = /*#__PURE__*/function () {
       list_creneaux: []
     };
   },
-  computed: _objectSpread2(_objectSpread2(_objectSpread2({}, Object(vuex_esm["b" /* mapGetters */])(["appDate"])), Object(vuex_esm["c" /* mapState */])(["activeType", "creneauConfigs", "creneauFilters", "creneauType", "creneauCollecte", "creneauLivraison"])), {}, {
+  computed: _objectSpread2(_objectSpread2(_objectSpread2({}, Object(vuex_esm["b" /* mapGetters */])(["appDate"])), Object(vuex_esm["c" /* mapState */])(["activeType", "creneauConfigs", "creneauFilters", "creneauType", "creneauCollecte", "creneauLivraison", "CreneauxExterne"])), {}, {
     WatchDateSelect: function WatchDateSelect() {
       if (this.appDate) {
         if (this.type === js_Utilities.crex1.id) {
@@ -23490,67 +23513,76 @@ var hours_Hours = /*#__PURE__*/function () {
     buildHours: function buildHours() {
       var _this = this;
 
-      console.log("buildHours : ", this.type);
-      var H = new hours(this.WatchDateSelect, this.creneauFilters, this.creneauConfigs, this.currentCreneauType, this.type);
-      H.buildHour().then(function () {
-        _this.list_creneaux = H.list_creneaux;
-      });
-    },
-    buildHoursNone: function buildHoursNone() {
-      var _this2 = this;
+      var H = new hours(this.WatchDateSelect, this.creneauFilters, this.creneauConfigs, this.currentCreneauType, this.type); // Demande la liste des creneaux deja reservés pour le jour.
 
-      this.list_creneaux = []; //console.log("getCurrentBandHour : ", this.getCurrentBandHour);
-
-      var h_min = this.getCurrentBandHour.debut.split(":");
-      var h_max = this.getCurrentBandHour.fin.split(":");
-      var dateMin = moment(this.WatchDateSelect).set({
-        hour: h_min[0],
-        minute: h_min[1],
-        second: 0
-      });
-      var dateMax = moment(this.WatchDateSelect).set({
-        hour: h_max[0],
-        minute: h_max[1],
-        second: 0
-      });
-
-      var addCreneau = function addCreneau() {
-        var endCreneau = moment(dateMin).add(_this2.currentCreneauType.creneau, "minute");
-
-        if (endCreneau.diff(dateMax) <= 0) {
-          //const status = await this.ValidHour(dateMin, endCreneau);
-          //console.log("status : ", status);
-          //const status = false;
-          _this2.ValidHour(dateMin, endCreneau).then(function (status) {
-            var bloc_date = {
-              begin: dateMin.format("HH:mm"),
-              end: endCreneau.format("HH:mm"),
-              $isDisabled: status,
-              checkstatus: ""
-            };
-            if (dateMin.diff(_this2.WatchDateSelect) > 0 && !status) _this2.list_creneaux.push(bloc_date);
-            dateMin.add(_this2.currentCreneauType.delai_next_creneau, "minute");
-            addCreneau();
-          });
-        } else {
-          // Le bascule auto de la date au prochain jour ne fonctionne pas.
-          setTimeout(function () {// if (this.list_creneaux.length === 0) this.$emit("selectNextDay", 1);
-          }, 600);
-        }
+      var param = {
+        month: this.WatchDateSelect.format("YYYY-MM-DD"),
+        shop: basic.isLocalDev ? "my-little-pressing.myshopify.com" : window.ShopId,
+        nombre_creneau: this.creneauConfigs.nombre_res_creneau,
+        type: this.type
       };
-
-      addCreneau();
-    },
-    ValidHour: function ValidHour(c_min, c_max) {
-      var H = new hours(this.WatchDateSelect, this.type, this.creneauFilters);
-      return new Promise(function (resolv) {
-        H.getPlageDate2().then(function () {
-          H.checkIsDisabled(c_min, c_max).then(function (resp) {
-            resolv(resp);
-          });
+      js_Utilities.LoadCreneauxExterne(param).then(function (resp) {
+        console.log(" LoadCreneauxExterne ", _this.type, " : ", resp);
+        H.buildHour(resp).then(function () {
+          _this.list_creneaux = H.list_creneaux;
         });
       });
-    }
+    } // buildHoursNone() {
+    //   this.list_creneaux = [];
+    //   //console.log("getCurrentBandHour : ", this.getCurrentBandHour);
+    //   const h_min = this.getCurrentBandHour.debut.split(":");
+    //   const h_max = this.getCurrentBandHour.fin.split(":");
+    //   const dateMin = moment(this.WatchDateSelect).set({
+    //     hour: h_min[0],
+    //     minute: h_min[1],
+    //     second: 0
+    //   });
+    //   const dateMax = moment(this.WatchDateSelect).set({
+    //     hour: h_max[0],
+    //     minute: h_max[1],
+    //     second: 0
+    //   });
+    //   const addCreneau = () => {
+    //     const endCreneau = moment(dateMin).add(
+    //       this.currentCreneauType.creneau,
+    //       "minute"
+    //     );
+    //     if (endCreneau.diff(dateMax) <= 0) {
+    //       //const status = await this.ValidHour(dateMin, endCreneau);
+    //       //console.log("status : ", status);
+    //       //const status = false;
+    //       this.ValidHour(dateMin, endCreneau).then(status => {
+    //         var bloc_date = {
+    //           begin: dateMin.format("HH:mm"),
+    //           end: endCreneau.format("HH:mm"),
+    //           $isDisabled: status,
+    //           checkstatus: ""
+    //         };
+    //         if (dateMin.diff(this.WatchDateSelect) > 0 && !status)
+    //           this.list_creneaux.push(bloc_date);
+    //         dateMin.add(this.currentCreneauType.delai_next_creneau, "minute");
+    //         addCreneau();
+    //       });
+    //     } else {
+    //       // Le bascule auto de la date au prochain jour ne fonctionne pas.
+    //       setTimeout(() => {
+    //         // if (this.list_creneaux.length === 0) this.$emit("selectNextDay", 1);
+    //       }, 600);
+    //     }
+    //   };
+    //   addCreneau();
+    // },
+    // ValidHour(c_min, c_max) {
+    //   const H = new Hours(this.WatchDateSelect, this.type, this.creneauFilters);
+    //   return new Promise(resolv => {
+    //     H.getPlageDate2().then(() => {
+    //       H.checkIsDisabled(c_min, c_max).then(resp => {
+    //         resolv(resp);
+    //       });
+    //     });
+    //   });
+    // }
+
   }
 });
 // CONCATENATED MODULE: ./src/App/components/creneau/Hours.vue?vue&type=script&lang=js&
@@ -23569,8 +23601,8 @@ var Hoursvue_type_style_index_0_lang_css_ = __webpack_require__("d85a");
 
 var Hours_component = normalizeComponent(
   creneau_Hoursvue_type_script_lang_js_,
-  Hoursvue_type_template_id_0ae33522_lang_html_render,
-  Hoursvue_type_template_id_0ae33522_lang_html_staticRenderFns,
+  Hoursvue_type_template_id_5a34d7be_lang_html_render,
+  Hoursvue_type_template_id_5a34d7be_lang_html_staticRenderFns,
   false,
   null,
   null,
@@ -23579,17 +23611,17 @@ var Hours_component = normalizeComponent(
 )
 
 /* harmony default export */ var creneau_Hours = (Hours_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/calendar.vue?vue&type=template&id=1ce863ec&
-var calendarvue_type_template_id_1ce863ec_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.showCalandar),expression:"showCalandar"}],staticClass:"container-date flat cercle",attrs:{"initCreneau":_vm.initCreneau,"ReInitCreneauLivraison":_vm.ReInitCreneauLivraison,"updateCurrentDateSelect":_vm.updateCurrentDateSelect}},[_c('div',{staticClass:"single-date-picker__calendar-month-header"},[_c('div',{staticClass:"single-date-picker__arrow left",on:{"click":_vm.previowMonth}}),(_vm.calandarTitle != '')?_c('div',{staticClass:"single-date-picker__year",domProps:{"innerHTML":_vm._s(_vm.calandarTitle)}}):_vm._e(),_c('div',{staticClass:"single-date-picker__arrow right",on:{"click":_vm.nextMonth}})]),_c('ul',{staticClass:"d-flex flex-wrap justify-content-center"},[(_vm.showDayLabel)?_c('div',{staticClass:"d-flex flex-wrap justify-content-center w-100"},[_c('li',{staticClass:"date day"},[_vm._v(" Lun ")]),_c('li',{staticClass:"date day"},[_vm._v(" Mar ")]),_c('li',{staticClass:"date day"},[_vm._v(" Mer ")]),_c('li',{staticClass:"date day"},[_vm._v(" Jeu ")]),_c('li',{staticClass:"date day"},[_vm._v(" Ven ")]),_c('li',{staticClass:"date day"},[_vm._v(" Sam ")]),_c('li',{staticClass:"date day"},[_vm._v(" Dim ")])]):_vm._e(),_vm._l((_vm.listCalanderDays),function(date,i){return _c('li',{key:i,class:[
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a7d58c8e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/creneau/calendar.vue?vue&type=template&id=7c3736d0&
+var calendarvue_type_template_id_7c3736d0_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.showCalandar),expression:"showCalandar"}],staticClass:"container-date flat cercle",attrs:{"initCreneau":_vm.initCreneau,"ReInitCreneauLivraison":_vm.ReInitCreneauLivraison,"updateCurrentDateSelect":_vm.updateCurrentDateSelect}},[_c('div',{staticClass:"single-date-picker__calendar-month-header"},[_c('div',{staticClass:"single-date-picker__arrow left",on:{"click":_vm.previowMonth}}),(_vm.calandarTitle != '')?_c('div',{staticClass:"single-date-picker__year",domProps:{"innerHTML":_vm._s(_vm.calandarTitle)}}):_vm._e(),_c('div',{staticClass:"single-date-picker__arrow right",on:{"click":_vm.nextMonth}})]),_c('ul',{staticClass:"d-flex flex-wrap justify-content-center"},[(_vm.showDayLabel)?_c('div',{staticClass:"d-flex flex-wrap justify-content-center w-100"},[_c('li',{staticClass:"date day"},[_vm._v(" Lun ")]),_c('li',{staticClass:"date day"},[_vm._v(" Mar ")]),_c('li',{staticClass:"date day"},[_vm._v(" Mer ")]),_c('li',{staticClass:"date day"},[_vm._v(" Jeu ")]),_c('li',{staticClass:"date day"},[_vm._v(" Ven ")]),_c('li',{staticClass:"date day"},[_vm._v(" Sam ")]),_c('li',{staticClass:"date day"},[_vm._v(" Dim ")])]):_vm._e(),_vm._l((_vm.listCalanderDays),function(date,i){return _c('li',{key:i,class:[
         'date',
         date.status ? 'actif' : 'disable',
         date.custom_class,
         date.select ? 'selected' : ''
       ],on:{"click":function($event){return _vm.selectDate(date)}}},[_c('span',{domProps:{"innerHTML":_vm._s(date.date)}})])})],2)])}
-var calendarvue_type_template_id_1ce863ec_staticRenderFns = []
+var calendarvue_type_template_id_7c3736d0_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App/components/creneau/calendar.vue?vue&type=template&id=1ce863ec&
+// CONCATENATED MODULE: ./src/App/components/creneau/calendar.vue?vue&type=template&id=7c3736d0&
 
 // CONCATENATED MODULE: ./src/App/components/creneau/js/calendar.js
 
@@ -24019,7 +24051,8 @@ var calendar_calendar = /*#__PURE__*/function () {
       } // Build calendar.
 
 
-      var cal = new js_calendar(date, appDate, this.type, this.creneauConfigs, this.currentCreneauType, this.creneauFilters);
+      var cal = new js_calendar(date, appDate, this.type, this.creneauConfigs, this.currentCreneauType, this.creneauFilters); // demarre la construction des tableaux de dates.
+
       cal.buildDaysOfMonth();
       this.listCalanderDays = cal.dates; // Display current mois
 
@@ -24043,8 +24076,8 @@ var calendarvue_type_style_index_0_lang_scss_ = __webpack_require__("1e11");
 
 var calendar_component = normalizeComponent(
   creneau_calendarvue_type_script_lang_js_,
-  calendarvue_type_template_id_1ce863ec_render,
-  calendarvue_type_template_id_1ce863ec_staticRenderFns,
+  calendarvue_type_template_id_7c3736d0_render,
+  calendarvue_type_template_id_7c3736d0_staticRenderFns,
   false,
   null,
   null,

@@ -1,17 +1,12 @@
 import filtre from "./filtre";
+//import store from "../../../../store/index";
 class filterHours {
-  constructor(date, type, creneauFilters) {
+  constructor(date, type, creneauFilters, CreneauxExterne = []) {
     this.type = type;
     this.date = date;
     this.filterHours = [];
     this.creneauFilters = creneauFilters;
-    /*
-    creneauFilters.forEach(Filter => {
-      if (Filter.type_disabled === "hours") {
-        this.getPlageDate(Filter);
-      }
-    });
-    /**/
+    this.CreneauxExterne = CreneauxExterne;
   }
 
   getPlageDate(Filter) {
@@ -74,14 +69,19 @@ class filterHours {
     }
   }
   /**
-   *
+   * permet d'analyser un creneau et de determiner s'il est actif ou pas.
    * @param {*} c_min
    * @param {*} c_max
    * @returns false to not disable creneau and true to disabled this creneau.
    */
   async checkIsDisabled(c_min, c_max) {
-    //console.log("this.filterHours : ", this.filterHours);
     return new Promise(resolv => {
+      // desactive les creneaux dont le nombre de reservation est superieur à nombre_max.
+      const key = c_min.format("HH:mm") + " - " + c_max.format("HH:mm");
+      if (this.CreneauxExterne.includes(key)) {
+        resolv(true);
+      }
+      // si le tableau de filtre est vide, on ne desactive pas.
       if (this.filterHours.length === 0) {
         resolv(false);
       }
@@ -101,11 +101,9 @@ class filterHours {
           return false;
         }
       };
-
       for (const i in this.filterHours) {
         const filter = this.filterHours[i];
-        //console.log("filter : ", filter);
-        //Verifie les jours de la semaine.
+        // Verifie les jours de la semaine.
         if (filter.jours_select.length) {
           if (filter.jours_select.includes(this.date.day())) {
             if (loop(filter) && !filter.dayValid) {
@@ -113,7 +111,9 @@ class filterHours {
               break;
             }
           }
-        } else {
+        }
+        //
+        else {
           if (loop(filter) && !filter.dayValid) {
             resolv(true);
             break;
