@@ -1,29 +1,29 @@
+import Filtres from './Filtres'
 if (window.moment) {
-  var moment = window.moment;
+  var moment = window.moment
 }
-import Filtres from "./Filtres";
 
 const FFilter = {
   jour_desactivee: [],
-  type_creneau: "",
+  type_creneau: '',
   app_date: {},
-  //app_date_current: {},
+  // app_date_current: {},
   datetime_min: {},
   filters: [],
   /**
    * @param date object moment
    * Return true si la date doit etre desactivée, et false sinon.
    */
-  ValidationDay: function(date) {
-    var self = this;
+  ValidationDay: function (date) {
+    const self = this
     if (
       !(self.app_date && self.app_date.isValid()) ||
       !(self.datetime_min && self.datetime_min.isValid())
     ) {
-      throw "La variable self.app_date|self.datetime_min est requise";
+      throw 'La variable self.app_date|self.datetime_min est requise'
     }
     return new Promise(resolvEnd => {
-      var index_day = date.day();
+      const index_day = date.day()
       /*
       if (self.type_creneau === "livraison")
         console.log(
@@ -38,13 +38,13 @@ const FFilter = {
         );
       /**/
       // Desactivation du jour avant la date min.
-      if (date.diff(self.app_date, "minutes") < 0) {
-        resolvEnd({ status: true, custom_class: "default-disable-app-date" });
+      if (date.diff(self.app_date, 'minutes') < 0) {
+        resolvEnd({ status: true, custom_class: 'default-disable-app-date' })
       }
       //
       else if (
-        date.diff(self.datetime_min, "days") < 0 &&
-        self.type_creneau === "livraison"
+        date.diff(self.datetime_min, 'days') < 0 &&
+        self.type_creneau === 'livraison'
       ) {
         /*
         console.log(
@@ -52,38 +52,36 @@ const FFilter = {
           date.diff(self.datetime_min, "days")
         );
         /**/
-        resolvEnd({ status: true, custom_class: "default-disable-livraison" });
+        resolvEnd({ status: true, custom_class: 'default-disable-livraison' })
       }
       // Desactivation du jour en function des jours selectionnées.
       else if (
         self.jour_desactivee.length &&
         self.jour_desactivee.includes(index_day)
       ) {
-        resolvEnd({ status: true, custom_class: "jour_desactivee" });
-        return;
+        resolvEnd({ status: true, custom_class: 'jour_desactivee' })
       }
       // Desactivation du jour en function des filtres.
       else if (self.filters.length === 0) {
-        resolvEnd({ status: false, custom_class: "filter empty" });
-        return;
+        resolvEnd({ status: false, custom_class: 'filter empty' })
       } else {
-        resolvEnd(self.DisableDateByfilter(date));
+        resolvEnd(self.DisableDateByfilter(date))
       }
-    });
+    })
   },
-  DisableDateByfilter: function(date) {
-    var self = this;
+  DisableDateByfilter: function (date) {
+    const self = this
     return new Promise(resolvEnd => {
-      var index_day = date.day();
-      var app_date_current_string_en = date.format("YYYY-MM-DD");
-      var app_date_current_en = moment(
+      const index_day = date.day()
+      const app_date_current_string_en = date.format('YYYY-MM-DD')
+      const app_date_current_en = moment(
         app_date_current_string_en,
-        "YYYY-MM-DD"
-      );
+        'YYYY-MM-DD'
+      )
       // Desactivation du jour en function des filtres.
-      const CustomLoop = function(i = 0) {
+      const CustomLoop = function (i = 0) {
         return new Promise(resolv => {
-          const filter = self.filters[i];
+          const filter = self.filters[i]
           if (filter.h_debut.length === 0 && filter.h_fin.length === 0) {
             Filtres.loopAttribFilter(
               i,
@@ -91,32 +89,30 @@ const FFilter = {
               app_date_current_en,
               app_date_current_string_en,
               index_day,
-              "date"
+              'date'
             ).then(result => {
-              result.custom_class = "filtre-" + i + " " + result.verificateur;
-              resolv(result);
-            });
+              result.custom_class = 'filtre-' + i + ' ' + result.verificateur
+              resolv(result)
+            })
           } else {
-            resolv({ status: false, i: i, custom_class: "nothing" });
+            resolv({ status: false, i: i, custom_class: 'nothing' })
           }
-        });
-      };
+        })
+      }
       const execution = (i = 0) => {
         CustomLoop(i).then(result => {
-          var ii = result.i + 1;
+          const ii = result.i + 1
           if (result.status) {
-            resolvEnd(result);
-            return;
+            resolvEnd(result)
           } else if (self.filters[ii]) {
-            execution(ii);
+            execution(ii)
           } else {
-            resolvEnd(result);
-            return;
+            resolvEnd(result)
           }
-        });
-      };
-      execution();
-    });
+        })
+      }
+      execution()
+    })
   }
-};
-export default FFilter;
+}
+export default FFilter

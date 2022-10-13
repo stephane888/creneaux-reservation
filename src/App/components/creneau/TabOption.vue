@@ -18,17 +18,17 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 export default {
-  name: "SelectionHoraire",
+  name: 'SelectionHoraire',
 
   computed: {
-    ...mapState(["creneauType"])
+    ...mapState(['creneauType'])
   },
   methods: {
-    SelectTypeTab(index) {
-      this.$store.dispatch("SelectTypeTab", index);
+    SelectTypeTab (index) {
+      this.$store.dispatch('SelectTypeTab', index)
     }
   }
-};
+}
 </script>

@@ -54,145 +54,146 @@
 </template>
 
 <script>
-import Vue from "vue";
-import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
-import queryString from "query-string";
+import Vue from 'vue'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import queryString from 'query-string'
+import Utilities from './js/Utilities'
+import config from './components/admin/configs/config'
+import { mapGetters, mapState } from 'vuex'
+import store from 'map-google-location/src/store/index'
 
 //
 /**
  * Cette approche ne limite pas BootstrapVue pour ce composant, mais il sera charge si ce composant est demandé.
  */
 // Make BootstrapVue available throughout your project
-Vue.use(BootstrapVue);
+Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
-Vue.use(IconsPlugin);
-import Utilities from "./js/Utilities";
-import config from "./components/admin/configs/config";
-import { mapGetters, mapState } from "vuex";
-import store from "map-google-location/src/store/index";
-const query = queryString.parse(window.location.search);
+Vue.use(IconsPlugin)
+const query = queryString.parse(window.location.search)
 export default {
-  name: "Admin",
+  name: 'Admin',
   props: {
     //
   },
   components: {
-    CreneauBase: () => import("./components/admin/Forms/CreneauBase"),
-    CreneauFilters: () => import("./components/admin/Forms/CreneauFilters"),
-    TypeLivraison: () => import("./components/admin/Forms/TypeLivraion"),
+    CreneauBase: () => import('./components/admin/Forms/CreneauBase'),
+    CreneauFilters: () => import('./components/admin/Forms/CreneauFilters'),
+    TypeLivraison: () => import('./components/admin/Forms/TypeLivraion'),
     MapGoogle: () =>
-      import("map-google-location/src/components/admin/manage-config.vue")
+      import('map-google-location/src/components/admin/manage-config.vue')
   },
-  data() {
+  data () {
     return {
       query: queryString.parse(window.location.search),
-      shop: config.isLocalDev ? "creneaux-reservation.kksa" : query.shop,
+      shop: config.isLocalDev ? 'creneaux-reservation.kksa' : query.shop,
       configsMap: store.state.configs
-    };
+    }
   },
-  mounted() {
+  mounted () {
     this.initDefaultConfig().then(() => {
-      this.$store.dispatch("loadPreProdConfigs", this.shop);
+      this.$store.dispatch('loadPreProdConfigs', this.shop)
       setTimeout(() => {
         this.$refs.mapGoogle.LoadValues().then(resp => {
-          if (resp.value) this.configsMap = JSON.parse(resp.value);
-        });
-      }, 3000);
-    });
+          if (resp.value) this.configsMap = JSON.parse(resp.value)
+        })
+      }, 3000)
+    })
   },
   computed: {
     ...mapState([
-      "creneauConfigs",
-      "creneauFilters",
-      "creneauType",
-      "isSaveInProd"
+      'creneauConfigs',
+      'creneauFilters',
+      'creneauType',
+      'isSaveInProd'
     ]),
-    ...mapGetters(["joursActive"])
+    ...mapGetters(['joursActive'])
   },
   methods: {
-    async resetDatas() {
-      this.$store.dispatch("ResetDatas");
+    async resetDatas () {
+      this.$store.dispatch('ResetDatas')
     },
-    async BuildDays() {
-      if (this.creneauConfigs.days && this.creneauConfigs.days.length == 0)
+    async BuildDays () {
+      if (this.creneauConfigs.days && this.creneauConfigs.days.length == 0) {
         Utilities.JourInfos().forEach(item => {
-          this.creneauConfigs.days.push(item);
-        });
+          this.creneauConfigs.days.push(item)
+        })
+      }
     },
     /**
      * --
      */
-    SaveMetafieldConfig() {
+    SaveMetafieldConfig () {
       const datas = [
-        config.AddMetafield("creneauConfigs", this.creneauConfigs),
-        config.AddMetafield("creneauFilters", this.creneauFilters),
-        config.AddMetafield("creneauType", this.creneauType),
-        config.AddMetafield("localisation", this.configsMap)
-      ];
-      config.SfPost("metafields", datas).then(() => {
-        this.$store.dispatch("UpdateIsSaveInProd", true);
-        this.SavePreProdConfig(true);
-      });
+        config.AddMetafield('creneauConfigs', this.creneauConfigs),
+        config.AddMetafield('creneauFilters', this.creneauFilters),
+        config.AddMetafield('creneauType', this.creneauType),
+        config.AddMetafield('localisation', this.configsMap)
+      ]
+      config.SfPost('metafields', datas).then(() => {
+        this.$store.dispatch('UpdateIsSaveInProd', true)
+        this.SavePreProdConfig(true)
+      })
     },
 
     /**
      * Re-initialise la configuration et l'enregistre en DB pour les tests.
      */
-    async ResetConfigTest() {
+    async ResetConfigTest () {
       if (
-        window.location.host === "localhost:8080" &&
-        typeof localStorage !== "undefined"
+        window.location.host === 'localhost:8080' &&
+        typeof localStorage !== 'undefined'
       ) {
-        localStorage.removeItem("creneauConfigs");
-        localStorage.removeItem("creneauFilters");
-        localStorage.removeItem("creneauType");
+        localStorage.removeItem('creneauConfigs')
+        localStorage.removeItem('creneauFilters')
+        localStorage.removeItem('creneauType')
       }
-      //load default datas
-      await this.resetDatas();
-      await this.loadDefaultDatas();
+      // load default datas
+      await this.resetDatas()
+      await this.loadDefaultDatas()
     },
     /**
      *
      */
-    SavePreProdConfig(status) {
+    SavePreProdConfig (status) {
       const params = {
         creneauConfigs: this.creneauConfigs,
         creneauFilters: this.creneauFilters,
         creneauType: this.creneauType,
-        status: status //isSaveInProd
-      };
+        status: status // isSaveInProd
+      }
       config
-        .bPost("/shopify-api-rest/save-configs", params, {
-          params: { key: "creneaux-configs", shop: this.shop }
+        .bPost('/shopify-api-rest/save-configs', params, {
+          params: { key: 'creneaux-configs', shop: this.shop }
         })
         .then(() => {
           if (!status) {
-            this.$store.dispatch("UpdateIsSaveInProd", false);
+            this.$store.dispatch('UpdateIsSaveInProd', false)
           }
-        });
-      this.$refs.mapGoogle.SavePreProdConfig();
+        })
+      this.$refs.mapGoogle.SavePreProdConfig()
     },
-    async loadDefaultDatas() {
-      await this.BuildDays();
+    async loadDefaultDatas () {
+      await this.BuildDays()
     },
     /**
      * Permet d'initialiser la configuration par default
      */
-    initDefaultConfig() {
+    initDefaultConfig () {
       return new Promise(resolv => {
         if (config.isLocalDev) {
           config
-            .post("/shopify-api-rest/init-local", {
+            .post('/shopify-api-rest/init-local', {
               origin: this.shop
             })
             .then(r => {
-              resolv(r);
-            });
-        } else resolv();
-      });
+              resolv(r)
+            })
+        } else resolv()
+      })
     }
   }
-};
+}
 </script>
 
 <style lang="scss">

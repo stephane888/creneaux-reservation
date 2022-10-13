@@ -102,29 +102,29 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 export default {
-  name: "CreneauBase",
+  name: 'CreneauBase',
   props: {},
   components: {
     //
   },
-  data() {
-    return {};
+  data () {
+    return {}
   },
-  mounted() {
+  mounted () {
     //
   },
   watch: {
     //
   },
   computed: {
-    ...mapState(["creneauConfigs"])
+    ...mapState(['creneauConfigs'])
   },
   methods: {
     //
   }
-};
+}
 </script>
 <style lang="scss" scoped></style>
 

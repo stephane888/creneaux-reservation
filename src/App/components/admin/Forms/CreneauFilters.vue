@@ -324,10 +324,10 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import Utilities from "../../../js/Utilities";
+import { mapState } from 'vuex'
+// import Utilities from '../../../js/Utilities'
 export default {
-  name: "CreneauBase",
+  name: 'CreneauBase',
   props: {
     joursActive: {
       type: Array,
@@ -337,96 +337,96 @@ export default {
   components: {
     //
   },
-  data() {
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const minDate = new Date(today);
+  data () {
+    const now = new Date()
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    const minDate = new Date(today)
     return {
-      //filters: [Utilities.filter()],
+      // filters: [Utilities.filter()],
       min_date: minDate,
       type_disabled_options: [
-        { text: "Desactive les plages d'heures", value: "hours" },
-        { text: "Desactive les jours", value: "days" }
+        { text: "Desactive les plages d'heures", value: 'hours' },
+        { text: 'Desactive les jours', value: 'days' }
       ]
-    };
+    }
   },
-  mounted() {
+  mounted () {
     //
   },
   watch: {
     //
   },
   computed: {
-    ...mapState(["creneauFilters"]),
-    joursActiveOptions() {
-      var result = [];
+    ...mapState(['creneauFilters']),
+    joursActiveOptions () {
+      const result = []
       this.joursActive.forEach(jour => {
-        result.push({ text: jour.text, value: jour.indice });
-      });
-      return result;
+        result.push({ text: jour.text, value: jour.indice })
+      })
+      return result
     }
   },
   methods: {
-    FilterAddDatedisabled(date_desactivee) {
-      date_desactivee.push({ date: "" });
+    FilterAddDatedisabled (date_desactivee) {
+      date_desactivee.push({ date: '' })
     },
-    FilterAddPeriodedisabled(periode_disabled) {
-      periode_disabled.push({ debut: "", fin: "" });
+    FilterAddPeriodedisabled (periode_disabled) {
+      periode_disabled.push({ debut: '', fin: '' })
     },
-    FilterAddSelectJour() {
+    FilterAddSelectJour () {
       //
     },
-    SelectAllDate(check, i) {
+    SelectAllDate (check, i) {
       if (this.creneauFilters[i]) {
-        this.creneauFilters[i].jours_select = [];
-        if (check === "all") {
+        this.creneauFilters[i].jours_select = []
+        if (check === 'all') {
           this.joursActive.forEach(item => {
-            this.creneauFilters[i].jours_select.push(item.indice);
-          });
+            this.creneauFilters[i].jours_select.push(item.indice)
+          })
         }
       }
     },
-    SelectOneDate(i) {
+    SelectOneDate (i) {
       if (this.creneauFilters[i]) {
         if (
           this.creneauFilters[i].jours_select.length >= this.joursActive.length
         ) {
-          this.creneauFilters[i].jourmode = "all";
+          this.creneauFilters[i].jourmode = 'all'
         } else {
-          this.creneauFilters[i].jourmode = "manuel";
+          this.creneauFilters[i].jourmode = 'manuel'
         }
       }
     },
-    FilterRemoveDateDesactivee(i, dates) {
+    FilterRemoveDateDesactivee (i, dates) {
       if (dates[i]) {
-        dates.splice(i, 1);
+        dates.splice(i, 1)
       }
     },
-    FilterRemovePeriodeDesactivee(i, dates) {
+    FilterRemovePeriodeDesactivee (i, dates) {
       if (dates[i]) {
-        dates.splice(i, 1);
+        dates.splice(i, 1)
       }
     },
-    FilterMinDateFin(min_date) {
+    FilterMinDateFin (min_date) {
       if (!min_date) {
-        return this.min_date;
+        return this.min_date
       }
-      return min_date;
+      return min_date
     },
-    FilterAdd() {
-      //this.creneauFilters.push(Utilities.filter());
-      this.$store.dispatch("SetFilterAdd");
+    FilterAdd () {
+      // this.creneauFilters.push(Utilities.filter());
+      this.$store.dispatch('SetFilterAdd')
     },
-    FilterRemove(i) {
+    FilterRemove (i) {
       if (this.creneauFilters[i]) {
-        this.creneauFilters.splice(i, 1);
+        this.creneauFilters.splice(i, 1)
       }
     },
-    FilterAddZone(zones) {
-      zones.push({ text: "", value: "" });
+    FilterAddZone (zones) {
+      zones.push({ text: '', value: '' })
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped></style>
 

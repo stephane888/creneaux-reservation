@@ -1,25 +1,25 @@
 module.exports = {
   root: true,
   env: {
-    node: true,
-  },
-  parserOptions: {
-    parser: "babel-eslint",
-  },
-  rules: {
-    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    node: true
   },
   extends: [
-    "plugin:vue/strongly-recommended",
-    "plugin:prettier/recommended",
-    "@vue/prettier",
+    'plugin:vue/essential',
+    '@vue/standard'
   ],
-  /*
-  extends: process.env.NODE_ENV === "production" ? ["plugin:vue/essential", "eslint:recommended"]:[
-    "plugin:vue/strongly-recommended",
-    "plugin:prettier/recommended",
-    "@vue/prettier",
-  ],
-  /**/
-};
+  parserOptions: {
+    ecmaVersion: 2020
+  },
+  rules: {
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'promise/param-names': 'off',
+    'vue/multi-word-component-names': 'off',
+    eqeqeq: ['off', 'always'],
+    camelcase: 'off',
+    'new-cap': 'off',
+    'brace-style': 'off',
+    'prefer-promise-reject-errors': 'off'
+
+  }
+}

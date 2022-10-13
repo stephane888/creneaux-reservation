@@ -43,14 +43,14 @@
 </template>
 
 <script>
-import AppTitle from "./components/creneau/AppTitle.vue";
-import InlineDescription from "./components/creneau/InlineDescription.vue";
-import TabOption from "./components/creneau/TabOption.vue";
-import mapGoogle from "./components/creneau/map-google.vue";
-import creneau from "./components/creneau/creneau.vue";
-import config from "./components/admin/configs/config";
+import AppTitle from './components/creneau/AppTitle.vue'
+import InlineDescription from './components/creneau/InlineDescription.vue'
+import TabOption from './components/creneau/TabOption.vue'
+import mapGoogle from './components/creneau/map-google.vue'
+import creneau from './components/creneau/creneau.vue'
+import config from './components/admin/configs/config'
 export default {
-  name: "App",
+  name: 'App',
   props: {
     /**
      * Date du jour.
@@ -61,40 +61,40 @@ export default {
     }
   },
   components: { TabOption, InlineDescription, AppTitle, mapGoogle, creneau },
-  mounted() {
-    //const d = moment("4-08-2021 18:00:00", "DD-MM-YYYY HH:mm:ss");
-    const d = moment(this.dateDuJour, "DD-MM-YYYY HH:mm:ss");
-    //const d = moment();
-    if (d._isValid) this.$store.dispatch("SetDateDuJour", d);
+  mounted () {
+    // const d = moment("4-08-2021 18:00:00", "DD-MM-YYYY HH:mm:ss");
+    const d = moment(this.dateDuJour, 'DD-MM-YYYY HH:mm:ss')
+    // const d = moment();
+    if (d._isValid) this.$store.dispatch('SetDateDuJour', d)
   },
   methods: {
-    testProduct() {
-      config.SfGet("metafields");
-      config.SfGet("metafields", {
-        entity: "products",
-        entityId: "7142363988137"
-      });
+    testProduct () {
+      config.SfGet('metafields')
+      config.SfGet('metafields', {
+        entity: 'products',
+        entityId: '7142363988137'
+      })
       const datas = [
-        config.AddMetafield("test0", moment().unix()),
-        config.AddMetafield("test1", {
+        config.AddMetafield('test0', moment().unix()),
+        config.AddMetafield('test1', {
           title: "heure d'ici",
           unixtime: moment().unix()
         })
-      ];
+      ]
       config
-        .SfPost("metafields", datas, {
-          entity: "products",
-          entityId: "7142363988137"
+        .SfPost('metafields', datas, {
+          entity: 'products',
+          entityId: '7142363988137'
         })
         .then(() => {
-          config.SfGet("metafields", {
-            entity: "products",
-            entityId: "7142363988137"
-          });
-        });
+          config.SfGet('metafields', {
+            entity: 'products',
+            entityId: '7142363988137'
+          })
+        })
     }
   }
-};
+}
 </script>
 <style lang="scss">
 @import "./scss/default.scss";

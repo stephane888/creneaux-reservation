@@ -41,13 +41,13 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
-import hours from "./Hours.vue";
-import calendar from "./calendar.vue";
-import SvgCalandar from "./SvgCalandar.vue";
-
+import { mapState } from 'vuex'
+import hours from './Hours.vue'
+import calendar from './calendar.vue'
+import SvgCalandar from './SvgCalandar.vue'
+import moment from 'moment'
 export default {
-  name: "Creneau",
+  name: 'Creneau',
   props: {
     title: {
       type: String,
@@ -55,7 +55,7 @@ export default {
     },
     classes: {
       type: String,
-      default: "rond-left"
+      default: 'rond-left'
     },
     type: {
       type: String,
@@ -67,10 +67,10 @@ export default {
     calendar,
     SvgCalandar
   },
-  data() {
+  data () {
     return {
       showCalandar: false
-    };
+    }
   },
 
   /**
@@ -78,29 +78,29 @@ export default {
    */
 
   computed: {
-    ...mapState(["creneauCollecte", "creneauLivraison", "creneauConfigs"]),
+    ...mapState(['creneauCollecte', 'creneauLivraison', 'creneauConfigs']),
     appDateDisplay: {
-      get() {
-        if (this.type === "livraison" && this.creneauLivraison.date_string) {
-          return moment(this.creneauLivraison.date_string, "YYYY-MM-DD")
-            .locale("fr")
-            .format("dddd Do MMMM");
+      get () {
+        if (this.type === 'livraison' && this.creneauLivraison.date_string) {
+          return moment(this.creneauLivraison.date_string, 'YYYY-MM-DD')
+            .locale('fr')
+            .format('dddd Do MMMM')
         } else if (
-          this.type === "collecte" &&
+          this.type === 'collecte' &&
           this.creneauCollecte.date_string
         ) {
-          return moment(this.creneauCollecte.date_string, "YYYY-MM-DD")
-            .locale("fr")
-            .format("dddd Do MMMM");
+          return moment(this.creneauCollecte.date_string, 'YYYY-MM-DD')
+            .locale('fr')
+            .format('dddd Do MMMM')
         }
-        return "";
+        return ''
       }
     }
   },
   methods: {
-    selectNextDay() {
-      this.$refs.calendar.selectSpecifiqDateActive();
+    selectNextDay () {
+      this.$refs.calendar.selectSpecifiqDateActive()
     }
   }
-};
+}
 </script>

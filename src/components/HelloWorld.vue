@@ -1,48 +1,48 @@
 <script>
 export default {
-  name: "HelloWorld",
+  name: 'HelloWorld',
   render: function (createElement) {
-    var el = createElement;
-    var val = [
+    const el = createElement
+    const val = [
       el(
-        "h2",
-        { style: { background: "light", fontSize: "2rem" } },
-        "je le sais"
+        'h2',
+        { style: { background: 'light', fontSize: '2rem' } },
+        'je le sais'
       ),
 
-      el("span", { style: { color: "olive", fontSize: "3rem" } }, [
+      el('span', { style: { color: 'olive', fontSize: '3rem' } }, [
         el(
-          "div",
+          'div',
           {
             style: {
-              padding: "20px",
-              "margin-bottom": "100px",
-              color: "pink",
-              background: "#39f",
-            },
+              padding: '20px',
+              'margin-bottom': '100px',
+              color: 'pink',
+              background: '#39f'
+            }
           },
-          "somme text to do"
+          'somme text to do'
         ),
         el(
-          "strong",
+          'strong',
           {
             style: {
-              display: "block",
-              padding: "10px",
-              color: "green",
-              background: "olive",
-            },
+              display: 'block',
+              padding: '10px',
+              color: 'green',
+              background: 'olive'
+            }
           },
-          "somme text to do"
-        ),
-      ]),
-    ];
-    return el("div", val);
+          'somme text to do'
+        )
+      ])
+    ]
+    return el('div', val)
   },
   props: {
-    msg: String,
-  },
-};
+    msg: String
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

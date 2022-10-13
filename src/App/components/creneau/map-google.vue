@@ -29,24 +29,24 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import AppPopUpMap from "map-google-location/src/AppPopUpMap.vue";
+import { mapState } from 'vuex'
+import AppPopUpMap from 'map-google-location/src/AppPopUpMap.vue'
 export default {
-  name: "MapGoogle",
+  name: 'MapGoogle',
   components: {
     AppPopUpMap
   },
   computed: {
-    ...mapState(["location"])
+    ...mapState(['location'])
   },
   methods: {
-    openPopupMap() {
-      this.$refs.apppopupmap.openModal();
+    openPopupMap () {
+      this.$refs.apppopupmap.openModal()
     },
-    update_location(location) {
-      console.log(" update_location : ", location);
-      this.$store.dispatch("setLocation", location);
+    update_location (location) {
+      console.log(' update_location : ', location)
+      this.$store.dispatch('setLocation', location)
     }
   }
-};
+}
 </script>

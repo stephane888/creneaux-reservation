@@ -196,12 +196,12 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 //
-//import magentoSynchroListSites from "./ListSites.vue";
-import Utilities from "../../../js/Utilities";
+// import magentoSynchroListSites from "./ListSites.vue";
+import Utilities from '../../../js/Utilities'
 export default {
-  name: "TypeLivraion",
+  name: 'TypeLivraion',
   props: {
     joursActive: {
       type: Array,
@@ -211,53 +211,53 @@ export default {
   components: {
     //
   },
-  data() {
+  data () {
     return {
       products: [
-        { text: "32583132807228", value: "32583132807228" },
-        { text: "32583132839996", value: "32583132839996" },
-        { text: "32583132872764", value: "32583132872764" }
+        { text: '32583132807228', value: '32583132807228' },
+        { text: '32583132839996', value: '32583132839996' },
+        { text: '32583132872764', value: '32583132872764' }
       ]
-    };
+    }
   },
-  mounted() {
+  mounted () {
     //
   },
   watch: {
     //
   },
   computed: {
-    ...mapState(["creneauType"]),
-    joursActiveOptions() {
-      var result = [];
+    ...mapState(['creneauType']),
+    joursActiveOptions () {
+      const result = []
       this.joursActive.forEach(jour => {
-        result.push({ text: jour.text, value: jour.indice });
-      });
-      return result;
+        result.push({ text: jour.text, value: jour.indice })
+      })
+      return result
     }
   },
   methods: {
-    OverrideAdd(i) {
+    OverrideAdd (i) {
       if (this.creneauType[i]) {
         this.creneauType[i].delais_jour.push(
           Utilities.getDefaultDelaiOverride()
-        );
+        )
       }
     },
-    DeleteOverride(i, ii) {
+    DeleteOverride (i, ii) {
       if (this.creneauType[i] && this.creneauType[i].delais_jour[ii]) {
-        this.creneauType[i].delais_jour.splice(ii, 1);
+        this.creneauType[i].delais_jour.splice(ii, 1)
       }
     },
-    getJour(indice) {
+    getJour (indice) {
       for (const i in this.joursActive) {
         if (this.joursActive[i].indice === indice) {
-          return this.joursActive[i].text;
+          return this.joursActive[i].text
         }
       }
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped></style>

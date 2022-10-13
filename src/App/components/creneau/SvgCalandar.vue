@@ -20,6 +20,6 @@
 
 <script>
 export default {
-  name: "SvgCalandar"
-};
+  name: 'SvgCalandar'
+}
 </script>

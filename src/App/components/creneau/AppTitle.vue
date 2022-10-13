@@ -1,22 +1,22 @@
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
 export default {
-  name: "AppTitle",
-  render: function(createElement) {
-    let elt = createElement;
-    var content = this.creneauConfigs.title;
-    var attr = {
+  name: 'AppTitle',
+  render: function (createElement) {
+    const elt = createElement
+    const content = this.creneauConfigs.title
+    const attr = {
       class: {
-        "text-left": true,
-        "font-weight-bold": true
+        'text-left': true,
+        'font-weight-bold': true
       }
-    };
-    var titre = [elt("h1", attr, content)];
-    return elt("div", titre);
+    }
+    const titre = [elt('h1', attr, content)]
+    return elt('div', titre)
   },
   computed: {
-    ...mapState(["creneauConfigs"])
+    ...mapState(['creneauConfigs'])
   }
-};
+}
 </script>
