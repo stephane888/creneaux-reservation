@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>600</x>
+      <y>110</y>
+      <w>260</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>re_contruction_du_creneau
+--
+bg=orange
+layer=3</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>120</x>
+      <y>250</y>
+      <w>260</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>rebuild_creneau 
+--
+bg=orange
+layer=3</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
