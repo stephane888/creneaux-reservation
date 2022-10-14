@@ -10,7 +10,7 @@
 <script>
 import AdminCreneau from './App/AdminCreneau.vue'
 function loadScript (src) {
-  return new Promise((resolv) => {
+  return new Promise(resolv => {
     const s = document.createElement('script')
     s.setAttribute('src', src)
     s.onload = function () {
