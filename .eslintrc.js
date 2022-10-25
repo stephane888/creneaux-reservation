@@ -1,25 +1,26 @@
 module.exports = {
-  root: true,
-  env: {
-    node: true
-  },
+  // @source https://eslint.vuejs.org/rules/
   extends: [
-    'plugin:vue/essential',
-    '@vue/standard'
+    "plugin:prettier-vue/recommended",
+    "plugin:vue/essential",
+    "plugin:vue/strongly-recommended",
+    "plugin:vue/recommended",
   ],
-  parserOptions: {
-    ecmaVersion: 2020
-  },
-  rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'promise/param-names': 'off',
-    'vue/multi-word-component-names': 'off',
-    eqeqeq: ['off', 'always'],
-    camelcase: 'off',
-    'new-cap': 'off',
-    'brace-style': 'off',
-    'prefer-promise-reject-errors': 'off'
+  root: true,
 
-  }
-}
+  env: {
+    node: true,
+  },
+
+  parserOptions: {
+    parser: "@babel/eslint-parser",
+  },
+
+  rules: {
+    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "vue/html-self-closing": 0,
+    "vue/singleline-html-element-content-newline": 0,
+    "vue/max-attributes-per-line": 0,
+  },
+};
