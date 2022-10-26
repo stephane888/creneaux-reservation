@@ -1,10 +1,10 @@
 <template>
   <div class="first-row">
     <div
-      class="option btn"
-      :class="item.active ? 'option-badge' : ''"
       v-for="(item, index) in creneauType"
       :key="index"
+      class="option btn"
+      :class="item.active ? 'option-badge' : ''"
       @click="SelectTypeTab(index)"
     >
       <div class="mx-auto h2 titre-tab">
@@ -18,17 +18,17 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 export default {
-  name: 'SelectionHoraire',
+  name: "SelectionHoraire",
 
   computed: {
-    ...mapState(['creneauType'])
+    ...mapState(["creneauType"]),
   },
   methods: {
-    SelectTypeTab (index) {
-      this.$store.dispatch('SelectTypeTab', index)
-    }
-  }
-}
+    SelectTypeTab(index) {
+      this.$store.dispatch("SelectTypeTab", index);
+    },
+  },
+};
 </script>

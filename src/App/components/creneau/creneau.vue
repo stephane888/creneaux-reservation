@@ -5,7 +5,7 @@
   >
     <div class="title-creneau h2">{{ title }}</div>
     <div
-      class=" d-flex justify-content-between justify-content-md-start line-creneau h1 "
+      class="d-flex justify-content-between justify-content-md-start line-creneau h1"
     >
       <hours :type="type" @selectNextDay="selectNextDay"></hours>
 
@@ -17,18 +17,18 @@
       </i>
     </div>
 
-    <p @click="showCalandar = !showCalandar" class="cursor-pointer">
+    <p class="cursor-pointer" @click="showCalandar = !showCalandar">
       {{ appDateDisplay }}
     </p>
     <div
-      class="over-container-date"
       v-if="showCalandar"
+      class="over-container-date"
       @click="showCalandar = !showCalandar"
     ></div>
     <calendar
+      ref="calendar"
       :show-calandar="showCalandar"
       :type="type"
-      ref="calendar"
     ></calendar>
     <!--
     <pre v-if="type == 'livraison'">
@@ -41,36 +41,36 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
-import hours from './Hours.vue'
-import calendar from './calendar.vue'
-import SvgCalandar from './SvgCalandar.vue'
-import moment from 'moment'
+import { mapState } from "vuex";
+import hours from "./Hours.vue";
+import calendar from "./calendar.vue";
+import SvgCalandar from "./SvgCalandar.vue";
+import moment from "moment";
 export default {
-  name: 'Creneau',
-  props: {
-    title: {
-      type: String,
-      required: true
-    },
-    classes: {
-      type: String,
-      default: 'rond-left'
-    },
-    type: {
-      type: String,
-      required: true
-    }
-  },
+  name: "CreneauComponent",
   components: {
     hours,
     calendar,
-    SvgCalandar
+    SvgCalandar,
   },
-  data () {
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+    classes: {
+      type: String,
+      default: "rond-left",
+    },
+    type: {
+      type: String,
+      required: true,
+    },
+  },
+  data() {
     return {
-      showCalandar: false
-    }
+      showCalandar: false,
+    };
   },
 
   /**
@@ -78,29 +78,29 @@ export default {
    */
 
   computed: {
-    ...mapState(['creneauCollecte', 'creneauLivraison', 'creneauConfigs']),
+    ...mapState(["creneauCollecte", "creneauLivraison", "creneauConfigs"]),
     appDateDisplay: {
-      get () {
-        if (this.type === 'livraison' && this.creneauLivraison.date_string) {
-          return moment(this.creneauLivraison.date_string, 'YYYY-MM-DD')
-            .locale('fr')
-            .format('dddd Do MMMM')
+      get() {
+        if (this.type === "livraison" && this.creneauLivraison.date_string) {
+          return moment(this.creneauLivraison.date_string, "YYYY-MM-DD")
+            .locale("fr")
+            .format("dddd Do MMMM");
         } else if (
-          this.type === 'collecte' &&
+          this.type === "collecte" &&
           this.creneauCollecte.date_string
         ) {
-          return moment(this.creneauCollecte.date_string, 'YYYY-MM-DD')
-            .locale('fr')
-            .format('dddd Do MMMM')
+          return moment(this.creneauCollecte.date_string, "YYYY-MM-DD")
+            .locale("fr")
+            .format("dddd Do MMMM");
         }
-        return ''
-      }
-    }
+        return "";
+      },
+    },
   },
   methods: {
-    selectNextDay () {
-      this.$refs.calendar.selectSpecifiqDateActive()
-    }
-  }
-}
+    selectNextDay() {
+      this.$refs.calendar.selectSpecifiqDateActive();
+    },
+  },
+};
 </script>

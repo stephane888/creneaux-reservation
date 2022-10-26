@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div>
     <b-form>
       <div class="ctn-action-button d-flex justify-content-end mb-2">
@@ -98,11 +98,11 @@
                         :id="'checkbox-jr-' + index"
                         v-model="filter.jourmode"
                         size="sm"
+                        value="all"
+                        unchecked-value="manuel"
                         @change="
                           SelectAllDate($event, index, filter.jours_select)
                         "
-                        value="all"
-                        unchecked-value="manuel"
                       >
                         Tous les jours
                       </b-form-checkbox>
@@ -111,10 +111,10 @@
                       <b-form-checkbox-group
                         :id="'checkbox-jour-group-' + index"
                         v-model="filter.jours_select"
-                        @change="SelectOneDate(index)"
                         :options="joursActiveOptions"
                         :aria-describedby="ariaDescribedby"
                         size="sm"
+                        @change="SelectOneDate(index)"
                       ></b-form-checkbox-group>
                     </b-form-group>
                   </b-form-group>
@@ -123,8 +123,8 @@
                 <!-- -->
 
                 <h3
-                  class="border-bottom pb-2 mb-2 mt-4"
                   v-if="filter.type_disabled === 'days'"
+                  class="border-bottom pb-2 mb-2 mt-4"
                 >
                   Desactivation des jours
                 </h3>
@@ -152,10 +152,10 @@
                     <div>
                       <b-row>
                         <b-col
-                          sm="4"
-                          class="d-flex align-items-center"
                           v-for="(date, in_dd) in filter.date_desactivee"
                           :key="in_dd"
+                          sm="4"
+                          class="d-flex align-items-center"
                         >
                           <b-input-group size="sm" class="mb-2">
                             <b-form-datepicker
@@ -210,9 +210,9 @@
                     <div>
                       <b-row>
                         <b-col
-                          sm="6"
                           v-for="(date, in_pd) in filter.periode_desactivee"
                           :key="in_pd"
+                          sm="6"
                         >
                           <b-input-group size="sm" class="mb-2">
                             <b-form-datepicker
@@ -313,14 +313,14 @@ import { mapState } from "vuex";
 // import Utilities from '../../../js/Utilities'
 export default {
   name: "CreneauBase",
+  components: {
+    //
+  },
   props: {
     joursActive: {
       type: Array,
       required: true,
     },
-  },
-  components: {
-    //
   },
   data() {
     const now = new Date();
@@ -334,12 +334,6 @@ export default {
         { text: "Desactive les jours", value: "days" },
       ],
     };
-  },
-  mounted() {
-    //
-  },
-  watch: {
-    //
   },
   computed: {
     ...mapState(["creneauFilters"]),

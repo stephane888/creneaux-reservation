@@ -53,7 +53,7 @@ import calendar from "./js/calendar.js";
 import Utilities from "../../js/Utilities";
 import moment from "moment";
 export default {
-  name: "Calendar",
+  name: "CalendarComponent",
   props: {
     showCalandar: {
       type: Boolean,

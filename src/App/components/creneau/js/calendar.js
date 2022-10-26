@@ -1,11 +1,11 @@
-import Filtre from './filtre'
-import moment from 'moment'
+import Filtre from "./filtre";
+import moment from "moment";
 /**
  * On fournit une date et le script retourne la liste des jours du mois encours.
  * Doc : https://github.com/niinpatel/calendarHTML-Javascript/blob/master/scripts.js
  */
 class calendar {
-  constructor (
+  constructor(
     date,
     appDate,
     type,
@@ -13,53 +13,53 @@ class calendar {
     currentCreneauType,
     creneauFilters
   ) {
-    this.currentDate = moment(date)
+    this.currentDate = moment(date);
     // indice du mois. [ Entre 0 et 11 ];
-    this.currentMonth = this.currentDate.month()
+    this.currentMonth = this.currentDate.month();
     // indice du mois. [ Number ]
-    this.currentYear = this.currentDate.year()
+    this.currentYear = this.currentDate.year();
     //
-    this.dates = []
+    this.dates = [];
     /**
      * Date de l'application sans les les heures.
      * elle egalment le role de date de reference. (tous les dates en dessous sont desactivées);
      */
-    this.dateMonth = moment(appDate).set({ hour: 0, minute: 0, second: 0 })
-    this.creneauConfigs = creneauConfigs
-    this.currentCreneauType = currentCreneauType
-    this.creneauFilters = creneauFilters
+    this.dateMonth = moment(appDate).set({ hour: 0, minute: 0, second: 0 });
+    this.creneauConfigs = creneauConfigs;
+    this.currentCreneauType = currentCreneauType;
+    this.creneauFilters = creneauFilters;
     /**
      * C'est deux cas possible: collecte ou livraison.
      */
-    this.type = type
+    this.type = type;
     /**
      *
      */
-    this.CountDecallageAppliquer = 0
-    this.currentCreneauType.delai = parseInt(this.currentCreneauType.delai)
+    this.CountDecallageAppliquer = 0;
+    this.currentCreneauType.delai = parseInt(this.currentCreneauType.delai);
   }
 
   /**
    * -
    */
-  buildDaysOfMonth () {
+  buildDaysOfMonth() {
     // On s'assure que le mois a au moins un jour valide, sinon on passe au mois suivant.
     // ()=>{}
-    const nombreSemaine = 6
+    const nombreSemaine = 6;
     const premierJourMois = moment().set({
       year: this.currentYear,
       month: this.currentMonth,
       date: 1,
       hour: 0,
       minute: 0,
-      second: 0
-    })
+      second: 0,
+    });
 
-    let indiceDuPremierJourDumois = premierJourMois.day()
-    if (!indiceDuPremierJourDumois) indiceDuPremierJourDumois = 7
+    let indiceDuPremierJourDumois = premierJourMois.day();
+    if (!indiceDuPremierJourDumois) indiceDuPremierJourDumois = 7;
     // Permet de mettre "premierJourMois" sur le premier jour dans le calendrier.
-    premierJourMois.add(-indiceDuPremierJourDumois, 'day')
-    indiceDuPremierJourDumois--
+    premierJourMois.add(-indiceDuPremierJourDumois, "day");
+    indiceDuPremierJourDumois--;
 
     // Nombre de jour dans le mois.
     const daysInMonth =
@@ -71,20 +71,20 @@ class calendar {
           date: 32,
           hour: 0,
           minute: 0,
-          second: 0
+          second: 0,
         })
-        .date()
+        .date();
     const DernierJourMois = moment().set({
       year: this.currentYear,
       month: this.currentMonth,
       date: daysInMonth,
       hour: 0,
       minute: 0,
-      second: 0
-    })
-    let date = 1
+      second: 0,
+    });
+    let date = 1;
     for (let i = 0; i < nombreSemaine; i++) {
-      if (date > daysInMonth) break
+      if (date > daysInMonth) break;
       for (let j = 0; j < 7; j++) {
         const filter = new Filtre(
           this.dateMonth,
@@ -92,26 +92,26 @@ class calendar {
           this.creneauConfigs,
           this.currentCreneauType,
           this.creneauFilters
-        )
+        );
         // Si nous sommes sur la premiere semaine, et que l'indice du premier jour de mois est inferieur à la valeur encours,
         // On ajoute ces dates comme etant desactivées.
         if (i === 0 && j < indiceDuPremierJourDumois) {
-          const pre_jour = premierJourMois.add(1, 'day')
-          filter.ValidationDay(pre_jour).then(stateValidationDay => {
-            this.dates.push(this.DisabledBydelai(stateValidationDay))
-          })
+          const pre_jour = premierJourMois.add(1, "day");
+          filter.ValidationDay(pre_jour).then((stateValidationDay) => {
+            this.dates.push(this.DisabledBydelai(stateValidationDay));
+          });
         } else if (date > daysInMonth) {
           // On commence avec les jours du prochain mois.
-          const last_jour = DernierJourMois.add(1, 'day')
-          filter.ValidationDay(last_jour).then(stateValidationDay => {
-            this.dates.push(this.DisabledBydelai(stateValidationDay))
-          })
+          const last_jour = DernierJourMois.add(1, "day");
+          filter.ValidationDay(last_jour).then((stateValidationDay) => {
+            this.dates.push(this.DisabledBydelai(stateValidationDay));
+          });
         } else {
-          const next_jour = premierJourMois.add(1, 'day')
-          filter.ValidationDay(next_jour).then(stateValidationDay => {
-            this.dates.push(this.DisabledBydelai(stateValidationDay))
-          })
-          date++
+          const next_jour = premierJourMois.add(1, "day");
+          filter.ValidationDay(next_jour).then((stateValidationDay) => {
+            this.dates.push(this.DisabledBydelai(stateValidationDay));
+          });
+          date++;
         }
       }
     }
@@ -124,18 +124,18 @@ class calendar {
    * @param {*} stateValidationDay
    * @returns
    */
-  DisabledBydelai (stateValidationDay) {
-    if (this.type === 'livraison') {
+  DisabledBydelai(stateValidationDay) {
+    if (this.type === "livraison") {
       if (
         this.CountDecallageAppliquer < this.currentCreneauType.delai &&
         stateValidationDay.status
       ) {
-        this.CountDecallageAppliquer++
-        stateValidationDay.status = false
-        stateValidationDay.custom_class = 'default-disable-delai'
+        this.CountDecallageAppliquer++;
+        stateValidationDay.status = false;
+        stateValidationDay.custom_class = "default-disable-delai";
       }
     }
-    return stateValidationDay
+    return stateValidationDay;
   }
 }
-export default calendar
+export default calendar;

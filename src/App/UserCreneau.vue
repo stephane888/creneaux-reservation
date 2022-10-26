@@ -58,6 +58,7 @@ import shopifyCart from "./js/shopifyCart";
 import moment from "moment";
 export default {
   name: "App",
+  components: { TabOption, InlineDescription, AppTitle, mapGoogle, creneau },
   props: {
     /**
      * Date du jour.
@@ -67,23 +68,12 @@ export default {
       required: true,
     },
   },
-  components: { TabOption, InlineDescription, AppTitle, mapGoogle, creneau },
   data() {
     return {
       CreneauTypeProductId: null, // permet de reduire l'execution que si un nouveau elment est choisit.
       initAuto: true, // permet de differentier le comportement auto et le click de l'utilisateur.(true => action auto ).
     };
   },
-  mounted() {
-    // const d = moment("4-08-2021 18:00:00", "DD-MM-YYYY HH:mm:ss");
-    const d = moment(this.dateDuJour, "DD-MM-YYYY HH:mm:ss");
-    // const d = moment();
-    if (d._isValid) this.$store.dispatch("SetDateDuJour", d);
-  },
-  /**
-   * Date affiché.
-   */
-
   computed: {
     ...mapState(["creneauType", "activeType", "alert_message"]),
     appDateDisplay: {
@@ -111,6 +101,16 @@ export default {
       return this.creneauType[this.activeType];
     },
   },
+  mounted() {
+    // const d = moment("4-08-2021 18:00:00", "DD-MM-YYYY HH:mm:ss");
+    const d = moment(this.dateDuJour, "DD-MM-YYYY HH:mm:ss");
+    // const d = moment();
+    if (d._isValid) this.$store.dispatch("SetDateDuJour", d);
+  },
+  /**
+   * Date affiché.
+   */
+
   methods: {
     async initManageCart(currentCreneauType) {
       if (this.CreneauTypeProductId !== currentCreneauType.id) {

@@ -1,34 +1,34 @@
-import filtre from './filtre'
-import moment from 'moment'
+import filtre from "./filtre";
+import moment from "moment";
 // import store from "../../../../store/index";
 class filterHours {
-  constructor (date, type, creneauFilters, CreneauxExterne = []) {
-    this.type = type
-    this.date = date
-    this.filterHours = []
-    this.creneauFilters = creneauFilters
-    this.CreneauxExterne = CreneauxExterne
+  constructor(date, type, creneauFilters, CreneauxExterne = []) {
+    this.type = type;
+    this.date = date;
+    this.filterHours = [];
+    this.creneauFilters = creneauFilters;
+    this.CreneauxExterne = CreneauxExterne;
   }
 
-  getPlageDate (Filter) {
-    this.dateBegin = this.date
-    if (Filter.h_debut != '' && Filter.h_fin != '') {
-      const d = Filter.h_debut.split(':')
-      const f = Filter.h_fin.split(':')
+  getPlageDate(Filter) {
+    this.dateBegin = this.date;
+    if (Filter.h_debut != "" && Filter.h_fin != "") {
+      const d = Filter.h_debut.split(":");
+      const f = Filter.h_fin.split(":");
       if (d[1] && f[1]) {
         this.filterHours.push({
           Filter,
           dateBegin: moment(this.date).set({
             hour: d[0],
             minute: d[1],
-            second: 0
+            second: 0,
           }),
           dateEnd: moment(this.date).set({
             hour: f[0],
             minute: f[1],
-            second: 0
-          })
-        })
+            second: 0,
+          }),
+        });
       }
     }
   }
@@ -36,22 +36,22 @@ class filterHours {
   /**
    * On reconstruit le filtre afin d'ameliorer les perfomances.
    */
-  async rebuildFilter () {
+  async rebuildFilter() {
     for (const i in this.creneauFilters) {
-      const Filter = this.creneauFilters[i]
-      if (Filter.type_disabled === 'hours') {
-        if (Filter.h_debut != '' && Filter.h_fin != '') {
+      const Filter = this.creneauFilters[i];
+      if (Filter.type_disabled === "hours") {
+        if (Filter.h_debut != "" && Filter.h_fin != "") {
           const filterDate = new filtre(
             this.date,
             this.type,
             [],
             [],
             [Filter],
-            'hours'
-          )
-          const dayValid = await filterDate.ValidationDay(this.date)
-          const d = Filter.h_debut.split(':')
-          const f = Filter.h_fin.split(':')
+            "hours"
+          );
+          const dayValid = await filterDate.ValidationDay(this.date);
+          const d = Filter.h_debut.split(":");
+          const f = Filter.h_fin.split(":");
           if (d[1] && f[1]) {
             this.filterHours.push({
               ...Filter,
@@ -59,14 +59,14 @@ class filterHours {
               dateBegin: moment(this.date).set({
                 hour: d[0],
                 minute: d[1],
-                second: 0
+                second: 0,
               }),
               dateEnd: moment(this.date).set({
                 hour: f[0],
                 minute: f[1],
-                second: 0
-              })
-            })
+                second: 0,
+              }),
+            });
           }
         }
       }
@@ -79,58 +79,58 @@ class filterHours {
    * @param {*} c_max
    * @returns false to not disable creneau and true to disabled this creneau.
    */
-  async checkIsDisabled (c_min, c_max) {
-    return new Promise(resolv => {
+  async checkIsDisabled(c_min, c_max) {
+    return new Promise((resolv) => {
       // desactive les creneaux dont le nombre de reservation est superieur à nombre_max.
-      const key = c_min.format('HH:mm') + ' - ' + c_max.format('HH:mm')
+      const key = c_min.format("HH:mm") + " - " + c_max.format("HH:mm");
       if (this.CreneauxExterne.includes(key)) {
-        resolv(true)
+        resolv(true);
       }
       // si le tableau de filtre est vide, on ne desactive pas.
       if (this.filterHours.length === 0) {
-        resolv(false)
+        resolv(false);
       }
 
-      const loop = filter => {
-        const c_min_1 = c_min.diff(filter.dateBegin, 'minute')
-        const c_min_2 = c_min.diff(filter.dateEnd, 'minute')
-        const c_max_1 = c_max.diff(filter.dateBegin, 'minute')
-        const c_max_2 = c_max.diff(filter.dateEnd, 'minute')
+      const loop = (filter) => {
+        const c_min_1 = c_min.diff(filter.dateBegin, "minute");
+        const c_min_2 = c_min.diff(filter.dateEnd, "minute");
+        const c_max_1 = c_max.diff(filter.dateBegin, "minute");
+        const c_max_2 = c_max.diff(filter.dateEnd, "minute");
         if (
           (c_min_1 >= 0 && c_min_2 < 0) ||
           (c_max_1 > 0 && c_max_2 <= 0) ||
           (c_min_2 < 0 && c_max_2 > 0)
         ) {
-          return true
+          return true;
         } else {
-          return false
+          return false;
         }
-      }
+      };
       for (const i in this.filterHours) {
-        const filter = this.filterHours[i]
+        const filter = this.filterHours[i];
         // Verifie les jours de la semaine.
         if (filter.jours_select.length) {
           if (filter.jours_select.includes(this.date.day())) {
             if (loop(filter) && !filter.dayValid) {
-              resolv(true)
-              break
+              resolv(true);
+              break;
             }
           }
         }
         //
         else {
           if (loop(filter) && !filter.dayValid) {
-            resolv(true)
-            break
+            resolv(true);
+            break;
           }
         }
-        const ii = parseInt(i) + 1
+        const ii = parseInt(i) + 1;
         if (this.filterHours.length === ii) {
-          resolv(false)
+          resolv(false);
         }
       }
-    })
+    });
   }
 }
 
-export default filterHours
+export default filterHours;

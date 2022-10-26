@@ -1,7 +1,7 @@
 <!--
   La construction des heures est declenché par app_date_utilisable_string;
 -->
-<template lang="html">
+<template>
   <div
     style="width: 100%"
     :triggerBuilder="triggerBuilder"
@@ -41,15 +41,15 @@ import Hours from "./js/hours";
 import { AjaxBasic } from "wbuutilities";
 import moment from "moment";
 export default {
-  name: "Hours",
+  name: "HoursComponent",
+  components: {
+    AdvancedSelect,
+  },
   props: {
     type: {
       type: String,
       required: true,
     },
-  },
-  components: {
-    AdvancedSelect,
   },
   data() {
     return {
