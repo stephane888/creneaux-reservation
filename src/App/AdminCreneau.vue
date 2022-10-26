@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="container my-4 app-admin border py-4 px-5">
     <h3>Configuration de l'application</h3>
+
     <div class="my-4">
       <b-tabs content-class="my-3">
         <b-tab title="Configuration de base" active>
@@ -19,7 +20,7 @@
           ></TypeLivraison>
         </b-tab>
         <b-tab title="Configuration de la map">
-          <MapGoogle ref="mapGoogle" :configs="configsMap"></MapGoogle>
+          <MapGoogle ref="mapGoogle"></MapGoogle>
         </b-tab>
       </b-tabs>
       <div class="d-flex justify-content-end">
@@ -100,14 +101,28 @@ export default {
     ...mapGetters(["joursActive"]),
   },
   mounted() {
-    this.initDefaultConfig().then(() => {
-      this.$store.dispatch("loadPreProdConfigs", this.shop);
-      setTimeout(() => {
-        this.$refs.mapGoogle.LoadValues().then((resp) => {
-          if (resp.value) this.configsMap = JSON.parse(resp.value);
-        });
-      }, 3000);
-    });
+    this.$store.dispatch("UpdateMapConfigs", this.configsMap);
+    this.initDefaultConfig()
+      .then(() => {
+        this.$store.dispatch("loadPreProdConfigs", this.shop);
+        this.$refs.mapGoogle
+          .LoadValues()
+          .then((resp) => {
+            console.log("reponse de manage-config : ", resp);
+            if (resp.value) {
+              let res_value = JSON.parse(resp.value);
+              this.$store.dispatch("UpdateMapConfigs", res_value);
+              //this.configsMap = JSON.parse(resp.value);
+            }
+          })
+          .catch((er) => {
+            console.log("Erreur de chargement de la configuration par defaut");
+            this.$store.dispatch("UpdateMapConfigs", configsMap);
+          });
+      })
+      .catch((er) => {
+        console.log("Erreur init");
+      });
   },
 
   methods: {
@@ -181,7 +196,7 @@ export default {
      * Permet d'initialiser la configuration par default
      */
     initDefaultConfig() {
-      return new Promise((resolv) => {
+      return new Promise((resolv, reject) => {
         if (config.isLocalDev) {
           config
             .post("/shopify-api-rest/init-local", {
@@ -189,6 +204,9 @@ export default {
             })
             .then((r) => {
               resolv(r);
+            })
+            .catch((er) => {
+              reject();
             });
         } else resolv();
       });

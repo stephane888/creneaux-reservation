@@ -5,6 +5,9 @@ import moment from "moment";
 Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
+    //configuration par defaut de la map
+    configs: {},
+
     // -------------------------------------------------------------
     //  Configuration par defaut.
     // -------------------------------------------------------------
@@ -145,6 +148,9 @@ export default new Vuex.Store({
     SETisSaveInProd: (state, payload) => {
       state.isSaveInProd = payload;
     },
+    SET_MAP_CONFIGS(state, payload) {
+      state.configs = payload;
+    },
   },
   actions: {
     SelectTypeTab({ commit }, payload) {
@@ -178,6 +184,10 @@ export default new Vuex.Store({
     },
     UpdateIsSaveInProd({ commit }, status) {
       commit("SETisSaveInProd", status);
+    },
+    UpdateMapConfigs({ commit }, datas) {
+      console.log("updatemaps", datas);
+      commit("SET_MAP_CONFIGS", datas);
     },
   },
   modules: {},
