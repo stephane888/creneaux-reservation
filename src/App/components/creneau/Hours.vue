@@ -3,7 +3,7 @@
 -->
 <template lang="html">
   <div
-    style="width:100%"
+    style="width: 100%"
     :triggerBuilder="triggerBuilder"
     :TriggerAfterHourBuild="TriggerAfterHourBuild"
   >
@@ -34,190 +34,190 @@
 </template>
 
 <script>
-import AdvancedSelect from 'vue-multiselect'
-import { mapState, mapGetters } from 'vuex'
-import Utilities from '../../js/Utilities'
-import Hours from './js/hours'
-import { AjaxBasic } from 'wbuutilities'
-import moment from 'moment'
+import AdvancedSelect from "vue-multiselect";
+import { mapState, mapGetters } from "vuex";
+import Utilities from "../../js/Utilities";
+import Hours from "./js/hours";
+import { AjaxBasic } from "wbuutilities";
+import moment from "moment";
 export default {
-  name: 'Hours',
+  name: "Hours",
   props: {
     type: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   components: {
-    AdvancedSelect
+    AdvancedSelect,
   },
-  data () {
+  data() {
     return {
-      current_creneau: '',
+      current_creneau: "",
       disabled_creneau: false,
-      list_creneaux: []
-    }
+      list_creneaux: [],
+    };
   },
   computed: {
-    ...mapGetters(['appDate']),
+    ...mapGetters(["appDate"]),
     ...mapState([
-      'activeType',
-      'creneauConfigs',
-      'creneauFilters',
-      'creneauType',
-      'creneauCollecte',
-      'creneauLivraison',
-      'CreneauxExterne'
+      "activeType",
+      "creneauConfigs",
+      "creneauFilters",
+      "creneauType",
+      "creneauCollecte",
+      "creneauLivraison",
+      "CreneauxExterne",
     ]),
-    WatchDateSelect () {
+    WatchDateSelect() {
       if (this.appDate) {
         if (this.type === Utilities.crex1.id) {
-          const crex1H = moment(this.creneauCollecte.date_string, 'YYYY-MM-DD')
+          const crex1H = moment(this.creneauCollecte.date_string, "YYYY-MM-DD");
           if (
-            this.appDate.format('YYYY-MM-DD') ==
+            this.appDate.format("YYYY-MM-DD") ==
             this.creneauCollecte.date_string
           ) {
-            crex1H.set(this.getHours)
+            crex1H.set(this.getHours);
           }
-          return crex1H
+          return crex1H;
         }
         if (this.type === Utilities.crex2.id) {
           const crex2H = moment(
             this.creneauLivraison.date_string,
-            'YYYY-MM-DD'
-          ).set(this.getHours)
-          return crex2H
+            "YYYY-MM-DD"
+          ).set(this.getHours);
+          return crex2H;
         }
       }
-      return null
+      return null;
     },
     /**
      * On recupere l'heure en function de la date encours ou en function de l'heure de creneau collecte ( Cas de la livraison ).
      */
-    getHours () {
+    getHours() {
       if (this.type === Utilities.crex1.id) {
         return {
           hour: this.appDate.hour(),
           minute:
             this.appDate.minute() +
             parseInt(this.creneauConfigs.deccalage_creneau_depart),
-          second: this.appDate.second()
-        }
+          second: this.appDate.second(),
+        };
       }
       if (this.type === Utilities.crex2.id && this.creneauCollecte.date) {
         return {
           hour: this.creneauCollecte.date.hour(),
           minute: this.creneauCollecte.date.minute(),
-          second: this.creneauCollecte.date.second()
-        }
+          second: this.creneauCollecte.date.second(),
+        };
       }
-      return null
+      return null;
     },
     /**
      * -
      */
-    currentCreneauType () {
-      return this.creneauType[this.activeType]
+    currentCreneauType() {
+      return this.creneauType[this.activeType];
     },
     /**
      * Recuperer la plage de date du jour.
      */
-    getCurrentBandHour () {
+    getCurrentBandHour() {
       if (
         this.creneauConfigs.days &&
         this.WatchDateSelect &&
         this.WatchDateSelect._isValid
       ) {
         for (const i in this.creneauConfigs.days) {
-          const d = this.creneauConfigs.days[i]
+          const d = this.creneauConfigs.days[i];
           if (d.indice === this.WatchDateSelect.day()) {
-            return d
+            return d;
           }
         }
       }
-      return null
+      return null;
     },
     /**
      * Declanche le debut de la construction
      */
-    triggerBuilder () {
+    triggerBuilder() {
       if (this.getCurrentBandHour) {
         // empty data.
-        this.emptyValue()
+        this.emptyValue();
         //
-        this.buildHours()
-        return this.getCurrentBandHour
+        this.buildHours();
+        return this.getCurrentBandHour;
       }
-      return null
+      return null;
     },
     /**
      * Action apres la construction du formaulaire.
      */
-    TriggerAfterHourBuild () {
+    TriggerAfterHourBuild() {
       if (this.list_creneaux.length) {
-        this.selectFirtCreneau()
-        return this.list_creneaux
+        this.selectFirtCreneau();
+        return this.list_creneaux;
       }
-      return null
-    }
+      return null;
+    },
   },
   watch: {
-    current_creneau (val) {
+    current_creneau(val) {
       // console.log("watch current_creneau : ", this.type, " :: ", val);
-      this.$store.dispatch('SetSelectHour', this.BuildPayload(val))
-    }
+      this.$store.dispatch("SetSelectHour", this.BuildPayload(val));
+    },
   },
   methods: {
-    selectFirtCreneau () {
-      this.current_creneau = this.list_creneaux[0]
+    selectFirtCreneau() {
+      this.current_creneau = this.list_creneaux[0];
     },
-    emptyValue () {
-      this.current_creneau = false
-      this.list_creneaux = []
+    emptyValue() {
+      this.current_creneau = false;
+      this.list_creneaux = [];
     },
-    BuildPayload (val) {
+    BuildPayload(val) {
       if (!val) {
         return {
           type: this.type,
           hour: val,
-          date: val
-        }
+          date: val,
+        };
       }
-      const endCrex = val.begin.split(':')
+      const endCrex = val.begin.split(":");
       return {
         type: this.type,
         hour: val,
         date: moment(this.WatchDateSelect).set({
           hour: endCrex[0],
           minute: endCrex[1],
-          secodne: 0
-        })
-      }
+          secodne: 0,
+        }),
+      };
     },
-    buildHours () {
+    buildHours() {
       const H = new Hours(
         this.WatchDateSelect,
         this.creneauFilters,
         this.creneauConfigs,
         this.currentCreneauType,
         this.type
-      )
+      );
       // Demande la liste des creneaux deja reservés pour le jour.
       const param = {
-        month: this.WatchDateSelect.format('YYYY-MM-DD'),
+        month: this.WatchDateSelect.format("YYYY-MM-DD"),
         shop: AjaxBasic.isLocalDev
-          ? 'my-little-pressing.myshopify.com'
+          ? "my-little-pressing.myshopify.com"
           : window.ShopId,
         nombre_creneau: this.creneauConfigs.nombre_res_creneau,
-        type: this.type
-      }
-      Utilities.LoadCreneauxExterne(param).then(resp => {
-        console.log(' LoadCreneauxExterne ', this.type, ' : ', resp)
+        type: this.type,
+      };
+      Utilities.LoadCreneauxExterne(param).then((resp) => {
+        console.log(" LoadCreneauxExterne ", this.type, " : ", resp);
         H.buildHour(resp).then(() => {
-          this.list_creneaux = H.list_creneaux
-        })
-      })
-    }
+          this.list_creneaux = H.list_creneaux;
+        });
+      });
+    },
     // buildHoursNone() {
     //   this.list_creneaux = [];
     //   //console.log("getCurrentBandHour : ", this.getCurrentBandHour);
@@ -273,8 +273,8 @@ export default {
     //     });
     //   });
     // }
-  }
-}
+  },
+};
 </script>
 <style>
 @import "~vue-multiselect/dist/vue-multiselect.min.css";

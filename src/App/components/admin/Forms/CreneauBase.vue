@@ -8,8 +8,8 @@
         <div class="d-flex flex-wrap align-items-center">
           <b-form-checkbox
             v-for="(checkbox, index) in creneauConfigs.days"
-            :key="index"
             :id="'checkbox-' + index"
+            :key="index"
             v-model="checkbox.value"
             :value="1"
             :unchecked-value="0"
@@ -25,9 +25,9 @@
         </template>
         <div class="d-flex flex-wrap">
           <div
-            class="d-flex mr-3"
             v-for="(input, index) in creneauConfigs.days"
             :key="index"
+            class="d-flex mr-3"
           >
             <b-form-group>
               <template #label>
@@ -102,29 +102,18 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 export default {
-  name: 'CreneauBase',
+  name: "CreneauBase",
   props: {},
-  components: {
-    //
-  },
-  data () {
-    return {}
-  },
-  mounted () {
-    //
-  },
-  watch: {
-    //
+
+  data() {
+    return {};
   },
   computed: {
-    ...mapState(['creneauConfigs'])
+    ...mapState(["creneauConfigs"]),
   },
-  methods: {
-    //
-  }
-}
+};
 </script>
 <style lang="scss" scoped></style>
 

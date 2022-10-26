@@ -4,8 +4,8 @@
       <div class="creneaux-mbt--block mt-5">
         <app-title></app-title>
         <div
-          class="alert alert-danger"
           v-if="alert_message && alert_message != ''"
+          class="alert alert-danger"
         >
           {{ alert_message }}
         </div>
@@ -18,7 +18,7 @@
           </div>
           <div class="row d-flex justify-content-start commande-detail mb-5">
             <div
-              class=" rectangle rond-left rond-right mx-3 mx-md-0 mb-3 mb-md-0  ml-md-5  mr-lg-5  pt-3  pl-3 pr-3 col-md-3 "
+              class="rectangle rond-left rond-right mx-3 mx-md-0 mb-3 mb-md-0 ml-md-5 mr-lg-5 pt-3 pl-3 pr-3 col-md-3"
             >
               <div class="h2 cursor-pointer">ADRESSE</div>
               <div
@@ -48,80 +48,80 @@
 </template>
 
 <script>
-import AppTitle from './components/creneau/AppTitle.vue'
-import InlineDescription from './components/creneau/InlineDescription.vue'
-import TabOption from './components/creneau/TabOption.vue'
-import mapGoogle from './components/creneau/map-google.vue'
-import creneau from './components/creneau/creneau.vue'
-import { mapState } from 'vuex'
-import shopifyCart from './js/shopifyCart'
-import moment from 'moment'
+import AppTitle from "./components/creneau/AppTitle.vue";
+import InlineDescription from "./components/creneau/InlineDescription.vue";
+import TabOption from "./components/creneau/TabOption.vue";
+import mapGoogle from "./components/creneau/map-google.vue";
+import creneau from "./components/creneau/creneau.vue";
+import { mapState } from "vuex";
+import shopifyCart from "./js/shopifyCart";
+import moment from "moment";
 export default {
-  name: 'App',
+  name: "App",
   props: {
     /**
      * Date du jour.
      */
     dateDuJour: {
       type: [String, Object, Date],
-      required: true
-    }
+      required: true,
+    },
   },
   components: { TabOption, InlineDescription, AppTitle, mapGoogle, creneau },
-  data () {
+  data() {
     return {
       CreneauTypeProductId: null, // permet de reduire l'execution que si un nouveau elment est choisit.
-      initAuto: true // permet de differentier le comportement auto et le click de l'utilisateur.(true => action auto ).
-    }
+      initAuto: true, // permet de differentier le comportement auto et le click de l'utilisateur.(true => action auto ).
+    };
   },
-  mounted () {
+  mounted() {
     // const d = moment("4-08-2021 18:00:00", "DD-MM-YYYY HH:mm:ss");
-    const d = moment(this.dateDuJour, 'DD-MM-YYYY HH:mm:ss')
+    const d = moment(this.dateDuJour, "DD-MM-YYYY HH:mm:ss");
     // const d = moment();
-    if (d._isValid) this.$store.dispatch('SetDateDuJour', d)
+    if (d._isValid) this.$store.dispatch("SetDateDuJour", d);
   },
   /**
    * Date affiché.
    */
 
   computed: {
-    ...mapState(['creneauType', 'activeType', 'alert_message']),
+    ...mapState(["creneauType", "activeType", "alert_message"]),
     appDateDisplay: {
-      get () {
-        if (this.type === 'livraison' && this.creneauLivraison.date_string) {
-          return moment(this.creneauLivraison.date_string, 'YYYY-MM-DD')
-            .locale('fr')
-            .format('dddd Do MMMM')
+      get() {
+        if (this.type === "livraison" && this.creneauLivraison.date_string) {
+          return moment(this.creneauLivraison.date_string, "YYYY-MM-DD")
+            .locale("fr")
+            .format("dddd Do MMMM");
         } else if (
-          this.type === 'collecte' &&
+          this.type === "collecte" &&
           this.creneauCollecte.date_string
         ) {
-          return moment(this.creneauCollecte.date_string, 'YYYY-MM-DD')
-            .locale('fr')
-            .format('dddd Do MMMM')
+          return moment(this.creneauCollecte.date_string, "YYYY-MM-DD")
+            .locale("fr")
+            .format("dddd Do MMMM");
         }
-        return ''
-      }
+        return "";
+      },
     },
     /**
      * -
      */
-    currentCreneauType () {
-      this.initManageCart(this.creneauType[this.activeType])
-      return this.creneauType[this.activeType]
-    }
+    currentCreneauType() {
+      this.initManageCart(this.creneauType[this.activeType]);
+      return this.creneauType[this.activeType];
+    },
   },
   methods: {
-    async initManageCart (currentCreneauType) {
+    async initManageCart(currentCreneauType) {
       if (this.CreneauTypeProductId !== currentCreneauType.id) {
-        this.CreneauTypeProductId = currentCreneauType.id
-        shopifyCart.TypeLivraison = currentCreneauType
-        await shopifyCart.initcreneau(this.initAuto)
-        this.initAuto = false
+        this.CreneauTypeProductId = currentCreneauType.id;
+        shopifyCart.TypeLivraison = currentCreneauType;
+        await shopifyCart.initcreneau(this.initAuto);
+        this.initAuto = false;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style lang="scss">
 @import "./scss/default.scss";

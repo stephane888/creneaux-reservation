@@ -1,8 +1,8 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import Utilities from '../App/js/Utilities'
-import moment from 'moment'
-Vue.use(Vuex)
+import Vue from "vue";
+import Vuex from "vuex";
+import Utilities from "../App/js/Utilities";
+import moment from "moment";
+Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     // -------------------------------------------------------------
@@ -30,12 +30,12 @@ export default new Vuex.Store({
     creneauCollecte: {
       hour: false,
       date_string: false,
-      date: false
+      date: false,
     },
     creneauLivraison: {
       hour: false,
       date_string: false,
-      date: false
+      date: false,
     },
     /**
      * Contient les données de localisation choisie par l'utilisateur ou charger à partir de localstorage.
@@ -44,7 +44,7 @@ export default new Vuex.Store({
     /**
      */
     isSaveInProd: false,
-    alert_message: null
+    alert_message: null,
   },
   getters: {
     /**
@@ -52,133 +52,133 @@ export default new Vuex.Store({
      * @param {*} state
      * @returns
      */
-    joursActive: state => {
-      const result = []
+    joursActive: (state) => {
+      const result = [];
       if (state.creneauConfigs.days) {
         for (const i in state.creneauConfigs.days) {
           if (state.creneauConfigs.days[i].value) {
-            result.push(state.creneauConfigs.days[i])
+            result.push(state.creneauConfigs.days[i]);
           }
         }
       }
-      return result
+      return result;
     },
     /**
      * Retourne le texte de l'option.
      * @param {*} state.
      * @returns.
      */
-    activeTabOption: state => {
-      function formatString (str) {
-        const regex = /\{\{(.*?)\}\}/g
-        let found
-        let int = 0
+    activeTabOption: (state) => {
+      function formatString(str) {
+        const regex = /\{\{(.*?)\}\}/g;
+        let found;
+        let int = 0;
         while ((found = regex.exec(str)) !== null && int < 10) {
-          int++
-          const attr = found[1].trim(' ')
+          int++;
+          const attr = found[1].trim(" ");
           str = str.replace(
             found[0],
-            state.creneauType[i][attr] ? state.creneauType[i][attr] : '...'
-          )
+            state.creneauType[i][attr] ? state.creneauType[i][attr] : "..."
+          );
         }
-        return str
+        return str;
       }
-      const i = state.activeType
+      const i = state.activeType;
       if (state.creneauType && state.creneauType[i].body) {
-        return formatString(state.creneauType[i].body)
+        return formatString(state.creneauType[i].body);
       } else {
-        return ''
+        return "";
       }
     },
     /**
      * Determine la date minimal utilisable par l'application,
      * Elle est etroitement lié à la date du jour.
      */
-    appDate (state) {
+    appDate(state) {
       if (state.dateDuJour) {
-        const d = moment(state.dateDuJour)
-        return d
-      } else return null
-    }
+        const d = moment(state.dateDuJour);
+        return d;
+      } else return null;
+    },
   },
   mutations: {
     SELECTTYPETAB: (state, payload) => {
-      state.creneauType.forEach(item => (item.active = false))
-      state.creneauType[payload].active = true
-      state.activeType = payload
+      state.creneauType.forEach((item) => (item.active = false));
+      state.creneauType[payload].active = true;
+      state.activeType = payload;
     },
-    RESETDATAS: state => {
-      state.creneauConfigs = Utilities.getDefaultCreneauConfig()
-      state.creneauFilters = Utilities.filter()
-      state.creneauType = Utilities.getDefaultTypeLivraion()
+    RESETDATAS: (state) => {
+      state.creneauConfigs = Utilities.getDefaultCreneauConfig();
+      state.creneauFilters = Utilities.filter();
+      state.creneauType = Utilities.getDefaultTypeLivraion();
     },
     SETDATAS: (state, conf) => {
-      state.creneauConfigs = conf.creneauConfigs
-      state.creneauFilters = conf.creneauFilters
-      state.creneauType = conf.creneauType
+      state.creneauConfigs = conf.creneauConfigs;
+      state.creneauFilters = conf.creneauFilters;
+      state.creneauType = conf.creneauType;
     },
     DATEDUJOUR: (state, date) => {
-      state.dateDuJour = date
+      state.dateDuJour = date;
     },
     ApplySelectDate: (state, payload) => {
       if (payload.type === Utilities.crex1.id) {
-        state.creneauCollecte.date_string = payload.date_string
+        state.creneauCollecte.date_string = payload.date_string;
       } else if (payload.type === Utilities.crex2.id) {
-        state.creneauLivraison.date_string = payload.date_string
+        state.creneauLivraison.date_string = payload.date_string;
       }
     },
     ApplySelectHour: (state, payload) => {
       if (payload.type === Utilities.crex1.id) {
-        state.creneauCollecte.hour = payload.hour
-        state.creneauCollecte.date = payload.date
+        state.creneauCollecte.hour = payload.hour;
+        state.creneauCollecte.date = payload.date;
       } else if (payload.type === Utilities.crex2.id) {
-        state.creneauLivraison.hour = payload.hour
-        state.creneauLivraison.date = payload.date
+        state.creneauLivraison.hour = payload.hour;
+        state.creneauLivraison.date = payload.date;
       }
     },
-    FilterAdd: state => {
-      state.creneauFilters.push(Utilities.getDefaultFilter())
+    FilterAdd: (state) => {
+      state.creneauFilters.push(Utilities.getDefaultFilter());
     },
     LOCATION: (state, payload) => {
-      state.location = payload
+      state.location = payload;
     },
     SETisSaveInProd: (state, payload) => {
-      state.isSaveInProd = payload
-    }
+      state.isSaveInProd = payload;
+    },
   },
   actions: {
-    SelectTypeTab ({ commit }, payload) {
-      commit('SELECTTYPETAB', payload)
+    SelectTypeTab({ commit }, payload) {
+      commit("SELECTTYPETAB", payload);
     },
-    ResetDatas ({ commit }) {
-      commit('RESETDATAS')
+    ResetDatas({ commit }) {
+      commit("RESETDATAS");
     },
-    SetDateDuJour ({ commit }, date) {
-      commit('DATEDUJOUR', date)
+    SetDateDuJour({ commit }, date) {
+      commit("DATEDUJOUR", date);
     },
-    SetSelectDate ({ commit }, payload) {
-      commit('ApplySelectDate', payload)
+    SetSelectDate({ commit }, payload) {
+      commit("ApplySelectDate", payload);
     },
-    SetSelectHour ({ commit }, payload) {
-      commit('ApplySelectHour', payload)
+    SetSelectHour({ commit }, payload) {
+      commit("ApplySelectHour", payload);
     },
-    SetFilterAdd ({ commit }) {
-      commit('FilterAdd')
+    SetFilterAdd({ commit }) {
+      commit("FilterAdd");
     },
-    setLocation ({ commit }, payload) {
-      commit('LOCATION', payload)
+    setLocation({ commit }, payload) {
+      commit("LOCATION", payload);
     },
-    loadPreProdConfigs ({ commit }, shop) {
-      Utilities.LoadValues(shop).then(resp => {
+    loadPreProdConfigs({ commit }, shop) {
+      Utilities.LoadValues(shop).then((resp) => {
         if (resp) {
-          commit('SETDATAS', resp)
-          commit('SETisSaveInProd', resp.status)
+          commit("SETDATAS", resp);
+          commit("SETisSaveInProd", resp.status);
         }
-      })
+      });
     },
-    UpdateIsSaveInProd ({ commit }, status) {
-      commit('SETisSaveInProd', status)
-    }
+    UpdateIsSaveInProd({ commit }, status) {
+      commit("SETisSaveInProd", status);
+    },
   },
-  modules: {}
-})
+  modules: {},
+});

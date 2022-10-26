@@ -8,15 +8,15 @@
       </div>
       <div class="accordion" role="tablist">
         <b-card
-          no-body
-          class="mb-2"
           v-for="(filter, index) in creneauFilters"
           :key="index"
+          no-body
+          class="mb-2"
         >
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button
-              block
               v-b-toggle="'config-accordion-' + index"
+              block
               variant="transparent"
             >
               <strong> Filtre {{ index + 1 }}: {{ filter.titre }} </strong>
@@ -107,7 +107,7 @@
                         Tous les jours
                       </b-form-checkbox>
                     </b-form-group>
-                    <b-form-group label="Jours" v-slot="{ ariaDescribedby }">
+                    <b-form-group v-slot="{ ariaDescribedby }" label="Jours">
                       <b-form-checkbox-group
                         :id="'checkbox-jour-group-' + index"
                         v-model="filter.jours_select"
@@ -133,12 +133,7 @@
                   <b-form-group>
                     <template #label>
                       <div
-                        class="
-                        d-flex
-                        justify-content-between
-                        aligns-items-center
-                        mt-3
-                      "
+                        class="d-flex justify-content-between aligns-items-center mt-3"
                       >
                         <strong> Selectionner les dates </strong>
                         <div class="ctn-action-button">
@@ -194,12 +189,7 @@
                   <b-form-group>
                     <template #label>
                       <div
-                        class="
-                        d-flex
-                        justify-content-between
-                        aligns-items-center
-                        mt-3
-                      "
+                        class="d-flex justify-content-between aligns-items-center mt-3"
                       >
                         <strong> Selectionner les periodes </strong>
                         <div class="ctn-action-button">
@@ -261,12 +251,7 @@
                   <b-form-group>
                     <template #label>
                       <div
-                        class="
-                        d-flex
-                        justify-content-between
-                        aligns-items-center
-                        mt-3
-                      "
+                        class="d-flex justify-content-between aligns-items-center mt-3"
                       >
                         <strong> Gerer les zones </strong>
                         <div class="ctn-action-button">
@@ -284,7 +269,7 @@
                       <div
                         v-for="(box, i) in filter.pobox"
                         :key="i"
-                        class="col-md-6 "
+                        class="col-md-6"
                       >
                         <div class="bg-light px-3 mb-2">
                           <div class="row">
@@ -324,109 +309,109 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 // import Utilities from '../../../js/Utilities'
 export default {
-  name: 'CreneauBase',
+  name: "CreneauBase",
   props: {
     joursActive: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   components: {
     //
   },
-  data () {
-    const now = new Date()
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-    const minDate = new Date(today)
+  data() {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const minDate = new Date(today);
     return {
       // filters: [Utilities.filter()],
       min_date: minDate,
       type_disabled_options: [
-        { text: "Desactive les plages d'heures", value: 'hours' },
-        { text: 'Desactive les jours', value: 'days' }
-      ]
-    }
+        { text: "Desactive les plages d'heures", value: "hours" },
+        { text: "Desactive les jours", value: "days" },
+      ],
+    };
   },
-  mounted () {
+  mounted() {
     //
   },
   watch: {
     //
   },
   computed: {
-    ...mapState(['creneauFilters']),
-    joursActiveOptions () {
-      const result = []
-      this.joursActive.forEach(jour => {
-        result.push({ text: jour.text, value: jour.indice })
-      })
-      return result
-    }
+    ...mapState(["creneauFilters"]),
+    joursActiveOptions() {
+      const result = [];
+      this.joursActive.forEach((jour) => {
+        result.push({ text: jour.text, value: jour.indice });
+      });
+      return result;
+    },
   },
   methods: {
-    FilterAddDatedisabled (date_desactivee) {
-      date_desactivee.push({ date: '' })
+    FilterAddDatedisabled(date_desactivee) {
+      date_desactivee.push({ date: "" });
     },
-    FilterAddPeriodedisabled (periode_disabled) {
-      periode_disabled.push({ debut: '', fin: '' })
+    FilterAddPeriodedisabled(periode_disabled) {
+      periode_disabled.push({ debut: "", fin: "" });
     },
-    FilterAddSelectJour () {
+    FilterAddSelectJour() {
       //
     },
-    SelectAllDate (check, i) {
+    SelectAllDate(check, i) {
       if (this.creneauFilters[i]) {
-        this.creneauFilters[i].jours_select = []
-        if (check === 'all') {
-          this.joursActive.forEach(item => {
-            this.creneauFilters[i].jours_select.push(item.indice)
-          })
+        this.creneauFilters[i].jours_select = [];
+        if (check === "all") {
+          this.joursActive.forEach((item) => {
+            this.creneauFilters[i].jours_select.push(item.indice);
+          });
         }
       }
     },
-    SelectOneDate (i) {
+    SelectOneDate(i) {
       if (this.creneauFilters[i]) {
         if (
           this.creneauFilters[i].jours_select.length >= this.joursActive.length
         ) {
-          this.creneauFilters[i].jourmode = 'all'
+          this.creneauFilters[i].jourmode = "all";
         } else {
-          this.creneauFilters[i].jourmode = 'manuel'
+          this.creneauFilters[i].jourmode = "manuel";
         }
       }
     },
-    FilterRemoveDateDesactivee (i, dates) {
+    FilterRemoveDateDesactivee(i, dates) {
       if (dates[i]) {
-        dates.splice(i, 1)
+        dates.splice(i, 1);
       }
     },
-    FilterRemovePeriodeDesactivee (i, dates) {
+    FilterRemovePeriodeDesactivee(i, dates) {
       if (dates[i]) {
-        dates.splice(i, 1)
+        dates.splice(i, 1);
       }
     },
-    FilterMinDateFin (min_date) {
+    FilterMinDateFin(min_date) {
       if (!min_date) {
-        return this.min_date
+        return this.min_date;
       }
-      return min_date
+      return min_date;
     },
-    FilterAdd () {
+    FilterAdd() {
       // this.creneauFilters.push(Utilities.filter());
-      this.$store.dispatch('SetFilterAdd')
+      this.$store.dispatch("SetFilterAdd");
     },
-    FilterRemove (i) {
+    FilterRemove(i) {
       if (this.creneauFilters[i]) {
-        this.creneauFilters.splice(i, 1)
+        this.creneauFilters.splice(i, 1);
       }
     },
-    FilterAddZone (zones) {
-      zones.push({ text: '', value: '' })
-    }
-  }
-}
+    FilterAddZone(zones) {
+      zones.push({ text: "", value: "" });
+    },
+  },
+};
 </script>
 <style lang="scss" scoped></style>
 

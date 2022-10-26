@@ -3,20 +3,20 @@
     <div class="h1 cursor-pointer"></div>
     <p class="cursor-pointer"></p>
     <span
+      v-if="!location.city_on_map && !location.locality"
       class="btn option-badge mt-4 mb-3"
       @click="openPopupMap"
-      v-if="!location.city_on_map && !location.locality"
     >
       Ajouter une adresse
     </span>
     <div
+      v-if="location.current_address !== ''"
       class="h1 cursor-pointer"
       @click="openPopupMap"
-      v-if="location.current_address !== ''"
     >
       {{ location.locality }}
     </div>
-    <p class="cursor-pointer" v-if="location.current_address !== ''">
+    <p v-if="location.current_address !== ''" class="cursor-pointer">
       {{ location.current_address }}
     </p>
     <AppPopUpMap
@@ -29,24 +29,24 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import AppPopUpMap from 'map-google-location/src/AppPopUpMap.vue'
+import { mapState } from "vuex";
+import AppPopUpMap from "map-google-location/src/AppPopUpMap.vue";
 export default {
-  name: 'MapGoogle',
+  name: "MapGoogle",
   components: {
-    AppPopUpMap
+    AppPopUpMap,
   },
   computed: {
-    ...mapState(['location'])
+    ...mapState(["location"]),
   },
   methods: {
-    openPopupMap () {
-      this.$refs.apppopupmap.openModal()
+    openPopupMap() {
+      this.$refs.apppopupmap.openModal();
     },
-    update_location (location) {
-      console.log(' update_location : ', location)
-      this.$store.dispatch('setLocation', location)
-    }
-  }
-}
+    update_location(location) {
+      console.log(" update_location : ", location);
+      this.$store.dispatch("setLocation", location);
+    },
+  },
+};
 </script>
